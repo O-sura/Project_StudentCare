@@ -21,7 +21,6 @@
             $this->db->bind(':user_role', $data['role']);
             $this->db->bind(':verification_code', sha1(uniqid()));
             
-            //C'est LA Vie - Cheb Khaled
             if($this->db->execute()){
                if($this->register_helper($userID, $data)){
                     return true;

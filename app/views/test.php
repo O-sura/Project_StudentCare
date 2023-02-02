@@ -12,7 +12,7 @@ echo '<h1>TEST PAGE</h1>';
     <title>Document</title>
 </head>
 <body>
-    <?php  FlashMessage::flash('test-flash'); ?>
+    <?php  print($data['viewone']->image)  ?>
 </body>
 </html>
 

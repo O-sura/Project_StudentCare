@@ -116,13 +116,15 @@
         }
 
         public function register(){
+
+            //Start the session
+            Session::init();
+
             //Check whether the user is already logged in
             Middleware::isLoggedIn();
             Middleware::setFormLevel(1);
             if(isset($_POST['continue'])){
                 
-                //Start the session
-                Session::init();
 
                 //Check and validate the data
                 //Set errors if something is wrong
