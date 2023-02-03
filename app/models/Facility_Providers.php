@@ -36,10 +36,10 @@
             return $result;
         }
 
-        public function propertyView($category){
-            //$this->db->query('SELECT * FROM listing'); 
-            $this->db->query('SELECT * FROM listing WHERE category= :category'); 
-            $this->db->bind(':category', $category);
+        public function propertyView(){
+            $this->db->query('SELECT * FROM listing'); 
+            //$this->db->query('SELECT * FROM listing WHERE category= Property'); 
+            //$this->db->bind('Property', $category);
             
             $result = $this->db->getAllRes();
             return $result;

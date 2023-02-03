@@ -146,7 +146,7 @@
                                 echo '<br>';
                             }
                         ?></p>
-                        <p class="price"><span>Rs. </span><?php echo $view->rental; ?>/Month</p>
+                        <p class="price"><span>Rs. </span><?php echo $view->rental; ?></p>
                     </div>
                 </div>
     

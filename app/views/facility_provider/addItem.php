@@ -81,7 +81,7 @@
             <form action="" method="POST" enctype="multipart/form-data">
                 <h1>Tell Us More About Your Listing</h1>
 
-                <p>Property Name:</p>
+                <p>Topic:</p>
                 <input class="topic" name="topic" type="text">
 
                 <p>Description:</p>
