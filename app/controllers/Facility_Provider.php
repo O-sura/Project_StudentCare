@@ -198,6 +198,7 @@ class Facility_Provider extends Controller{
         }
     }
 
+    //take data relevent to property items
     public function propertyView(){
         $view = $this->ListingModel->propertyView();
 
@@ -208,6 +209,29 @@ class Facility_Provider extends Controller{
         $this->loadView('facility_provider/propertyView',$data);
     }
 
+    //take data relevent to food items
+    public function foodView(){
+        $view = $this->ListingModel->foodView();
+
+        $data =[
+            'view' => $view
+        ]; 
+        
+        $this->loadView('facility_provider/foodView',$data);
+    }
+
+    //take data relevent to furniture items
+    public function furnitureView(){
+        $view = $this->ListingModel->furnitureView();
+
+        $data =[
+            'view' => $view
+        ]; 
+        
+        $this->loadView('facility_provider/furnitureView',$data);
+    }
+
+    ////take data relevent to one listing item
     public function viewOneListing($id){
         $viewone = $this->ListingModel->viewOneListing($id);
 

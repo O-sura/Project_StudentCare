@@ -13,67 +13,10 @@
     <div class="page">
 
         <div class="sidebar">
-            <div class="logo_content">
-                <div class="logo">
-                    <div class="logo_name"></div>
-                </div>
-                <i class="fa-solid fa-bars" id="btn"></i>
-            </div>
-            <ul class="nav_list">
-                <li>
-                    <a href=<?php echo URLROOT. "/facility_provider/myListing"?>>
-                        <i class="fa-solid fa-gauge"></i>
-                        <span class="links_name">My Listings</span>
-                    </a>
-                    <span class="tooltip">My Listings</span>
-                </li>
-                <li>
-                    <a href=<?php echo URLROOT. "/facility_provider/propertyView"?>>
-                        <i class="fa-solid fa-house-chimney"></i>
-                        <span class="links_name">Property</span>
-                    </a>
-                    <span class="tooltip">Property</span>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fa-solid fa-utensils"></i>
-                        <span class="links_name">Food</span>
-                    </a>
-                    <span class="tooltip">Food</span>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fa-solid fa-chair"></i>
-                        <span class="links_name">Furniture</span>
-                    </a>
-                    <span class="tooltip">Furniture</span>
-                </li>
-            </ul>
-            <div class="profile_content">
-                <div class="profile">
-                    <div class="profile_details">
-                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=388&q=80" alt="">
-                        <div class="name">
-                            Nimali
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-arrow-right-from-bracket" id="log_out"></i>
-                </div>
-            </div>
+            <?php include "sidebar.php"; ?>
         </div>
 
-        <!-- <script>
-            let btn = document.querySelector("#btn");
-            let sidebar = document.querySelector(".sidebar");
-
-            btn.onclick = function(){
-                sidebar.classList.toggle("active");
-            }
-        </script> -->
-
         <div class="formContainer">
-
-            
 
             <div class="left_side">
                 <div id="image_container" align="center">
@@ -119,15 +62,11 @@
                     <span><?php echo $data['viewone']->special_note; ?></span><br>
                     <span>Near to <?php 
                             $uniName = json_decode($data['viewone']->uniName);
-                            echo implode(' , ', $uniName); 
-                            /* foreach($uniName as $name) {
-                                echo $name;
-                                echo '<br>';
-                            }  */   
+                            echo implode(' , ', $uniName);    
                     ?></span>
                 </p>
                 
-                <p class="price"><span>Price(Rs.): </span><?php echo $data['viewone']->rental; ?>/Month</p>
+                <p class="price"><span>Price(Rs.): </span><?php echo $data['viewone']->rental; ?></p>
 
                 <div class="review">
                     <p>Reviews</p>

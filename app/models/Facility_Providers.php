@@ -38,8 +38,26 @@
 
         public function propertyView(){
             $this->db->query('SELECT * FROM listing'); 
-            //$this->db->query('SELECT * FROM listing WHERE category= Property'); 
-            //$this->db->bind('Property', $category);
+            //$this->db->query('SELECT * FROM listing WHERE category= :category'); 
+            //$this->db->bind(':category', $category);
+            
+            $result = $this->db->getAllRes();
+            return $result;
+        }
+
+        public function foodView(){
+            $this->db->query('SELECT * FROM listing'); 
+            //$this->db->query('SELECT * FROM listing WHERE category= :category'); 
+            //$this->db->bind(':category', $category);
+            
+            $result = $this->db->getAllRes();
+            return $result;
+        }
+
+        public function furnitureView(){
+            $this->db->query('SELECT * FROM listing'); 
+            //$this->db->query('SELECT * FROM listing WHERE category= :category'); 
+            //$this->db->bind(':category', $category);
             
             $result = $this->db->getAllRes();
             return $result;
