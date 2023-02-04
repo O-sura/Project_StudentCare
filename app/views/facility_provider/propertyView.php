@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/facility_provider/view.css"?> >
     <script src=<?php echo URLROOT . "/public/js/facility_provider/View.js"?> defer></script>
-    <title>View listings</title>
+    <title>Property View listings</title>
 </head>
 <body>
     <div class="page">

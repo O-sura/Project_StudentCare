@@ -26,6 +26,16 @@ class Facility_Provider extends Controller{
         
         $this->loadView('facility_provider/myListing',$data);
     }
+
+    public function profile(){
+        $profile = $this->ListingModel->profile();
+
+        $data =[
+            'profile' => $profile
+        ]; 
+        
+        $this->loadView('facility_provider/profile',$data);
+    }
     
     public function addItem(){
 

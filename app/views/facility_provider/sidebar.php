@@ -7,12 +7,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./css/sidebar.css">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/facility_provider/sidebar.css"?> >
     <script src=<?php echo URLROOT . "/public/js/facility_provider/sidebar.js"?> defer></script>
-    <title>Document</title>
 </head>
 <body>
     <div class="sidebar">
@@ -50,6 +48,13 @@
                     <span class="links_name">Furniture</span>
                 </a>
                 <span class="tooltip">Furniture</span>
+            </li>
+            <li>
+                <a href=<?php echo URLROOT. "/facility_provider/report"?>>
+                    <i class="fa-solid fa-address-card"></i>
+                    <span class="links_name">Report</span>
+                </a>
+                <span class="tooltip">Report</span>
             </li>
         </ul>
         <div class="profile_content">
