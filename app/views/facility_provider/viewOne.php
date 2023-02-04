@@ -55,7 +55,16 @@
 
             <div class="right_side">
                 
-                <h1 class="topic"><?php echo $data['viewone']->topic; ?><span><i class="fa fa-pen"></i><i class="fa fa-trash"></i></span></h1>
+                <h1 class="topic"><?php echo $data['viewone']->topic; ?>
+                    <span>
+                        <a href=<?php echo URLROOT. "/facility_provider/addItem"?>>
+                            <i class="fa fa-pen"></i>
+                        </a>
+                        
+                        <i class="fa fa-trash"></i>
+                    </span>
+                </h1>
+
                 <h8>Added: <h7 id="date"></h7></h8>
 
                 <p class="description"><?php echo $data['viewone']->description; ?><br>

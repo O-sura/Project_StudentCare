@@ -62,6 +62,11 @@
  .right_side .topic span{
     font-size: 25px;
     margin: 20px 20px 20px 30px;
+    color: black;
+ }
+
+ .right_side .topic span i{
+   color: black;
  }
  
  .right_side .topic span i:nth-child(1){

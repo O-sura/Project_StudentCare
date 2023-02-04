@@ -32,8 +32,8 @@
                     <h2>Personal Information</h2>
                     <p class="info">
                         <span>Name : <?php echo $data['profile']->fullname; ?></span><br>
-                        <span>Username : <?php echo $data['profile']->username; ?></span><br>
-                        <span>NIC : <?php echo $data['profile']->nic; ?></span>
+                        <span>Username : <?php echo $_SESSION['username']?></span><br>
+                        <span>NIC : <?php echo $_SESSION['nic']?></span>
                     </p>
                 </div>
             </div>
@@ -42,9 +42,9 @@
 
                 <div class="contact">
                     <h2>Contact Information</h2>
-                    <span>Address : <?php echo $data['profile']->home_address; ?></span><br>
-                    <span>Email : <?php echo $data['profile']->email; ?></span><br>
-                    <span>Contact Number : <?php echo $data['profile']->contact_no; ?></span>
+                    <span>Address : <?php echo $_SESSION['home_address']?></span><br>
+                    <span>Email : <?php echo $_SESSION['email']?></span><br>
+                    <span>Contact Number : <?php echo $_SESSION['contact_no']?></span>
                 </div>
 
                 <div class="category_details">

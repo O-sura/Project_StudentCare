@@ -121,11 +121,13 @@ hr{
 .container main .item{
     width: 300px;
     /* flex: 1 1 210px; */
+    background: #dee0e7;
     text-align: center;
     height: 380px;
     border: 1px solid lightgray;
     margin: 20px;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 .container main .item .image{
@@ -165,5 +167,6 @@ hr{
 }
 
 .container main .item .data .price span{
+    text-shadow: 1px 1px black;
     color: #FFBF42;
 }
