@@ -2,10 +2,14 @@
 Session::init();
 class Facility_Provider extends Controller{
     private $ListingModel;
+    private $userModel;
+
     public function __construct(){
         Middleware::authorizeUser(Session::get('userrole'), 'facility_provider');
         $this->ListingModel = $this->loadModel('Facility_Providers');
+        $this->userModel = $this->loadModel('User');
     }
+
 
     public function index(){
         $myview = $this->ListingModel->propertyView();
@@ -17,6 +21,7 @@ class Facility_Provider extends Controller{
         $this->loadView('facility_provider/myListing',$data);
     }
 
+
     public function myListing(){
         $myview = $this->ListingModel->propertyView();
 
@@ -27,9 +32,10 @@ class Facility_Provider extends Controller{
         $this->loadView('facility_provider/myListing',$data);
     }
 
+
     public function profile(){
         $profile = $this->ListingModel->profile();
-
+        
         $data =[
             'profile' => $profile
         ]; 
@@ -37,6 +43,7 @@ class Facility_Provider extends Controller{
         $this->loadView('facility_provider/profile',$data);
     }
     
+
     public function addItem(){
 
         if (isset($_POST['submit'])) {
@@ -208,16 +215,20 @@ class Facility_Provider extends Controller{
         }
     }
 
+
     //take data relevent to property items
     public function propertyView(){
         $view = $this->ListingModel->propertyView();
 
+        //Prepare the data to be passed to the view
         $data =[
             'view' => $view
         ]; 
         
+        //Load the view and pass the data to it
         $this->loadView('facility_provider/propertyView',$data);
     }
+
 
     //take data relevent to food items
     public function foodView(){
@@ -230,6 +241,7 @@ class Facility_Provider extends Controller{
         $this->loadView('facility_provider/foodView',$data);
     }
 
+
     //take data relevent to furniture items
     public function furnitureView(){
         $view = $this->ListingModel->furnitureView();
@@ -240,6 +252,7 @@ class Facility_Provider extends Controller{
         
         $this->loadView('facility_provider/furnitureView',$data);
     }
+
 
     //take data relevent to one listing item
     public function viewOneListing($id){
@@ -253,6 +266,7 @@ class Facility_Provider extends Controller{
         //$this->loadView('test',$data);
     }
 
+
     //take data to generate reports
     public function report(){
         $report = $this->ListingModel->report();
@@ -263,6 +277,7 @@ class Facility_Provider extends Controller{
         
         $this->loadView('facility_provider/report',$data);
     }
+    
 
     public function editItem($id){
 

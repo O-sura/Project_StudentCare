@@ -49,14 +49,22 @@ h1{
 }
 
 .container .profile .personal{
-    margin: 15px 40px;
+    margin: 45px 10px 0 80px;
+}
+
+.container .profile, .details span{
+    line-height: 30px;
 }
 
 .container .details{
-    margin-top: 30px;
+    margin-top: 40px;
     display: flex;
 }
 
-.container .details .contact, .category_details{
-    margin-right: 15px;
+.container .details .contact{
+    width: 500px;
+}
+
+.container .details .category_details{
+    margin-left: 200px;
 }

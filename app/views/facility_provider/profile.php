@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/facility_provider/profile.css"?> >
+    <script src=<?php echo URLROOT . "/public/js/facility_provider/profile.js"?> defer></script>
     <title>Profile</title>
 </head>
 <body>
@@ -17,7 +18,7 @@
 
         <div class="container">
             <div class="head">
-                <a href=<?php echo URLROOT. "/facility_provider/myListing"?>>
+                <a id="back-link">
                     <i class="fa-sharp fa-solid fa-left-long"><span>  Go Back</span></i>
                 </a>
 
@@ -32,8 +33,8 @@
                     <h2>Personal Information</h2>
                     <p class="info">
                         <span>Name : <?php echo $data['profile']->fullname; ?></span><br>
-                        <span>Username : <?php echo $_SESSION['username']?></span><br>
-                        <span>NIC : <?php echo $_SESSION['nic']?></span>
+                        <span>Username : <?php echo $data['profile']->username; ?></span><br>
+                        <span>NIC : <?php echo $data['profile']->nic; ?></span>
                     </p>
                 </div>
             </div>
@@ -42,9 +43,9 @@
 
                 <div class="contact">
                     <h2>Contact Information</h2>
-                    <span>Address : <?php echo $_SESSION['home_address']?></span><br>
-                    <span>Email : <?php echo $_SESSION['email']?></span><br>
-                    <span>Contact Number : <?php echo $_SESSION['contact_no']?></span>
+                    <span>Address : <?php echo $data['profile']->home_address; ?></span><br>
+                    <span>Email : <?php echo $data['profile']->email; ?></span><br>
+                    <span>Contact Number : <?php echo $data['profile']->contact_no; ?></span>
                 </div>
 
                 <div class="category_details">

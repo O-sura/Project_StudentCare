@@ -7,6 +7,7 @@
             $this->db = new Database;
         }
 
+
         public function addItem($data){
             //$listing_id = substr(sha1(date(DATE_ATOM)), 0, 8);
             $this->db->query('INSERT INTO listing(topic, description, rental, location, address, uniName, image, special_note, category) VALUES (:topic, :description, :rental, :location, :address, :uniName, :image_urls, :special_note, :category)');
@@ -28,6 +29,7 @@
                 return false;
             }
         }
+
 
         public function editItem($data){
             //$listing_id = substr(sha1(date(DATE_ATOM)), 0, 8);
@@ -52,6 +54,7 @@
             }
         }
 
+
         public function mylisting(){
             $this->db->query('SELECT * FROM listing INNER JOIN users ON '); 
             
@@ -59,35 +62,46 @@
             return $result;
         }
 
+
         public function profile(){
-            $this->db->query('SELECT * FROM users'); 
-            
+            $username = $_SESSION['username'];
+            $this->db->query('SELECT * FROM users WHERE username = :username'); 
+            $this->db->bind(':username', $username);
+
             $result = $this->db->getRes();
             return $result;
         }
 
+
         public function propertyView(){
-            $this->db->query('SELECT * FROM listing'); 
-            //$this->db->query('SELECT * FROM listing WHERE category= Property'); 
-            //$this->db->bind(':category', $category);
+            $category = 'Property';
+            $this->db->query('SELECT * FROM listing WHERE category= :category'); 
+            $this->db->bind(':category', $category);
             
             $result = $this->db->getAllRes();
             return $result;
         }
+
 
         public function foodView(){
-            $this->db->query('SELECT * FROM listing'); 
+            $category = 'Food';
+            $this->db->query('SELECT * FROM listing WHERE category= :category'); 
+            $this->db->bind(':category', $category);
             
             $result = $this->db->getAllRes();
             return $result;
         }
 
+
         public function furnitureView(){
-            $this->db->query('SELECT * FROM listing'); 
+            $category = 'Furniture';
+            $this->db->query('SELECT * FROM listing WHERE category= :category'); 
+            $this->db->bind(':category', $category);
             
             $result = $this->db->getAllRes();
             return $result;
         }
+
 
         public function viewOneListing($id){
             $this->db->query("SELECT * FROM listing WHERE listing_id= :id ");
@@ -97,6 +111,7 @@
             return $result;
         }
 
+
         public function report(){
             $this->db->query('SELECT * FROM listing'); 
             
@@ -104,22 +119,27 @@
             return $result;
         }
 
+
         public function searchItem($uniName,$topic,$rental){
             
         }
+
 
         public function findItemByLocation($location){
             
         }
 
+
         public function findItemByType($type){
             
         }
+
 
         public function findItemByRent($rental){
            
         }
 
+        
         public function findItemByUniversity($uniName){
             
         }
