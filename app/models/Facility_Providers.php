@@ -56,7 +56,9 @@
 
 
         public function mylisting(){
-            $this->db->query('SELECT * FROM listing'); 
+            $fpID = $_SESSION['fpID'];
+            $this->db->query('SELECT * FROM listing WHERE listing.fpID = facility_provider.fpID'); 
+            $this->db->bind(':fpID', $fpID);
             
             $result = $this->db->getAllRes();
             return $result;
