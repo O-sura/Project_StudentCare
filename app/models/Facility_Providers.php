@@ -56,7 +56,7 @@
 
 
         public function mylisting(){
-            $this->db->query('SELECT * FROM listing INNER JOIN users ON '); 
+            $this->db->query('SELECT * FROM listing'); 
             
             $result = $this->db->getAllRes();
             return $result;
