@@ -31,14 +31,6 @@ options.forEach(option => {
     })
 })
 
-
-
-let btn = document.querySelector("#btn");
-let sidebar = document.querySelector(".sidebar");
-
-btn.onclick = function(){
-    sidebar.classList.toggle("active");
-}
 //add image names for plus icon
 /* function getImage(imagename){
     var newimg=imagename.replace(/^.*\\/,"");

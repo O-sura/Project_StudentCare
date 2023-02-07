@@ -12,7 +12,7 @@ class Facility_Provider extends Controller{
 
 
     public function index(){
-        $myview = $this->ListingModel->propertyView();
+        $myview = $this->ListingModel->myListing();
 
         $data =[
             'myview' => $myview
@@ -23,13 +23,14 @@ class Facility_Provider extends Controller{
 
 
     public function myListing(){
-        $myview = $this->ListingModel->propertyView();
+        $myview = $this->ListingModel->myListing();
 
         $data =[
             'myview' => $myview
         ]; 
         
         $this->loadView('facility_provider/myListing',$data);
+        //$this->loadView('test',$data);
     }
 
 
@@ -41,6 +42,7 @@ class Facility_Provider extends Controller{
         ]; 
         
         $this->loadView('facility_provider/profile',$data);
+        //$this->loadView('test',$data);
     }
     
 
@@ -425,16 +427,19 @@ class Facility_Provider extends Controller{
                
         }else{
             //Send the empty detail page
+            if(isset($_GET['post_id'])){
+                $editlist = $this->ListingModel->viewOneListing($id);
+            }
             $data = [ 
-                'topic' => '',
-                'description' => '',
-                'rental' => '',
-                'location' => '',
-                'address' => '',
-                'uniName' => '',
-                'images' => '',
-                'special_note' => '',
-                'category' => '',
+                'topic' => $editlist->topic,
+                'description' => $editlist->description,
+                'rental' => $editlist->rental,
+                'location' => $editlist->location,
+                'address' => $editlist->address,
+                'uniName' => $editlist->uniName,
+                'images' => $editlist->images,
+                'special_note' => $editlist->special_note,
+                'category' => $editlist->category,
                 'topic_err' => '',
                 'description_err' => '',
                 'rental_err' => '',

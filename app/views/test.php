@@ -12,7 +12,7 @@ echo '<h1>TEST PAGE</h1>';
     <title>Document</title>
 </head>
 <body>
-    <?php  print($data['viewone']->image)  ?>
+    <?php  print_r($data['myview'])  ?>
 </body>
 </html>
 

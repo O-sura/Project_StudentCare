@@ -31,7 +31,7 @@
 
             <div class="count">
                 <label>Total Listings</label>
-                <p>02</p>
+                <p><?php echo (count($data['myview']) < 10)? "0" . count($data['myview']) : count($data['myview'])?></p>
             </div>
             
             <div class="head">

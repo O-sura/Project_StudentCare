@@ -56,9 +56,9 @@
 
 
         public function mylisting(){
-            $fpID = $_SESSION['fpID'];
-            $this->db->query('SELECT * FROM listing WHERE listing.fpID = facility_provider.fpID'); 
-            $this->db->bind(':fpID', $fpID);
+            $userID = Session::get('userID');
+            $this->db->query('SELECT * FROM listing WHERE fpID = (SELECT fpID FROM facility_provider WHERE userID = :userID)'); 
+            $this->db->bind(':userID', $userID);
             
             $result = $this->db->getAllRes();
             return $result;
@@ -66,9 +66,9 @@
 
 
         public function profile(){
-            $username = $_SESSION['username'];
-            $this->db->query('SELECT * FROM users WHERE username = :username'); 
-            $this->db->bind(':username', $username);
+            $userID = Session::get('userID');
+            $this->db->query('SELECT u.*, f.category FROM users u INNER JOIN facility_provider f ON u.userID = f.userID WHERE u.userID = :userID'); 
+            $this->db->bind(':userID', $userID);
 
             $result = $this->db->getRes();
             return $result;

@@ -57,7 +57,7 @@
                 
                 <h1 class="topic"><?php echo $data['viewone']->topic; ?>
                     <span>
-                        <a href=<?php echo URLROOT. "/facility_provider/addItem"?>>
+                        <a href=<?php echo URLROOT. "/facility_provider/addItem/?post_id" . $data['viewone']->listing_id?>>
                             <i class="fa fa-pen"></i>
                         </a>
                         
