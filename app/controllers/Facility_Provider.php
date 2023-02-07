@@ -265,7 +265,6 @@ class Facility_Provider extends Controller{
         ]; 
         
         $this->loadView('facility_provider/viewOne',$data);
-        //$this->loadView('test',$data);
     }
 
 
@@ -304,14 +303,6 @@ class Facility_Provider extends Controller{
             foreach ($uniName as $uni){
                 array_push($uniList, trim($uni));
             }
-
-            // $data = [
-            //     'images' => $_FILES['images']
-            // ];
-
-            // $this->loadView('test',$data);
-            
-            
 
             $data = [
                 'id' => $id,
@@ -417,20 +408,22 @@ class Facility_Provider extends Controller{
             if(empty($data['topic_err']) && empty($data['description_err']) && empty($data['rental_err']) && empty($data['location_err']) && empty($data['address_err']) 
                 && empty($data['uniName_err']) && empty($data['images_err']) && empty($data['special_note_err']) && empty($data['category_err']) ){
 
-                if($this->ListingModel->addItem($validatedData)){
-                    Middleware::redirect('./facility_provider/addItem');
+                if($this->ListingModel->editItem($validatedData)){
+                    Middleware::redirect('./facility_provider/editItem');
                 }
             }else{
                 //load the same page with erros
-                $this->loadView('facility_provider/addItem', $data);
+                $this->loadView('facility_provider/editItem', $data);
             }
                
         }else{
             //Send the empty detail page
+            $editlist = $this->ListingModel->viewOneListing($id);
             if(isset($_GET['post_id'])){
-                $editlist = $this->ListingModel->viewOneListing($id);
+                
             }
             $data = [ 
+                'id' => $id,
                 'topic' => $editlist->topic,
                 'description' => $editlist->description,
                 'rental' => $editlist->rental,
@@ -451,7 +444,7 @@ class Facility_Provider extends Controller{
                 'category_err' => ''
             ];
 
-            $this->loadView('facility_provider/addItem', $data);
+            $this->loadView('facility_provider/editItem', $data);
 
         }
     }

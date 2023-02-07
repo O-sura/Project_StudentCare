@@ -30,7 +30,7 @@
                 <input class="topic" name="topic" type="text">
 
                 <p>Description:</p>
-                <input class="description" name="description" type="text" value="<?php echo $data['viewone']->topic; ?>">
+                <input class="description" name="description" type="text">
 
                 <div class="sub1">
                     <div class="sub11">

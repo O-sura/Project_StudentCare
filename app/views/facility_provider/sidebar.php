@@ -62,6 +62,15 @@
                 </a>
                 <span class="tooltip">Report</span>
             </li>
+
+            <li>
+                <a href=<?php echo URLROOT. "/facility_provider/report"?>>
+                    <i class="fa-solid fa-message"></i>
+                    <span class="links_name">Message</span>
+                </a>
+                <span class="tooltip">Message</span>
+            </li>
+            
         </ul>
         <div class="profile_content">
             <div class="profile">

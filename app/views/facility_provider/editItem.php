@@ -23,31 +23,31 @@
         </div>
     
         <div class="formContainer">
-            <form action="" method="POST" enctype="multipart/form-data">
+            <form action="<?php echo $data['id']; ?>" method="POST" enctype="multipart/form-data">
                 <h1>Tell Us More About Your Listing</h1>
 
                 <p>Topic:</p>
-                <input class="topic" name="topic" type="text">
+                <input class="topic" name="topic" type="text" value="<?php echo $data['viewone']->topic; ?>">
 
                 <p>Description:</p>
-                <input class="description" name="description" type="text">
+                <input class="description" name="description" type="text" value="<?php echo $data['viewone']->Description; ?>">
 
                 <div class="sub1">
                     <div class="sub11">
                         <p>Price(Rs.):</p>
-                        <input class="price" name="rental" type="text">
+                        <input class="price" name="rental" type="text" value="<?php echo $data['viewone']->rental; ?>">
                     </div>
 
                     <div class="sub12">
                         <p>Nearest Town:</p>
-                        <input class="town" name="location" type="text">
+                        <input class="town" name="location" type="text" value="<?php echo $data['viewone']->location; ?>">
                     </div>
                 </div>
 
                 <div class="sub2">
                     <div class="sub21">
                         <p>Address:</p>
-                        <input class="address" name="address" type="text">
+                        <input class="address" name="address" type="text" value="<?php echo $data['viewone']->address; ?>">
                     </div>
 
                     <div class="sub22">
@@ -71,7 +71,7 @@
                 <input type="file" class="image" name="images[]" id="img" multiple>
                 
                 <p>Special Notes:</p>
-                <input class="note" name="special_note" type="text">
+                <input class="note" name="special_note" type="text" value="<?php echo $data['viewone']->special_note; ?>">
                 
                 <div class="sub1">
                     <div class="sub11">
