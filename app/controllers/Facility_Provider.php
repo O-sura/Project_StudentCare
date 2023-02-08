@@ -278,6 +278,16 @@ class Facility_Provider extends Controller{
         
         $this->loadView('facility_provider/report',$data);
     }
+
+    public function message(){
+        $report = $this->ListingModel->report();
+
+        $data =[
+            'report' => $report
+        ]; 
+        
+        $this->loadView('facility_provider/message',$data);
+    }
     
 
     public function editItem($id){
@@ -393,6 +403,7 @@ class Facility_Provider extends Controller{
             $uniName = json_encode($uniName);
             
             $validatedData = [
+                'id' => $_POST['id'],
                 'topic' => $data['topic'],
                 'description' => $data['description'],
                 'rental' => $data['rental'],
@@ -419,20 +430,13 @@ class Facility_Provider extends Controller{
         }else{
             //Send the empty detail page
             $editlist = $this->ListingModel->viewOneListing($id);
-            if(isset($_GET['post_id'])){
-                
-            }
-            $data = [ 
+            $uniNames = $editlist->uniName;
+
+            $data = [
                 'id' => $id,
-                'topic' => $editlist->topic,
-                'description' => $editlist->description,
-                'rental' => $editlist->rental,
-                'location' => $editlist->location,
-                'address' => $editlist->address,
-                'uniName' => $editlist->uniName,
-                'images' => $editlist->images,
-                'special_note' => $editlist->special_note,
-                'category' => $editlist->category,
+                'viewone' => $editlist,
+                'unilist' => $uniNames,
+                'topic' => '',
                 'topic_err' => '',
                 'description_err' => '',
                 'rental_err' => '',
@@ -444,7 +448,8 @@ class Facility_Provider extends Controller{
                 'category_err' => ''
             ];
 
-            $this->loadView('facility_provider/editItem', $data);
+            //$this->loadView('facility_provider/editItem', $data);
+            $this->loadView('test', $data);
 
         }
     }

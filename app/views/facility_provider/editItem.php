@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/facility_provider/item.css"?>>
-    <script src=<?php echo URLROOT . "/public/js/facility_provider/addItem.js"?> defer ></script>
+    <script src=<?php echo URLROOT . "/public/js/facility_provider/edit.js"?> defer ></script>
     <title>Edit Item</title>
 
 </head>
@@ -23,14 +23,14 @@
         </div>
     
         <div class="formContainer">
-            <form action="<?php echo $data['id']; ?>" method="POST" enctype="multipart/form-data">
+            <form action=<?php echo URLROOT . "/facility_provider/editItem/" .$data['id']; ?> method="POST" enctype="multipart/form-data">
                 <h1>Tell Us More About Your Listing</h1>
 
                 <p>Topic:</p>
                 <input class="topic" name="topic" type="text" value="<?php echo $data['viewone']->topic; ?>">
 
                 <p>Description:</p>
-                <input class="description" name="description" type="text" value="<?php echo $data['viewone']->Description; ?>">
+                <input class="description" name="description" type="text" value="<?php echo $data['viewone']->description; ?>">
 
                 <div class="sub1">
                     <div class="sub11">
@@ -52,7 +52,7 @@
 
                     <div class="sub22">
                         <p>Universities/Institutions Nearby:</p>
-                        <input class="uniName" name="uniName[]" id="uniName_0" type="text">
+                        <input class="uniName" name="uniName[]" id="uniName_0" type="text" value=<?php print_r(json_decode($data['viewone']->uniName)) ?>>
                         <div id="another"></div>
                         <button type="button" class="addAnother" onclick="addAnother()">+ Add Another</button>
                     </div>
@@ -68,7 +68,7 @@
                 
                 <p>Images:</p>
                 <label for="img"><i class="fa fa-plus"></i><br>Insert only four images</label>
-                <input type="file" class="image" name="images[]" id="img" multiple>
+                <input type="file" class="image" name="images[]" id="img" multiple value=<?php print_r($data['viewone']->image) ?>>
                 
                 <p>Special Notes:</p>
                 <input class="note" name="special_note" type="text" value="<?php echo $data['viewone']->special_note; ?>">
@@ -81,7 +81,7 @@
                                 <span class="Sbtn-text">Property</span>
                                 <i class="fa-sharp fa-solid fa-chevron-down"></i>
                             </div>
-                            <input type="text" name="category" class="category-dropdown" hidden>
+                            <input type="text" name="category" class="category-dropdown" value="<?php echo $data['viewone']->category; ?>" hidden>
                             <ul class="options">
                                 <li class="option">Property</li> 
                                 <li class="option">Food</li> 
@@ -93,7 +93,7 @@
                         <p>Type:</p>
                     </div> -->
                 </div>
-        
+                <input type="text" name="id" value=<?php echo $data['id']?> hidden>
                 <button type="submit" class="submitbtn" name="submit">Add Listing</button>
                 
             </form>  

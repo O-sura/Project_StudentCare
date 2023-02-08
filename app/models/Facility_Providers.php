@@ -33,7 +33,7 @@
 
         public function editItem($data){
             //$listing_id = substr(sha1(date(DATE_ATOM)), 0, 8);
-            $this->db->query('UPDATE listing SET topic = :topic, description = :description, rental = :rental, location = :location, address = :address, uniName = :uniName, image = :image_urls, special_note = :special_note, category = :category WHERE id = :id');
+            $this->db->query('UPDATE listing SET topic = :topic, description = :description, rental = :rental, location = :location, address = :address, uniName = :uniName, image = :image_urls, special_note = :special_note, category = :category WHERE listing_id = :id');
             
             $this->db->bind(':id', $data['id']);
             $this->db->bind(':topic', $data['topic']);
@@ -116,6 +116,13 @@
 
         public function report(){
             $this->db->query('SELECT * FROM listing'); 
+            
+            $result = $this->db->getAllRes();
+            return $result;
+        }
+
+        public function message(){
+            $this->db->query(''); 
             
             $result = $this->db->getAllRes();
             return $result;
