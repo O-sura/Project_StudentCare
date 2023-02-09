@@ -18,7 +18,7 @@
             <div class="logo">
                 <div class="logo_name">StudentCare</div>
             </div>
-            <div>
+            <div class="icon">
                 <i class="fa-solid fa-bars" id="btn"></i>
             </div>
         </div>

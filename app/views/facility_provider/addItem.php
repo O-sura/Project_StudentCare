@@ -22,7 +22,7 @@
             <?php include "sidebar.php"; ?>
         </div>
     
-        <div class="formContainer">
+        <div class="container">
             <form action="" method="POST" enctype="multipart/form-data">
                 <h1>Tell Us More About Your Listing</h1>
 

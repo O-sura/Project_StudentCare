@@ -10,9 +10,9 @@
     display: flex;
  }
  
- .formContainer{
+ .container{
     width: 70%;
-    margin: 30px 20px 20px 360px;
+    margin: 30px 20px 20px 200px;
     display: flex;
  }
  
@@ -55,7 +55,7 @@
  }
  
  .right_side{
-    margin: 0 50px;
+    margin: 0 30px;
     padding-left: 50px;
  }
  
@@ -70,7 +70,7 @@
  }
  
  .right_side .topic span i:nth-child(1){
-    margin-right: 15px;
+    margin-right: 5px;
     cursor: pointer;
  }
  

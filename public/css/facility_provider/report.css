@@ -77,9 +77,9 @@ h2{
     font-weight: 600;
 }
 
-/* .subdiv{
-    display: flex;
-} */
+.subdiv{
+    margin-top: 25px;
+}
 
 .subdiv h2{
     margin-top: 15px;
@@ -104,7 +104,7 @@ h2{
 
 .listing{
     display: flex;
-    margin-top: 10px;
+    margin-top: 50px;
     margin-left: 140px;
 }
 

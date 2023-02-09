@@ -19,20 +19,20 @@
  
  /* Listing add form */
  
- .formContainer{
+ .container{
     display: flex;
     /* align-items: center;
     justify-content: center; */
     padding: 20px;
-    margin-left: 20px;
+    margin-left: 80px;
  }
   
- .formContainer h1{
+ .container h1{
     font-size: 30px;
     margin-bottom: 40px;
  }
  
- .formContainer form{
+ .container form{
     margin-left: 30%;
     padding: 20px;
     border-radius: 10px;
@@ -40,12 +40,12 @@
     width: 850px;
  }
  
- .formContainer form p{
+ .container form p{
     text-align: left;
     margin-left: 30px;
  }
  
- .formContainer form input{
+ .container form input{
     width: 90%;
     padding:10px 15px;
     font-size: 12px;
@@ -55,54 +55,54 @@
     border: 1px solid;
  }
  
- .formContainer form .topic{
+ .container form .topic{
     height: 30px;
  }
  
- .formContainer form .description{
+ .container form .description{
     height: 80px;
     padding: 0 0 50px 10px;
     /* word-break: break-all; */
  }
  
- .formContainer form .sub1,
- .formContainer form .sub2{
+ .container form .sub1,
+ .container form .sub2{
     display: flex;
     justify-content: space-between;
     margin: 0 20px;
  }
  
- .formContainer form .sub1 input{
+ .container form .sub1 input{
     height: 30px;
  }
  
- .formContainer form .sub1 p,
- .formContainer form .sub2 p{
+ .container form .sub1 p,
+ .container form .sub2 p{
     margin: 0 10px;
  }
  
- .formContainer form .sub2 .sub21 .address{
+ .container form .sub2 .sub21 .address{
     height: 100px;
     padding: 0 0 50px 20px;
  }
 
- .formContainer form .sub2 .sub22 p{
+ .container form .sub2 .sub22 p{
     padding-left: 10px;
  }
  
- .formContainer form .sub2 .sub22 .uniName{
+ .container form .sub2 .sub22 .uniName{
     height: 30px;
     margin-left: 10px;
  }
  
- .formContainer form .sub2 .sub22 button{
+ .container form .sub2 .sub22 button{
     background: #1A285A;
     color: #fff;
     float: right;
     margin-right: 10px;
  }
  
- .formContainer form i{
+ .container form i{
     height: 30px;
     font-size: 12px;
     width: 90%;
@@ -114,13 +114,13 @@
     border: 1px solid;
  }
  
- .formContainer form .image{ 
+ .container form .image{ 
     display: none;
     visibility: none;
  }
  
  /* display image names */
- /* .formContainer form .img-display{
+ /* .container form .img-display{
     height: 30px;
     font-size: 12px;
     width: 90%;
@@ -130,11 +130,11 @@
     font-size: 10px;
  }
  
- .formContainer form .note{
+ .container form .note{
     height: 30px;
  }
  
- .formContainer form button{
+ .container form button{
     width: 120px;
     height: 35px;
     background: #FFBF42;
@@ -142,7 +142,7 @@
     font-size: 15px;
  }
 
- .formContainer form .submitbtn{
+ .container form .submitbtn{
    margin-top: 150px;
  }
  
