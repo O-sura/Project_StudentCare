@@ -50,7 +50,7 @@
 
                 <div class="category_details">
                     <h2>Selected Category</h2>
-                    <i class="fa-sharp fa-solid fa-square"><?php echo $data['profile']->category; ?></i>
+                    <i class="fa-sharp fa-solid fa-square"></i><?php echo $data['profile']->category; ?>
                 </div>
             </div>
         </div>

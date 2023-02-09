@@ -14,7 +14,7 @@
     height: 35px;
     font-size: 18px;
     font-weight: 900;
-    margin: 0 0 10px 1100px;
+    margin: 0 0 10px 1000px;
 }
 
 .yourprofile a{
@@ -35,7 +35,7 @@
 
 .container{
     margin-top: 15px;
-    margin-left: 200px;
+    margin-left: 50px;
 }
 
 .report{
@@ -44,7 +44,7 @@
 
 /* Information */
 .div4{
-    width: 1200px;
+    width: 1100px;
     height: 680px;
     margin: 3% 5%;   
     justify-content: center;

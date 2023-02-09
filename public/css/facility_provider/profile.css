@@ -11,7 +11,7 @@
 
 .container{
     margin-top: 15px;
-    margin-left: 300px;
+    margin-left: 150px;
 }
 
 .container h2{
@@ -34,7 +34,7 @@
 
 h1{
     font-size: 45px;
-    margin: 35px 350px;
+    margin: 35px 300px;
 }
 
 .container .profile img{
@@ -67,4 +67,8 @@ h1{
 
 .container .details .category_details{
     margin-left: 200px;
+}
+
+.container .details .category_details i{
+    margin-right: 10px;
 }

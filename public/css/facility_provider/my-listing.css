@@ -14,7 +14,7 @@
     height: 35px;
     font-size: 18px;
     font-weight: 900;
-    margin: 20px 0 10px 1050px;
+    margin: 20px 0 10px 1000px;
 }
 
 .yourprofile a{
@@ -54,7 +54,7 @@
 }
   
 .container{
-    margin-left: 300px;
+    margin-left: 100px;
 }
 
 h1{
@@ -72,7 +72,7 @@ h1{
     background: #FFBF42;
     border-radius: 50px;
     font-size: 15px;
-    margin-left: 900px;
+    margin-left: 850px;
 }
 
 .container .head .add a{

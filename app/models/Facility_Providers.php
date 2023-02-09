@@ -31,7 +31,7 @@
         }
 
 
-        public function editItem($data){
+        /* public function editItem($data){
             //$listing_id = substr(sha1(date(DATE_ATOM)), 0, 8);
             $this->db->query('UPDATE listing SET topic = :topic, description = :description, rental = :rental, location = :location, address = :address, uniName = :uniName, image = :image_urls, special_note = :special_note, category = :category WHERE listing_id = :id');
             
@@ -52,7 +52,7 @@
             else{
                 return false;
             }
-        }
+        } */
 
 
         public function mylisting(){

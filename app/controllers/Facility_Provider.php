@@ -290,7 +290,7 @@ class Facility_Provider extends Controller{
     }
     
 
-    public function editItem($id){
+    /* public function editItem($id){
 
         if (isset($_POST['submit'])) {
 
@@ -449,10 +449,10 @@ class Facility_Provider extends Controller{
             ];
 
             //$this->loadView('facility_provider/editItem', $data);
-            $this->loadView('test', $data);
+            //$this->loadView('test', $data);
 
         }
-    }
+    } */
 
 }
 
