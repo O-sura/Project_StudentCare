@@ -1,0 +1,247 @@
+@import "sidebar.css";
+/* The styling for home content */
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter';
+}
+
+body{
+    display: flex;
+    /* min-height: 100vh; */
+    background: white;
+    color: #1A285A;
+}
+
+hr{
+  border: 2px solid #929292;
+  margin-top: 25px;
+}
+
+.col3 hr{
+  border: 2px solid #1A285A;
+  margin-top: 25px;
+}
+
+.image2{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+#image2{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+#image3{
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.counselor-name, .counselor-pic, .address{
+  text-align: center;
+}
+
+.col4 .topic{
+  color:white;
+}
+
+.counselor-details{
+  margin-top: 2%;
+  display: grid;
+  grid-template-rows: 2fr 1fr 1fr 1fr 1fr 8fr;
+  box-shadow: 0 5px 20px 0 #d3d3db; 
+  border-radius: 30px;
+  padding: 20px;
+  width: 65%;
+}
+
+.details{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.index{
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 5fr;
+}
+
+.content{
+  
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 5fr;
+    
+}
+/* css for buttons */
+
+.btn {
+  background: #1A285A;
+  background-image: -webkit-linear-gradient(top, #1A285A, #1A285A);
+  background-image: -moz-linear-gradient(top, #1A285A, #1A285A);
+  background-image: -ms-linear-gradient(top, #1A285A, #1A285A);
+  background-image: -o-linear-gradient(top, #1A285A, #1A285A);
+  background-image: linear-gradient(to bottom, #1A285A, #1A285A);
+  -webkit-border-radius: 40;
+  -moz-border-radius: 40;
+  border-radius: 40px;
+  font-family: 'Inter';
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 300;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  border: none;
+}
+
+.btn:hover {
+  background: #3cb0fd;
+  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+  text-decoration: none;
+  border: none;
+}
+
+
+.container{
+  display: grid;
+  grid-template-rows:1fr 1fr 15fr;
+  width:90vw;
+  margin-left: 2%;
+  margin-top: 2%;
+  grid-gap: 15px;
+}
+
+.row2{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 7fr;
+}
+
+.row3{
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  width: 70vw;
+  margin-left: 2%;
+  margin-top: 2%;
+
+}
+
+.col1{
+  color: #929292;
+}
+
+.col2{
+  color: #929292;
+}
+
+.horizontal hr{
+  border: 1px solid #cdcdcd;
+  margin-top: 25px;
+}
+
+.appointments{
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  margin-left: 2%;
+  margin-top: 2%;
+  width: 80vw;
+  height: fit-content;
+}
+
+.meeting{
+  
+  display:flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.indexes{
+  display: flex;
+  grid-template-columns: 1fr 1fr 2fr  2fr 3fr;
+  justify-content: space-around;
+}
+
+.call{
+  display:flex;
+  /* grid-template-columns: 1fr 1fr 2fr 2fr 3fr; */
+  border-radius:20px;
+  justify-content: space-around;
+  height:20%;
+  width: 100%;
+  padding: 10px;
+  justify-items: center;
+  text-align: center;
+  align-items: center;
+  box-shadow: 0 5px 20px 0 #d3d3db; 
+}
+
+
+.btn-class{
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-gap: 10px;
+  margin-left: 2%;
+  margin-top: 2%;
+}
+
+.clickables{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+  
+  .home_content{
+    position: absolute;
+    height: auto;
+    width: calc(100%-78px);
+    left: 78px;
+    transition: all 0.5s ease;
+    width: 70vw;
+    
+  }
+  
+  .sidebar.active ~ .home_content{
+    width: calc(100%-240px);
+    left: 240px;
+  }
+
+  a { 
+    color: inherit;
+    text-decoration: inherit; 
+  }
+
+  
+  .select{
+    padding: 10px 40px;
+    color: white;
+    background-color: #1A285A;
+    cursor: pointer;
+    border: none;
+    font-size: 1rem;
+    border-radius: 20px;
+  
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    /* box-shadow: 0 5px 20px 0 #B9B9B9; */
+  
+  
+  }
+  .select:focus,
+  .select:hover{
+    outline: none;
+    border: 1px solid #eeee;
+  }
+
+  .col-2{
+    text-align: right;
+  }
+
+  .col-1{
+    text-align: left;
+  }
