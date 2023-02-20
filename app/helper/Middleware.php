@@ -7,7 +7,7 @@ class Middleware{
     }
     
     public static function authorizeUser($current_userrole, $authorized_role){
-        if($current_userrole == $authorized_role || $current_userrole == 'admin'){
+        if($current_userrole == $authorized_role){
             return;
         }
         else{
@@ -18,6 +18,7 @@ class Middleware{
     public static function isLoggedIn(){
         if(Session::isLoggedIn()){
             Middleware::redirect('access/restrict');
+            echo 'Error';
             exit();
         }
     }

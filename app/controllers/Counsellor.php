@@ -1,14 +1,9 @@
 <?php
-    Session::init();
-    class Counsellor extends Controller{
-        private $userModel;
 
+    class Counsellor extends Controller{
         public function __construct(){
             Middleware::authorizeUser(Session::get('userrole'), 'counsellor');
-            $this->userModel =  $this->loadModel('Counsellor');
         }
-
-        
 
         public function index(){
 
