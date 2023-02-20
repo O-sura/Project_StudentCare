@@ -10,13 +10,15 @@
         }
 
         public function home(){
-            $data = [
-                'username' => Session::get('username')
-            ];
+            $usr =   Session::get('username');
+            $data = ['username' => $usr];
+            $this->loadview('student_dashboard/index',$data);
+        }
 
-            $this->loadView('community/dashboard', $data);
+        public function profile(){
+            // $usr =   Session::get('username');
+            // $data = ['username' => $usr];
+            $this->loadview('student_dashboard/profile');
         }
 
     }
-
-?>
