@@ -7,25 +7,14 @@
 - Break user controller into multiple controllers
 - Make sub folders for each view and stuff
 - Modify the session to set an array inside a session
-
+- Mail resend functionality
+- Flash Messages
 ==== STUDENT =====
 - Community
-    post validation on submitting
-    comments
-    update/delete posts
-    
 - Video Call/Counselling Requests
 - Messaging 
-
 ==== ADMIN =====
 - Counselling Registration Requests
 - Report Generation
 - Chart Analytics
 - Complains Section
-
-==== UI-Fixes =====
-Userrole-selection
-Admin dashboard
-Report Generation page
-Counsellor-Profile View when accepting req. => From tharindu
-

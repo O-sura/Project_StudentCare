@@ -1,4 +1,3 @@
-
 //Handling the collapsing and opening of the menu
 let btn = document.querySelector("#btn");
 let sidebar = document.querySelector(".sidebar");

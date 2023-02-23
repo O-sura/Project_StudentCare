@@ -1,5 +1,5 @@
 <?php
-
+echo '<h1>TEST PAGE</h1>';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,13 +8,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/flash.css"?> >
-    <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/community/sidebar.css"?> >
-    <script src= <?php echo URLROOT . "/public/js/community.js"?> defer></script>
-    <title>Test</title>
+    <script src= <?php echo URLROOT . "/public/js/flash.js"?> defer></script>
+    <title>Document</title>
 </head>
 <body>
-    <h1>Test Page</h1>
-    <?php echo $data['author']->author ?>
+    <?php print_r($data)?>
 </body>
 </html>
 
