@@ -1,4 +1,3 @@
-
 export class CommunityPost{
     constructor(id,title,author,postedTime,category,votes,thumbnail,body,user){
         this.postID = id;

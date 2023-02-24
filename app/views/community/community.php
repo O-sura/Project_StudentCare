@@ -1,8 +1,3 @@
-<?php
-
-use function PHPSTORM_META\type;
-
-?>
 
 <!DOCTYPE html>
 <html lang="en">
