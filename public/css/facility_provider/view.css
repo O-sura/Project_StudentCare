@@ -103,6 +103,11 @@ hr{
     border-radius: 15px;
 }
 
+.container .wrapper .select-btn .filter option{
+    margin-left: 25px;
+    justify-content: space-between;
+}
+
 .container .wrapper .select-btn i{
     margin-left: 15px;
     width: 20px;

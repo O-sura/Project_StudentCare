@@ -21,6 +21,8 @@
             $this->db->bind(':image_urls', $data['image_urls']);
             $this->db->bind(':special_note', $data['special_note']);
             $this->db->bind(':category', $data['category']);
+            //$this->db->bind(':fpID', $data['fpID']);
+
 
             if($this->db->execute()){
                 return true;
