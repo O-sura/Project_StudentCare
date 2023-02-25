@@ -76,6 +76,15 @@
             return $result;
         }
 
+        public function editprofile(){
+            $userID = Session::get('userID');
+            $this->db->query('UPDATE u.*, f.category FROM users u INNER JOIN facility_provider f ON u.userID = f.userID WHERE u.userID = :userID'); 
+            $this->db->bind(':userID', $userID);
+
+            $result = $this->db->getRes();
+            return $result;
+        }
+
 
         public function propertyView(){
             $category = 'Property';

@@ -2,12 +2,11 @@
 Session::init();
 class Facility_Provider extends Controller{
     private $ListingModel;
-    private $userModel;
-
+    
     public function __construct(){
         Middleware::authorizeUser(Session::get('userrole'), 'facility_provider');
         $this->ListingModel = $this->loadModel('Facility_Providers');
-        $this->userModel = $this->loadModel('User');
+    
     }
 
 
@@ -44,8 +43,19 @@ class Facility_Provider extends Controller{
         $this->loadView('facility_provider/profile',$data);
         //$this->loadView('test',$data);
     }
-    
 
+
+   public function editprofile(){
+        $profile = $this->ListingModel->editprofile();
+            
+        $data =[
+            'editprofile' => $profile
+        ]; 
+        
+        $this->loadView('facility_provider/editprofile',$data);
+   }
+
+    
     public function addItem(){
 
         if (isset($_POST['submit'])) {

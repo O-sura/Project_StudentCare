@@ -23,7 +23,7 @@
     cursor: pointer;
 }
 
-.container .head i span{
+.container .head a{
     text-decoration: none;
 }
 
@@ -37,6 +37,10 @@ h1{
     margin: 35px 300px;
 }
 
+.container .profile{
+    display: flex;
+}
+
 .container .profile img{
     border-radius: 50%;
     object-fit: cover;
@@ -44,12 +48,31 @@ h1{
     height: 250px;
 }
 
-.container .profile{
-    display: flex;
+.container .profile .profile_image{
+    position: absolute;
+    background: #00B4FF;
+    top: 360px;
+    left: 200px;
+    width: 32px;
+    height: 32px;
+    line-height: 33px;
+    text-align: center;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.container .profile .profile_image input[type = "file"]{
+    position: absolute;
+    transform: scale(2);
+    opacity: 0;
+}
+
+input[type = file]::-webkit-file-upload-button{
+    cursor: pointer;
 }
 
 .container .profile .personal{
-    margin: 45px 10px 0 80px;
+    margin: 45px 10px 0 100px;
 }
 
 .container .profile, .details span{
