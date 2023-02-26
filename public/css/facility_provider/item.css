@@ -25,6 +25,7 @@
     justify-content: center; */
     padding: 20px;
     margin-left: 80px;
+    max-width: 80%;
  }
   
  .container h1{
@@ -114,13 +115,13 @@
     border: 1px solid;
  }
  
- .container form .image{ 
+/*  .container form .image{ 
     display: none;
     visibility: none;
- }
+ } */ 
  
  /* display image names */
- /* .container form .img-display{
+  /* .container form #display-image{
     height: 30px;
     font-size: 12px;
     width: 90%;

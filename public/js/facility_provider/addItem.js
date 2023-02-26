@@ -14,6 +14,7 @@ function addAnother(){
     counter++;
 }
 
+//category select dropdown
 const optionMenu = document.querySelector('.dropdown-menu');
 const selectBtn = optionMenu.querySelector('.select-btn');
 const options = optionMenu.querySelectorAll('.option');
