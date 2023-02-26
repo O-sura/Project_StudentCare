@@ -67,8 +67,11 @@
                 ?>
                 
                 <p>Images:</p>
-                <label for="img"><i class="fa fa-plus"></i><br>Insert only four images</label>
+                <!-- <label for="img"><i class="fa fa-plus"></i><br>Insert only four images</label> -->
+                <label for="img">Insert only four images</label>
                 <input type="file" class="image" name="images[]" id="img" multiple>
+                <!-- onchange = "getImage(this.value);" -->
+                <!-- <div id="display-image"></div> -->
                 
                 <p>Special Notes:</p>
                 <input class="note" name="special_note" type="text">

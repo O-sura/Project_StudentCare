@@ -33,9 +33,9 @@
         }
 
 
-        /* public function editItem($data){
+        public function editItem($data){
             //$listing_id = substr(sha1(date(DATE_ATOM)), 0, 8);
-            $this->db->query('UPDATE listing SET topic = :topic, description = :description, rental = :rental, location = :location, address = :address, uniName = :uniName, image = :image_urls, special_note = :special_note, category = :category WHERE listing_id = :id');
+            $this->db->query('UPDATE listing SET topic = :topic, description = :description, rental = :rental, location = :location, address = :address, uniName = :uniName, image = :image_urls, special_note = :special_note, category = :category WHERE userID = :userID');
             
             $this->db->bind(':id', $data['id']);
             $this->db->bind(':topic', $data['topic']);
@@ -54,7 +54,7 @@
             else{
                 return false;
             }
-        } */
+        }
 
 
         public function mylisting(){
@@ -125,6 +125,17 @@
         }
 
 
+        public function propertysearch($uniName,$topic,$rental){
+            $this->db->query("SELECT * FROM propertylist WHERE uniName LIKE %:uniName OR topic LIKE %:topic OR price LIKE %:rental ");
+            $this->db->bind(':uniName', $uniName);
+            $this->db->bind(':topic', $topic);
+            $this->db->bind(':rental', $rental);
+
+            $result = $this->db->getRes();
+            return $result;
+        }
+
+
         public function report(){
             $this->db->query('SELECT * FROM listing'); 
             
@@ -137,11 +148,6 @@
             
             $result = $this->db->getAllRes();
             return $result;
-        }
-
-
-        public function searchItem($uniName,$topic,$rental){
-            
         }
 
 

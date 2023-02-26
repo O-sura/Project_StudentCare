@@ -277,6 +277,17 @@ class Facility_Provider extends Controller{
         $this->loadView('facility_provider/viewOne',$data);
     }
 
+    public function propertysearch(){
+        $this->ListingModel->propertysearch();
+        if(isset($_POST['search'])){
+            $string = '%' . $_POST['searchbtn'] . '%' ;
+        }
+        $this->loadView('facility_provider/report',$string);
+    }
+
+    public function findItemByLocation(){
+        
+    }
 
     //take data to generate reports
     public function report(){
@@ -300,7 +311,7 @@ class Facility_Provider extends Controller{
     }
     
 
-    /* public function editItem($id){
+    public function editItem($id){
 
         if (isset($_POST['submit'])) {
 
@@ -458,12 +469,15 @@ class Facility_Provider extends Controller{
                 'category_err' => ''
             ];
 
-            //$this->loadView('facility_provider/editItem', $data);
+            $this->loadView('facility_provider/editItem', $data);
             //$this->loadView('test', $data);
 
         }
-    } */
+    }
 
+    public function delete($id){
+        if($_SERVER['REQUEST '])
+    }
 }
 
 ?>
