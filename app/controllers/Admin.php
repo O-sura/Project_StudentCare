@@ -6,7 +6,7 @@
         }
         
         public function index(){
-
+            $this->loadView('test');
         }
 
         public function home(){
@@ -14,7 +14,14 @@
         }
 
         public function reports(){
-            $this->loadView('admin/report-generator');
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+               if(isset($_POST['template'])){
+                //var_dump($_POST['template']);
+                generateReport($_POST['template']);
+               }
+            }else{
+                $this->loadView('admin/report-generator');
+            }
         }
 
         public function join_requests(){

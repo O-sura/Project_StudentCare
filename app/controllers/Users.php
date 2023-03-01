@@ -1,5 +1,5 @@
 <?php
-
+    Session::init();
     class Users extends Controller{
         private $userModel;
 

@@ -14,7 +14,14 @@
 </head>
 <body>
     <h1>Test Page</h1>
-    <?php echo $data['author']->author ?>
+    
+    <center><button onclick="getVideoCall()">Video Call</button></center>
+
+<script>
+    let getVideoCall = () =>{
+        window.open('http://localhost:3000', '_blank');
+    }
+</script>
 </body>
 </html>
 

@@ -7,7 +7,7 @@
     <title>StudentCare</title>
     <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/admin/report-generation.css"?> >
     <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/community/dropdown.css"?> >
-    <script src= <?php echo URLROOT . "/public/js/report-generator.js"?> defer></script>
+    <script type="module" src= <?php echo URLROOT . "/public/js/report-generator.js"?> defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
@@ -18,7 +18,7 @@
         <div class="report-config-section">
             <div class="dropdown-section">
 
-                <div class="dropdown-menu" id="">
+                <div class="dropdown-menu" id="userrole-dropdown">
                     <div class="select-btn">
                         <span class="Sbtn-text">User</span>
                         <i class="fa-sharp fa-solid fa-chevron-down"></i>
@@ -30,28 +30,24 @@
                         <li class="option">Admin</li>
                     </ul>
                 </div>
-                <div class="dropdown-menu" id="">
+                <div class="dropdown-menu" id="type-dropdown">
                     <div class="select-btn">
                         <span class="Sbtn-text">Type</span>
                         <i class="fa-sharp fa-solid fa-chevron-down"></i>
                     </div>
                     <ul class="options">
-                        <li class="option">Education</li> 
-                        <li class="option">Advice</li> 
-                        <li class="option">Health</li>
-                        <li class="option">Other</li>
+                        <li class="option">Usage</li> 
                     </ul>
                 </div>
-                <div class="dropdown-menu" id="">
+                <div class="dropdown-menu" id="duration-dropdown">
                     <div class="select-btn">
                         <span class="Sbtn-text">Duration</span>
                         <i class="fa-sharp fa-solid fa-chevron-down"></i>
                     </div>
                     <ul class="options">
-                        <li class="option">Education</li> 
-                        <li class="option">Advice</li> 
-                        <li class="option">Health</li>
-                        <li class="option">Other</li>
+                        <li class="option">Monthly</li> 
+                        <li class="option">Weekly</li> 
+                        <li class="option">Daily</li>
                     </ul>
                 </div>
 

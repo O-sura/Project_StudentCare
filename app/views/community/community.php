@@ -100,6 +100,15 @@ use function PHPSTORM_META\type;
                     </div>
             </div>
             <?php endforeach ?>
+            <div class="pagination">
+                <?php for ($i = 1; $i <= $data['total_pages']; $i++): ?>
+                    <?php if ($i == $data['current_page']): ?>
+                    <span class="active"><?php echo $i; ?></span>
+                    <?php else: ?>
+                    <a href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                    <?php endif; ?>
+                <?php endfor; ?>
+            </div>
     <!-- Above here should be the content for homepage -->
 </div>                             
 </body>

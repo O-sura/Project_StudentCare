@@ -19,10 +19,35 @@
         }
 
         public function home(){
-            $posts = $this->CommunityModel->getAllPosts();
+            //$posts = $this->CommunityModel->getAllPosts();
 
+            // $data = [
+            //     'posts' => $posts
+            // ];
+
+            // Get the current page number from the query string
+            $page = isset($_GET['page']) ? $_GET['page'] : 1;
+            
+            // Set the number of posts to display per page
+            $posts_per_page = 10;
+            
+            // Calculate the offset for the current page
+            $offset = ($page - 1) * $posts_per_page;
+            
+            // Get the total number of posts
+            $total_posts = $this->CommunityModel->getAllPostCount();
+            
+            // Get the posts for the current page
+            $posts = $this->CommunityModel->getPostsWithLimit($posts_per_page,$offset);
+            
+            // Calculate the total number of pages
+            $total_pages = ceil($total_posts / $posts_per_page);
+            
+            // Set the data array
             $data = [
-                'posts' => $posts
+                'posts' => $posts,
+                'total_pages' => $total_pages,
+                'current_page' => $page
             ];
 
             $this->loadView('community/community', $data);
@@ -183,6 +208,55 @@
                 echo $status;
             }
         }
+
+        public function new_comment(){
+            if(isset($_POST['comment-submit'])) {
+
+                    // Sanitize POST data
+                    $post_filters = [
+                        'comment' => FILTER_SANITIZE_SPECIAL_CHARS,
+                        'author' => FILTER_SANITIZE_SPECIAL_CHARS,
+                        'post_id' => FILTER_SANITIZE_NUMBER_INT
+                      ];
+                      
+                      // Sanitize the $_POST data using filter_input_array()
+                    $sanitized_data = filter_input_array(INPUT_POST, $post_filters);
+              
+                    // Get POST data
+                    $postId = $sanitized_data['post_id'];
+                    $author = trim($sanitized_data['author']);
+                    $body = trim($sanitized_data['comment']);
+              
+                    // Validate POST data
+                    $data = [
+                      'author' => $author,
+                      'body' => $body,
+                      'body_error' => ''
+                    ];
+              
+                    if (empty($body)) {
+                      $data['body_error'] = 'Please enter your comment.';
+                    }
+              
+                    // Check for errors
+                    if (empty($data['body_error'])) {
+
+                      
+                      // Add comment to database
+                      if ($this->CommunityModel->addComment($postId, $author, $body)) {
+                        FlashMessage::flash('comment_added', 'Comment added Successfully', 'success');
+                         //Post Successfully added notification and redirect to community
+                      } else {
+                        FlashMessage::flash('comment_not_added', 'Comment cannot be added', 'error');
+                      }
+                      Middleware::redirect('community/view_post/'. $postId);
+                    } 
+                }
+            }
+                    
     }
+         
+        
+    
 
 ?>

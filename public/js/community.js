@@ -258,4 +258,42 @@ function savedPostHandler(){
     })
 }
 
-  
+// Add event listeners to pagination links
+var paginationLinks = document.querySelectorAll('.pagination a');
+for (var i = 0; i < paginationLinks.length; i++) {
+    paginationLinks[i].addEventListener('click', function(event) {
+        event.preventDefault();
+        var page = this.getAttribute('href').split('=')[1];
+        loadPosts(page);
+    });
+}
+
+// Load the posts for the selected page using AJAX
+function loadPosts(page) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://localhost/StudentCare/community/home/?page=' + page);
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            //Parse the JSON response from the server
+            var searchRes = JSON.parse(xhr.responseText);
+            //console.log(searchRes)
+
+            // Update the contents of the page to display the search results
+            clearposts();
+            var resultList = document.getElementById("search-results");
+            let postList = "";
+           
+            for (var i = 0; i < searchRes.length; i++) {
+                let result = searchRes[i];
+                //id,title,author,postedTime,category,votes,thumbnail,body
+                let post = new CommunityPost(result.post_id,result.post_title,result.author,result.posted_at,result.category,result.votes,result.post_thumbnail,result.post_desc,loggedInUser);
+                postList += post.createPost();
+            }
+            resultList.innerHTML = postList;
+            votingCountHandler();
+        } else {
+            console.log('Error loading posts.');
+        }
+    };
+    xhr.send();
+}

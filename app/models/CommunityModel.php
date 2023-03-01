@@ -20,6 +20,20 @@ class CommunityModel{
         return $posts;
     }
 
+    public function getPostsWithLimit($postsPerPage,$offset){
+        $this->db->query('SELECT * FROM posts LIMIT :limit OFFSET :offset');
+        $this->db->bind(':limit', $postsPerPage);
+        $this->db->bind(':offset', $offset);
+        $posts = $this->db->getAllRes();
+        return $posts;
+    }
+
+    public function getAllPostCount(){
+        $this->db->query('SELECT * FROM posts');
+        $count = $this->db->rowCount();
+        return $count;
+    }
+
     public function addNewPost($data){
         $this->db->query('INSERT INTO posts(post_title, category,post_thumbnail, post_desc,author) VALUES (:post_title, :category, :post_thumbnail, :post_desc, :author)');
         $this->db->bind(':post_title', $data['title']);
@@ -93,10 +107,25 @@ class CommunityModel{
     }
 
     public function getAllComments($id){
-        $this->db->query('SELECT * FROM comments WHERE post_id = :id');
+        $this->db->query('SELECT * FROM comments WHERE post_id = :id ORDER BY added_date desc');
         $this->db->bind(':id', $id);
         $comments = $this->db->getAllRes();
         return $comments;
+    }
+
+    public function addComment($postId, $author, $body){
+        $commentID = substr(sha1(date(DATE_ATOM)), 0, 8);
+        $this->db->query('INSERT INTO comments(comment_id, post_id, body, author) VALUES (:comment_id, :post_id, :body, :author)');
+        $this->db->bind(':comment_id', $commentID);
+        $this->db->bind(':post_id', $postId);
+        $this->db->bind(':body', $body);
+        $this->db->bind(':author', $author);
+
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public function checkIfVoted($userID, $postID){
