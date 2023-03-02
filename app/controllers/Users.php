@@ -797,9 +797,9 @@
         public function index(){
 
             $data = [
-                'username' => 'TestUser'
+                
             ];
-            FlashMessage::flash('test-flash','This is a test flash','success');
+            
             $this->loadView('test',$data);
         }
     

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/174ad75841.js" crossorigin="anonymous"></script>
+    <title>Test</title>
+
+<style>
+</style>
+
+</head>
+<body>
+ 
+  <input type="search" name="search" id="searchbar" placeholder="Search Here">
+
+<script>
+    //Search community posts
+    let searchBar = document.getElementById('searchbar');
+    searchBar.addEventListener('input', () => {
+            // Send an AJAX request to the server with the search query
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "http://localhost/StudentCare/community/search_posts/" + searchBar.value, true);
+           
+            xhr.onload = () => {
+                if (xhr.status === 200) {
+                    // Parse the JSON response from the server
+                    var searchRes = JSON.parse(xhr.responseText);
+        
+                    // Update the contents of the page to display the search results
+                    var resultList = document.getElementById("search-results");
+                    resultList.innerHTML = "";
+                    for (var i = 0; i < results.length; i++) {
+                        var result = results[i];
+                        var item = document.createElement("li");
+                        item.innerHTML = result.title + " - " + result.url;
+                        resultList.appendChild(item);
+                    }
+                }
+            };
+            xhr.send();
+        }
+    )
+</script>
+</body>
+</html>

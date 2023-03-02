@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    height: 100vh;
+    display: grid;
+    /* background-color: cadetblue; */
+    font-size: 16px;
+    grid-template-areas: 
+        'sidebar top'
+        'sidebar post-content'
+        'sidebar add-comment'
+        'sidebar comments'
+    ;
+    grid-template-columns: 2fr 9fr;
+    grid-template-rows: 1fr 7fr 3fr 3fr;
+}
+
+.section{
+    padding: 20px;
+    /* background-color: aquamarine; */
+    text-align: center;
+    /* border: 1px solid rebeccapurple */
+}
+
+#sidebar{
+    grid-area: sidebar;
+}
+
+#top{
+    grid-area: top;
+}
+
+#post-content{
+    grid-area: post-content;
+}
+
+#add-comment{
+    grid-area: add-comment;
+}
+
+#comments{
+    grid-area: comments;
+}
+
+.back-option{
+    display: flex;
+}
+
+.back-option{
+    display: flex;
+    align-items: center;
+}
+
+.back-arrow{
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.back-option h5{
+    font-size: 20px;
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+#post-content{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#post-content h3{
+    font-size: 2rem;
+}
+
+#post-content h5{
+    font-size: 0.8rem;
+    font-weight: 300;
+    margin-bottom: 1rem;
+}
+
+#post-img{
+    width: 40%;
+    height: 60%;
+    float: left;
+    margin-right: 1rem;
+    border-radius: 5px;
+}
+
+.post p{
+    text-align: justify;
+}
+
+.analytics{
+    display: flex;
+}
+
+.option{
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+#add-comment{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#add-comment span{
+    font-weight: 800;
+}
+
+#comment{
+    resize: none;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid gainsboro;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+}
+
+#comment-submit{
+    justify-self: end;
+    margin-top: 1rem;
+    padding: 10px 30px;
+    height: 50px;
+    color: white;
+    background-color: #1A285A;
+    font-size: 18px;
+    border: none;
+    border-radius: 30px;
+    margin-top: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    align-self: flex-end;
+    
+}
+
+.user-comments{
+    border: 1px solid gainsboro;
+    padding: 20px;
+    border-radius: 5px;
+    margin-top: 0.5rem;
+}
+
+.info{
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+.info img{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.comment-txt{
+    text-align: justify;
+    margin-top: 1rem;
+    padding-top: 20px;
+}
+
+@media(max-width: 1300px){
+    .analytics{
+        margin-top: 4.5rem;
+        padding: 1rem;
+    }
+}
+
+@media(max-width: 700px){
+    .analytics{
+        margin-top: 9.5rem;
+    }
+}

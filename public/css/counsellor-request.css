@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    height: 100vh;
+    display: grid;
+    /* background-color: cadetblue; */
+    font-size: 16px;
+    grid-template-columns: 2fr 9fr;
+}
+
+.section{
+    padding: 20px;
+    /* background-color: aquamarine; */
+    text-align: center;
+    /* border: 1px solid rebeccapurple */
+}
+
+#page-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+#page-content h1{
+    display: inline-block;
+    width: fit-content;
+    margin-top: 3rem;
+    font-size: 2.5rem;
+}
+
+.request-box{
+    width: 100%;
+    height: 15rem;
+    background-color: gainsboro;
+    border-radius: 10px;
+    display: flex;
+    margin-top: 1rem;
+}
+
+#profile-pic{
+    width: 20%;
+    height: 100%;
+    padding: 1rem;
+    border-radius: 10px;
+    float: left;
+}
+
+.request-body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.request-body p{
+    text-align: justify;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+#view-button{
+    justify-self: end;
+    margin-top: 1rem;
+    padding: 10px 30px;
+    height: 50px;
+    color: black;
+    background-color: #FFBF42;
+    font-size: 18px;
+    border: none;
+    border-radius: 30px;
+    margin-top: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    
+}
+

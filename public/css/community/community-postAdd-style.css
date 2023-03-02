@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+*{
+   /* font-family: 'Poppins', sans-serif; */
+   font-family: Arial;
+}
+
+body{
+    margin: 0px;
+    padding: 0px;
+    min-height: 100vh;
+    overflow: scroll;
+    display: flex;
+    position: relative;
+}
+
+.post-form{
+    padding-left: 30px;
+    padding-right: 60px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    right: 0px;
+    overflow-y: scroll;
+}
+
+
+#post-title{
+    border: none;
+    border-bottom: 2px solid gainsboro;
+    font-size: 38px;
+    width: 100%;
+    font-weight: 600;
+    margin-top: 30px;
+    outline: none;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.preview{
+    width: 100%;
+    height: 300px;
+    border-radius: 5px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    align-self: center;
+    justify-self: center;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+#media-icon{
+    font-size: 30px;
+}
+
+.image-upload{
+    padding-left: 20px;
+    padding-right: 20px;
+    cursor: pointer;
+    text-align: center;
+    border: none;
+    font-size: 18px;
+    background-color: white;
+    border-radius: 10px;
+    color: black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#thumbnail-text{
+    display: inline-block;
+    margin-left: 20px;
+}
+
+#post-image{
+    object-fit: cover;
+}
+
+#post-body{
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 20px auto 30px auto;
+    padding: 10px;
+    resize: vertical;
+}
+
+
+.back-option{
+    display: flex;
+    align-items: center;
+}
+
+.back-arrow{
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.back-option h5{
+    font-size: 20px;
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+.button-section{
+    display: flex;
+    position: absolute;
+    right: 40px;
+}
+
+#category{
+    background-color: #1A285A;
+    width: max-content;
+}
+
+.post-category select{
+    color: white;
+    height: 35px;
+    border: none;
+    font-size: 14px;
+    border-radius: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.dropdown-option:hover{
+    color: #1A285A;
+    background-color: white;
+}
+
+.submit-button{
+    display: flex;
+    align-items: center;
+    height: 35px;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 15px;
+    color: #1A285A;
+    font-size: 14px;
+    margin-left: 30px;
+}
+
+.submit-button p{
+    margin-left: 10px;
+}

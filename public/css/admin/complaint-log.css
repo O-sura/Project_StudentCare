@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    height: 100vh;
+    display: grid;
+    /* background-color: cadetblue; */
+    font-size: 16px;
+    grid-template-columns: 2fr 9fr;
+}
+
+.section{
+    padding: 20px;
+    /* background-color: aquamarine; */
+    text-align: center;
+    /* border: 1px solid rebeccapurple */
+}
+
+#page-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+.section-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 3rem;
+}
+
+#section-header h1{
+    display: inline-block;
+    margin-top: 3rem;
+    font-size: 2.5rem;
+}
+
+#mark-all{
+    justify-self: end;
+    margin-top: 1rem;
+    padding: 10px 30px;
+    height: 3rem;
+    color: black;
+    background-color: #FFBF42;
+    font-size: 18px;
+    border: none;
+    border-radius: 30px;
+    margin-top: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    transform: translateY(-25%);
+    
+}
+
+.complaint{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.complaint h4{
+    font-weight: 800;
+}
+
+.complaint-body{
+    width: 100%;
+    background-color: gainsboro;
+    border-radius: 10px;
+    display: flex;
+    margin-top: 1rem;
+    align-items: center;
+    padding: 1rem;
+    justify-content: space-between;
+}
+
+.complaint-body p{
+    text-align: justify;
+    padding-right: 1rem;
+    width: 80%;
+}
+
+.complaint-body i{
+    margin-right: 2rem;
+    font-size: 1.5rem;
+}
+
+
+
