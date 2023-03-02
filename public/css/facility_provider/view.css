@@ -87,7 +87,7 @@ hr{
     border-radius: 15px;
 } */
 
-/* .container .wrapper{
+.container .wrapper{
     text-align: center;
     justify-content: space-between;
     display: flex;
@@ -113,7 +113,7 @@ hr{
     width: 20px;
     height: 20px;
     cursor: pointer;
-} */
+} 
 
 .container main{
     margin: 50px auto;
@@ -179,7 +179,7 @@ hr{
 
 
 
-.container .wrapper{
+/* .container .wrapper{
     display: flex;
     justify-content: center;
 }
@@ -253,12 +253,12 @@ hr{
     z-index: 1000;
 }
 
-/* .options .option:hover{
+.options .option:hover{
     background: #1A285A;
     color: white;
-} */
+}
 
 .option{
     font-size: 15px;
     color: black
-}
+} */

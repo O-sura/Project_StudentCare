@@ -74,7 +74,7 @@ class Facility_Provider extends Controller{
             $images = $_FILES['images'];
             $special_note = $_POST['special_note'];
             $category = $_POST['category'];
-
+            
             $uniList = [];
             foreach ($uniName as $uni){
                 array_push($uniList, trim($uni));
@@ -475,8 +475,27 @@ class Facility_Provider extends Controller{
         }
     }
 
-    public function delete($id){
-        if($_SERVER['REQUEST '])
+    public function deleteItem($id){
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            //get existing item from model
+            $item = $this->ListingModel->deleteItem($id);
+
+            //check for owner
+            if($item->userID != $_SESSION['userID']){
+                Middleware::redirect('./facility_provider/viewOne');
+            }
+        }
+
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            if($this->ListingModel->deleteItem($id)){
+                //flash('message', 'Item Removed');
+                Middleware::redirect('./facility_provider/viewOne');
+            }else{
+                die('Something went wrong');
+            }
+        }else{
+            Middleware::redirect('./facility_provider/viewOne');
+        }
     }
 }
 

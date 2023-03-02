@@ -38,7 +38,39 @@
 
             <div class="wrapper">
 
-                <div class="dropdown-menu">
+                <div class="select-btn">
+                    <select class="filter" name="filterItem" id="filterItem">
+                        <option value="" selected="selected">Location</option>
+                        <option value="ampara">Ampara</option>
+                        <option value="anuradhapura">Anuradhapura</option>
+                        <option value="badulla">Badulla</option>
+                        <option value="batticaloa">Batticaloa</option>
+                        <option value="colombo">Colombo</option>
+                        <option value="galle">Galle</option>
+                        <option value="gampaha">Gampaha</option>
+                        <option value="hambantota">Hambantota</option>
+                        <option value="jaffna">Jaffna</option>
+                        <option value="kalutara">Kalutara</option>
+                    </select>
+                </div>
+
+                <div class="select-btn">
+                    <select class="filter" name="filterItem" id="filterItem">
+                        <option value="" selected="selected">Type</option>
+                        <option value="house">House</option>
+                        <option value="room">Room</option>
+                    </select>
+                </div>
+
+                <div class="select-btn">
+                    <select class="filter" name="filterItem" id="filterItem">
+                        <option value="" selected="selected">University</option>
+                        <option value="house">Colombo</option>
+                        <option value="room">Peradeniya</option>
+                    </select>
+                </div>
+
+                <!-- <div class="dropdown-menu">
                     <div class="select-btn">
                         <span class="Sbtn-text">Location</span>
                         <i class="fa-sharp fa-solid fa-chevron-down"></i>
@@ -49,7 +81,7 @@
                         <li class="option">Colombo</li> 
                         <li class="option">Kandy</li>
                     </ul>
-                </div>
+                </div> -->
         
                <!--  <div class="dropdown-menu">
                     <div class="select-btn">

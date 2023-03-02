@@ -63,7 +63,7 @@
                     </span>
                 </h1>
 
-                <h8>Added: <h7 id="date"></h7></h8>
+                <h8>Added: <h7 id="date"><?php echo $data['viewone']->added_date; ?></h7></h8>
 
                 <p class="description"><?php echo $data['viewone']->description; ?><br>
                     <span><?php echo $data['viewone']->special_note; ?></span><br>

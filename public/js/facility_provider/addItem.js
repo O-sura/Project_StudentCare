@@ -15,7 +15,7 @@ function addAnother(){
 }
 
 //category select dropdown
-const optionMenu = document.querySelector('.dropdown-menu');
+/* const optionMenu = document.querySelector('.dropdown-menu');
 const selectBtn = optionMenu.querySelector('.select-btn');
 const options = optionMenu.querySelectorAll('.option');
 const btnText = optionMenu.querySelector('.Sbtn-text');
@@ -31,7 +31,7 @@ options.forEach(option => {
         optionMenu.classList.remove("active");
     })
 })
-
+ */
 //add image names for plus icon
 /* function getImage(imagename){
     var newimg=imagename.replace(/^.*\\/,"");
