@@ -2,10 +2,10 @@
 class Appointments extends Controller
 {
 
-    private $announcementModel;
+    private $appointmentModel;
     public function __construct()
     {
-        // $this->announcementModel = $this->loadmodel('Announcement');
+        $this->appointmentModel = $this->loadmodel('Appointment');
     }
 
 
@@ -16,9 +16,14 @@ class Appointments extends Controller
         $this->loadview('counselor_stu/index');
     }
 
+//Function to load the counselor list view
     public function list()
     {
-        $this->loadview('counselor_stu/counselorList');
+        
+        $data = [
+            'counselors' => $this->appointmentModel->getAllCounselorDetails()
+        ];
+        $this->loadview('counselor_stu/counselorList',$data);
     }
 
     public function requests(){
