@@ -1,0 +1,74 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.page{
+    display: flex;
+}
+
+.container{
+    margin-top: 15px;
+    margin-left: 150px;
+}
+
+.container h2{
+    margin-bottom: 20px;
+}
+
+.container .head i{
+    color: black;
+    cursor: pointer;
+}
+
+.container .head i span{
+    text-decoration: none;
+}
+
+.container .head{
+    display: flex;
+    margin: 20px 0;
+}
+
+h1{
+    font-size: 45px;
+    margin: 35px 300px;
+}
+
+.container .profile img{
+    border-radius: 50%;
+    object-fit: cover;
+    width: 250px;
+    height: 250px;
+}
+
+.container .profile{
+    display: flex;
+}
+
+.container .profile .personal{
+    margin: 45px 10px 0 80px;
+}
+
+.container .profile, .details span{
+    line-height: 30px;
+}
+
+.container .details{
+    margin-top: 40px;
+    display: flex;
+}
+
+.container .details .contact{
+    width: 500px;
+}
+
+.container .details .category_details{
+    margin-left: 200px;
+}
+
+.container .details .category_details i{
+    margin-right: 10px;
+}
