@@ -14,7 +14,7 @@ export class Report {
             <meta charset="UTF-8">
             <title>${this.organizationName} Report</title>
             <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
-            <link rel="stylesheet" href="https://unpkg.com/gutenberg-css@0.7" media="print">
+            <link rel="stylesheet" href="https://unpkg.com/gutenberg-css@0.7">
           </head>
           <body>
             <header>

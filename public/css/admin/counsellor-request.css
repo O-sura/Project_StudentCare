@@ -20,6 +20,9 @@ body{
     /* background-color: aquamarine; */
     text-align: center;
     /* border: 1px solid rebeccapurple */
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    row-gap: 1.5rem;
 }
 
 #page-content{
@@ -32,42 +35,58 @@ body{
     display: inline-block;
     width: fit-content;
     margin-top: 3rem;
+    margin-bottom: 2rem;
     font-size: 2.5rem;
 }
 
-.request-box{
-    width: 100%;
-    height: 15rem;
-    background-color: gainsboro;
-    border-radius: 10px;
-    display: flex;
-    margin-top: 1rem;
-}
-
-#profile-pic{
-    width: 20%;
-    height: 100%;
-    padding: 1rem;
-    border-radius: 10px;
-    float: left;
-}
-
-.request-body{
+.container{
+    height: max-content;
+    width:fit-content;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-}
-
-.request-body p{
-    text-align: justify;
-    padding-left: 1rem;
-    padding-right: 1rem;
-}
-
-#view-button{
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+ }
+ 
+ .image-container{
+    height: 15rem;
+    width: 100%;
+    background-color: aquamarine;
+    overflow: hidden;
+ }
+ 
+ .profile-image{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+ }
+ 
+ .details{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+ }
+ 
+ .name-txt{
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 0;
+ }
+ 
+ 
+ .specilization{
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+ }
+ 
+ #view-button{
     justify-self: end;
     margin-top: 1rem;
+    margin-bottom: 1.5rem;
     padding: 10px 30px;
     height: 50px;
     color: black;
@@ -79,5 +98,6 @@ body{
     font-weight: 500;
     cursor: pointer;
     
-}
+ }
+ 
 

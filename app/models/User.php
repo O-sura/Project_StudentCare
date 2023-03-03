@@ -269,6 +269,20 @@
            $this->db->getRes();
         }
 
+        //function to check whether a particular counsellor is manually verified by the admin or not
+        public function isAdminVerified($id){
+            $this->db->query("SELECT * FROM counsellor WHERE userID = :id");
+            $this->db->bind(':id', $id);
+
+            $isVerified = $this->db->getRes()->admin_verified;
+
+            if($isVerified == 1){
+                return true;
+            }else if($isVerified == 0){
+                return false;
+            }
+        }
+    
     }
 
 

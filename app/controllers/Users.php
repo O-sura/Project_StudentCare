@@ -70,6 +70,14 @@
                     }
                     else{
                         $userInfo = $this->userModel->getUserInfo($data['username']);
+
+                        if($userInfo->user_role == 'counsellor'){
+                            if(!$this->userModel->isAdminVerified($userInfo->userID)){
+                                $this->loadView('under-verification');
+                                die();
+                            }
+                        }
+
                         Session::set('userrole', $userInfo->user_role);
                         Session::set('userID', $userInfo->userID);
                         Session::set('username', $userInfo->username);

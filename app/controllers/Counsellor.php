@@ -5,7 +5,7 @@
 
         public function __construct(){
             Middleware::authorizeUser(Session::get('userrole'), 'counsellor');
-            $this->userModel =  $this->loadModel('Counsellor');
+            //$this->userModel =  $this->loadModel('Counsellor');
         }
 
         

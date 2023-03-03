@@ -10,7 +10,7 @@
             }
             else{
                 //Return the 404 page
-                die('Error 404: View Does not exists');
+                Middleware::redirect('pages/error_404');
             }
         }
 

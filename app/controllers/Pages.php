@@ -25,4 +25,8 @@
         public function rules_and_regulations(){
             echo 'Rules and Regulations';
         }
+
+        public function error_404(){
+            $this->loadView('error404');
+        }
     }
