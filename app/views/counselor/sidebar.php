@@ -79,9 +79,13 @@
         <div class="profile_content">
         <div class="profile">
             <div class="profile_details">
-            <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFufGVufDB8fDB8fA%3D%3D&w=1000&q=80" alt="">
-            <div class="name">
-            <?php echo Session::get('username') ?>
+            <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0." alt="">
+            <div class="name" >
+                <?php echo Session::get('username') ?>
+                <!-- <input type="hidden" value="<?php echo Session::get('userID') ?>" > -->
+                <div id="loggedInUser" class="divH" >
+                    <?php echo Session::get('userID') ?>
+                </div>
             </div>
             </div>
             <a href="<?php echo URLROOT."/users/logout"?>"><i class="fa-solid fa-arrow-right-from-bracket" id="log_out"></i></a>
