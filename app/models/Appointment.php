@@ -48,12 +48,10 @@ class Appointment
     public function addRequest($data){
         $requestId = substr(sha1(date(DATE_ATOM)), 0, 8);
         
-        $this->db->query("INSERT INTO request (request_id, student_id, counselor_id, request_date, request_time, request_status, request_description) VALUES (:requestID,  :studentID, :counselorID, :requestDate, :requestTime, :requestStatus, :requestDescription)");
+        $this->db->query("INSERT INTO request (request_id, student_id, counselor_id, request_status, request_description) VALUES (:requestID,  :studentID, :counselorID, :requestStatus, :requestDescription)");
         $this->db->bind(':requestID', $requestId);
         $this->db->bind(':counselorID', $data['counselorID']);
         $this->db->bind(':studentID', $data['studentID']);
-        $this->db->bind(':requestDate', $data['requestDate']);
-        $this->db->bind(':requestTime', $data['requestTime']);
         $this->db->bind(':requestStatus', $data['requestStatus']);
         $this->db->bind(':requestDescription', $data['requestDescription']);
         
@@ -64,7 +62,107 @@ class Appointment
         }
     }
 
-   
+    public function hasRequested($data){
+        $this->db->query("SELECT * FROM request WHERE student_id = :studentID AND counselor_id = :counselorID AND request_status = 0");
+        $this->db->bind(':counselorID', $data['counselorID']);
+        $this->db->bind(':studentID', $data['studentID']);
+        $results = $this->db->getRes();
+
+        if($results){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function requestLimit($data){
+        $this->db->query("SELECT * FROM request WHERE student_id = :studentID AND request_status = 0");
+        $this->db->bind(':studentID', $data['studentID']);
+        $count = $this->db->rowCount();
+
+        if($count<3){
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public function getPendingRequests($studentID){
+        $this->db->query("SELECT request.request_id, request.requested_on, request.request_status, users.fullname, counsellor.profile_img, counsellor.specialization
+        FROM request
+        INNER JOIN users
+        ON request.counselor_id = users.userID
+        INNER JOIN counsellor
+        ON request.counselor_id = counsellor.userID
+        WHERE request.student_id = :studentID AND request.request_status = 0;"); 
+        $this->db->bind(':studentID', $studentID);
+        $results = $this->db->getAllRes();
+
+        return $results;
+    }
+
+   public function getAcceptedRequests($studentID){
+        $this->db->query("SELECT request.request_id, request.requested_on, request.request_status, users.fullname, counsellor.profile_img ,counsellor.specialization
+        FROM request
+        INNER JOIN users
+        ON request.counselor_id = users.userID
+        INNER JOIN counsellor
+        ON request.counselor_id = counsellor.userID
+        WHERE request.student_id = :studentID AND request.request_status = 1;"); 
+        $this->db->bind(':studentID', $studentID);
+        $results = $this->db->getAllRes();
+
+        return $results;
+    }
+
+    public function getRejectedRequests($studentID){
+        $this->db->query("SELECT request.request_id, request.requested_on, request.request_status,request.reason, users.fullname, counsellor.profile_img, counsellor.specialization
+        FROM request
+        INNER JOIN users
+        ON request.counselor_id = users.userID
+        INNER JOIN counsellor
+        ON request.counselor_id = counsellor.userID
+        WHERE request.student_id = :studentID AND request.request_status = 2;"); 
+        $this->db->bind(':studentID', $studentID);
+        $results = $this->db->getAllRes();
+
+        return $results;
+    }
+
+    public function getPendingRequestsCount($studentID){
+        $this->db->query("SELECT * FROM request WHERE student_id = :studentID AND request_status = 0");
+        $this->db->bind(':studentID', $studentID);
+        $count = $this->db->rowCount();
+
+        return $count;
+    }
+
+    public function getAcceptedRequestsCount($studentID){
+        $this->db->query("SELECT * FROM request WHERE student_id = :studentID AND request_status = 1");
+        $this->db->bind(':studentID', $studentID);
+        $count = $this->db->rowCount();
+
+        return $count;
+    }
+
+    public function getRejectedRequestsCount($studentID){
+        $this->db->query("SELECT * FROM request WHERE student_id = :studentID AND request_status = 2");
+        $this->db->bind(':studentID', $studentID);
+        $count = $this->db->rowCount();
+
+        return $count;
+    }
+
+    public function deleteRequest($id){
+        $this->db->query("DELETE FROM request WHERE request_id = :requestID");
+        $this->db->bind(':requestID', $id);
+        
+        if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 
 }
