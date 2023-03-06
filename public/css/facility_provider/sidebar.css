@@ -130,7 +130,12 @@ body{
 .sidebar ul li a:hover{
   color: #1A285A;
   background: #fff;
+}
 
+.sidebar.active ul li a:hover{
+  color: #1A285A;
+  background: #fff;
+  width: 180px;
 }
 
 .sidebar ul li i{

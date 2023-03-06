@@ -55,6 +55,7 @@
   
 .container{
     margin-left: 100px;
+    max-width: 80%;
 }
 
 h1{

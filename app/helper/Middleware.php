@@ -32,12 +32,14 @@ class Middleware{
 
     //Method to set the current form level 
     public static function setFormLevel($currentLevel){
+        Session::init();
         Session::unset('currentLevel');
         Session::set('currentLevel', $currentLevel);
     }
 
     //Method to check whether the current form level is allowed
     public static function checkFormLevel($allowedLevel){
+        Session::init();
         if(Session::get('currentLevel') < $allowedLevel || Session::get('currentLevel') == null){
             Middleware::redirect('users/register');
             exit();

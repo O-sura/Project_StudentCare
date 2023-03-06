@@ -37,9 +37,19 @@ let input = document.querySelector('input[name="uniName[]"'); // Get the input e
     let values = input.value.split(","); // Get the value of the input
     let container = document.querySelector('#another');
     console.log(values)
+//add more universities
+var counter = 1;
+var textbox = "";
+var another = document.getElementById("another");
+function addAnother(){
+    var div = document.createElement("div");
+    div.setAttribute("class", "sub22");
+    div.setAttribute("id","");
 
-    values.forEach(v => {
-        let input = document.createElement('input'); // Create a new input element
-        input.value = v; // Set the value of the input
-        container.appendChild(input); // Add the input to the container
-});
+    var textbox = "<input class='uniName' name='uniName[]' id='uniName_"+counter+"' type='text'>";
+
+    div.innerHTML = textbox;
+    another.appendChild(div);
+    counter++;
+}
+
