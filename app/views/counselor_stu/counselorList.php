@@ -164,8 +164,7 @@
                                         <?php echo $format_description; ?>
                                     </div>
                                     <div class="buttons">
-                                        <button class="btn1"><a href="<?php echo URLROOT ?>/appointments/profile/<?php echo $counselorId; ?>">View Profile</a></button>
-                                        <button class="btn2">Send request</button>
+                                        <button class="btn2" onclick="window.location.href='<?php echo URLROOT ?>/appointments/profile/<?php echo $counselorId; ?>'">View Profile</button>
                                     </div>
                                 </div>
                             </div>

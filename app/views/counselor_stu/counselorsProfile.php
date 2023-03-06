@@ -165,41 +165,34 @@
             <?php $counselorId = $data['counselorId'];?>
             <form action="<?php echo URLROOT; ?>/appointments/add_request/<?php echo $counselorId; ?> " method="post">
             <div class="request-form">
-
-                    <div class="heading">
-                        Request an Appointment
-                    </div>
-                    <div class="basic-info">
-                        <div class="indexes">
-                            <div class="date">
-                                Appointment Date
+                    <?php 
+                        $hadRequested = $data['hasRequested']; 
+                        $reachedLimit = $data['requestLimit'];
+                    ?>
+                    <?php if($hadRequested == 1) { ?>
+                         <p id="already"><i class="fa-solid fa-circle-info"></i>   You already have a pending request with this counselor. </p>
+                            
+                        
+                    <?php } else { ?>
+                            <?php if($reachedLimit == 1) { ?>
+                                <p id="already"><i class="fa-solid fa-circle-info"></i>   You have reached the request limit. </p>
+                            <?php } else { ?>
+                            <div class="heading">
+                                Request an Appointment
                             </div>
-                            <div class="time">
-                                Appointment Time
+                            <div class="description">
+                                <div class="desc-name">
+                                    Description
+                                </div>
+                                <div class="text">
+                                    <textarea name="rdesc"  cols="30" rows="30">Write a short desciption about why you need counselling....</textarea>
+                                </div>
+                                <div class="submit">
+                                    <button type="submit" class="btn">Submit</button>
+                                </div>
                             </div>
-
-                        </div>
-                        <div class="fields">
-                            <div class="date">
-                                <input type="date" name = "rdate">
-                            </div>
-                            <div class="time" >
-                                <input type="time" name = "rtime">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="description">
-                        <div class="desc-name">
-                            Description
-                        </div>
-                        <div class="text">
-                            <textarea name="rdesc"  cols="30" rows="10">Write a short desciption about why you need counselling....</textarea>
-                        </div>
-                        <div class="submit">
-                            <button type="submit" class="btn">Submit</button>
-                        </div>
-                    </div>
-                
+                            <?php } ?>
+                    <?php } ?>
             </div>
             </form>
 
