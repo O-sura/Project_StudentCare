@@ -5,6 +5,7 @@ define('APPROOT',dirname(dirname(__FILE__)));
 define('URLROOT', 'http://localhost/StudentCare');
 define('SITENAME', 'StudentCare');
 define('PUBLICPATH', 'C:/Xampp/htdocs/StudentCare/public');
+define('APPPATH', 'C:/Xampp/htdocs/StudentCare/app');
 
 //Database variables
 define('DB_HOST', 'localhost');

@@ -76,6 +76,22 @@ body{
     height: max-content;
 }
 
+.title-and-buttons{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.buttons{
+    margin-left: 2rem;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.buttons a{
+    color: black;
+}
+
 #post-content h3{
     font-size: 2rem;
     text-align: left;

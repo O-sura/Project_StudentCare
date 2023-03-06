@@ -9,7 +9,8 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="section" id="sidebar">1</div>
+    <?php include 'sidebar.php'?>
+
     <div class="section" id="page-content">
         <div class="container">
             <div class="top-section">
@@ -28,30 +29,31 @@
                 </div>
                 <div class="personal-info">
                     <h1>Personal Information</h2>
-                    <p class="info"><b>Name:</b> Lawrence Dorsey</p>
-                    <p class="info"><b>Age:</b> 29</p>
-                    <p class="info"><b>NIC:</b> 91502345V</p>
-                    <p class="info"><b>DOB:</b> 1991-04-14</p>
+                    <p class="info"><b>Name:</b> <?php echo $data->fullname?></p>
+                    <p class="info"><b>Age:</b> <?php echo (new DateTime())->diff(new DateTime($data->dob))->y;?></p>
+                    <p class="info"><b>NIC:</b> <?php echo $data->nic?></p>
+                    <p class="info"><b>DOB:</b> <?php echo $data->dob?></p>
                 </div>
             </div>
             <div class="bottom-section">
                 <div class="contact-info">
                     <h1>Contact Info</h2>
-                    <p class="info"><b>Address:</b> 6th Flr Paul VI Cent 24 Malwatte Road, 11</p>
-                    <p class="info"><b>Email:</b> lawrance.dorsey@gmail.com</p>
-                    <p class="info"><b>Contact Number:</b>(+94) (071)-2767524</p>
+                    <p class="info"><b>Address:</b> <?php echo $data->home_address;?></p>
+                    <p class="info"><b>Email:</b> <?php echo $data->email;?></p>
+                    <p class="info"><b>Contact Number:</b>(+94) <?php echo $data->contact_no; ?></p>
                     
                 </div>
                 <div class="personal-info">
                     <h1>Qualifications</h2>
-                    <p class="info">3-year degree in psychology accredited by The British Psychological Society (BPS)</p>
-                    <p class="info">Counselling skills including active listening and a non-judgemental approach</p>
-                    <a href="#" class="download-link">Download Verification Document</a>
+                    <?php foreach($data->qualifications as $q): ?>
+                        <p class="info"><?php echo $q;?></p>
+                    <?php endforeach?>
+                    <a href="<?php echo APPPATH . "/uploads/" . $data->verification_doc;?>" class="download-link" download>Download Verification Document</a>
                 </div>
             </div>
             <div class="button-section">
-                <button type="submit" value="" id="view-button">Accept Request</button>
-                <button type="submit" value="" id="view-button">Decline Request</button>
+                <a href=<?php  echo URLROOT . "/admin/counselor_verify/?id=" . $data->counsellorID ."&approval='approved'"?>><input type="submit" value="Accept Request" id="view-button"></a>
+                <a href=<?php  echo URLROOT . "/admin/counselor_verify/?id=" . $data->counsellorID ."&approval='decline'"?>><input type="submit" value="Decline Request" id="view-button"></a>
             </div>
         </div>
     </div>

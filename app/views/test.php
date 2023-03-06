@@ -15,7 +15,6 @@
 <body>
     <h1>Test Page</h1>
     
-    <center><button onclick="getVideoCall()">Video Call</button></center>
 
 <script>
     let getVideoCall = () =>{

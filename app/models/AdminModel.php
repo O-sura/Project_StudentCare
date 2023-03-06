@@ -21,7 +21,29 @@ class AdminModel{
         $this->db->bind(':id', $id);
 
         $this->db->getRes();
-    }    
+    }  
+
+    //Delete counselor register info if he got rejected by the admins
+    public function deleteCounselorInfo($uid,$cid){
+        $this->db->query("DELETE FROM counsellor WHERE counsellorID = :id");
+        $this->db->bind(':id', $cid);
+
+        if($this->db->getRes()){
+            $this->db->query("DELETE FROM users WHERE userID = :id");
+            $this->db->bind(':id', $uid);
+            $this->db->getRes();
+        }else{
+            return false;
+        }
+    }
+
+    //Return info about a counselor info taking counselor ID as a parameter
+    public function getCounselorInfo($id){
+        $this->db->query("SELECT c.*, u.* FROM counsellor c INNER JOIN users u ON c.userID = u.userID WHERE c.counsellorID = :id");
+        $this->db->bind(':id', $id);
+        $info = $this->db->getAllRes();
+        return $info;
+    }
     
 }
 

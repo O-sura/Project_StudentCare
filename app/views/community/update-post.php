@@ -24,20 +24,20 @@
                     <span class="back-arrow"><i class="fa-sharp fa-solid fa-arrow-left" id="back" onclick="goToPrevious()"></i></span>
                     <h5 onclick="goToPrevious()">Go Back</h5>
                 </div>
-                <form action="./new_post" method="post" enctype="multipart/form-data">
-                    <input type="text" name="post-title" id="post-title" placeholder="Write a Topic....">
+                <form action="<?php echo URLROOT . '/community/update_post/' . $data->post_id ?>" method="post" enctype="multipart/form-data">
+                    <input type="text" name="post-title" id="post-title" placeholder="Write a Topic...." value="<?php echo $data->post_title?>" >
                     <div class="container"> 
-                        <img id="output" class="preview"/>
+                        <img id="output" class="preview" src="<?php echo URLROOT . "/public/img/community/" . $data->post_thumbnail ?>"/>
                         <div class="file-upload">
                                 <label for="post-image" class="image-upload">
                                     <i class="fa-sharp fa-solid fa-photo-film" id="media-icon"></i><p id="thumbnail-text">Add Thumbnail to Post</p>
                                 </label>
-                                <input type="file" name="post-image" id="post-image" accept="image/*" onchange="loadFile(event)">
+                                <input type="file" name="post-image" id="post-image" accept="image/*" onchange="loadFile(event)" value="<?php echo $data->post_thumbnail ?>">
                         </div>
                     </div>
-                    <textarea name="post-body" id="post-body" rows="10" placeholder="Tell Your Story..."></textarea>
+                    <textarea name="post-body" id="post-body" rows="10" placeholder="Tell Your Story..."><?php echo $data->post_desc ?></textarea>
                     <div class="button-section">
-                        <input type="text" name="category" id="category" hidden>
+                        <input type="text" name="category" id="category" value=<?php echo $data->category?> hidden>
                         <div class="dropdown-menu">
                             <div class="select-btn">
                                 <span class="Sbtn-text">Category</span>

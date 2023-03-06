@@ -69,12 +69,6 @@ use function PHPSTORM_META\type;
                     <div class="div2">
                         <div class="top">
                             <h1><?= $post->{'post_title'} ?></h1>
-                            <?php if($post->author === Session::get('username')) : ?>
-                                <?php echo '<div class="buttons">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                    <i class="fa-solid fa-trash"></i>
-                                </div>'?>
-                            <?php endif;?>
                         </div>
                         <div class="meta-data">
                             <h4>By: <?= $post->{'author'} ?></h4>
@@ -105,7 +99,7 @@ use function PHPSTORM_META\type;
                     <?php if ($i == $data['current_page']): ?>
                     <span class="active"><?php echo $i; ?></span>
                     <?php else: ?>
-                    <a href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                    <a href="<?php echo URLROOT. "/community/home/?page=" .  $i; ?>"><?php echo $i; ?></a>
                     <?php endif; ?>
                 <?php endfor; ?>
             </div>

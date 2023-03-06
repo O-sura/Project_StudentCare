@@ -243,6 +243,7 @@ body{
 #message{
    width: 830px;
    border-radius: 5px;
+   resize: none;
 }
 
 input, textarea{

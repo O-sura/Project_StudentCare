@@ -15,6 +15,28 @@
  
   <input type="search" name="search" id="searchbar" placeholder="Search Here">
 
+  <div class="bottom-section">
+    <div class="contact-info">
+        <h1>Contact Info</h2>
+        <p class="info"><b>Address:</b> <?php echo $data->home_address;?></p>
+        <p class="info"><b>Email:</b> <?php echo $data->email;?></p>
+        <p class="info"><b>Contact Number:</b>(+94) <?php echo $data->contact_no; ?></p>
+        
+    </div>
+    <div class="personal-info">
+        <h1>Qualifications</h2>
+        <?php
+            $qualifications = explode(",", $data->qualifications);
+            $data->qualifications = $qualifications;
+        ?>
+
+        <?php foreach($qualification as $q): ?>
+            <p class="info"><?php echo $q;?></p>
+        <?endforeach?>
+        <a href="<?php echo APPROOT . "/uploads/" . $data->verification_doc;?>" class="download-link" download>Download Verification Document</a>
+    </div>
+</div>
+
 <script>
     //Search community posts
     let searchBar = document.getElementById('searchbar');

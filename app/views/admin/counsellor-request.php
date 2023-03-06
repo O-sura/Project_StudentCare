@@ -22,19 +22,11 @@
                 <div class="details">
                     <p class="name-txt"><?php echo $request->fullname?></p>
                     <p class="specilization"><?php echo "Specialized in " . $request->specialization ?></p>
-                    <input type="text" hidden>
-                    <button type="submit" value="" id="view-button" onclick="loadProfile()">View Full Profile</button>
+                    <a href=<?php echo URLROOT . "/admin/view_counselor_profile/" . $request->counsellorID ?>><input type="submit" value="View Full Profile" id="view-button"></a>
                 </div>
             </div>
         <?php endforeach ?>
     </div>
 
-    <script>
-        
-        function loadProfile(){
-            var id = <?php echo $request->userID; ?>;
-            window.location.replace("./admin/view_counselor_profile/:id=" + id);
-        }
-    </script>
 </body>
 </html>

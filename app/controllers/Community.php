@@ -105,14 +105,75 @@
         }
 
         //Function to update an already existing community post
-        public function update_post(){
+        public function update_post($id){
+            //echo 'Post updated';
+            if(isset($_POST['submit'])) {
+
+                $filename = $_FILES["post-image"]["name"];
+                $tempname = $_FILES["post-image"]["tmp_name"];
+                $folder =  PUBLICPATH . "/img/community/" . $filename;
+
+                $data = $this->CommunityModel->getSinglePost($id);
+            
+                // check if post-image field is empty or not
+                if(empty($filename)) {
+                    // assign existing image filename to $filename variable
+                    $filename = $data->post_thumbnail;
+                }
+                else {
+                    // move uploaded image to the destination folder
+                    if (move_uploaded_file($tempname, $folder)) {
+                        echo 'File successfully uploaded';
+                    } else {
+                        //Image uploading error notification
+                        echo 'Error in uploading the image';
+                        die();
+                    }
+                }
+            
+                $data = [
+                    'title' => trim($_POST['post-title']),
+                    'category' => trim($_POST['category']),
+                    'post_thumbnail' => $filename,
+                    'post_desc' => trim($_POST['post-body']),
+                    'author' => Session::get('username')
+                ];
+
+                if($this->CommunityModel->updatePost($id,$data)){
+                    //Post Successfully added notification and redirect to community
+                    Middleware::redirect('community/view_post/' . $id);
+                }else{
+                    //Error Notification
+                    echo 'Error: Something went wrong in updating post in the databse';
+                    die();
+                }
+            }
+            else{
+                $data = $this->CommunityModel->getSinglePost($id);
+
+                if($data->author != Session::get('username')){
+                    Middleware::redirect('community/home');
+                }else{
+                    $this->loadView('community/update-post', $data);
+                }
+            }
+           
 
         }
 
         //Function to delete an already existing community post
-        public function delete_post(){
-
-        }
+        public function delete_post($id){
+            
+            // Delete post from database
+            if ($this->CommunityModel->deletePost($id)) {
+                FlashMessage::flash('post_deleted', 'Post deleted Successfully', 'success');
+                 //Post Successfully deleted notification and redirect to community
+            } else {
+                FlashMessage::flash('post_not_deleted', 'Post cannot be deleted. Try again later', 'error');
+            }
+            Middleware::redirect('community/home');
+        } 
+        
 
         //Controller function to get the serached posts
         public function search_posts(){

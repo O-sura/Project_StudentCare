@@ -142,7 +142,7 @@
             </div>
         </div>
     </div>
-    <center><p class="copyrights">StudentCare © 2012 - 2022</p></center>
+    <center><p class="copyrights">StudentCare © 2022 - 2023</p></center>
 </div>
 </body>
 </html>

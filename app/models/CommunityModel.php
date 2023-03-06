@@ -21,7 +21,7 @@ class CommunityModel{
     }
 
     public function getPostsWithLimit($postsPerPage,$offset){
-        $this->db->query('SELECT * FROM posts LIMIT :limit OFFSET :offset');
+        $this->db->query('SELECT * FROM posts ORDER BY posted_at DESC LIMIT :limit OFFSET :offset');
         $this->db->bind(':limit', $postsPerPage);
         $this->db->bind(':offset', $offset);
         $posts = $this->db->getAllRes();

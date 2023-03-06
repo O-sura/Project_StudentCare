@@ -367,9 +367,11 @@
                     'dob' => trim($_POST['dob']),
                     'university' => trim($_POST['university']),
                     'locations' => trim($_POST['locations']),
+                    'unimail' => trim($_POST['unimail']),
                     'terms' => $_POST['terms'],
                     'dob_err' => '',
                     'university_err' => '',
+                    'unimail_err' => '',
                     'terms_err' => ''
                 ];
 
@@ -385,6 +387,13 @@
                     $data['university_err'] = "You must select your university";
                     //die();
                 }
+
+                if(empty($_POST['unimail'])){
+                    $data['unimail_err'] = "You must enter your university mail";
+                    //die();
+                }else{
+                    //Code for checking whether the mail contains the selected domains 
+                }
                 
 
                 //Terms and cond. agreement check
@@ -395,16 +404,17 @@
                 }
 
                 //Check whether all the fields are filled properly
-                if(!($_POST['dob'] && $_POST['university'] && $_POST['terms'])){
+                if(!($_POST['dob'] && $_POST['university'] && $_POST['terms'] && $_POST['unimail'])){
                     //echo("Must fill all the fields in the form!");
                     //die();
                     $data['dob_err'] =  "*This field is Required";
                     $data['university_err'] = "*This field is Required";
+                    $data['unimail_err'] = "*This field is Required";
                     $data['terms_err'] = "*This field is Required";
                 }
 
                 //Make sure there are no error flags are set
-                if(empty($data['dob_err']) && empty($data['university_err']) && empty($data['terms_err'])){
+                if(empty($data['dob_err']) && empty($data['university_err']) && empty($data['terms_err'] && empty($data['unimail_err']))){
                     
                     //Store the data in session and load the next page if no errors
                     foreach ($_POST as $key => $value){
@@ -448,6 +458,7 @@
                 'terms' => '',
                 'dob_err' => '',
                 'university_err' => '',
+                'unimail_err' => '',
                 'terms_err' => ''
                ];
 

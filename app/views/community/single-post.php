@@ -8,12 +8,18 @@
     <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/flash.css"?> >
     <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/community/single-post.css"?> >
     <script src= <?php echo URLROOT . "/public/js/flash.js"?> defer></script>
+    <script src= <?php echo URLROOT . "/public/js/single-post.js"?> defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
+    <section>
     <?php include 'sidebar.php'?>
-    <?php FlashMessage::flash('comment_added')?>
-    <?php FlashMessage::flash('comment_not_added')?>
+    <?php 
+        FlashMessage::flash('comment_added');
+        FlashMessage::flash('comment_not_added');
+        FlashMessage::flash('post_deleted');
+        FlashMessage::flash('post_not_deleted');
+    ?>
     <div class="section" id="top">
         <div class="back-option">
             <span class="back-arrow"><i class="fa-sharp fa-solid fa-arrow-left" id="back" onclick="goToPrevious()"></i></span>
@@ -21,11 +27,20 @@
         </div>
     </div>
     <div class="section" id="post-content">
-        <h3 class="title"><?= $data['post']->{'post_title'} ?></h3>
+        <div class="title-and-buttons">
+            <h3 class="title"><?= $data['post']->{'post_title'} ?></h3>
+            <?php if($data['post']->author === Session::get('username')) : ?>
+                <?php echo '<div class="buttons">
+                    <a href='. URLROOT. "/community/update_post/" . $data['post']->{'post_id'} .' ><i class="fa-solid fa-pen-to-square" id="update-btn"></i></a>
+                    <i class="fa-solid fa-trash" id="delete-btn"></i>
+                </div>'?>
+            <?php endif;?>
+            <!-- <a href='. URLROOT. "/community/delete_post/" . $data['post']->{'post_id'} .' ><i class="fa-solid fa-trash" id="delete-btn"></i></a> -->
+        </div>
         <h5 class="metadata"><?= 'Posted by ' . $data['post']->{'author'} . ' at ' . explode(" ", $data['post']->{'posted_at'})[0]?></h5>
         <div class="post">
             <img src="<?php echo URLROOT . "/public/img/community/" . $data['post']->{'post_thumbnail'} ?>" alt="" id="post-img">
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis, sunt. Veritatis, possimus ducimus asperiores fugiat cum dolor ea voluptatibus eum nisi eos consequuntur veniam quibusdam odio at vitae doloremque! Quia.Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis, sunt. Veritatis, possimus ducimus asperiores fugiat cum dolor ea voluptatibus eum nisi eos consequuntur veniam quibusdam odio at vitae doloremque! Quia.Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis, sunt. Veritatis, possimus ducimus asperiores fugiat cum dolor ea voluptatibus eum nisi eos consequuntur veniam quibusdam odio at vitae doloremque! Quia.Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis, sunt. Veritatis, possimus ducimus asperiores fugiat cum dolor ea voluptatibus eum nisi eos consequuntur veniam quibusdam odio at vitae doloremque! Quia.Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis, sunt. Veritatis, possimus ducimus asperiores fugiat cum dolor ea voluptatibus eum nisi eos consequuntur veniam quibusdam odio at vitae doloremque! Quia.Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis, sunt. Veritatis, possimus ducimus asperiores fugiat cum dolor ea voluptatibus eum nisi eos consequuntur veniam quibusdam odio at vitae doloremque! Quia.</p>
+            <p><?= $data['post']->{'post_desc'} ?></p>
         </div>
         <div class="analytics">
             <div class="option">
@@ -68,11 +83,16 @@
         <?php endforeach ?>
         
     </div>
+    <span class="overlay"></span>
 
-<script>
-    var goToPrevious = () => {
-        javascript:history.go(-1)
-    }
-</script>
+    <div class="modal-box-1">
+        <center><h3 class="modal-title-text">Are your sure you want to delete this?</h3></center>
+        <p class="modal-text">Remember, this will remove all the current data related to this which cannot be undone later</p>
+        <div class="modal-button-section">
+            <button class="modal-box-button" id="delete-button">Delete</button>
+            <button class="modal-box-button" id="cancel-button">Cancel</button>
+        </div>
+    </div>
+</section>
 </body>
 </html>
