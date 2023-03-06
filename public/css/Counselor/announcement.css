@@ -1,4 +1,6 @@
-
+body{
+  overflow: auto;
+}
 
 /* home section */
 
@@ -10,6 +12,7 @@
     justify-content: center;
     position: relative;
     width: 95%;
+   
 }
 
 .topSection{
@@ -23,6 +26,7 @@
     border-radius: 20px;
     border: 1px solid;
     padding: 0.5%;
+    margin-right: 60%;
     
 }
 
@@ -57,7 +61,7 @@
 
 .annDescription{
     width: 90%;
-    height: 33%;
+    height: fit-content;
     margin-top: 4%;
     margin-left: 5%;
     border-radius: 15px;
@@ -73,15 +77,16 @@
 .dp{
     width: 30%;
     height: 120px;
-    margin: 1%;
+    margin: 0%;
     display: inline;
 }
 
 .dpOwn{
   width: 20%;
-  margin-top: 2%;
+  margin-top: -2%;
   margin-left: 3%;
   margin-right: -5%;
+  display: inline;
 }
 
 .uName{
@@ -95,25 +100,28 @@
     margin-top: 3%;
     margin-left: 3%;
     border-radius: 100px;
+    object-fit: cover;
 }
 .own{
   display: flex;
-  margin-top: 1%;
-  margin-bottom: 3%;
+  margin-top: 3%;
+ 
 }
 
 .dpImgOwn{
   height: 80px;
   width: 80px;
   margin-top: 0%;
-  margin-bottom: 15%;
+  margin-bottom: 25%;
   margin-left: 0%;
   border-radius: 100px;
+  object-fit: cover;
 }
+
 .descriptionOwn{
   width: 100%;
-  height:max-content;
-  margin-top: 1.5%;
+  height:fit-content;
+  margin-top: -2%;
   font-size: 15px;
   margin-left: 0.5%;
   margin-right: 0%;
@@ -122,6 +130,7 @@
   background-color: #f0f2f7;
   padding: 2% 2%;
   border-radius: 20px;
+  margin-bottom: 0%;
 
 }
 
@@ -133,14 +142,12 @@
 
 .buttonU i{
   color: black;
-  margin-top: 10%;
   margin-left: 15%;
   display: flex;
 }
 
 .btnEdit{
   margin-left: 10%;
-  margin-top: 10%;
   border: none;
   cursor: pointer;
 }
@@ -151,7 +158,6 @@
 
 .btnDlt{
   margin-left: 7%;
-  margin-top: 10%;
   border: none;
   cursor: pointer;
 }
@@ -162,12 +168,20 @@
 
 .other{
   display: flex;
+  margin-top: 1%;
+ 
+}
+
+.postH{
+  margin-top: 1%;
+  margin-bottom: 1%;
+  font-weight: 600;
 }
 
 .description{
     width: 100%;
-    height:max-content;
-    margin-top: 1.5%;
+    height:fit-content;
+    margin-top: 1%;
     font-size: 15px;
     margin-left: -12%;
     background-color: #f0f2f7;
@@ -214,12 +228,21 @@ h3{
     font-size: 25px;
 }
 
+.postHead{
+  width: 90%;
+  height: 30px;
+  border-radius: 5px;
+  margin-bottom: 3%;
+  margin-top: 2%;
+  border: 1px solid #878787;
+}
+
 textarea{
     width: 90%;
     height: 60%;
     resize: none;
     border-radius: 5px;
-    border: 1px solid;
+    border: 1px solid #878787;
 }
 
 .postBtn{
@@ -234,6 +257,31 @@ textarea{
     background-color: gold;
     transition-duration: 0.6s;
 }
+
+
+
+.form-field{
+  width: 100%;
+  margin-top: 0%;
+  display: block;
+}
+
+.form-field[data-error] input{
+  border-color: #c92432;
+  color: #c92432;
+  background: #fffafa;
+  
+}
+
+.form-field[data-error]::after{
+  content: attr(data-error);
+  color: #fa3e4d;
+  font-size: 12px;
+  text-align: center;
+  margin-bottom: -5%;
+  
+}
+
 
 
 @media screen and (max-width:1100px) {

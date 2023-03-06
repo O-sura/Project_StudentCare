@@ -2,19 +2,15 @@
   
   /* home section */
   
-  .home_content{
-    width: 90%;
-    float: none;
-}
   
   .divSection{
-      height: 7px;
+      
       justify-content: center;
       margin-left: 5%;
       margin-top: 1%;
       align-items: center;
       position: relative;
-      width: 1200px;
+  
   }
   
   .subTopic{
@@ -26,7 +22,6 @@
   .row1{
       height: 320px;
       display: flex;
-
       
   }
 

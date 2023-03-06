@@ -18,7 +18,10 @@
             $data = [
                 'posts' => $posts,
                 'body' => isset($_POST['body'])? $_POST['body']: "",
-                'update_body' => ''
+                'topic' => isset($_POST['topic'])? $_POST['topic']: "",
+                'body_err' => '',
+                'topic_err' => ''
+                
             ];
 
             $this->loadView('Counselor/announcement',$data);
@@ -32,7 +35,10 @@
             $data = [
                 'posts' => $posts,
                 'body' => isset($_POST['body'])? $_POST['body']: "",
-                'update_body' => ''
+                'topic' => isset($_POST['topic'])? $_POST['topic']: "",
+                'body_err' => '',
+                'topic_err' => ''
+            
             ];
 
             $this->loadView('Counselor/announcement',$data);
@@ -41,16 +47,19 @@
         public function add(){
 
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+                $posts = $this->postModel->getCounselorAnnouncement();
                 //sanitize post array
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
                 $data = [
+                    'posts' => $posts,
                     'postID' => substr(sha1(date(DATE_ATOM)), 0, 8),
                     'body' => trim($_POST['body']),
-                    //'update_body' => '',
+                    'topic' => trim($_POST['topic']),
                     'username' => Session::get('username'),
-                    'body_err' => ''
-                    //'action_url' => './CounselorAnnouncement/edit($id)'
+                    'body_err' => '',
+                    'topic_err' => ''
 
                 ];
 
@@ -58,10 +67,15 @@
                 if(empty($data['body'])){
                     $data['body_err'] = 'Please write the announcement';
                 }
+
+                //validate topic
+                if(empty($data['topic'])){
+                    $data['topic_err'] = 'Please write the heading';
+                }
                 
                 
                 // make sure no errors
-                if(empty($data['body_err'])){
+                if(empty($data['body_err']) && empty($data['topic_err'])){
                      if($this->postModel->addPost($data)){
                         FlashMessage::flash('post_add_flash', "Announcement Successfully Added!", "success");
                         Middleware::redirect('CounselorAnnouncement');
@@ -79,8 +93,8 @@
             else{
 
                 $data = [
-                    'body' => ''
-                    //'update_body' => ''
+                    'body' => '',
+                    'topic' => ''
                 ];
     
                 $this->loadView('counselor/announcement');
@@ -121,33 +135,6 @@
            // }
         }
 
-        public function filterAnnouncement($userid){
-            $post = $this->postModel->getPostByUserId($userid);
-            
-
-
-        }
-
-
-        //Controller function to get the serached posts
-        public function search_posts(){
-            header("Access-Control-Allow-Origin: *");
-            if(isset($_GET['query'])){
-                //Check whether the search query is empty or not
-               if(empty($_GET['query'])){
-                    $res =  json_encode($this->Counselor->getCounselorAnnouncement());
-               }else{
-                    $keyword = "%" . trim($_GET['query']) . "%";
-                    $res =  $this->Counselor->searchPosts($keyword);
-               }
-                echo $res;
-            }
-        }
-
-
-
-
-
         /////////////////////////
 
 
@@ -161,8 +148,10 @@
                     'id' => $_POST['id'],
                     'postID' => $_POST['id'],
                     'body' => trim($_POST['body']),
+                    'topic' => trim($_POST['topic']),
                     'username' => Session::get('username'),
                     'body_err' => '',
+                    'topic_err' => '',
                     'action_url' => URLROOT . '/CounselorAnnouncement/edit/$id'
 
                 ];
@@ -171,10 +160,14 @@
                 if(empty($data['body'])){
                     $data['body_err'] = 'Please write the announcement';
                 }
+
+                if(empty($data['topic'])){
+                    $data['topic_err'] = 'Please write the heading';
+                }
                 
                 
                 // make sure no errors
-                if(empty($data['body_err'])){
+                if(empty($data['body_err']) && empty($data['topic_err'])){
                      if($this->postModel->updatePost($data)){
                         FlashMessage::flash('post_add_flash', "Announcement Successfully Updated!", "success");
                         Middleware::redirect('CounselorAnnouncement');
@@ -198,6 +191,7 @@
                 $data = [
                     'id' => $ann->post_id,
                     'body' => $ann->post_desc,
+                    'topic' => $ann->post_head,
                     'posts' => $posts,
                     'action_url' => URLROOT . '/CounselorAnnouncement/edit/$id'
             
@@ -210,9 +204,41 @@
             
         }
 
-        
 
-        
+        public function dropdown_handler(){
+            if(isset($_GET['filter'])){
+                $_GET['filter'] = trim($_GET['filter']);
+                $_GET['userid'] = Session::get('userID');
+                //$_GET['username'] = trim($_GET['username']);
+                //If the saved filter is set
+            //    if($_GET['filter'] == 'Saved'){
+            //         $res =  $this->CommunityModel->getSavedPosts(Session::get('userID'));
+            //    }
+               if($_GET['filter'] == 'Your Announcements'){
+                    $res =  json_encode($this->postModel->getPostByUser_id($_GET['userid']));
+               }
+               else{
+                    $res =  json_encode($this->postModel->getCounselorAnnouncement());
+               }
+                echo $res;
+            }
+
+        }
+
+
+        //Controller function to get the serached posts
+        public function search_posts(){
+            header("Access-Control-Allow-Origin: *");
+            if(isset($_GET['query'])){
+                //Check whether the search query is empty or not
+               if(empty($_GET['query'])){
+                    $res =  json_encode($this->postModel->getCounselorAnnouncement());
+               }else{
+                    $keyword = "%" . trim($_GET['query']) . "%";
+                    $res =  $this->postModel->searchPosts($keyword);
+               }
+                echo $res;
+            }
+        }
 
     }
-

@@ -7,6 +7,8 @@
   <script src="https://unpkg.com/feather-icons"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="<?php echo URLROOT . "/public/css/Counselor/dropdownStu.css"?>">
+  <script type="module" src= <?php echo URLROOT . "/public/js/Counselor/filterStu.js"?> defer></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="<?php echo URLROOT . "/public/css/Counselor/student.css"?>">
   <title></title>
@@ -20,11 +22,23 @@
   
         <div class="div4">
             <div class="div5">
-                <select name="New Requests" class="selector" id="">
+                <!-- <select name="New Requests" class="selector" id="">
                     <option value="">New  Requests</option>
                     <option value="">Accepted List</option>
                     <option value="">Rijected List</option>
-                </select>
+                </select> -->
+                <div class="dropdown-menu">
+                    <div class="select-btn">
+                        <span class="Sbtn-text">New Requests</span>
+                        <i class="fa-sharp fa-solid fa-chevron-down"></i>
+                    </div>
+                    <ul class="options">
+                        <li class="option">New Requests</li> 
+                        <li class="option">Accepted Students</li> 
+                        <li class="option">Rijected Students</li>
+                          
+                    </ul>
+                </div>
                 <hr>
                 <div class="studentList">
                     <a class="student" href="#">Student 1</a><br>
@@ -41,7 +55,9 @@
             </div>
             <div class="div6">
                 <div class="imageSection">
-                    <div class="img"><img class="dpImg" src="<?php echo URLROOT."/public/img/img7.jpg"?>" alt=""></div>
+                    <div class="img">
+                        <img class="dpImg" src="<?php echo URLROOT."/public/img/img7.jpg"?>" alt="">
+                    </div>
                     <div class="btnDiv">
                         <button class="accept"><i class="fa-solid fa-user-plus"></i>   Accept</button>
                         <button class="decline"><i class="fa-solid fa-user-minus"></i>  Decline</button>
