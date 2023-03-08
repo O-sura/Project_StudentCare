@@ -13,8 +13,11 @@ class Appointments extends Controller
 
     public function index()
     {
-
-        $this->loadview('counselor_stu/index');
+        $id = Session::get('userID');
+        $data = [
+            'appointments' => $this->appointmentModel->getAllAppointments($id)
+        ];
+        $this->loadview('counselor_stu/index',$data);
     }
 
 //Function to load the counselor list view

@@ -164,5 +164,19 @@ class Appointment
         }
     }
 
+    public function getAllAppointments($studentID){
+        $this->db->query("SELECT appointments.appointmentID, appointments.appointmentDate, appointments.appointmentTime, users.fullname, counsellor.profile_img, counsellor.specialization
+        FROM appointments
+        INNER JOIN users
+        ON appointments.counsellorID = users.userID
+        INNER JOIN counsellor
+        ON appointments.counsellorID = counsellor.userID
+        WHERE appointments.studentID = :studentID;"); 
+        $this->db->bind(':studentID', $studentID);
+        $results = $this->db->getAllRes();
+
+        return $results;
+    }
+
 
 }
