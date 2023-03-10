@@ -1,15 +1,36 @@
 const express = require('express')
 const app = express()
+const mysql = require('mysql')
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
 const { v4: uuidV4 } = require('uuid')
 
+//Create connection
+const db  = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'root',
+  password : '',
+  database : 'studentcare'
+});
+
+//Connect
+db.connect((err) => {
+  if(err){
+    throw err;
+  }
+  console.log('MySql Connected...');
+});
+
+
+
+
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
 
-app.get('/', (req, res) => {
-  res.redirect(`/${uuidV4()}`)
-})
+// app.get('/', (req, res) => {
+  
+//   res.redirect(`/${uuidV4()}`)
+// })
 
 /* 
   Changes need to be done:
@@ -19,8 +40,22 @@ app.get('/', (req, res) => {
 */
 
 app.get('/:room', (req, res) => {
-  res.render('room', { roomId: req.params.room })
-})
+  roomId = req.params.room;
+  let sql = 'SELECT appointmentID FROM appointments';
+  let query = db.query(sql,(err,result) =>{
+    if(err) throw err;
+    console.log(result); 
+    const appointmentIDs = result.map(obj => obj.appointmentID);
+    if(appointmentIDs.includes(roomId)){
+      res.render('room', { roomId });
+    }else{
+      res.render('error');
+    }
+  });
+});
+
+
+
 
 io.on('connection', socket => {
   socket.on('join-room', (roomId, userId) => {
