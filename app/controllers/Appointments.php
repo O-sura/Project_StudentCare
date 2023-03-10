@@ -97,6 +97,20 @@ class Appointments extends Controller
         }
     }
 
+    public function counselor_handler(){
+        if(isset($_GET['counselorID'])){
+            $id = trim($_GET['counselorID']);
+            $init_data = [
+                'counselorID' => $id
+            ];
+            $res =  json_encode($this->appointmentModel->getProfile($init_data));
+           
+        
+            echo $res;
+        }
+
+    }
+
 
 
 

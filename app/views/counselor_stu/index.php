@@ -13,6 +13,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href=<?php echo URLROOT . "/public/css/stu/appointmentStyle.css" ?>>
+    <script type="module" src=<?php echo URLROOT . "/public/js/student/loadCounselors.js" ?> defer></script>
+    <script src=<?php echo URLROOT . "/public/js/flash.js" ?> defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" defer></script>
 </head>
 
 <body>
@@ -126,9 +129,34 @@
                         $time = date('h:i A', strtotime($appointment->appointmentTime));
                         $counselor = $appointment->fullname;
                         $today = date('Y-m-d');
+                        $currentTime = date('H:i');
                         $id = $appointment->appointmentID;
+                        $counselorId = $appointment->counsellorID;
                     ?>
+                        <!-- Popup Form -->
+                        <div class="overlay">
+                            <div class="popup">
+                                <form action="<?php echo URLROOT; ?>/appointments/cancel_request/<?php echo $id; ?> " method="post">
+                                    <div class="heading">
+                                        Appointment cancellation
+                                    </div>
+                                    <div class="description">
+                                        <div class="desc-name">
+                                            Description:
+                                        </div>
+                                        <div class="text">
+                                            <textarea name="rdesc" cols="30" rows="10">Reason for cancellation</textarea>
+                                        </div>
+                                        <div class="submit">
+                                            <button type="submit" class="btn2">Cancel</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <button class="close-button">&times;</button>
+                            </div>
+                        </div>
 
+                        <!-- End Popup Form -->
                         <div class="meeting">
                             <div class="date">
                                 <?php if ($appointment->appointmentDate == $today) : ?>
@@ -144,22 +172,64 @@
                                 <div class="image">
                                     <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFufGVufDB8fDB8fA%3D%3D&w=1000&q=80" class="image2">
                                 </div>
-                                <div class="counselor-name">
+                                <div class="counselor-name" id="<?php echo $counselorId ?>">
                                     <h3>Dr.<?php echo $counselor ?></h3>
                                 </div>
-                                <div class="join">
-                                    <button class="btn" id="uploadBtn">
-                                        <div class="btn-class">
-                                            <div class="btnName">
-                                            <a href="http://localhost:3000/<?php echo $id ?>"> Join </a>
+                                <?php if ($appointment->appointmentDate >= $today && $appointment->appointmentTime <= $currentTime) { ?>
+                                    <div class="join">
+                                        <button class="btn" id="uploadBtn">
+                                            <div class="btn-class">
+                                                <div class="btnName">
+                                                    <a href="http://localhost:3000/<?php echo $id ?>"> Join </a>
+                                                </div>
+                                                <div class="btnIcon">
+                                                    <i class="fa-solid fa-play"></i>
+                                                </div>
                                             </div>
-                                            <div class="btnIcon">
-                                                <i class="fa-solid fa-play"></i>
-                                            </div>
-                                        </div>
 
-                                    </button>
-                                </div>
+                                        </button>
+                                    </div>
+                                    <div class="join2">
+                                        <button class="btn2" id="uploadBtn" onclick="showPopup()">
+                                            <div class="btn-class">
+                                                <div class="btnName">
+                                                    Cancel
+                                                </div>
+                                                <div class="btnIcon">
+                                                    <i class="fa-solid fa-xmark"></i>
+                                                </div>
+                                            </div>
+
+                                        </button>
+                                    </div>
+                                <?php } else { ?>
+                                    <div class="join">
+                                        <button class="btn3">
+                                            <div class="btn-class">
+                                                <div class="btnName">
+                                                    Join
+                                                </div>
+                                                <div class="btnIcon">
+                                                    <i class="fa-solid fa-play"></i>
+                                                </div>
+                                            </div>
+
+                                        </button>
+                                    </div>
+                                    <div class="join2">
+                                        <button class="btn2" id="uploadBtn" onclick="showPopup()">
+                                            <div class="btn-class">
+                                                <div class="btnName">
+                                                    Cancel
+                                                </div>
+                                                <div class="btnIcon">
+                                                    <i class="fa-solid fa-xmark"></i>
+                                                </div>
+                                            </div>
+
+                                        </button>
+                                    </div>
+                                <?php } ?>
                             </div>
                         </div>
 
@@ -167,7 +237,7 @@
 
 
                 </div>
-                <div class="counselor-details">
+                <div class="counselor-details" id="search-results">
                     <div class="counselor-pic">
                         <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFufGVufDB8fDB8fA%3D%3D&w=1000&q=80" id="image3">
                     </div>
@@ -235,9 +305,27 @@ families.
 
         btn.onclick = function() {
             sidebar.classList.toggle("active");
-        } 
+        }
 
-        
+        function showPopup() {
+            var popup = document.querySelector(".overlay");
+            popup.style.display = "block";
+        }
+        const overlay = document.querySelector('.overlay');
+        const popup = overlay.querySelector('.popup');
+        const closeButton = popup.querySelector('.close-button');
+
+        function closePopup() {
+            var popup = document.querySelector(".overlay");
+            popup.style.display = "none";
+        }
+
+        closeButton.addEventListener('click', closePopup);
+        overlay.addEventListener('click', (event) => {
+            if (event.target === overlay) {
+                closePopup();
+            }
+        });
     </script>
 </body>
 
