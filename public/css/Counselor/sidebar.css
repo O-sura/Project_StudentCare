@@ -14,6 +14,10 @@
   
   } */
 
+  .divH{
+    display: none;
+  }
+
   .sidebar{
     position:fixed;
     top: 0;

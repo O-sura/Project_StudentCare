@@ -75,7 +75,7 @@
                         Oshada
                     </div>
                 </div>
-                <a href='<?php echo URLROOT ?>/users/logout'><i class="fa-solid fa-arrow-right-from-bracket fa-flip-horizontal" id="log_out"></i></a>
+                <a href="logout.php"><i class="fa-solid fa-arrow-right-from-bracket fa-flip-horizontal" id="log_out"></i></a>
             </div>
         </div>
     </div>
@@ -90,7 +90,7 @@
                 </div>
                 <div class="col-2">
                     <div class="username">
-                        User_002
+                    <?php echo $data["userDetails"]->username?>
                     </div>
                     <div class="change_profile">
                         <button class="btn" id="myBtn"> <i class="fa-solid fa-pen-to-square"></i> Change profile picture</button>
@@ -115,16 +115,16 @@
                     </div>
                     <div class="inputs">
                         <div class="input1">
-                            <input type="text" name="name" id="name" placeholder="Oshada">
+                            <input type="text" name="name" id="name" placeholder ="<?php echo $data["userDetails"]->fullname?>">
                         </div>
                         <div class="input2">
-                            <input type="text" name="uname" id="uname" placeholder="User_002">
+                            <input type="text" name="uname" id="uname" placeholder="<?php echo $data["userDetails"]->username?>">
                         </div>
                         <div class="input3">
-                            <textarea name="address" id="address" rows="5" cols="60" placeholder="Piliyandala"></textarea>
+                            <textarea name="address" id="address" rows="5" cols="60" placeholder="<?php echo $data["userDetails"]->home_address?>"></textarea>
                         </div>
                         <div class="input4">
-                            <input type="text" name="phone" id="phone" placeholder="+94112619737">
+                            <input type="text" name="phone" id="phone" placeholder="<?php echo $data["userDetails"]->contact_no?>">
                         </div>
                     </div>
 

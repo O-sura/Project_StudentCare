@@ -254,6 +254,7 @@ header .icons i:last-child{
     margin-left: 2%;
     border-radius: 10px;
     border: 1px solid;
+    margin-top: 0%;
 }
 
 h3{
@@ -268,10 +269,40 @@ label{
 
 }
 
+.form-field{
+  width: 100%;
+  margin-top: 0%;
+
+}
+
+.form-field[data-error] input{
+  border-color: #c92432;
+  color: #c92432;
+  background: #fffafa;
+  margin-left: 5%;
+  
+}
+
+.form-field[data-error]::after{
+  content: attr(data-error);
+  color: #fa3e4d;
+  font-size: 12px;
+  text-align: center;
+  margin-bottom: 5%;
+  margin-left: 5%;
+  margin-top: -5%;
+  
+}
+
 input{
-    margin-left: 7%;
-    width: 80%;
-    height: 5%;
+  width: 90%;
+  height: 30px;
+  margin-top: 2%;
+  margin-left: 5%;
+  border-radius: 5px;
+  margin-top: 5px;
+  border: 1px solid #878787;
+  padding-left: 5px;
 }
 
 textarea{
@@ -280,7 +311,7 @@ textarea{
     height: 25%;
     resize: none;
     border-radius: 5px;
-    border: 1px solid;
+    border: 1px solid #878787;
 }
 
 .postBtn{
