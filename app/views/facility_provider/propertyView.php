@@ -27,9 +27,10 @@
             <div class="head">
                 <h1>Property</h1>
 
-                <form class="box" method="POST" action="propertyView">
+                <form class="box" method="GET" action="propertyView">
                     <button type="submit" name="search"><i class="fa-solid fa-search" aria-hidden="true"></i></button>
-                    <input type="text" placeholder="Search Here" name="searchbtn" class="searchbtn">
+                    <input type="search" placeholder="Search Here" name="searchbtn" id="searchbar" class="searchbtn">
+                    <div id="search-results"></div>
                 </form>
 
             </div>

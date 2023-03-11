@@ -22,7 +22,7 @@
             <?php include "sidebar.php"; ?>
         </div>
     
-        <div class="formContainer">
+        <div class="container">
             <form action=<?php echo URLROOT . "/facility_provider/editItem/" .$data['id']; ?> method="POST" enctype="multipart/form-data">
                 <h1>Tell Us More About Your Listing</h1>
 
@@ -52,7 +52,11 @@
 
                     <div class="sub22">
                         <p>Universities/Institutions Nearby:</p>
-                        <input class="uniName" name="uniName[]" id="uniName_0" type="text" value=<?php print_r(json_decode($data['viewone']->uniName)) ?>>
+
+                        <?php foreach($data['unilist'] as $uni) : ?>
+                            <input class="uniName" name="uniName[]" id="uniName_0" type="text" value=<?php echo $uni ?>>
+                        <?php endforeach; ?>
+                        
                         <div id="another"></div>
                         <button type="button" class="addAnother" onclick="addAnother()">+ Add Another</button>
                     </div>
@@ -68,7 +72,24 @@
                 
                 <p>Images:</p>
                 <label for="img"><i class="fa fa-plus"></i><br>Insert only four images</label>
-                <input type="file" class="image" name="images[]" id="img" multiple value=<?php print_r($data['viewone']->image) ?>>
+                <!-- <input type="file" class="image" name="images[]" id="img" multiple> -->
+                <div id="preview-container">
+                    <?php
+                        $images = json_decode($data['viewone']->image); 
+                    ?>
+                    <br>
+                    <div class="thumbnails">
+                        <img name="img1" src="<?= URLROOT . "/public/img/listing/" . $images[0] ?>">
+                        <img name="img2" src="<?= URLROOT . "/public/img/listing/" . $images[1] ?>">
+                        <img name="img3" src="<?= URLROOT . "/public/img/listing/" . $images[2] ?>">
+                        <img name="img4" src="<?= URLROOT . "/public/img/listing/" . $images[3] ?>">
+                    </div>
+                </div>
+                <?php foreach($data['imagelist'] as $img) : ?>
+                    <input class="image" name="images[]" id="img" type="file" multiple value=<?php echo $img ?>>
+                    <!-- <input class="uniName" name="uniName[]" id="uniName_0" type="text" value=<?php echo $img ?>> -->
+                <?php endforeach; ?>
+                
                 
                 <p>Special Notes:</p>
                 <input class="note" name="special_note" type="text" value="<?php echo $data['viewone']->special_note; ?>">
@@ -78,10 +99,10 @@
                         <p>Category:</p>
                         <div class="dropdown-menu">
                             <div class="select-btn">
-                                <span class="Sbtn-text">Property</span>
+                                <span class="Sbtn-text"><?php echo $data['viewone']->category; ?></span>
                                 <i class="fa-sharp fa-solid fa-chevron-down"></i>
                             </div>
-                            <input type="text" name="category" class="category-dropdown" value="<?php echo $data['viewone']->category; ?>" hidden>
+                            <input type="text" name="category" class="category-dropdown" hidden>
                             <ul class="options">
                                 <li class="option">Property</li> 
                                 <li class="option">Food</li> 

@@ -10,7 +10,7 @@
 
         public function addItem($data){
             //$listing_id = substr(sha1(date(DATE_ATOM)), 0, 8);
-            $this->db->query('INSERT INTO listing(topic, description, rental, location, address, uniName, image, special_note, category) VALUES (:topic, :description, :rental, :location, :address, :uniName, :image_urls, :special_note, :category)');
+            $this->db->query('INSERT INTO listing(fpID, topic, description, rental, location, address, uniName, image, special_note, category) VALUES (:fpID, :topic, :description, :rental, :location, :address, :uniName, :image_urls, :special_note, :category)');
             
             $this->db->bind(':topic', $data['topic']);
             $this->db->bind(':description', $data['description']);
@@ -21,7 +21,7 @@
             $this->db->bind(':image_urls', $data['image_urls']);
             $this->db->bind(':special_note', $data['special_note']);
             $this->db->bind(':category', $data['category']);
-            //$this->db->bind(':fpID', $data['fpID']);
+            $this->db->bind(':fpID', $data['fpID']);
 
 
             if($this->db->execute()){
@@ -125,14 +125,18 @@
         }
 
 
-        public function propertysearch($uniName,$topic,$rental){
-            $this->db->query("SELECT * FROM propertylist WHERE uniName LIKE %:uniName OR topic LIKE %:topic OR price LIKE %:rental ");
+        public function propertysearch($keyword){
+           /*  $this->db->query("SELECT * FROM propertylist WHERE uniName LIKE %:uniName OR topic LIKE %:topic OR price LIKE %:rental ");
             $this->db->bind(':uniName', $uniName);
             $this->db->bind(':topic', $topic);
             $this->db->bind(':rental', $rental);
 
             $result = $this->db->getRes();
-            return $result;
+            return $result; */
+            $this->db->query('SELECT * FROM listing WHERE topic LIKE :keyword OR uniName LIKE :keyword OR price LIKE :keyword');
+            $this->db->bind(':keyword', $keyword);
+            $result = $this->db->getAllRes();
+            return json_encode($result);
         }
 
 
@@ -144,15 +148,21 @@
         }
 
         public function message(){
-            $this->db->query(''); 
+            $this->db->query('SELECT * FROM listing'); 
             
             $result = $this->db->getAllRes();
             return $result;
         }
 
 
-        public function findItemByLocation($location){
+        public function findItemByLocation(){
+            $category = 'Furniture';
+            $this->db->query('SELECT * FROM listing WHERE category= :category'); 
+            $this->db->bind(':category', $category);
             
+            $result = $this->db->getAllRes();
+            return $result;
+        
         }
 
 

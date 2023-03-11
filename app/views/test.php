@@ -1,5 +1,11 @@
 <?php
-echo '<h1>TEST PAGE</h1>';
+ //print_r($data['viewone']->uniName);
+ $uniList = $data['unilist'];
+
+ foreach ($uniList as $color) {
+    echo $color . "<br>";
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,24 +17,7 @@ echo '<h1>TEST PAGE</h1>';
     <title>Document</title>
 </head>
 <body>
-    <?php print_r(json_decode($data['viewone']->uniName)) ?>
-    <div class="container">
-        <input type="text" value="<?php json_decode($data['viewone']->uniName) ?>" id="uniName_01" name="uninames">
-    </div>
-
-<script>
-    let input = document.querySelector('input[name="uninames"]'); // Get the input element by name
-    let values = input.value.split(","); // Get the value of the input
-    console.log(values)
-//     let container = document.querySelector('.container');
-
-//     values.forEach(v => {
-//         let input = document.createElement('input'); // Create a new input element
-//         input.value = v; // Set the value of the input
-//         container.appendChild(input); // Add the input to the container
-// });
-</script>
-
+    
 </body>
 </html>
 

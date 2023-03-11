@@ -45,7 +45,7 @@ class Facility_Provider extends Controller{
     }
 
 
-   public function editprofile(){
+    public function editprofile(){
         $profile = $this->ListingModel->editprofile();
             
         $data =[
@@ -53,7 +53,7 @@ class Facility_Provider extends Controller{
         ]; 
         
         $this->loadView('facility_provider/editprofile',$data);
-   }
+    }
 
     
     public function addItem(){
@@ -177,6 +177,7 @@ class Facility_Provider extends Controller{
             
             $validatedData = [
                 'topic' => $data['topic'],
+                'fpID' => Session::get('userID'),
                 'description' => $data['description'],
                 'rental' => $data['rental'],
                 'location' => $data['location'],
@@ -278,15 +279,36 @@ class Facility_Provider extends Controller{
     }
 
     public function propertysearch(){
-        $this->ListingModel->propertysearch();
+        /* $this->ListingModel->propertysearch();
         if(isset($_POST['search'])){
             $string = '%' . $_POST['searchbtn'] . '%' ;
         }
-        $this->loadView('facility_provider/report',$string);
+        $this->loadView('facility_provider/report',$string); */
+        header("Access-Control-Allow-Origin: *");
+        if(isset($_GET['query'])){
+            //Check whether the search query is empty or not
+            if(empty($_GET['query'])){
+                $result =  json_encode($this->ListingModel->propertysearch());
+            }else{
+                $keyword = "%" . trim($_GET['query']) . "%";
+                $result =  $this->ListingModel->propertysearch($keyword);
+            }
+            echo $result;
+        }
     }
 
     public function findItemByLocation(){
         
+    }
+
+    public function message(){
+        $message = $this->ListingModel->message();
+
+        $data =[
+            'message' => $message
+        ]; 
+        
+        $this->loadView('facility_provider/message',$data);
     }
 
     //take data to generate reports
@@ -299,17 +321,6 @@ class Facility_Provider extends Controller{
         
         $this->loadView('facility_provider/report',$data);
     }
-
-    public function message(){
-        $report = $this->ListingModel->report();
-
-        $data =[
-            'report' => $report
-        ]; 
-        
-        $this->loadView('facility_provider/message',$data);
-    }
-    
 
     public function editItem($id){
 
@@ -425,6 +436,7 @@ class Facility_Provider extends Controller{
             
             $validatedData = [
                 'id' => $_POST['id'],
+                'fpID' => Session::get('userID'),
                 'topic' => $data['topic'],
                 'description' => $data['description'],
                 'rental' => $data['rental'],
@@ -451,13 +463,27 @@ class Facility_Provider extends Controller{
         }else{
             //Send the empty detail page
             $editlist = $this->ListingModel->viewOneListing($id);
-            $uniNames = $editlist->uniName;
+            
+            $uniList = $editlist->uniName;  //assigns the value of $editlist->uniName to the variable $uniList
+            $uniList = str_replace(array("[", "]"), "", $uniList);  //remove the square brackets from the string and converting it to a comma-separated list 
+            $array = explode(",", $uniList);  //split the comma-separated list into an array
+
+            $imageList = $editlist->image;
+            $imageList = str_replace(array("[", "]"), "", $imageList);
+            $array_2 = explode(",", $imageList);
 
             $data = [
                 'id' => $id,
                 'viewone' => $editlist,
-                'unilist' => $uniNames,
+                'unilist' => $array,
+                'imagelist' => $array_2,
                 'topic' => '',
+                'description' => '',
+                'rental' => '',
+                'location' => '',
+                'address' => '',
+                'special_note' => '',
+                'category' => '',
                 'topic_err' => '',
                 'description_err' => '',
                 'rental_err' => '',
@@ -468,6 +494,10 @@ class Facility_Provider extends Controller{
                 'special_note_err' => '',
                 'category_err' => ''
             ];
+
+            /* $data = [
+                'viewone' => $editlist
+            ]; */
 
             $this->loadView('facility_provider/editItem', $data);
             //$this->loadView('test', $data);
