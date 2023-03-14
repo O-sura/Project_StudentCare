@@ -22,8 +22,13 @@
     ?>
     
     <div class="home_content">
+
+        <div class="topic">
+            <span><h1 class="headApp">Profile</h1></span>
+        </div>
+        <hr class="hrbar">
         
-          <div class="div5">
+        <div class="div5">
             
               <div class="topSection">
                     <?php 

@@ -1,13 +1,32 @@
+.container{
+    position: absolute;
+    width: 90%;
+    margin-left: -4%;
+}
+
+.start{
+    text-decoration: none;
+    color: white;
+}
+
 
 .topic{
     margin-left: 12%;
-    margin-top: 2.5%;
+    margin-top: 1.5%;
+}
+
+hr{
+    margin-left: 12%;
+    margin-top: 1%;
     width: 100%;
+    background-color: rgb(187, 185, 185);
+    color: rgb(187, 185, 185);
+   
 }
 
 .go{
     margin-left: 12%;
-    margin-top: 4%;
+    margin-top: 2.5%;
     margin-bottom: 2%;
     font-weight: 700;
     cursor: pointer;
@@ -19,7 +38,7 @@
     margin-top: 2%;
     margin-bottom: 5%;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
-    width: 1100px;
+    width: 100%;
     height: 75%;
     border-radius: 10px;
 }
@@ -29,27 +48,8 @@
     text-align: right;
 }
 
-#next{
-    cursor: pointer;
-    background-color: white;
-    width: 25px;
-    height: 25px;
-    text-align: center;
-    padding: 0.5% 0.5%;
-    border-radius: 5px;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-}
-
-
-#prev{
-    cursor: pointer;
-    background-color: white;
-    width: 25px;
-    height: 25px;
-    text-align: center;
-    padding: 0.5% 0.5%;
-    border-radius: 5px;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+.clickedDate{
+    font-weight: 600;
 }
 
 .hr1{
@@ -77,10 +77,39 @@
     align-content: space-between;
     display: flex;
 }
+
+.Noapp{
+    width: 90%;
+    height: 70px;
+    font-size: 20px;
+    font-weight: 500;
+    background-color: white;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    border-radius: 10px;
+    padding: 0.5% 0.5%;
+    text-align: center;
+    margin: 4% 2%;
+    align-content: space-between;
+    display: flex;
+}
 .time{
     text-align: center;
     margin-top: 4%;
     margin-left: 1%;
+}
+
+.btnImage{
+    border-radius: 50px;
+    cursor: pointer;
+    width: 62px;
+    height: 62px;
+    border: none;
+   
+}
+
+.btnImage:hover{
+    transition-duration: 0.6s;
+    background-color: #1A285A;
 }
 
 .image{
@@ -99,7 +128,7 @@
     height: 55px;
     border-radius: 100%;
     margin-top: 1%;
-    margin-left: 3%;
+    margin-left: 2.7%;
 }
 
 .btn {
@@ -132,6 +161,11 @@
   grid-gap: 10px;
   margin-left: 2%;
   margin-top: 2%;
+}
+
+.divBtn{
+    margin-left: 5%;
+    margin-top: 1.5%;
 }
 
 
@@ -182,6 +216,12 @@
 
 .dob{
     margin-top: 6%;
+    text-align: left;
+    margin-left: 3%;
+}
+
+.email{
+    margin-top: 5%;
     text-align: left;
     margin-left: 3%;
 }

@@ -25,7 +25,7 @@
                 <div class="row1">
                     <div class="row1div1">
                         <h3 class="subb">Appointment Stats</h3>
-                        <div class="pie" style="width:70%; ">
+                        <div class="pie" style="width:65%; ">
                             <canvas id="pieChart"></canvas>
                         </div>
                         <!-- <img class="piechart" src="<?php echo URLROOT."/public/img/free-pie-chart-icon-683-thumb.png"?>"> -->

@@ -29,8 +29,12 @@
 
         public function home(){
 
+            //$_GET['userid'] = Session::get('userID');
+
             
             $posts = $this->postModel->getCounselorAnnouncement();
+
+            
           
             $data = [
                 'posts' => $posts,
@@ -44,6 +48,7 @@
             $this->loadView('Counselor/announcement',$data);
         }
 
+        //add an announcement
         public function add(){
 
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -103,7 +108,7 @@
             
         }
 
-
+        //delete an announcement
         public function delete($id){
 
             //if($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -137,7 +142,7 @@
 
         /////////////////////////
 
-
+        //edit an announcement
         public function edit($id){
 
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -204,8 +209,18 @@
             
         }
 
-
+        //to handle the announcement filter
         public function dropdown_handler(){
+
+            $pet = Session::get('userID');
+            
+            $annCountObject = $this->postModel->countOwnAnnouncements($pet);
+            $annOwnCount = json_decode($annCountObject,true);  
+            //echo "Hi";
+        //     echo $annOwnCount['COUNT(post_id)'];
+        //    // 
+        //     exit;
+            
             if(isset($_GET['filter'])){
                 $_GET['filter'] = trim($_GET['filter']);
                 $_GET['userid'] = Session::get('userID');
@@ -214,8 +229,24 @@
             //    if($_GET['filter'] == 'Saved'){
             //         $res =  $this->CommunityModel->getSavedPosts(Session::get('userID'));
             //    }
+
+                //check whether how many announcements are posted by particular counselor
+               
+        
+                //exit;
+
                if($_GET['filter'] == 'Your Announcements'){
-                    $res =  json_encode($this->postModel->getPostByUser_id($_GET['userid']));
+
+
+                    // if($annOwnCount['COUNT(post_id)'] == 0){
+                    //     echo "You haven't posted announcement yet.";
+                    // }
+                    // else{
+                        $res =  json_encode($this->postModel->getPostByUser_id($_GET['userid']));
+                        // exit;
+                   // }
+
+                    
                }
                else{
                     $res =  json_encode($this->postModel->getCounselorAnnouncement());

@@ -11,6 +11,7 @@
             $this->loadView('Counselor/dashboard',$data);
         }
 
+        //load the dashboard view. Registered counselor directly coming to this page after login
         public function home(){
             
             $data = [];
@@ -18,6 +19,8 @@
             $this->loadView('Counselor/dashboard',$data);
         }
 
+
+        //load the profile view
         public function profileView(){
 
             $this->postModel = $this->loadModel('Counselor');
@@ -34,6 +37,7 @@
             $this->loadView('Counselor/profile',$data);
         }
 
+        //load the edit profile view
         public function EditProfile(){
 
             $this->postModel = $this->loadModel('Counselor');
@@ -42,7 +46,7 @@
 
             $row = $this->postModel->getCounselorEditDetails($user_id);
 
-            $new = explode(",", $row->qualifications);
+            $new = explode(",", $row->qualifications);  //get qualification by seperating using the comma
           
             $data = [
                 'name' => $row->fullname,
@@ -71,7 +75,8 @@
 
             $this->loadView('Counselor/editDetails',$data);
         }
-
+    
+        //update profle details
         public function updateProfileDetails($userid){
             $this->postModel = $this->loadModel('Counselor');
             $user_id = Session::get('userID');
@@ -82,6 +87,7 @@
 
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
+                //to upload the profile image
                 $filename = $_FILES["file"]["name"];
                 $tempname = $_FILES["file"]["tmp_name"];
                 $folder =  PUBLICPATH . "img/counselor/".$filename;
@@ -322,6 +328,7 @@
 
         // }
 
+        //load the notification section
         public function notificationView(){
             $data = [
                 
@@ -330,18 +337,123 @@
             $this->loadView('Counselor/notification',$data);
         }
 
+        //load the recieved students' requests section
         public function studentView(){
 
-            $data = [
-                
-            ];
+            $this->postModel = $this->loadModel('Counselor');
+            $userid = Session::get('userID');
 
+            // if(isset($_GET['New_Requests'])){
+            //     $statusNew = $_GET['New_Requests'];
+            // }
+
+            $statusNew = "";
+
+            $row = $this->postModel->getStudents($statusNew,$userid);
+
+            
+            //check whether the correspondin section empty or not
+            
+            $data = [
+                'row' => $row
+            
+            ];
+            
             $this->loadView('Counselor/student',$data);
+                
+                
+
+           
         }
 
+        // public function dropdown_handler(){
+        //     if(isset($_GET['filter'])){
+        //         $_GET['filter'] = trim($_GET['filter']);
+        //         $_GET['userid'] = Session::get('userID');
+        //         //$_GET['username'] = trim($_GET['username']);
+        //         //If the saved filter is set
+        //     //    if($_GET['filter'] == 'Saved'){
+        //     //         $res =  $this->CommunityModel->getSavedPosts(Session::get('userID'));
+        //     //    }
+        //        if($_GET['filter'] == '0'){
+        //             $res =  json_encode($this->postModel->getStudents($_GET['filter']));
+        //        }
+        //        else if($_GET['filter'] == '1'){
+        //             $res =  json_encode($this->postModel->getStudents($_GET['filter']));
+        //        }
+        //        else if($_GET['filter'] == '2'){
+        //             $res =  json_encode($this->postModel->getStudents($_GET['filter']));
+        //        }
+        //         echo $res;
+        //     }
 
-       
-        
+        // }
+
+        //filter students based on counselor decision(accept, reject)
+        public function filterStatus(){
+
+            $this->postModel = $this->loadModel('Counselor');
+            $userid = Session::get('userID');
+
+            if(isset($_POST['statusPP'])){
+
+                $status = $_POST['statusPP'];
+                $statusNew = 0;
+
+                if($status === ""){
+                    $details = json_encode($this->postModel->getStudents($statusNew,$userid));
+                }
+                else{
+                    $details = json_encode($this->postModel->getStudents($status,$userid));
+                }
+
+                echo $details;
+
+                
+            }
+        }
+
+        //load the student profile after clicking student name
+        public function selectStudent(){
+
+            $this->postModel = $this->loadModel('Counselor');
+
+            if(isset($_POST['gotStu'])){
+                
+
+                $gotStu = $_POST['gotStu'];
+
+                // echo $gotStu;
+                // exit;
+
+                $result = $this->postModel->getStudentDetails($gotStu);
+
+                echo json_encode($result);
+            }
+
+        }
+
+        public function acceptRejectStudent($id){
+
+            $this->postModel = $this->loadModel('Counselor');
+            $userid = Session::get('userID');
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+              
+
+                if(isset($_POST['accept'])){
+
+                    $newStatus = 1;
+
+                    $this->postModel->updateStudentStatus($newStatus,$userid,$id);
+                }
+                else if(isset($_POST['decline'])){
+                    $newStatus = 2;
+
+                    $this->postModel->updateStudentStatus($newStatus,$userid,$id);
+                }
+            }
+        }
 
     }
 

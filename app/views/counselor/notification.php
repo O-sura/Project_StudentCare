@@ -19,6 +19,11 @@
     
     <div class="home_content">
 
+        <div class="topicHead">
+            <span><h1 class="headApp">Notifications</h1></span>
+        </div>
+        <hr class="hrbar">
+
            
             <div class="div5">
                 <div  class="noti">
@@ -63,7 +68,7 @@
                 </div>
             </div>
     
-  </div>
+    </div>
 
 </body>
 

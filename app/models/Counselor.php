@@ -197,19 +197,74 @@
             
         }
 
+        //to check appointment times
+        public function checkTime($data,$afterTime,$beforeTime){
+            $this->db->query('SELECT COUNT(appointmentTime),appointmentTime,appointmentID FROM appointments WHERE appointmentDate = :appDate AND :aftTime >= appointmentTime AND appointmentTime >= :befTime;');
+            $this->db->bind(':appDate', $data['appDate']);
+            $this->db->bind(':aftTime', $afterTime);
+            $this->db->bind(':befTime', $beforeTime);
+
+            $results = $this->db->getRes();
+
+            return json_encode($results);
+
+
+        }
+
+
+        //to get the count of appointmets for a day
+        public function countDayAppointments($data){
+
+            $this->db->query('SELECT COUNT(appointmentDate), appointmentID, appointmentTime FROM appointments WHERE appointmentDate = :appDate;');
+            $this->db->bind(':appDate',$data['appDate']);
+
+            $results = $this->db->getRes();
+
+            return json_encode($results);
+            
+        }
+        
+        //to get the count of own announcements
+        public function countOwnAnnouncements($id){
+
+            $this->db->query('SELECT COUNT(post_id),post_id FROM ann_post WHERE userID = :userid;');
+            $this->db->bind(':userid',$id);
+
+            $results = $this->db->getRes();
+
+            return json_encode($results);
+            
+        }
+
+
+        public function getAppointmentsDetails($date,$userid){
+
+            $this->db->query('SELECT * FROM appointments INNER JOIN student ON appointments.studentID = student.studentID  WHERE appointments.appointmentDate = :appDate AND appointments.counsellorID = :userid ORDER BY appointments.appointmentTime;');
+            $this->db->bind(':appDate',$date);
+            $this->db->bind(':userid',$userid);
+            
+            $results = $this->db->getAllRes();
+
+            return $results; 
+        }
+
+
         public function addAppointment($data,$userid){
 
             $appID = substr(sha1(date(DATE_ATOM)), 0, 7);
 
-            $this->db->query('INSERT INTO appointments(appointmentID,appointmentDescription,appointmentDate,appointmentTime,counsellorID,studentID,studentName) VALUES(:appID,:appDesc,:appDate,:appTime,:CID,:StID,:StName)');
+            $this->db->query('INSERT INTO appointments(meetingID,appointmentID,appointmentDescription,appointmentDate,appointmentTime,counsellorID,studentID,studentName) VALUES(:meeID,:appID,:appDesc,:appDate,:appTime,:CID,:StID,:StName)');
 
             $this->db->bind(':CID',$userid);
+            $this->db->bind(':meeID',$data['meetingID']);
             $this->db->bind(':StID',$data['stuID']);
             $this->db->bind(':StName',$data['stuName']);
             $this->db->bind(':appDate',$data['appDate']);
             $this->db->bind(':appTime',$data['appTime']);
             $this->db->bind(':appDesc',$data['desc']);
             $this->db->bind(':appID',$appID);
+
+            // date('H : i', strtotime($data['appTime']))
 
             if($this->db->execute()){
                 return true;
@@ -218,5 +273,91 @@
             }
             
         }
+
+        //to get the students based on counselor decision
+        public function getStudents($statusOfRequest,$userid){
+
+            $this->db->query('SELECT * FROM requests WHERE counsellorID = :userid AND statusPP = :statusPP;');
+            $this->db->bind(':userid',$userid);
+            $this->db->bind(':statusPP',$statusOfRequest);
+
+            $results = $this->db->getAllRes();
+
+            return $results; 
+        }
+
+        //to get all details of students
+        public function getStudentsAllDetails($userid){
+
+            $this->db->query('SELECT studentID FROM requests WHERE counsellorID = :cID;');
+            $this->db->bind(':cID',$userid);
+
+            $res = $this->db->getAllRes();
+            return json_encode($res);
+
+            // $this->db->query('SELECT * FROM student INNER JOIN requests ON student.studentID = requests.studentID WHERE requests.studentID = :userid;');
+            
+            // //$this->db->bind(':statusPP',$statusOfRequest);
+
+            // $results = $this->db->getAllRes();
+
+            // return $results; 
+        }
+
+
+        //get students ewhen click on student name
+        public function getStudentDetails($gotStu){
+
+            //SELECT * FROM requests INNER JOIN student ON student.studentID = requests.studentID WHERE requests.studentID = :gotStu;
+
+            $this->db->query('SELECT * FROM requests  WHERE studentID = :gotStu;');
+
+            $this->db->bind(':gotStu',$gotStu);
+
+            $results = $this->db->getRes();
+
+            return $results;
+
+
+        }
+
+        public function getstudentforemail($userid){
+            $this->db->query('SELECT * FROM users  WHERE userID = :gotStu;');
+
+            $this->db->bind(':gotStu',$userid);
+
+            $results = $this->db->getRes();
+
+            return $results;
+        }
+
+
+         //to update the status of requested students for particular counselor
+        public function updateStudentStatus($decision,$userid,$stuID){
+
+            $this->db->query('UPDATE requests SET statusPP = :decision WHERE  counsellorID = :userid AND studentID = :stuID ;');
+            $this->db->bind(':userid',$userid);
+            $this->db->bind(':stuID',$stuID);
+            $this->db->bind(':decision',$decision);
+
+            if($this->db->execute()){
+
+                if($decision == 1){
+                    $this->db->query('INSERT INTO counselor_alloc(counselor_id,student_id) VALUES(:userid,:stuID);');
+                    $this->db->bind(':userid',$userid);
+                    $this->db->bind(':stuID',$stuID);
+
+                    $this->db->execute();
+                }
+
+
+                return true;
+            }else{
+                return false;
+            }
+
+        }
+
+
 
     }
