@@ -156,6 +156,7 @@ height: auto;
 }
 
 .call{
+position: relative;
 display:grid;
 grid-template-columns: 2fr 1fr 2fr 2fr 2fr;
 border-radius:20px;
@@ -611,4 +612,11 @@ color: black;
   .submit{
     padding: 10px 20px;
     text-align: center;
+  }
+
+  .icon_button_badge{
+    position: absolute;
+    top:-10px;
+    right:-10px;
+    font-size: 130%;
   }

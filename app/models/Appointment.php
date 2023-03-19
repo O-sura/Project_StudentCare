@@ -189,4 +189,46 @@ class Appointment
 
         return $results;
     }
+
+    public function updateSeen($id)
+    {
+        $this->db->query("UPDATE request SET user_seen = 1 WHERE student_id = :studentID");
+        $this->db->bind(':studentID', $id);
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function updateAppointmentSeen($id)
+    {
+        $this->db->query("UPDATE appointments SET user_seen = 1 WHERE studentID = :studentID");
+        $this->db->bind(':studentID', $id);
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getUnseenRequests($studentID)
+    {
+        $this->db->query("SELECT request_id FROM request WHERE student_id = :studentID AND user_seen = 0");
+        $this->db->bind(':studentID', $studentID);
+        $results = $this->db->getAllRes();
+
+        return $results;
+    }
+   
+    public function getUnseenAppointments($studentID)
+    {
+        $this->db->query("SELECT appointmentID FROM appointments WHERE studentID = :studentID AND user_seen = 0");
+        $this->db->bind(':studentID', $studentID);
+        $results = $this->db->getAllRes();
+
+        return $results;
+    }
 }

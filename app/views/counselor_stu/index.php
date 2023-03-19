@@ -132,6 +132,7 @@
                         $currentTime = date('H:i');
                         $id = $appointment->appointmentID;
                         $counselorId = $appointment->counsellorID;
+                        $appointmentIds = array_column($data['newAppointments'], 'appointmentID');
                     ?>
                         <!-- Popup Form -->
                         <div class="overlay">
@@ -175,7 +176,7 @@
                                 <div class="counselor-name" id="<?php echo $counselorId ?>">
                                     <h3>Dr.<?php echo $counselor ?></h3>
                                 </div>
-                                <?php if ($appointment->appointmentDate >= $today && $appointment->appointmentTime <= $currentTime) { ?>
+                                <?php if ($appointment->appointmentDate == $today && $appointment->appointmentTime <= $currentTime) { ?>
                                     <div class="join">
                                         <button class="btn" id="uploadBtn">
                                             <div class="btn-class">
@@ -229,7 +230,13 @@
 
                                         </button>
                                     </div>
-                                <?php } ?>
+                                    <?php
+                                    if (in_array($id, $appointmentIds)) {?>
+                                        <span class="icon_button_badge"><i class="fa-solid fa-circle-exclamation"></i></span>
+                                
+                                <?php } 
+                                } ?>
+
                             </div>
                         </div>
 

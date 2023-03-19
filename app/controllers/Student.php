@@ -13,7 +13,11 @@
 
         public function home(){
             $usr =   Session::get('username');
-            $data = ['username' => $usr];
+            $new_requests_count = $this->studentModel->getNewRequestsCount(Session::get('userID'));
+            $new_appointments_count = $this->studentModel->getNewAppointmentsCount(Session::get('userID'));
+            $total_count = $new_requests_count + $new_appointments_count;
+            $data = ['username' => $usr,
+                    'new_requests_count' => $total_count];
             $this->loadview('student_dashboard/index',$data);
         }
 

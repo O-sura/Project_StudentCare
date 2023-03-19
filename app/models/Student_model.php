@@ -17,4 +17,22 @@ class Student_model
 
         return $results;
     }
+
+    public function getNewRequestsCount($studentID)
+    {
+        $this->db->query("SELECT * FROM request WHERE student_id = :studentID AND user_seen = 0;");
+        $this->db->bind(':studentID', $studentID);
+        $count = $this->db->rowCount();
+
+        return $count;
+    }
+
+    public function getNewAppointmentsCount($studentID)
+    {
+        $this->db->query("SELECT * FROM appointments WHERE studentID = :studentID AND user_seen = 0;");
+        $this->db->bind(':studentID', $studentID);
+        $count = $this->db->rowCount();
+
+        return $count;
+    }
 }

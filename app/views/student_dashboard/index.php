@@ -129,6 +129,7 @@
                         <div class="favcons">
                             <i class="fa-brands fa-facebook-messenger"></i>
                         </div>
+                        <span class="icon_button_badge">2</span>
                     </div>
                     <div class="messages" id="tasks">
                         <div class="topic">
@@ -137,6 +138,7 @@
                         <div class="favcons">
                             <i class="fa-solid fa-list-check"></i>
                         </div>
+                        <span class="icon_button_badge">2</span>
                     </div>
                     <div class="messages" id="announcements">
                         <div class="topic">
@@ -145,6 +147,7 @@
                         <div class="favcons">
                             <i class="fa-solid fa-bullhorn"></i>
                         </div>
+                        <span class="icon_button_badge">2</span>
                     </div>
                     <div class="messages" id="appointments">
                         <div class="topic">
@@ -153,6 +156,9 @@
                         <div class="favcons">
                             <i class="fa-regular fa-calendar-check"></i>
                         </div>
+                        <?php if ($data['new_requests_count'] > 0) : ?>
+                            <span class="icon_button_badge"><?php echo $data['new_requests_count'] ?></span>
+                        <?php endif; ?>
                     </div>
                 </div>
 
