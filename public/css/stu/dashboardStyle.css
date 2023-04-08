@@ -24,7 +24,7 @@ margin-top: 25px;
 
 
 #image2{
-width: 50%;
+width: 70%;
 height: auto;
 border-radius: 50%;
 }
@@ -93,12 +93,15 @@ padding: 30px;
 justify-content: center;
 height: fit-content;
 }
+
 .boxes{
 display: flex;
 justify-content: space-around;
 box-sizing: border-box;
 width: 80vw;
 flex-wrap: wrap;
+padding-bottom: 10px;
+padding-top: 30px;
 }
 
 .messages{
@@ -234,4 +237,8 @@ a {
   justify-content: center;
   align-items: center;
   font-weight: 700;
+}
+
+.prof-details{
+  font-size: 20px;
 }

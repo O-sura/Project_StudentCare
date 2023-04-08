@@ -70,7 +70,14 @@
         <div class="profile_content">
             <div class="profile">
                 <div class="profile_details">
-                    <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFufGVufDB8fDB8fA%3D%3D&w=1000&q=80">
+                    <?php
+                    if ($data["userDetails"]->profile_img != NULL) {
+                        $image = $data["userDetails"]->profile_img;
+                    } else {
+                        $image = "avatar.jpg";
+                    }
+                    ?>
+                    <img src="<?php echo URLROOT . "/public/img/student/" . $image; ?>">
                     <div class="name">
                         <?php echo $data['username'] ?>
                     </div>
@@ -88,7 +95,7 @@
                 <div class="user-details">
                     <h2>Profile</h2>
                     <div class="prof-img">
-                        <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFufGVufDB8fDB8fA%3D%3D&w=1000&q=80" alt="" id="image2">
+                        <img src="<?php echo URLROOT . "/public/img/student/" . $image; ?>" alt="" id="image2">
                     </div>
                     <div class="prof-details">
                         <h3><?php echo $data['username'] ?></h3><br><br>
