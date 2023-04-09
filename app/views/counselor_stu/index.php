@@ -137,7 +137,7 @@
                         <!-- Popup Form -->
                         <div class="overlay">
                             <div class="popup">
-                                <form action="<?php echo URLROOT; ?>/appointments/cancel_request/<?php echo $id; ?> " method="post">
+                                <form action="<?php echo URLROOT; ?>/appointments/cancel_appointment/<?php echo $id; ?> " method="post">
                                     <div class="heading">
                                         Appointment cancellation
                                     </div>

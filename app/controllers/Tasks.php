@@ -76,24 +76,35 @@ class Tasks extends Controller
 
     public function view()
     {
-        $init_data = [
-            'userID' => Session::get('userID'),
-            'taskDate' => trim($_POST['date'])
-        ];
+       
+            $init_data = [
+                'userID' => Session::get('userID'),
+                'taskDate' => trim($_POST['date'])
+            ];
 
-        $data = [
-            'notStarted' => $this->taskModel->getNotStarted($init_data),
-            'started' => $this->taskModel->getStarted($init_data),
-            'completed' => $this->taskModel->getCompleted($init_data),
-            'all' => $this->taskModel->getAll($init_data),
-            'day' => date('l', strtotime($init_data['taskDate'])),
-            'dayNum' => date('d', strtotime($init_data['taskDate'])),
-        ];
+            $data = [
+                'notStarted' => $this->taskModel->getNotStarted($init_data),
+                'started' => $this->taskModel->getStarted($init_data),
+                'completed' => $this->taskModel->getCompleted($init_data),
+                'all' => $this->taskModel->getAll($init_data),
+                'day' => date('l', strtotime($init_data['taskDate'])),
+                'dayNum' => date('d', strtotime($init_data['taskDate'])),
+            ];
 
-
-        $this->loadview('tasks/viewTask', $data);
+            $this->loadview('tasks/viewTask', $data);
+        
     }
 
+    public function status_handler(){
+        $taskId = $_POST['taskId'];
+        $newStatus = $_POST['newStatus'];
+        $data = [
+            'taskId' => $taskId,
+            'newStatus' => $newStatus
+        ];
+        $this->taskModel->updateStatus($data);
+        
+    }
 
 
 

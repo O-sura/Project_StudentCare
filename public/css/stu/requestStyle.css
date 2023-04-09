@@ -301,7 +301,7 @@ hr{
     border: none;
   }
 
-  #noAccepts, #noRejects{
+  #noAccepts, #noRejects, #noPending{
     background-color: #c7c7c7;
     color: #535754;
   }

@@ -129,4 +129,18 @@ class Task
 
         return $results;
     }
+
+    public function updateStatus($data)
+    {
+        $this->db->query("UPDATE task SET task_status = :taskStatus WHERE task_id = :taskID");
+        $this->db->bind(':taskStatus', $data['newStatus']);
+        $this->db->bind(':taskID', $data['taskId']);
+
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

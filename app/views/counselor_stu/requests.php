@@ -131,7 +131,8 @@
                         $requested_on = $accepted->requested_on;
                         $date = date("d M Y", strtotime($requested_on));
                         $specialization = $accepted->specialization;
-                        $name = $rejected->fullname;
+                        $name = $accepted->fullname;
+                        $email = $accepted->email;
                         $requestIds = array_column($data['newRequests'], 'request_id');
                 ?>
                         <div class="call" id="accepted">
@@ -148,13 +149,13 @@
                                 <h3>Dr. <?php echo $name ?></h3>
                             </div>
                             <div>
-                                <button class="btn">Send a Message</button>
+                                <button class="btn" id="<?php echo $email ?>" onclick="sendEmail(this.id)">Send Email</button>
                             </div>
                             <?php
-                            if (in_array($id, $requestIds)) {?>
+                            if (in_array($id, $requestIds)) { ?>
                                 <span class="icon_button_badge"><i class="fa-solid fa-circle-exclamation"></i></span>
-                           
-                           <?php } ?>
+
+                            <?php } ?>
 
                         </div>
                     <?php endforeach;
@@ -194,22 +195,25 @@
                             </div>
                             <div class="clickables">
                                 <div class="join">
-                                    <button class="btn2">Edit request</button>
+                                    <button class="btn2" onclick="window.location.href='<?php echo URLROOT ?>/appointments/editRequest/<?php echo $id; ?>'">Edit request</button>
                                 </div>
                                 <div class="join">
                                     <button class="btn" onclick="window.location.href='<?php echo URLROOT ?>/appointments/delete_request/<?php echo $id; ?>'">Remove</button>
                                 </div>
                             </div>
                             <?php
-                            if (in_array($id, $requestIds)) {?>
+                            if (in_array($id, $requestIds)) { ?>
                                 <span class="icon_button_badge"><i class="fa-solid fa-circle-exclamation"></i></span>
-                           
-                           <?php } ?>
+
+                            <?php } ?>
                         </div>
-                <?php endforeach;
-                } else {
-                    echo "<h4>No Pending Requests</h4>";
-                } ?>
+                    <?php endforeach;
+                } else { ?>
+                    <div class="call" id="noPending">
+                        <h3>No Pending Requests</h3>
+                    </div>
+
+                <?php   } ?>
 
             </div>
 
@@ -254,9 +258,9 @@
                             </div>
 
                             <span class="icon_button_badge"><i class="fa-solid fa-circle-exclamation"></i></span>
-                           
-                          
-                            
+
+
+
                         </div>
                     <?php endforeach;
                 } else { ?>
@@ -279,6 +283,13 @@
 
         btn.onclick = function() {
             sidebar.classList.toggle("active");
+        }
+
+        function sendEmail(email) {
+            const subject = 'Request for an appointment';
+            const body = 'Hi, I would like to request an appointment with you.';
+            const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
+            window.location.href = mailtoLink;
         }
     </script>
 </body>

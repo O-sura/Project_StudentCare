@@ -27,7 +27,22 @@ class Appointments extends Controller
         $this->loadview('counselor_stu/index', $data);
     }
 
-    //Function to load the counselor list view
+    public function cancel_appointment($appointmentID)
+    { 
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        $init_data = [
+            'reason' => trim($_POST['rdesc']),
+            'appointmentID' => $appointmentID,
+            'appointmentStatus' => 2 //2 means cancelled
+        ];
+
+        if ($this->appointmentModel->cancelAppointment($init_data)) {
+            Appointments::index();
+        } else {
+            die('Something went wrong');
+        }
+    }
+
     public function list()
     {
 
@@ -126,6 +141,26 @@ class Appointments extends Controller
 
 
             echo $res;
+        }
+    }
+
+    public function editRequest($requestID){
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            $init_data = [
+                'requestDescription' => trim($_POST['rdesc']),
+                'requestID' => $requestID
+            ];
+            if($this->appointmentModel->editRequest($init_data)){
+                Appointments::requests();
+            }else{
+                die('Something went wrong');
+            }
+        }else{
+            $data = [
+                'requestDetails' => $this->appointmentModel->getRequestDetails($requestID)
+            ];
+            $this->loadview('counselor_stu/editRequest', $data);
         }
     }
 }
