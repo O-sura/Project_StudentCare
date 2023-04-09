@@ -136,139 +136,33 @@
                 </div>
     
                 <main>
-                    
-    
-                    <div class="item">
-                        <div class="image">
-                            
-                            <img src="https://media.istockphoto.com/id/1346001888/photo/indian-pilau-rice.jpg?b=1&s=170667a&w=0&k=20&c=NRQ6wEU5sWpnHG4wEaUAxOvkK5x7vLk9yko4G3JoW8Y=" alt="">
-                          
-                        </div>
-    
-                        <div class="data">
-                            <p class="topic">Yellow Rice</p>
-                            <p class="uni"> Near to UCSC  </p>
-                            <p class="price">Rs.<span> 300</span></p>
-                            <p class="rating">User Rating<span>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-regular fa-star"></i>
-                            </span>
-                            </p>
-                        </div>
+                <?php foreach($data['listings'] as $view) : ?>
+
+                <div class="item">
+                    <div class="image">
+                        <?php
+                            $images = json_decode($view->image); 
+                        ?>
+                        <a href="<?php echo URLROOT; ?>/student_facility/viewOneListing/<?php echo $view->listing_id; ?>"><img src="<?= URLROOT . "/public/img/listing/" . $images[0] ?>"></a>
+                      
                     </div>
-                    <div class="item">
-                        <div class="image">
-                            
-                            <img src="https://st2.depositphotos.com/4404621/11594/i/950/depositphotos_115943092-stock-photo-sri-lankan-kottu-roti.jpg" alt="">
-                          
-                        </div>
-    
-                        <div class="data">
-                            <p class="topic">Kottu</p>
-                            <p class="uni">Near to UCSC </p>
-                            <p class="price">Rs.<span> 200</span></p>
-                            <p class="rating">User Rating<span>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-regular fa-star"></i>
-                                <i class="fa-regular fa-star"></i>
-                            </span>
-                            </p>
-                        </div>
+
+                    <div class="data">
+                        <p class="topic"><?php echo $view->topic; ?></p>
+                        <p class="uni">Near to <?php 
+                            $uniName = json_decode($view->uniName);
+                            foreach($uniName as $name) {
+                                echo $name;
+                                echo '<br>';
+                            }
+                        ?></p>
+                        <p class="price"><span>Rs. </span><?php echo $view->rental; ?></p>
                     </div>
-                    <div class="item">
-                        <div class="image">
-                            
-                            <img src="https://images.immediate.co.uk/production/volatile/sites/30/2022/09/cropped-miguel-b9e922f.jpg?quality=90&resize=960,872" alt="">
-                          
-                        </div>
+                </div>
     
-                        <div class="data">
-                            <p class="topic">Noodles</p>
-                            <p class="uni"> Near to UOC  </p>
-                            <p class="price">Rs.<span> 150</span></p>
-                            <p class="rating">User Rating<span>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-            
-                            </span>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="image">
-                            
-                            <img src="https://img-global.cpcdn.com/recipes/4704982898049024/1200x630cq70/photo.jpg" alt="">
-                          
-                        </div>
-    
-                        <div class="data">
-                            <p class="topic">Parata</p>
-                            <p class="uni"> Near to UCSC  </p>
-                            <p class="price">Rs.<span> 30</span></p>
-                            <p class="rating">User Rating<span>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-            
-                            </span>
-                        </p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="image">
-                            
-                            <img src="https://www.topsrilankanrecipe.com/wp-content/uploads/2019/09/8a.jpg" alt="">
-                          
-                        </div>
-    
-                        <div class="data">
-                            <p class="topic">String hoppers</p>
-                            <p class="uni"> Near to UCSC  </p>
-                            <p class="price">Rs.<span> 100 </span></p>
-                            <p class="rating">User Rating<span>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-regular fa-star"></i>
-                                <i class="fa-regular fa-star"></i>
-                            </span>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="image">
-                            
-                            <img src="https://www.yummytummyaarthi.com/wp-content/uploads/2019/02/1-13-500x375.jpg" alt="">
-                          
-                        </div>
-    
-                        <div class="data">
-                            <p class="topic">Red rice</p>
-                            <p class="uni"> Near to UCSC  </p>
-                            <p class="price">Rs.<span> 150</span></p>
-                            <p class="rating">User Rating<span>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-regular fa-star"></i>
-                                <i class="fa-regular fa-star"></i>
-                            </span>
-                            </p>
-                        </div>
-                    </div>
-        
-                   
-                    
-                </main>
+                <?php endforeach; ?>
+                
+            </main>
             </div>
         </div>
 

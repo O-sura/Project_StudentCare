@@ -24,7 +24,7 @@ margin-top: 25px;
 
 
 #image2{
-width: 70%;
+width: 250px;
 height: auto;
 border-radius: 50%;
 }
@@ -242,3 +242,4 @@ a {
 .prof-details{
   font-size: 20px;
 }
+

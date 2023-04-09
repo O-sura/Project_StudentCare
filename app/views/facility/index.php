@@ -26,49 +26,49 @@
                 <i class="fa-solid fa-bars" id="btn"></i>
             </div>
             <ul class="nav_list">
-            <li>
-                <a href='<?php echo URLROOT ?>/student/home'>
-                    <i class="fa-solid fa-gauge"></i>
-                    <span class="links_name">Dashboard</span>
-                </a>
-                <span class="tooltip">Dashboard</span>
-            </li>
-            <li>
-                <a href='<?php echo URLROOT ?>/community/home'>
-                    <i class="fa-solid fa-users"></i>
-                    <span class="links_name">Community</span>
-                </a>
-                <span class="tooltip">Community</span>
-            </li>
-            <li>
-                <a href='<?php echo URLROOT ?>/tasks/'>
-                    <i class="fa-solid fa-calendar-days"></i>
-                    <span class="links_name">Schedule</span>
-                </a>
-                <span class="tooltip">Schedule</span>
-            </li>
-            <li>
-                <a href='<?php echo URLROOT ?>/appointments/'>
-                    <i class="fa-solid fa-calendar-check"></i></i>
-                    <span class="links_name">Appointments</span>
-                </a>
-                <span class="tooltip">Appointments</span>
-            </li>
-            <li>
-                <a href='<?php echo URLROOT ?>/announcements/'>
-                    <i class="fa-solid fa-bullhorn"></i></i>
-                    <span class="links_name">Announcements</span>
-                </a>
-                <span class="tooltip">Announcements</span>
-            </li>
-            <li>
-                <a href="<?php echo URLROOT ?>/Student_facility/">
-                    <i class="fa-solid fa-house-circle-check"></i>
-                    <span class="links_name">Listings</span>
-                </a>
-                <span class="tooltip">Listings</span>
-            </li>
-        </ul>
+                <li>
+                    <a href='<?php echo URLROOT ?>/student/home'>
+                        <i class="fa-solid fa-gauge"></i>
+                        <span class="links_name">Dashboard</span>
+                    </a>
+                    <span class="tooltip">Dashboard</span>
+                </li>
+                <li>
+                    <a href='<?php echo URLROOT ?>/community/home'>
+                        <i class="fa-solid fa-users"></i>
+                        <span class="links_name">Community</span>
+                    </a>
+                    <span class="tooltip">Community</span>
+                </li>
+                <li>
+                    <a href='<?php echo URLROOT ?>/tasks/'>
+                        <i class="fa-solid fa-calendar-days"></i>
+                        <span class="links_name">Schedule</span>
+                    </a>
+                    <span class="tooltip">Schedule</span>
+                </li>
+                <li>
+                    <a href='<?php echo URLROOT ?>/appointments/'>
+                        <i class="fa-solid fa-calendar-check"></i></i>
+                        <span class="links_name">Appointments</span>
+                    </a>
+                    <span class="tooltip">Appointments</span>
+                </li>
+                <li>
+                    <a href='<?php echo URLROOT ?>/announcements/'>
+                        <i class="fa-solid fa-bullhorn"></i></i>
+                        <span class="links_name">Announcements</span>
+                    </a>
+                    <span class="tooltip">Announcements</span>
+                </li>
+                <li>
+                    <a href="<?php echo URLROOT ?>/Student_facility/">
+                        <i class="fa-solid fa-house-circle-check"></i>
+                        <span class="links_name">Listings</span>
+                    </a>
+                    <span class="tooltip">Listings</span>
+                </li>
+            </ul>
             <div class="profile_content">
                 <div class="profile">
                     <div class="profile_details">
@@ -145,137 +145,31 @@
                 </div>
 
                 <main>
+                    <?php foreach ($data['listings'] as $view) : ?>
 
+                        <div class="item">
+                            <div class="image">
+                                <?php
+                                $images = json_decode($view->image);
+                                ?>
+                                <a href="<?php echo URLROOT; ?>/student_facility/viewOneListing/<?php echo $view->listing_id; ?>"><img src="<?= URLROOT . "/public/img/listing/" . $images[0] ?>"></a>
 
-                    <div class="item">
-                        <div class="image">
-                            <a href="<?php echo URLROOT ?>/Student_facility/viewProperty">
-                                <img src="https://i.ikman-st.com/kaamr-phsukm-aet-for-rent-colombo-1/069352fb-3d4b-4088-b7b3-74ec7b0e6479/620/466/fitted.jpg" alt="">
-                            </a>
+                            </div>
+
+                            <div class="data">
+                                <p class="topic"><?php echo $view->topic; ?></p>
+                                <p class="uni">Near to <?php
+                                                        $uniName = json_decode($view->uniName);
+                                                        foreach ($uniName as $name) {
+                                                            echo $name;
+                                                            echo '<br>';
+                                                        }
+                                                        ?></p>
+                                <p class="price"><span>Rs. </span><?php echo $view->rental; ?>/Month</p>
+                            </div>
                         </div>
 
-                        <div class="data">
-                            <p class="topic">Annex for Rent</p>
-                            <p class="uni"> Near to UCSC </p>
-                            <p class="price">Rs.<span> 8000</span>/Month</p>
-                            <p class="rating">User Rating<span>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-regular fa-star"></i>
-                                </span>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="image">
-
-                            <img src="https://ceylonproperty.lk/imagesPosts/8411640922949uB1EQKHuk9zVX9p.jpeg" alt="">
-
-                        </div>
-
-                        <div class="data">
-                            <p class="topic">House for rent</p>
-                            <p class="uni">Near to UCSC </p>
-                            <p class="price">Rs.<span> 2000</span>/Month</p>
-                            <p class="rating">User Rating<span>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-
-                                </span>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="image">
-
-                            <img src="https://images.olx.com.pk/thumbnails/328947427-240x180.jpeg" alt="">
-
-                        </div>
-
-                        <div class="data">
-                            <p class="topic">Room for students</p>
-                            <p class="uni"> Near to UOC </p>
-                            <p class="price">Rs.<span> 15000</span>/Month</p>
-                            <p class="rating">User Rating<span>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-regular fa-star"></i>
-                                    <i class="fa-regular fa-star"></i>
-                                </span>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="image">
-
-                            <img src="https://siyaluma.lk/storage/products/1569657975_2.jpeg" alt="">
-
-                        </div>
-
-                        <div class="data">
-                            <p class="topic">Room for 3 girls</p>
-                            <p class="uni"> Near to UCSC </p>
-                            <p class="price">Rs.<span> 8000</span>/Month</p>
-                            <p class="rating">User Rating<span>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-regular fa-star"></i>
-                                    <i class="fa-regular fa-star"></i>
-                                </span>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="image">
-
-                            <img src="https://www.ceylonproperty.lk/imagesPosts/441597669552W7cPPtkGEIeChZJ.jpg" alt="">
-
-                        </div>
-
-                        <div class="data">
-                            <p class="topic">Annex for rent</p>
-                            <p class="uni"> Near to UCSC </p>
-                            <p class="price">Rs.<span> 10000</span>/Month</p>
-                            <p class="rating">User Rating<span>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-regular fa-star"></i>
-                                </span>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="image">
-
-                            <img src="https://www.lankaholidays.com/pics/23483/LG%20phone%20%202014%20May%20595.jpg" alt="">
-
-                        </div>
-
-                        <div class="data">
-                            <p class="topic">Room for 2</p>
-                            <p class="uni"> Near to UCSC </p>
-                            <p class="price">Rs.<span> 13000</span>/Month</p>
-                            <p class="rating">User Rating<span>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-regular fa-star"></i>
-                                    <i class="fa-regular fa-star"></i>
-                                    <i class="fa-regular fa-star"></i>
-                                </span>
-                            </p>
-                        </div>
-                    </div>
-
-
+                    <?php endforeach; ?>
 
                 </main>
             </div>

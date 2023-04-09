@@ -1,23 +1,20 @@
 <?php
+Session::init();
 class Tasks extends Controller
 {
 
     private $taskModel;
     public function __construct()
     {
-        
+
         $this->taskModel = $this->loadmodel('Task');
-        
     }
 
     public function index()
     {
-        $init_data = [
-            'scheduleID' => 1
-        ];
-
+        $id = Session::get('userID');
         $data = [
-            'taskDates' => $this->taskModel->getTaskDates($init_data)
+            'taskDates' => $this->taskModel->getTaskDates($id)
         ];
 
         $array = $data['taskDates'];
@@ -28,9 +25,9 @@ class Tasks extends Controller
 
         $data = [
             'taskDates' => $dates,
-            'notStarted' => $this->taskModel->getNotStartedToday($init_data),
-            'inProgress' => $this->taskModel->getStartedToday($init_data),
-            'all' => $this->taskModel->getAllToday($init_data),
+            'notStarted' => $this->taskModel->getNotStartedToday($id),
+            'inProgress' => $this->taskModel->getStartedToday($id),
+            'all' => $this->taskModel->getAllToday($id),
         ];
 
         $this->loadview('tasks/index', $data);
@@ -80,8 +77,8 @@ class Tasks extends Controller
     public function view()
     {
         $init_data = [
-            'scheduleID' => 1,
-            'taskDate' => trim($_POST['date']),
+            'userID' => Session::get('userID'),
+            'taskDate' => trim($_POST['date'])
         ];
 
         $data = [
@@ -97,14 +94,14 @@ class Tasks extends Controller
         $this->loadview('tasks/viewTask', $data);
     }
 
- 
+
 
 
     public function today()
     {
         $today = date('Y-m-d');
         $init_data = [
-            'scheduleID' => 1,
+            'userID' => Session::get('userID'),
             'taskDate' => $today,
         ];
 
@@ -129,40 +126,20 @@ class Tasks extends Controller
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
             $init_data = [
+                'userID' => Session::get('userID'),
                 'taskName' => trim($_POST['tname']),
                 'taskOMODate' => trim($_POST['tdate']),
                 'taskTime' => trim($_POST['ttime']),
-                'setReminder' => trim($_POST['reminder']),
                 'taskcolor' => trim($_POST['tcolor']),
-                'taskStatus' => 'not started',
-                'scheduleID' => 1,
-                'reminderDate' => '',
-                'reminderTime' => '',
-                'taskDate' => ''
+                'taskStatus' => 'not started'
             ];
             if ($this->taskModel->addTask($init_data)) {
-                $task_id = $this->taskModel->getLastID();
-                if ($init_data['setReminder'] == 1) {
-                    $data = [
-                        'taskID' => $task_id->task_id,
-                        'reminderDate' => trim($_POST['rdate']),
-                        'reminderTime' => trim($_POST['rtime']),
-                        'taskDate' => $init_data['taskDate']
-                    ];
-                    $this->taskModel->addReminder($data);
-                }
-                Middleware::redirect('tasks/');
+                $this->loadview('tasks/addTask');
             } else {
                 die('Something went wrong');
             }
         } else {
-            $data = [
-                'scheduleID' => 1,
-                'setReminder' => 0,
-            ];
-
-
-            $this->loadview('tasks/addTask', $data);
+            $this->loadview('tasks/addTask');
         }
     }
 }
