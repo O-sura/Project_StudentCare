@@ -125,20 +125,22 @@
                 <div class="date">
                     <h3>Accepted Requests</h3><br>
                 </div>
-                <?php if($data['acceptedCount']>0){ 
-                            foreach($data['acceptedRequests'] as $accepted):
-                                $id = $accepted->request_id;
-                                $requested_on = $accepted->requested_on;
-                                $date = date("d M Y", strtotime($requested_on));
-                                $specialization = $accepted->specialization;
-                                $name = $rejected->fullname;
-                    ?>
+                <?php if ($data['acceptedCount'] > 0) {
+                    foreach ($data['acceptedRequests'] as $accepted) :
+                        $id = $accepted->request_id;
+                        $requested_on = $accepted->requested_on;
+                        $date = date("d M Y", strtotime($requested_on));
+                        $specialization = $accepted->specialization;
+                        $name = $accepted->fullname;
+                        $email = $accepted->email;
+                        $requestIds = array_column($data['newRequests'], 'request_id');
+                ?>
                         <div class="call" id="accepted">
                             <div class="date">
                                 <?php echo $date ?>
                             </div>
                             <div class="time">
-                            <?php echo $specialization ?>
+                                <?php echo $specialization ?>
                             </div>
                             <div class="image">
                                 <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" class="image2">
@@ -147,58 +149,72 @@
                                 <h3>Dr. <?php echo $name ?></h3>
                             </div>
                             <div>
-                                <button class="btn">Send a Message</button>
+                                <button class="btn" id="<?php echo $email ?>" onclick="sendEmail(this.id)">Send Email</button>
                             </div>
+                            <?php
+                            if (in_array($id, $requestIds)) { ?>
+                                <span class="icon_button_badge"><i class="fa-solid fa-circle-exclamation"></i></span>
 
+                            <?php } ?>
 
                         </div>
-                    <?php endforeach; 
-                     } else {?>
-                        <div class="call" id = "noAccepts">
-                            <h4>No Accepted Requests</h4>
-                        </div>
-                        
-                 <?php   } ?>
+                    <?php endforeach;
+                } else { ?>
+                    <div class="call" id="noAccepts">
+                        <h4>No Accepted Requests</h4>
+                    </div>
+
+                <?php   } ?>
+
             </div>
             <div class="meeting">
                 <div class="date">
                     <h3>Pending Requests</h3><br>
                 </div>
-                <?php if($data['pendingCount']>0){ 
-                        foreach($data['pendingRequests'] as $pending):
-                            $id = $pending->request_id;
-                            $requested_on = $pending->requested_on;
-                            $date = date("d M Y", strtotime($requested_on));
-                            $specialization = $pending->specialization;
-                            $name = $pending->fullname;                   
-                    ?>
-                <div class="call">
-                    <div class="date">
-                        <?php echo $date ?>
-                    </div>
-                    <div class="time">
-                        <?php echo $specialization ?>
-                    </div>
-                    <div class="image">
-                        <img src="https://images.unsplash.com/photo-1566753323558-f4e0952af115?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1021&q=80" class="image2">
-                    </div>
-                    <div class="counselor-name">
-                        <h3>Dr. <?php echo $name?> </h3>
-                    </div>
-                    <div class="clickables">
-                        <div class="join">
-                            <button class="btn2">Edit request</button>
+                <?php if ($data['pendingCount'] > 0) {
+                    foreach ($data['pendingRequests'] as $pending) :
+                        $id = $pending->request_id;
+                        $requested_on = $pending->requested_on;
+                        $date = date("d M Y", strtotime($requested_on));
+                        $specialization = $pending->specialization;
+                        $name = $pending->fullname;
+                        $requestIds = array_column($data['newRequests'], 'request_id');
+                ?>
+                        <div class="call">
+                            <div class="date">
+                                <?php echo $date ?>
+                            </div>
+                            <div class="time">
+                                <?php echo $specialization ?>
+                            </div>
+                            <div class="image">
+                                <img src="https://images.unsplash.com/photo-1566753323558-f4e0952af115?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1021&q=80" class="image2">
+                            </div>
+                            <div class="counselor-name">
+                                <h3>Dr. <?php echo $name ?> </h3>
+                            </div>
+                            <div class="clickables">
+                                <div class="join">
+                                    <button class="btn2" onclick="window.location.href='<?php echo URLROOT ?>/appointments/editRequest/<?php echo $id; ?>'">Edit request</button>
+                                </div>
+                                <div class="join">
+                                    <button class="btn" onclick="window.location.href='<?php echo URLROOT ?>/appointments/delete_request/<?php echo $id; ?>'">Remove</button>
+                                </div>
+                            </div>
+                            <?php
+                            if (in_array($id, $requestIds)) { ?>
+                                <span class="icon_button_badge"><i class="fa-solid fa-circle-exclamation"></i></span>
+
+                            <?php } ?>
                         </div>
-                        <div class="join">
-                        <button class="btn" onclick="window.location.href='<?php echo URLROOT ?>/appointments/delete_request/<?php echo $id; ?>'">Remove</button>
-                        </div>
+                    <?php endforeach;
+                } else { ?>
+                    <div class="call" id="noPending">
+                        <h3>No Pending Requests</h3>
                     </div>
 
-                </div>
-                <?php endforeach; 
-                 } else {
-                        echo "<h4>No Pending Requests</h4>";
-                    } ?>
+                <?php   } ?>
+
             </div>
 
 
@@ -206,22 +222,23 @@
                 <div class="date">
                     <h3>Rejected requests</h3><br>
                 </div>
-                <?php if($data['rejectedCount']>0){ 
-                        foreach($data['rejectedRequests'] as $rejected):
-                            $id = $rejected->request_id;
-                            $requested_on = $rejected->requested_on;
-                            $date = date("d M Y", strtotime($requested_on));
-                            $specialization = $rejected->specialization;
-                            $reason = $rejected->reason;
-                            $name = $rejected->fullname;
-                    ?>
-                    
+                <?php if ($data['rejectedCount'] > 0) {
+                    foreach ($data['rejectedRequests'] as $rejected) :
+                        $id = $rejected->request_id;
+                        $requested_on = $rejected->requested_on;
+                        $date = date("d M Y", strtotime($requested_on));
+                        $specialization = $rejected->specialization;
+                        $reason = $rejected->reason;
+                        $name = $rejected->fullname;
+                        $requestIds = array_column($data['newRequests'], 'request_id');
+                ?>
+
                         <div class="call" id="rejected">
                             <div class="date">
                                 <?php echo $date; ?>
                             </div>
                             <div class="time">
-                               <?php echo $specialization; ?>
+                                <?php echo $specialization; ?>
                             </div>
                             <div class="image">
                                 <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" class="image2">
@@ -232,7 +249,7 @@
                             <div class="clickables">
                                 <div class="join">
 
-                                    Reason : 
+                                    Reason :
 
                                 </div>
                                 <div class="join">
@@ -240,14 +257,19 @@
                                 </div>
                             </div>
 
+                            <span class="icon_button_badge"><i class="fa-solid fa-circle-exclamation"></i></span>
+
+
+
                         </div>
-                    <?php endforeach; 
-                     } else {?>
-                     <div class="call" id = "noRejects">
-                         <h3>No rejected Requests</h3>
-                     </div>
-                        
-                 <?php   } ?>
+                    <?php endforeach;
+                } else { ?>
+                    <div class="call" id="noRejects">
+                        <h3>No rejected Requests</h3>
+                    </div>
+
+                <?php   } ?>
+
             </div>
         </div>
     </div>
@@ -261,6 +283,13 @@
 
         btn.onclick = function() {
             sidebar.classList.toggle("active");
+        }
+
+        function sendEmail(email) {
+            const subject = 'Request for an appointment';
+            const body = 'Hi, I would like to request an appointment with you.';
+            const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
+            window.location.href = mailtoLink;
         }
     </script>
 </body>

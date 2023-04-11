@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href=<?php echo URLROOT . "/public/css/stu/PropertyView.css" ?>>
     <script src=<?php echo URLROOT . "/public/js/View.js" ?> defer></script>
+    <script type="module" src=<?php echo URLROOT . "/public/js/student/loadListings.js" ?> defer></script>
     <title>Food View listings</title>
 </head>
 
@@ -26,49 +27,49 @@
                 <i class="fa-solid fa-bars" id="btn"></i>
             </div>
             <ul class="nav_list">
-            <li>
-                <a href='<?php echo URLROOT ?>/student/home'>
-                    <i class="fa-solid fa-gauge"></i>
-                    <span class="links_name">Dashboard</span>
-                </a>
-                <span class="tooltip">Dashboard</span>
-            </li>
-            <li>
-                <a href='<?php echo URLROOT ?>/community/home'>
-                    <i class="fa-solid fa-users"></i>
-                    <span class="links_name">Community</span>
-                </a>
-                <span class="tooltip">Community</span>
-            </li>
-            <li>
-                <a href='<?php echo URLROOT ?>/tasks/'>
-                    <i class="fa-solid fa-calendar-days"></i>
-                    <span class="links_name">Schedule</span>
-                </a>
-                <span class="tooltip">Schedule</span>
-            </li>
-            <li>
-                <a href='<?php echo URLROOT ?>/appointments/'>
-                    <i class="fa-solid fa-calendar-check"></i></i>
-                    <span class="links_name">Appointments</span>
-                </a>
-                <span class="tooltip">Appointments</span>
-            </li>
-            <li>
-                <a href='<?php echo URLROOT ?>/announcements/'>
-                    <i class="fa-solid fa-bullhorn"></i></i>
-                    <span class="links_name">Announcements</span>
-                </a>
-                <span class="tooltip">Announcements</span>
-            </li>
-            <li>
-                <a href="<?php echo URLROOT ?>/Student_facility/">
-                    <i class="fa-solid fa-house-circle-check"></i>
-                    <span class="links_name">Listings</span>
-                </a>
-                <span class="tooltip">Listings</span>
-            </li>
-        </ul>
+                <li>
+                    <a href='<?php echo URLROOT ?>/student/home'>
+                        <i class="fa-solid fa-gauge"></i>
+                        <span class="links_name">Dashboard</span>
+                    </a>
+                    <span class="tooltip">Dashboard</span>
+                </li>
+                <li>
+                    <a href='<?php echo URLROOT ?>/community/home'>
+                        <i class="fa-solid fa-users"></i>
+                        <span class="links_name">Community</span>
+                    </a>
+                    <span class="tooltip">Community</span>
+                </li>
+                <li>
+                    <a href='<?php echo URLROOT ?>/tasks/'>
+                        <i class="fa-solid fa-calendar-days"></i>
+                        <span class="links_name">Schedule</span>
+                    </a>
+                    <span class="tooltip">Schedule</span>
+                </li>
+                <li>
+                    <a href='<?php echo URLROOT ?>/appointments/'>
+                        <i class="fa-solid fa-calendar-check"></i></i>
+                        <span class="links_name">Appointments</span>
+                    </a>
+                    <span class="tooltip">Appointments</span>
+                </li>
+                <li>
+                    <a href='<?php echo URLROOT ?>/announcements/'>
+                        <i class="fa-solid fa-bullhorn"></i></i>
+                        <span class="links_name">Announcements</span>
+                    </a>
+                    <span class="tooltip">Announcements</span>
+                </li>
+                <li>
+                    <a href="<?php echo URLROOT ?>/Student_facility/">
+                        <i class="fa-solid fa-house-circle-check"></i>
+                        <span class="links_name">Listings</span>
+                    </a>
+                    <span class="tooltip">Listings</span>
+                </li>
+            </ul>
             <div class="profile_content">
                 <div class="profile">
                     <div class="profile_details">
@@ -87,11 +88,6 @@
                 <div class="head">
                     <h1>Property</h1>
 
-                    <form class="box" method="POST" action="propertyView">
-                        <button type="submit" name="search"><i class="fa-solid fa-search" aria-hidden="true"></i></button>
-                        <input type="text" placeholder="Search Here" name="searchbtn" class="searchbtn">
-                    </form>
-
                 </div>
                 <div class="sliders">
                     <div class="food"><a href="<?php echo URLROOT ?>/Student_facility/food">Food</a></div>
@@ -101,181 +97,78 @@
                 <hr>
 
                 <div class="wrapper">
-
+                    <h3>Sort by:</h3>
                     <div class="select-btn">
-                        <select class="select" name="filterItem" id="filterItem">
-                            <option value="" selected="selected">Location</option>
-                            <option value="Ampara">Ampara</option>
-                            <option value="Anuradhapura">Anuradhapura</option>
-                            <option value="Badulla">Badulla</option>
-                            <option value="Batticaloa">Batticaloa</option>
-                            <option value="Colombo">Colombo</option>
-                            <option value="Galle">Galle</option>
-                            <option value="Gampaha">Gampaha</option>
-                            <option value="Hambantota">Hambantota</option>
-                            <option value="Jaffna">Jaffna</option>
-                            <option value="Kalutara">Kalutara</option>
-                        </select>
-                    </div>
-
-                    <div class="select-btn">
-                        <select class="select">
-                            <option>Type</option>
-                            <option value="type">House</option>
-                            <option value="type">Room</option>
-                        </select>
-                    </div>
-
-                    <div class="select-btn">
-                        <select class="select">
+                        <i class="fa-solid fa-dollar-sign fa-lg"></i>
+                        <select class="select" id="priceSorter">
                             <option>Price</option>
-                            <option>Low to High</option>
-                            <option>High to Low</option>
+                            <option value="asc">Low to High</option>
+                            <option value="desc">High to Low</option>
                         </select>
                     </div>
-                    <div class="select-btn">
-                        <select class="select">
-                            <option>University</option>
-                            <option value="Colombo">Colombo</option>
-                            <option value="Japura">Sri Jayawardhanapura</option>
-                            <option value="Peradeniya">Peradeniya</option>
+                    <div class="select-btn" id="rating-filter">
+                        <i class="fa-solid fa-star-half-stroke fa-lg"></i>
+                        <select class="select" id="ratingSorter">
+                            <option>Rating</option>
+                            <option value="asc">Low to High</option>
+                            <option value="desc">High to Low</option>
                         </select>
+                    </div>
+                    <div class="select-btn" id="date-filter">
+                        <i class="fa-regular fa-calendar fa-lg"></i>
+                        <select class="select" id="dateSorter">
+                            <option>Date</option>
+                            <option value="desc">Newest</option>
+                            <option value="asc">Oldest</option>
+                        </select>
+                    </div>
+                    <h3>Filter by:</h3>
+                    <div class="select-btn">
+                        <i class="fa-solid fa-location-dot fa-lg"></i>
+                        <select class="select" id="universityFilter">
+                            <option value="<?php echo $data['studentUni']->university ?>" selected><?php echo $data['studentUni']->university ?></option>
+                            <option value="University of Colombo">University of Colombo</option>
+                            <option value="University of Kelaniya">University of Kelaniya</option>
+                            <option value="University of Peradeniya">University of Peradeniya</option>
+                            <option value="University of Moratuwa">University of Moratuwa</option>
+                            <option value="University of Moratuwa">SLIIT</option>
+                        </select>
+                    </div>
+                    <div class="search-container">
+                        <form action="#">
+                            <input type="text" placeholder="Search...">
+                            <button type="submit">Search</button>
+                        </form>
                     </div>
 
                 </div>
 
-                <main>
+                <main id="search-results">
+                    <?php foreach ($data['listings'] as $view) : ?>
+                        <div class="item">
+                            <div class="image">
+                                <?php
+                                $images = json_decode($view->image);
+                                ?>
+                                <a href="<?php echo URLROOT; ?>/student_facility/viewOneListing/<?php echo $view->listing_id; ?>"><img src="<?= URLROOT . "/public/img/listing/" . $images[0] ?>"></a>
 
-
-                    <div class="item">
-                        <div class="image">
-                            <a href="<?php echo URLROOT ?>/Student_facility/viewProperty">
-                                <img src="https://i.ikman-st.com/kaamr-phsukm-aet-for-rent-colombo-1/069352fb-3d4b-4088-b7b3-74ec7b0e6479/620/466/fitted.jpg" alt="">
-                            </a>
+                            </div>
+                            <div class="data">
+                                <p class="topic"><?php echo $view->topic; ?></p>
+                                <p class="uni">
+                                    <?php foreach ($data['universities'] as $university) : ?>
+                                        <?php if ($university->listing_id == $view->listing_id) : ?>
+                                            <?php echo $university->distance ?> km from <?php echo $university->uni_name; ?> <br>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </p>
+                                <p class="rating"><i class="fa-solid fa-star fa-xs"></i> <?php echo $view->rating ?></p>
+                                <p class="price"><span>Rs. </span><?php echo $view->rental; ?>/Month</p>
+                                <p class="location"><?php echo $view->location; ?></p>
+                            </div>
                         </div>
 
-                        <div class="data">
-                            <p class="topic">Annex for Rent</p>
-                            <p class="uni"> Near to UCSC </p>
-                            <p class="price">Rs.<span> 8000</span>/Month</p>
-                            <p class="rating">User Rating<span>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-regular fa-star"></i>
-                                </span>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="image">
-
-                            <img src="https://ceylonproperty.lk/imagesPosts/8411640922949uB1EQKHuk9zVX9p.jpeg" alt="">
-
-                        </div>
-
-                        <div class="data">
-                            <p class="topic">House for rent</p>
-                            <p class="uni">Near to UCSC </p>
-                            <p class="price">Rs.<span> 2000</span>/Month</p>
-                            <p class="rating">User Rating<span>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-
-                                </span>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="image">
-
-                            <img src="https://images.olx.com.pk/thumbnails/328947427-240x180.jpeg" alt="">
-
-                        </div>
-
-                        <div class="data">
-                            <p class="topic">Room for students</p>
-                            <p class="uni"> Near to UOC </p>
-                            <p class="price">Rs.<span> 15000</span>/Month</p>
-                            <p class="rating">User Rating<span>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-regular fa-star"></i>
-                                    <i class="fa-regular fa-star"></i>
-                                </span>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="image">
-
-                            <img src="https://siyaluma.lk/storage/products/1569657975_2.jpeg" alt="">
-
-                        </div>
-
-                        <div class="data">
-                            <p class="topic">Room for 3 girls</p>
-                            <p class="uni"> Near to UCSC </p>
-                            <p class="price">Rs.<span> 8000</span>/Month</p>
-                            <p class="rating">User Rating<span>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-regular fa-star"></i>
-                                    <i class="fa-regular fa-star"></i>
-                                </span>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="image">
-
-                            <img src="https://www.ceylonproperty.lk/imagesPosts/441597669552W7cPPtkGEIeChZJ.jpg" alt="">
-
-                        </div>
-
-                        <div class="data">
-                            <p class="topic">Annex for rent</p>
-                            <p class="uni"> Near to UCSC </p>
-                            <p class="price">Rs.<span> 10000</span>/Month</p>
-                            <p class="rating">User Rating<span>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-regular fa-star"></i>
-                                </span>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="image">
-
-                            <img src="https://www.lankaholidays.com/pics/23483/LG%20phone%20%202014%20May%20595.jpg" alt="">
-
-                        </div>
-
-                        <div class="data">
-                            <p class="topic">Room for 2</p>
-                            <p class="uni"> Near to UCSC </p>
-                            <p class="price">Rs.<span> 13000</span>/Month</p>
-                            <p class="rating">User Rating<span>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-regular fa-star"></i>
-                                    <i class="fa-regular fa-star"></i>
-                                    <i class="fa-regular fa-star"></i>
-                                </span>
-                            </p>
-                        </div>
-                    </div>
-
-
+                    <?php endforeach; ?>
 
                 </main>
             </div>

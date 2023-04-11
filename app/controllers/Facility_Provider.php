@@ -172,7 +172,7 @@ class Facility_Provider extends Controller{
             }
 
             $image_urls = json_encode($image_urls);
-     
+            
             $uniName = json_encode($uniName);
             
             $validatedData = [
