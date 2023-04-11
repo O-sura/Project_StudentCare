@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href=<?php echo URLROOT . "/public/css/stu/PropertyView.css" ?>>
     <script src=<?php echo URLROOT . "/public/js/View.js" ?> defer></script>
+    <script type="module" src=<?php echo URLROOT . "/public/js/student/loadListings.js" ?> defer></script>
     <title>Food View listings</title>
 </head>
 
@@ -87,11 +88,6 @@
                 <div class="head">
                     <h1>Property</h1>
 
-                    <form class="box" method="POST" action="propertyView">
-                        <button type="submit" name="search"><i class="fa-solid fa-search" aria-hidden="true"></i></button>
-                        <input type="text" placeholder="Search Here" name="searchbtn" class="searchbtn">
-                    </form>
-
                 </div>
                 <div class="sliders">
                     <div class="food"><a href="<?php echo URLROOT ?>/Student_facility/food">Food</a></div>
@@ -101,52 +97,54 @@
                 <hr>
 
                 <div class="wrapper">
-
+                    <h3>Sort by:</h3>
                     <div class="select-btn">
-                        <select class="select" name="filterItem" id="filterItem">
-                            <option value="" selected="selected">Location</option>
-                            <option value="Ampara">Ampara</option>
-                            <option value="Anuradhapura">Anuradhapura</option>
-                            <option value="Badulla">Badulla</option>
-                            <option value="Batticaloa">Batticaloa</option>
-                            <option value="Colombo">Colombo</option>
-                            <option value="Galle">Galle</option>
-                            <option value="Gampaha">Gampaha</option>
-                            <option value="Hambantota">Hambantota</option>
-                            <option value="Jaffna">Jaffna</option>
-                            <option value="Kalutara">Kalutara</option>
-                        </select>
-                    </div>
-
-                    <div class="select-btn">
-                        <select class="select">
-                            <option>Type</option>
-                            <option value="type">House</option>
-                            <option value="type">Room</option>
-                        </select>
-                    </div>
-
-                    <div class="select-btn">
-                        <select class="select">
+                        <i class="fa-solid fa-dollar-sign fa-lg"></i>
+                        <select class="select" id="priceSorter">
                             <option>Price</option>
-                            <option>Low to High</option>
-                            <option>High to Low</option>
+                            <option value="asc">Low to High</option>
+                            <option value="desc">High to Low</option>
                         </select>
                     </div>
-                    <div class="select-btn">
-                        <select class="select">
-                            <option>University</option>
-                            <option value="Colombo">Colombo</option>
-                            <option value="Japura">Sri Jayawardhanapura</option>
-                            <option value="Peradeniya">Peradeniya</option>
+                    <div class="select-btn" id="rating-filter">
+                        <i class="fa-solid fa-star-half-stroke fa-lg"></i>
+                        <select class="select" id="ratingSorter">
+                            <option>Rating</option>
+                            <option value="asc">Low to High</option>
+                            <option value="desc">High to Low</option>
                         </select>
+                    </div>
+                    <div class="select-btn" id="date-filter">
+                        <i class="fa-regular fa-calendar fa-lg"></i>
+                        <select class="select" id="dateSorter">
+                            <option>Date</option>
+                            <option value="desc">Newest</option>
+                            <option value="asc">Oldest</option>
+                        </select>
+                    </div>
+                    <h3>Filter by:</h3>
+                    <div class="select-btn">
+                        <i class="fa-solid fa-location-dot fa-lg"></i>
+                        <select class="select" id="universityFilter">
+                            <option value="<?php echo $data['studentUni']->university ?>" selected><?php echo $data['studentUni']->university ?></option>
+                            <option value="University of Colombo">University of Colombo</option>
+                            <option value="University of Kelaniya">University of Kelaniya</option>
+                            <option value="University of Peradeniya">University of Peradeniya</option>
+                            <option value="University of Moratuwa">University of Moratuwa</option>
+                            <option value="University of Moratuwa">SLIIT</option>
+                        </select>
+                    </div>
+                    <div class="search-container">
+                        <form action="#">
+                            <input type="text" placeholder="Search...">
+                            <button type="submit">Search</button>
+                        </form>
                     </div>
 
                 </div>
 
-                <main>
+                <main id="search-results">
                     <?php foreach ($data['listings'] as $view) : ?>
-
                         <div class="item">
                             <div class="image">
                                 <?php
@@ -155,17 +153,18 @@
                                 <a href="<?php echo URLROOT; ?>/student_facility/viewOneListing/<?php echo $view->listing_id; ?>"><img src="<?= URLROOT . "/public/img/listing/" . $images[0] ?>"></a>
 
                             </div>
-
                             <div class="data">
                                 <p class="topic"><?php echo $view->topic; ?></p>
-                                <p class="uni">Near to <?php
-                                                        $uniName = json_decode($view->uniName);
-                                                        foreach ($uniName as $name) {
-                                                            echo $name;
-                                                            echo '<br>';
-                                                        }
-                                                        ?></p>
+                                <p class="uni">
+                                    <?php foreach ($data['universities'] as $university) : ?>
+                                        <?php if ($university->listing_id == $view->listing_id) : ?>
+                                            <?php echo $university->distance ?> km from <?php echo $university->uni_name; ?> <br>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </p>
+                                <p class="rating"><i class="fa-solid fa-star fa-xs"></i> <?php echo $view->rating ?></p>
                                 <p class="price"><span>Rs. </span><?php echo $view->rental; ?>/Month</p>
+                                <p class="location"><?php echo $view->location; ?></p>
                             </div>
                         </div>
 
