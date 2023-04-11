@@ -274,6 +274,23 @@
             
         }
 
+        //to cancel an appointment
+        public function cancelAppointment($userid,$data){
+
+            $this ->db->query('UPDATE appointments SET appointmentStatus = 2, cancellationReason = :reason WHERE counsellorID = :userid AND studentID = :stuID ;');
+
+            $this->db->bind(':userid',$userid);
+            $this->db->bind(':stuID',$data['stuID']);
+            $this->db->bind(':reason',$data['descC']);
+
+            if($this->db->execute()){
+                return true;
+            }else{
+                return false;
+            }
+
+        }
+
         //to get the students based on counselor decision
         public function getStudents($statusOfRequest,$userid){
 
@@ -357,6 +374,40 @@
             }
 
         }
+
+        //to get daily appointments to show on dashboard
+        public function getAppointmentTimes($userid,$curdate){
+
+            //$this->db->query('SELECT * FROM appointments WHERE counsellorID = "ee0a55b1" AND appointmentDate = "2023-03-09"');
+
+            $this->db->query('SELECT * FROM appointments WHERE counsellorID = :userid AND appointmentDate = :curdate;');
+            $this->db->bind(':curdate',$curdate);
+            $this->db->bind(':userid',$userid);
+
+            $results = $this->db->getAllRes();
+
+            return json_encode($results); 
+
+        }
+
+
+        //to get next appointment to show on dashboard
+        public function nextAppointmentDetails($userid,$curdate,$currtime){
+
+            //$this->db->query('SELECT * FROM appointments WHERE counsellorID = "ee0a55b1" AND appointmentDate = "2023-03-09" AND appointmentTime > :currtime ORDER BY appointmentTime ASC');
+
+            $this->db->query('SELECT * FROM appointments WHERE counsellorID = :userid AND appointmentDate = :curdate AND appointmentTime > :currtime;');
+            $this->db->bind(':curdate',$curdate);
+            $this->db->bind(':userid',$userid);
+            $this->db->bind(':currtime', $currtime);
+
+            $results = $this->db->getRes();
+
+            return json_encode($results); 
+
+        }
+
+
 
 
 

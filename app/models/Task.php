@@ -10,8 +10,9 @@ class Task
 
     public function getNotStarted($data)
     {
-        $this->db->query("SELECT * FROM task WHERE schedule_id = :scheduleID AND task_status = 'not started' AND task_date = :taskDate");
-        $this->db->bind(':scheduleID', $data['scheduleID']);
+        //schedule_id = :scheduleID AND
+        $this->db->query("SELECT * FROM task WHERE  task_status = 'not started' AND task_date = :taskDate");
+        //$this->db->bind(':scheduleID', $data['scheduleID']);
         $this->db->bind(':taskDate', $data['taskDate']);
         $results = $this->db->getAllRes();
 
@@ -20,8 +21,9 @@ class Task
 
     public function getNotStartedToday($data)
     {
-        $this->db->query("SELECT * FROM task WHERE schedule_id = :scheduleID AND task_status = 'not started' AND task_date = :taskDate");
-        $this->db->bind(':scheduleID', $data['scheduleID']);
+        //schedule_id = :scheduleID AND
+        $this->db->query("SELECT * FROM task WHERE  task_status = 'not started' AND task_date = :taskDate");
+        //$this->db->bind(':scheduleID', $data['scheduleID']);
         $today = date('Y-m-d');
         $this->db->bind(':taskDate', $today);
         $results = $this->db->getAllRes();
@@ -32,8 +34,9 @@ class Task
 
     public function getStarted($data)
     {
-        $this->db->query("SELECT * FROM task WHERE schedule_id = :scheduleID AND task_status = 'started' AND task_date = :taskDate");
-        $this->db->bind(':scheduleID', $data['scheduleID']);
+        //schedule_id = :scheduleID AND
+        $this->db->query("SELECT * FROM task WHERE  task_status = 'started' AND task_date = :taskDate");
+       // $this->db->bind(':scheduleID', $data['scheduleID']);
         $this->db->bind(':taskDate', $data['taskDate']);
         $results = $this->db->getAllRes();
 
@@ -42,8 +45,9 @@ class Task
 
     public function getStartedToday($data)
     {
-        $this->db->query("SELECT * FROM task WHERE schedule_id = :scheduleID AND task_status = 'started' AND task_date = :taskDate");
-        $this->db->bind(':scheduleID', $data['scheduleID']);
+        //schedule_id = :scheduleID AND
+        $this->db->query("SELECT * FROM task WHERE  task_status = 'started' AND task_date = :taskDate");
+        //$this->db->bind(':scheduleID', $data['scheduleID']);
         $today = date('Y-m-d');
         $this->db->bind(':taskDate', $today);
         $results = $this->db->getAllRes();
@@ -53,8 +57,9 @@ class Task
 
     public function getCompleted($data)
     {
-        $this->db->query("SELECT * FROM task WHERE schedule_id = :scheduleID AND task_status = 'completed' AND task_date = :taskDate");
-        $this->db->bind(':scheduleID', $data['scheduleID']);
+        //schedule_id = :scheduleID AND
+        $this->db->query("SELECT * FROM task WHERE  task_status = 'completed' AND task_date = :taskDate");
+        //$this->db->bind(':scheduleID', $data['scheduleID']);
         $this->db->bind(':taskDate', $data['taskDate']);
         $results = $this->db->getAllRes();
 
@@ -63,8 +68,9 @@ class Task
 
     public function getAll($data)
     {
-        $this->db->query("SELECT * FROM task WHERE schedule_id = :scheduleID AND task_date = :taskDate");
-        $this->db->bind(':scheduleID', $data['scheduleID']);
+        //schedule_id = :scheduleID AND
+        $this->db->query("SELECT * FROM task WHERE  task_date = :taskDate");
+        //$this->db->bind(':scheduleID', $data['scheduleID']);
         $this->db->bind(':taskDate', $data['taskDate']);
         $results = $this->db->getAllRes();
 
@@ -73,8 +79,9 @@ class Task
 
     public function getAllToday($data)
     {
-        $this->db->query("SELECT * FROM task WHERE schedule_id = :scheduleID AND task_date = :taskDate");
-        $this->db->bind(':scheduleID', $data['scheduleID']);
+        //schedule_id = :scheduleID AND
+        $this->db->query("SELECT * FROM task WHERE  task_date = :taskDate");
+        //$this->db->bind(':scheduleID', $data['scheduleID']);
         $today = date('Y-m-d');
         $this->db->bind(':taskDate', $today);
         $results = $this->db->getAllRes();
@@ -137,8 +144,9 @@ class Task
 
     public function getTaskDates($scheduleID)
     {
-        $this->db->query("SELECT task_date FROM task WHERE schedule_id = :scheduleID");
-        $this->db->bind(':scheduleID', $scheduleID['scheduleID']);
+        //WHERE schedule_id = :scheduleID
+        $this->db->query("SELECT task_date FROM task ");
+       // $this->db->bind(':scheduleID', $scheduleID['scheduleID']);
         $results = $this->db->getAllRes();
 
         return $results;

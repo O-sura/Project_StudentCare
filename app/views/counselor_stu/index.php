@@ -262,7 +262,7 @@ families.
             btn.onclick = function() {
                 sidebar.classList.toggle("active");
             }// Get the modal
-            var modal = document.getElementById("myModal");
+var modal = document.getElementById("myModal");
 var btns = document.getElementsByClassName("btn");
 var span = document.getElementsByClassName("close")[0];
 

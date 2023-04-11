@@ -14,11 +14,63 @@
         //load the dashboard view. Registered counselor directly coming to this page after login
         public function home(){
             
-            $data = [];
+            $this->postModel = $this->loadModel('Counselor');
+            $userid = Session::get('userID');
 
+            date_default_timezone_set('Asia/Kolkata');
+
+            $curdate = date('Y-m-d');
+            $currtime = date('H:i:s');
+
+            $row = $this->postModel->getAppointmentTimes($userid,$curdate);
+            $rowNext = $this->postModel->nextAppointmentDetails($userid,$curdate,$currtime);
+            
+
+            $getApp = json_decode($row,true);
+            $getNextApp = json_decode($rowNext,true);
+
+            // print_r($getNextApp);
+            // exit;
+            // $timeapp = $newrow['appointmentTime'];
+            // print_r($timeapp);
+            // exit;
+
+            $data = [
+                'row'=> $getApp,
+                'rowNext' => $getNextApp
+            ];
+
+            // print_r ($data[0]['appointmentTime']);
+            // exit;
+            //Counsellor::nextAppointment();
+           
             $this->loadView('Counselor/dashboard',$data);
+
+           
         }
 
+
+        // public function nextAppointment(){
+
+        //     $this->postModel = $this->loadModel('Counselor');
+        //     $userid = Session::get('userID');
+
+        //     date_default_timezone_set('Asia/Kolkata');
+
+        //     $curdate = date('Y-m-d');
+        //     $currtime = date('H:i:s');
+
+        //     $row = $this->postModel->nextAppointmentDetails($userid,$curdate,$currtime);
+
+        //     $data = json_decode($row,true);
+
+        //     // print_r ($data);
+        //     // exit;
+
+        //     $this->loadView('Counselor/dashboard',$data);
+
+
+        // }
 
         //load the profile view
         public function profileView(){
@@ -330,6 +382,10 @@
 
         //load the notification section
         public function notificationView(){
+
+            $this->postModel = $this->loadModel('Counselor');
+            $userid = Session::get('userID');
+
             $data = [
                 
             ];
@@ -348,14 +404,23 @@
             // }
 
             $statusNew = "";
+            $statusNew0 = 0;
+            $statusNew1 = 1;
+            $statusNew2 = 2;
 
             $row = $this->postModel->getStudents($statusNew,$userid);
+            $row0 = $this->postModel->getStudents($statusNew0,$userid);
+            $row1 = $this->postModel->getStudents($statusNew1,$userid);
+            $row2 = $this->postModel->getStudents($statusNew2,$userid);
 
             
             //check whether the correspondin section empty or not
             
             $data = [
-                'row' => $row
+                'row' => $row,
+                'row0' => $row0,
+                'row1' => $row1,
+                'row2' => $row2
             
             ];
             
@@ -445,15 +510,39 @@
 
                     $newStatus = 1;
 
-                    $this->postModel->updateStudentStatus($newStatus,$userid,$id);
+                    $result = $this->postModel->updateStudentStatus($newStatus,$userid,$id);
                 }
                 else if(isset($_POST['decline'])){
                     $newStatus = 2;
 
-                    $this->postModel->updateStudentStatus($newStatus,$userid,$id);
+                    $result = $this->postModel->updateStudentStatus($newStatus,$userid,$id);
                 }
+
+               
             }
         }
+
+        // public function showAppointmentTimes(){
+            
+        //     $this->postModel = $this->loadModel('Counselor');
+        //     $userid = Session::get('userID');
+
+        //     $curdate = date('Y-m-d');
+        //     $row = $this->postModel->getAppointmentTimes($userid,$curdate);
+
+        //     echo $row;
+        //     exit;
+
+        //     $data = [
+        //         'rowT'=> $row
+        //     ];
+
+           
+        //     $this->loadView('Counselor/dashboard',$data);
+       
+
+
+        // }
 
     }
 

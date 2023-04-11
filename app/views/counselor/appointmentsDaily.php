@@ -63,7 +63,7 @@
                                                 <button class="btn">
                                                     <div class="btn-class">
                                                         <div class="btnName" >
-                                                            <a class='start' href="http://localhost:3000/<?php echo $row->meetingID ?>" target="_blank">Start</a>
+                                                            Join<!-- <a class='start' href="http://localhost:3000/<?php echo $row->meetingID ?>" target="_blank">Start</a> -->
                                                         </div>
                                                         <div class="btnIcon">
                                                             <i class="fa-solid fa-play"></i>
@@ -110,6 +110,62 @@
 
             </div>
 
+        </div>
+
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+
+                <button class = "btnStart" id="uploadBtn"><a class='start' href="http://localhost:3000/<?php echo $row->meetingID ?>" target="_blank">Start meeting</a></button>
+                <button id="removeBtn" class="rbtn">Cancel appointment</button>
+            </div>
+
+        </div>
+
+        <!-- The Modal for start meeting or cancellation -->
+        <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3>Appointment Cancellation</h3>
+                <button class = "btnStart" id="uploadBtn"><a class='start' href="http://localhost:3000/<?php echo $row->meetingID ?>" target="_blank">Start meeting</a></button>
+                <button id="removeBtn">Cancel appointment</button>
+            </div>
+
+        </div>
+
+        <!-- The modal for cancellation -->
+
+        <div id="myModalCancel" class="modalCancel">
+
+        <!-- Modal content -->
+            <form  action="http://localhost/StudentCare/CounselorAppointment/cancellationOfAppointment/?studentID=<?php echo $row->studentID; ?>" method="POST">
+                <div class="modalCancel-content">
+
+                    <input type="text" name="studentID" value="Hi" hidden>
+
+                    <span class="closeC">&times;</span>
+                    <h3>Appointment Cancellation</h3><br>
+                    <p class="detCancel">Student Name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <?php echo $row->studentName ;?></p>
+                    <p class="detCancel">Appointment Date : <?php echo $row->appointmentDate ;?></p>
+                    <p class="detCancel">Reason for Cancellation :</p>
+                    
+
+                    <!-- <?php 
+                        if($data['descC_err'])
+                            echo '<div class="form-field" data-error=" ' . $data['descC_err'] . '">';
+                        else
+                            echo '<div class="form-field">';
+                    ?> -->
+                    <textarea name="descC" id="" placeholder="Description" rows = "15" cols = "5" class="Desc"></textarea><br>
+                    </div>
+                    <button id="removeBtnC" type="submit" name="submit">Cancel appointment</button>
+                <!-- </div> -->
+            </form>
         </div>
         
     </div>

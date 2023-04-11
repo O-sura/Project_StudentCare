@@ -26,7 +26,7 @@
 
            
             <div class="div5">
-                <div  class="noti">
+                <!-- <div  class="noti">
                     <div class="intro"></div>
                     <div class="dp"><img class="dpImg" src="<?php echo URLROOT."/public/img/img1.jpg"?>" alt=""></div>
                     <div class="desc">
@@ -65,7 +65,7 @@
                         <button class="right"><i class="fa-regular fa-square-check"></i></button>
                         <button class="btnDel"><i class="fa-regular fa-trash-can"></i></button>
                     </div>
-                </div>
+                </div> -->
             </div>
     
     </div>

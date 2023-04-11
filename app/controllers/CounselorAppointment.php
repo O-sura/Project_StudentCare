@@ -44,15 +44,14 @@
         }
 
         //show daily appointments
-        public function dailyAppointment(){
+        public function dailyAppointment($appdate = null){
 
             $userid = Session::get('userID');
 
-
+            $newdate = isset($_POST['date']) ? $_POST['date'] : $appdate;
 
             $init_data = [
-                'scheduleID' => 1,
-                'taskDate' => trim($_POST['date']),
+                'taskDate' => $newdate
             ];
 
             $row = $this->postModel->getAppointmentsDetails($init_data['taskDate'],$userid);
@@ -113,11 +112,22 @@
                     $data['appTime_err'] = 'Appointment time is required';
                 }
 
-                //valiate appointment description
+                //validate appointment description
                 if(empty($data['desc'])){
                     $data['desc_err'] = 'Appointment description is required';
                 }
 
+
+                //Check whether maximum time allocating slots are filled or not
+                $appDayCountObject = $this->postModel->countDayAppointments($data);
+                $appDayCount = json_decode($appDayCountObject,true);
+
+                if($appDayCount['COUNT(appointmentDate)'] == 5){
+                    $data['appDate_err'] = 'Time slots are already filled. Choose another day';
+                }
+                
+
+                //have to check whether the student is in counselors' accepted list
 
                 //check the inserted time is between following times
                 $timediff = 30;
@@ -143,22 +153,23 @@
                     $data['appTime_err'] = 'Requested time is already allocated, choose another time';
                 }
 
-
-                //Check whether maximum time allocating slots are filled or not
-                $appDayCountObject = $this->postModel->countDayAppointments($data);
-                $appDayCount = json_decode($appDayCountObject,true);
-
-                if($appDayCount['COUNT(appointmentDate)'] == 5){
-                    $data['appDate_err'] = 'Time slots are already filled. Choose another day';
-                }
-
                 //check wether to be appointment date is a passed day or not
                 $currdate = date('Y-m-d');
                 if($data['appDate'] < $currdate){
-                    $data['appDate_err'] = 'You cannot pick already passed days';
+                    $data['appDate_err'] = 'You cannot pick already past days';
                 }
 
-                // echo $currdate;
+                //to add an appointment on current date 
+
+                // Set the default timezone to your timezone
+                date_default_timezone_set('Asia/Kolkata');
+                $currtime = date('H:i');
+
+                if($data['appTime'] <= $currtime){
+                    $data['appTime_err'] = 'Please pick a time after 15 minutes from current time';
+                }
+
+                // echo $currtime;
                 // exit;
 
 
@@ -192,6 +203,70 @@
             }
 
 
+
+
+        }
+
+        //cancel an appointment
+        public function cancellationOfAppointment(){
+
+            $userid = Session::get('userID');
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+                if(isset($_POST['submit'])){
+
+                    $data = [
+                        'descC' => trim($_POST['descC']),
+                        'descC_err' => ''
+    
+                    ];
+    
+                    print_r ($_POST);
+                    echo $_POST['studentID'];
+                    exit;
+    
+                    //validate appointment cancellation description
+                    if(empty($data['descC'])){
+                        $data['descC_err'] = 'Appointment cancellation description is required';
+                    }
+    
+                    if(empty($data['descC_err'])){
+    
+                        if($this->postModel->cancelAppointment($data,$userid)){
+    
+    
+                            // $loggedUser = $this->postModel->getCounselorProfile($userid);   //to get the related counselor details
+                            // $user = $this->postModel->getstudentforemail($stuid);   //to get the related student detils
+    
+                            // //to send an email to the related student informing about the session
+                            // $subject = 'Cancellation of an appointment';
+                            // $body = 'Reason for cancellation : '.$data['descC'].
+                            // '<br> Counselor Name : '.$loggedUser->fullname.'<br> Date : '.$data['appDate'].'<br> Time : '.$data['appTime'] ;
+                            // $altbody = 'Counselor Name : '.$user->fullname.'<br> Date : '.$data['appDate'].'<br> Time : '.$data['appTime'];
+                            // $res = sendMail($user->email,$subject,$body,$altbody);
+    
+                            FlashMessage::flash('appointment_cancel_flash', "Appointment Cancelled!", "success");
+                            //Middleware::redirect('CounselorAppointment/dailyAppointment/'.$appdate);
+                            //$this->loadView('counselor/appointment',$data);
+                            CounselorAppointment::dailyAppointment($appdate);
+                        }
+                        else{
+                            die('Something went wong');
+                        }
+    
+                    }
+                    else{
+                        //$this->loadView('counselor/appointment',$data);
+                        Middleware::redirect('CounselorAppointment/dailyAppointment');
+                    }
+    
+                }
+
+
+               
+
+            }
 
 
         }

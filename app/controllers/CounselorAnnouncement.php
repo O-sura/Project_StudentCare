@@ -1,7 +1,7 @@
 <?php
     Session::init();
     class CounselorAnnouncement extends Controller{
-        
+
         public function __construct(){
 
             Middleware::authorizeUser(Session::get('userrole'), 'counsellor');

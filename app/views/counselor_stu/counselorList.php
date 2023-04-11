@@ -75,7 +75,7 @@
                         Oshada
                     </div>
                 </div>
-                <a href="logout.php"><i class="fa-solid fa-arrow-right-from-bracket fa-flip-horizontal" id="log_out"></i></a>
+                <a href='<?php echo URLROOT ?>/users/logout'><i class="fa-solid fa-arrow-right-from-bracket fa-flip-horizontal" id="log_out"></i></a>
             </div>
         </div>
     </div>
@@ -121,10 +121,8 @@
             <div class="row3">
                 <div class="search">
                     <div class="search-bar">
-                        <input type="text" id="search-input" placeholder="Search topic">
-                        <button type="button" id="search-button">
-                            <i class="fas fa-search"></i>
-                        </button>
+                        <input type="text" placeholder="Search topic">
+                        <i class="fa-solid fa-search"></i>
                     </div>
                     <div class="sort">
                         <select class="select">
@@ -135,45 +133,58 @@
                         </select>
                     </div>
                 </div>
-                <div class="list" id="list">
-                    <?php
-                    if (count($data['counselors']) == 0) {
-                        echo "<h1>No Counselors Found</h1>";
-                    } else {
-                        foreach ($data['counselors'] as $counselor) : ?>
-                            <?php
-                            $counselorId = $counselor->userID;
-                            $counselorName = $counselor->fullname;
-                            $counselorDescription = $counselor->counselor_description;
-                            $format_description = nl2br($counselorDescription);
-                            $counselorSpecialization = $counselor->specialization;
-                            ?>
-
-                            <div class="list-item">
-                                <div class="prof-image">
-                                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fGZlbWFsZSUyMGRvY3RvcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" id="image3">
-                                </div>
-                                <div class="details">
-                                    <div class="name">
-                                        Dr. <?php echo $counselorName; ?>
-                                    </div>
-                                    <div class="specialization">
-                                        <?php echo $counselorSpecialization; ?>
-                                    </div>
-                                    <div class="info">
-                                        <?php echo $format_description; ?>
-                                    </div>
-                                    <div class="buttons">
-                                        <button class="btn1"><a href="<?php echo URLROOT ?>/appointments/profile/<?php echo $counselorId; ?>">View Profile</a></button>
-                                        <button class="btn2">Send request</button>
-                                    </div>
-                                </div>
+                <div class="list">
+                    <div class="list-item">
+                        <div class="prof-image">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fGZlbWFsZSUyMGRvY3RvcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" id="image3">
+                        </div>
+                        <div class="details">
+                            <div class="name">
+                                Dr.Lawrence Dorsey
                             </div>
-
-
-                    <?php endforeach;
-                    }
-                    ?>
+                            <div class="info">
+                                A professional counselling psychologist, clinical hypnotherapist, certified clinical trauma specialist, master life coach and a certified relationship coach with 14 years of clinical and professional experience. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
+                            </div>
+                            <div class="buttons">
+                                <button class="btn1">View Profile</button>
+                                <button class="btn2">Send request</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-item">
+                        <div class="prof-image">
+                            <img src="https://images.unsplash.com/photo-1612531386530-97286d97c2d2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" id="image3">
+                        </div>
+                        <div class="details">
+                            <div class="name">
+                                Dr.Maverick Coleman
+                            </div>
+                            <div class="info">
+                                A professional counselling psychologist, clinical hypnotherapist, certified clinical trauma specialist, master life coach and a certified relationship coach with 14 years of clinical and professional experience. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
+                            </div>
+                            <div class="buttons">
+                                <button class="btn1">View Profile</button>
+                                <button class="btn2">Send request</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-item">
+                        <div class="prof-image">
+                            <img src="https://images.unsplash.com/photo-1618498082410-b4aa22193b38?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" id="image3">
+                        </div>
+                        <div class="details">
+                            <div class="name">
+                                Dr.Lawrence Dorsey
+                            </div>
+                            <div class="info">
+                                A professional counselling psychologist, clinical hypnotherapist, certified clinical trauma specialist, master life coach and a certified relationship coach with 14 years of clinical and professional experience. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
+                            </div>
+                            <div class="buttons">
+                                <button class="btn1">View Profile</button>
+                                <button class="btn2">Send request</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -194,45 +205,6 @@
         profile.addEventListener('click', function() {
             window.location.href = '<?php echo URLROOT ?>/appointments/profile';
         });
-        // Get the search input and search button
-        const searchInput = document.getElementById('search-input');
-        const searchButton = document.getElementById('search-button');
-
-        // Get the list element
-        const list = document.getElementById('list');
-
-        // Function to filter the list items based on the search input
-        function filterList() {
-            // Get the search query
-            const query = searchInput.value.toLowerCase();
-
-            // Get all the list items
-            const listItems = list.querySelectorAll('.list-item');
-
-            // Loop through the list items and hide those that don't match the search query
-            listItems.forEach(item => {
-                const name = item.querySelector('.name').textContent.toLowerCase();
-                const specialization = item.querySelector('.specialization').textContent.toLowerCase();
-                const info = item.querySelector('.info').textContent.toLowerCase();
-
-                if (query === '') {
-                    // Show all items if the search query is empty
-                    item.style.display = 'grid';
-                } else if (name.includes(query) || specialization.includes(query) || info.includes(query)) {
-                    // Show the item if it matches the search query
-                    item.style.display = 'grid';
-                } else {
-                    // Hide the item if it doesn't match the search query
-                    item.style.display = 'none';
-                }
-            });
-        }
-
-        // Add an event listener to the search button
-        searchButton.addEventListener('click', filterList);
-
-        // Add an event listener to the search input to filter the list as the user types
-        searchInput.addEventListener('input', filterList);
     </script>
 </body>
 

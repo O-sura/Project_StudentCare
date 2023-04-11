@@ -54,8 +54,6 @@ function dropdownFilter(option){
                 postList += post.createAnnouncement();
             }
             resultList.innerHTML = postList;
-            // votingCountHandler();
-            // savedPostHandler();
         }
     };
     xhr.send();
@@ -99,7 +97,6 @@ searchBar.addEventListener('input', () => {
                     postList += post.createAnnouncement();
                 }
                 resultList.innerHTML = postList;
-                //votingCountHandler();
             }
         };
         xhr.send();

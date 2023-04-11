@@ -24,7 +24,7 @@
         <hr class="hrbar">
   
         <div class="div4">
-            <?php if(count($data['row']) == 0) : ?>
+            <?php if((count($data['row']) == 0) && (count($data['row0']) == 0) && (count($data['row1']) == 0) && count($data['row2']) == 0 ) : ?>
                 
                 <div class="ifnot">You don't have any student or students' request yet</div>
                                             

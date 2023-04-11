@@ -59,3 +59,49 @@ clickDivs.forEach((div) =>{
     xhr.send("gotStu="+whichStu);
     });
 });
+
+//to load the modal start meeting or cancel 
+var modal = document.getElementById("myModal");
+var btns = document.getElementsByClassName("btn");
+var span = document.getElementsByClassName("close")[0];
+
+for (var i = 0; i < btns.length; i++) {
+  btns[i].onclick = function() {
+    modal.style.display = "block";
+  }
+}
+
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+//to load the meeting cancellation modal
+
+var modalCancel = document.getElementById("myModalCancel");
+var rbtns = document.getElementsByClassName("rbtn");
+var spanC = document.getElementsByClassName("closeC")[0];
+
+for (var i = 0; i < rbtns.length; i++) {
+  rbtns[i].onclick = function() {
+    modalCancel.style.display = "block";
+  }
+}
+
+spanC.onclick = function() {
+  modalCancel.style.display = "none";
+  modal.style.display = "none";
+  
+}
+
+window.onclick = function(event) {
+  if (event.target == modalCancel) {
+    modalCancel.style.display = "none";
+    modal.style.display = "none";
+  }
+}
