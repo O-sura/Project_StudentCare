@@ -47,7 +47,7 @@
                 <div class="sub2">
                     <div class="sub21">
                         <p>Address:</p>
-                        <input class="address" name="address" type="text">
+                        <input class="address" id="my-input" name="address" type="text">
                     </div>
 
                     <div class="sub22">
@@ -69,6 +69,9 @@
                 <p>Images:</p>
                 <label for="img"><i class="fa fa-plus"></i><br>Insert only four images</label>
                 <input type="file" class="image" name="images[]" id="img" multiple>
+                
+                <!-- onchange = "getImage(this.value);" -->
+                <!-- <div id="display-image"></div> -->
                 
                 <p>Special Notes:</p>
                 <input class="note" name="special_note" type="text">

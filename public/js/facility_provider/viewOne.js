@@ -6,3 +6,4 @@ function gallery(smallImg){
 /* var day = document.lastModified;
 document.getElementById("date").innerHTML = day; */
 
+

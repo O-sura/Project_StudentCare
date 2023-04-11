@@ -23,12 +23,15 @@
                 </a>
 
                 <h1>My Profile</h1>
-
-                <i class="fa-sharp fa-solid fa-pen"><span>    Edit Profile</span></i>
+                <a href=<?php echo URLROOT. "/facility_provider/editprofile"?>>
+                    <i class="fa-sharp fa-solid fa-pen"><span>    Edit Profile</span></i>
+                </a>
             </div>
 
             <div class="profile">
-                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=388&q=80" alt="">
+                <div id="prof_img">
+                    <img src="<?php echo URLROOT . "/public/img/avatar.jpg"?>" alt="">
+                </div>
                 <div class="personal">
                     <h2>Personal Information</h2>
                     <p class="info">
@@ -55,6 +58,9 @@
             </div>
         </div>
 
+    </div>
+</body>
+</html>
     </div>
 </body>
 </html>

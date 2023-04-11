@@ -2,12 +2,11 @@
 Session::init();
 class Facility_Provider extends Controller{
     private $ListingModel;
-    private $userModel;
-
+    
     public function __construct(){
         Middleware::authorizeUser(Session::get('userrole'), 'facility_provider');
         $this->ListingModel = $this->loadModel('Facility_Providers');
-        $this->userModel = $this->loadModel('User');
+    
     }
 
 
@@ -44,8 +43,19 @@ class Facility_Provider extends Controller{
         $this->loadView('facility_provider/profile',$data);
         //$this->loadView('test',$data);
     }
-    
 
+
+    public function editprofile(){
+        $profile = $this->ListingModel->editprofile();
+            
+        $data =[
+            'editprofile' => $profile
+        ]; 
+        
+        $this->loadView('facility_provider/editprofile',$data);
+    }
+
+    
     public function addItem(){
 
         if (isset($_POST['submit'])) {
@@ -64,7 +74,7 @@ class Facility_Provider extends Controller{
             $images = $_FILES['images'];
             $special_note = $_POST['special_note'];
             $category = $_POST['category'];
-
+            
             $uniList = [];
             foreach ($uniName as $uni){
                 array_push($uniList, trim($uni));
@@ -162,11 +172,12 @@ class Facility_Provider extends Controller{
             }
 
             $image_urls = json_encode($image_urls);
-     
+            
             $uniName = json_encode($uniName);
             
             $validatedData = [
                 'topic' => $data['topic'],
+                'fpID' => Session::get('userID'),
                 'description' => $data['description'],
                 'rental' => $data['rental'],
                 'location' => $data['location'],
@@ -267,6 +278,38 @@ class Facility_Provider extends Controller{
         $this->loadView('facility_provider/viewOne',$data);
     }
 
+    public function propertysearch(){
+        /* $this->ListingModel->propertysearch();
+        if(isset($_POST['search'])){
+            $string = '%' . $_POST['searchbtn'] . '%' ;
+        }
+        $this->loadView('facility_provider/report',$string); */
+        header("Access-Control-Allow-Origin: *");
+        if(isset($_GET['query'])){
+            //Check whether the search query is empty or not
+            if(empty($_GET['query'])){
+                $result =  json_encode($this->ListingModel->propertysearch());
+            }else{
+                $keyword = "%" . trim($_GET['query']) . "%";
+                $result =  $this->ListingModel->propertysearch($keyword);
+            }
+            echo $result;
+        }
+    }
+
+    public function findItemByLocation(){
+        
+    }
+
+    public function message(){
+        $message = $this->ListingModel->message();
+
+        $data =[
+            'message' => $message
+        ]; 
+        
+        $this->loadView('facility_provider/message',$data);
+    }
 
     //take data to generate reports
     public function report(){
@@ -279,18 +322,7 @@ class Facility_Provider extends Controller{
         $this->loadView('facility_provider/report',$data);
     }
 
-    public function message(){
-        $report = $this->ListingModel->report();
-
-        $data =[
-            'report' => $report
-        ]; 
-        
-        $this->loadView('facility_provider/message',$data);
-    }
-    
-
-    /* public function editItem($id){
+    public function editItem($id){
 
         if (isset($_POST['submit'])) {
 
@@ -404,6 +436,7 @@ class Facility_Provider extends Controller{
             
             $validatedData = [
                 'id' => $_POST['id'],
+                'fpID' => Session::get('userID'),
                 'topic' => $data['topic'],
                 'description' => $data['description'],
                 'rental' => $data['rental'],
@@ -430,13 +463,27 @@ class Facility_Provider extends Controller{
         }else{
             //Send the empty detail page
             $editlist = $this->ListingModel->viewOneListing($id);
-            $uniNames = $editlist->uniName;
+            
+            $uniList = $editlist->uniName;  //assigns the value of $editlist->uniName to the variable $uniList
+            $uniList = str_replace(array("[", "]"), "", $uniList);  //remove the square brackets from the string and converting it to a comma-separated list 
+            $array = explode(",", $uniList);  //split the comma-separated list into an array
+
+            $imageList = $editlist->image;
+            $imageList = str_replace(array("[", "]"), "", $imageList);
+            $array_2 = explode(",", $imageList);
 
             $data = [
                 'id' => $id,
                 'viewone' => $editlist,
-                'unilist' => $uniNames,
+                'unilist' => $array,
+                'imagelist' => $array_2,
                 'topic' => '',
+                'description' => '',
+                'rental' => '',
+                'location' => '',
+                'address' => '',
+                'special_note' => '',
+                'category' => '',
                 'topic_err' => '',
                 'description_err' => '',
                 'rental_err' => '',
@@ -448,12 +495,38 @@ class Facility_Provider extends Controller{
                 'category_err' => ''
             ];
 
-            //$this->loadView('facility_provider/editItem', $data);
+            /* $data = [
+                'viewone' => $editlist
+            ]; */
+
+            $this->loadView('facility_provider/editItem', $data);
             //$this->loadView('test', $data);
 
         }
-    } */
+    }
 
+    public function deleteItem($id){
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            //get existing item from model
+            $item = $this->ListingModel->deleteItem($id);
+
+            //check for owner
+            if($item->userID != $_SESSION['userID']){
+                Middleware::redirect('./facility_provider/viewOne');
+            }
+        }
+
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            if($this->ListingModel->deleteItem($id)){
+                //flash('message', 'Item Removed');
+                Middleware::redirect('./facility_provider/viewOne');
+            }else{
+                die('Something went wrong');
+            }
+        }else{
+            Middleware::redirect('./facility_provider/viewOne');
+        }
+    }
 }
 
 ?>

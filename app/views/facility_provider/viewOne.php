@@ -43,11 +43,9 @@
                     <p><span>Address: </span><?php echo $data['viewone']->address; ?></p>
 
                     <div class="map">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d270201.1012553059!2d80.57066973934896!3d7.435740318327426!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2slk!4v1668671876514!5m2!1sen!2slk" 
-                            width="400" height="250" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" frameborder="0"></iframe>
-                        <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2603.467645889274!2d80.64027088542007!3d7.293955371034674!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x8165d70ac115e887!2sSri%20Dalada%20Maligawa!5e0!3m2!1sen!2slk!4v1670742226263!5m2!1sen!2slk" 
-                            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
-                                 
+                        <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d270201.1012553059!2d80.57066973934896!3d7.435740318327426!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2slk!4v1668671876514!5m2!1sen!2slk" 
+                            width="400" height="250" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" frameborder="0"></iframe> -->
+                        <iframe width="400" height="250" src="https://maps.google.com/maps?q=<?php echo $data['viewone']->address ; ?>&output=embed"></iframe>
                     </div>
                 </div>
 
@@ -65,7 +63,7 @@
                     </span>
                 </h1>
 
-                <h8>Added: <h7 id="date"></h7></h8>
+                <h8>Added: <h7 id="date"><?php echo $data['viewone']->added_date; ?></h7></h8>
 
                 <p class="description"><?php echo $data['viewone']->description; ?><br>
                     <span><?php echo $data['viewone']->special_note; ?></span><br>
@@ -87,8 +85,21 @@
                         <input type="radio" name="star" id="star5"><label for="star5"></label>
                     </div>
 
-                    <input type="text" value="Highly recommend." class="feedback">
-                    <input type="text" value="This is situated in safe area." class="feedback">
+                    <div class="feedback">
+                        <input type="text" value="Highly recommend.">
+                        <input type="text" value="This is situated in safe area.">
+                        <input type="text" value="Highly recommend.">
+                        <input type="text" value="Highly recommend.">
+                        <input type="text" value="Highly recommend.">
+                        <input type="text" value="Highly recommend.">
+                        <input type="text" value="Highly recommend.">
+                        <input type="text" value="Highly recommend.">
+                        <input type="text" value="Highly recommend.">
+                        <input type="text" value="Highly recommend.">
+                        <input type="text" value="Highly recommend.">
+                        <input type="text" value="Highly recommend.">
+                    </div>
+                    
                 </div>
             </div>
 

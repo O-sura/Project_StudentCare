@@ -14,6 +14,7 @@ function addAnother(){
     counter++;
 }
 
+//category select dropdown
 const optionMenu = document.querySelector('.dropdown-menu');
 const selectBtn = optionMenu.querySelector('.select-btn');
 const options = optionMenu.querySelectorAll('.option');
@@ -31,8 +32,36 @@ options.forEach(option => {
     })
 })
 
-//add image names for plus icon
-/* function getImage(imagename){
-    var newimg=imagename.replace(/^.*\\/,"");
-    $('#display-image').html(newimg);
-} */
+//image preview
+const input = document.getElementById('img');
+const previewContainer = document.getElementById('preview-container');
+
+input.addEventListener('change', function() {
+  // Remove any existing previews
+  previewContainer.innerHTML = '';
+
+  // Loop through each selected file
+  for (const file of this.files) {
+    // Create a new FileReader object
+    const reader = new FileReader();
+
+    // Set up the reader to read the current file
+    reader.readAsDataURL(file);
+
+    // When the reader has finished reading the file
+    reader.onload = function() {
+      // Create a new <img> element
+      const img = document.createElement('img');
+      img.src = reader.result;
+      img.classList.add('preview-image');
+
+      // Add the image to the preview container
+      previewContainer.appendChild(img);
+    }
+  }
+});
+
+//line break of text area
+/* var inputt = document.getElementById("my-input");
+var inputValue = input.value.replace(/\n/g, ",");
+input.value = inputValue; */
