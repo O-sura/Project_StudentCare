@@ -99,13 +99,8 @@ body{
 }
 
 .sender-profile{
-  border-bottom: 1px solid rgb(222, 217, 217);
-  display: grid;
-  grid-template-columns: 1fr 5fr;
-  grid-gap: 1%;
+  border-bottom: 1px solid rgb(222, 217, 217);;
 }
-
-
 
 .facility-providers{
   color:#aaaaaa;

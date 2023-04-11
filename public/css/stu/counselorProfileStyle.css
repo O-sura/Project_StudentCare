@@ -47,7 +47,7 @@ hr{
 
 .container{
   display: grid;
-  grid-template-rows: 1fr 5fr 4fr ;
+  grid-template-rows: 1fr 4fr 4fr ;
   height: auto;
   margin-left: 5%;
   margin-top: 2%;
@@ -106,7 +106,6 @@ hr{
 .content-2{
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 10px;
   font-size: 1.3rem;
 }
 
@@ -282,4 +281,9 @@ textarea{
 .submit{
   text-align: end;
   margin-top: 2%;
+}
+
+#already{
+  font-size: 20px;
+  font-weight: 600;
 }

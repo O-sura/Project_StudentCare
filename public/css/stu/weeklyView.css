@@ -67,7 +67,7 @@ body{
     width: 80vw;
     margin-top: 2%;
     color: #1A285A;
-    grid-gap: 20px;
+    grid-gap: 40px;
     height: 50vh;
 }
 
@@ -75,11 +75,9 @@ body{
   display: grid;
   grid-template-rows: auto 1fr;
   grid-gap: 10px;
-  margin-left: 3%;
-  margin-right: 3%;
+  margin-left: 2%;
+  margin-right: 2%;
   width: 10vw;
-  margin-top: 4%;
-  height: 60vh;
   
 }
 
@@ -371,19 +369,12 @@ body{
   .task{
     padding: 10px;
     border-radius: 12px;
-    margin-top: 4%;
-    height: 10vh ;
-    color: #1A285A;
   }
   
   .col-1 , .col-2 , .col-3 , .col-4 , .col-5 , .col-6 , .col-7 , .col-8 , .col-9 , .col-10 , .col-11 , .col-12{
     padding: 10px;
-   background-color: #1A285A;
+    border-style: solid;
+    border-color: #a9acb4;
     border-width: 1px;
-    border-radius: 20px;
-    width: 12vw;
-    padding-top:20px ;
-    color: #f5f5f5;
+    border-radius: 50px;
   }
-
-  
