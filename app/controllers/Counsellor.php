@@ -17,6 +17,7 @@
             $this->postModel = $this->loadModel('Counselor');
             $userid = Session::get('userID');
 
+            //get the time zone
             date_default_timezone_set('Asia/Kolkata');
 
             $curdate = date('Y-m-d');
