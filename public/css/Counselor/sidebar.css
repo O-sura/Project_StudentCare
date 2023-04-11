@@ -242,11 +242,13 @@
     left: 78px;
     transition: all 0.5s ease;
     float: none;
+    width: 90vw;
   }
   
   
   .sidebar.active ~ .home_content{
     width: calc(100%-240px);
+    width: 80vw;
     left: 240px;
   }
   

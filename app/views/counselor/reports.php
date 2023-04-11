@@ -20,6 +20,11 @@
       require_once '../app/views/counselor/sidebar.php';
     ?>
     <div class="home_content">
+
+        <div class="topic">
+            <span><h1 class="headApp">Reports</h1></span>
+        </div>
+        <hr class="hrbar">
  
             <div class="div4">
             

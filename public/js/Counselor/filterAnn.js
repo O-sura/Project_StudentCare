@@ -1,6 +1,6 @@
 import { CounselorAnnouncementPost } from "./announcement.js";
 
-//JS code for dropdown menu in community homepage
+//JS code for dropdown menu in announcement homepage
 const optionMenu = document.querySelector('.dropdown-menu');
 const selectBtn = optionMenu.querySelector('.select-btn');
 const options = optionMenu.querySelectorAll('.option');
@@ -13,7 +13,7 @@ selectBtn.addEventListener("click", () => {
 options.forEach(option => {
     option.addEventListener("click", () => {
         let selectedOption = option.innerHTML;
-        //console.log(selectedOption);
+        console.log(selectedOption);
         btnText.innerText = selectedOption;
         dropdownFilter(selectedOption);
         optionMenu.classList.remove("active");
@@ -22,7 +22,7 @@ options.forEach(option => {
 
 
 
-//Function to filter the community posts based on the dropdown value
+//Function to filter the announcement posts based on the dropdown value
 function dropdownFilter(option){
     //Your Posts,All Posts,Saved
     // Send an AJAX request to the server with the search query
@@ -35,12 +35,10 @@ function dropdownFilter(option){
    
     xhr.onload = () => {
         if (xhr.status === 200) {
-            //console.log(xhr.responseText);
+            
             //Parse the JSON response from the server
             var searchRes = JSON.parse(xhr.responseText);
-        
-            
-            
+            //console.log(xhr.responseText);
 
             // Update the contents of the page to display the search results
             clearposts();
@@ -56,8 +54,6 @@ function dropdownFilter(option){
                 postList += post.createAnnouncement();
             }
             resultList.innerHTML = postList;
-            // votingCountHandler();
-            // savedPostHandler();
         }
     };
     xhr.send();
@@ -101,7 +97,6 @@ searchBar.addEventListener('input', () => {
                     postList += post.createAnnouncement();
                 }
                 resultList.innerHTML = postList;
-                //votingCountHandler();
             }
         };
         xhr.send();
