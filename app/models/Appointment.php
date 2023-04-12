@@ -206,7 +206,7 @@ class Appointment
 
     public function updateSeen($id)
     {
-        $this->db->query("UPDATE request SET user_seen = 1 WHERE student_id = :studentID");
+        $this->db->query("UPDATE request SET student_seen = 1 WHERE student_id = :studentID");
         $this->db->bind(':studentID', $id);
 
         if ($this->db->execute()) {
@@ -218,7 +218,7 @@ class Appointment
 
     public function updateAppointmentSeen($id)
     {
-        $this->db->query("UPDATE appointments SET user_seen = 1 WHERE studentID = :studentID");
+        $this->db->query("UPDATE appointments SET student_seen = 1 WHERE studentID = :studentID");
         $this->db->bind(':studentID', $id);
 
         if ($this->db->execute()) {
@@ -230,7 +230,7 @@ class Appointment
 
     public function getUnseenRequests($studentID)
     {
-        $this->db->query("SELECT request_id FROM request WHERE student_id = :studentID AND user_seen = 0");
+        $this->db->query("SELECT request_id FROM request WHERE student_id = :studentID AND student_seen = 0");
         $this->db->bind(':studentID', $studentID);
         $results = $this->db->getAllRes();
 
@@ -239,7 +239,7 @@ class Appointment
    
     public function getUnseenAppointments($studentID)
     {
-        $this->db->query("SELECT appointmentID FROM appointments WHERE studentID = :studentID AND user_seen = 0");
+        $this->db->query("SELECT appointmentID FROM appointments WHERE studentID = :studentID AND student_seen = 0");
         $this->db->bind(':studentID', $studentID);
         $results = $this->db->getAllRes();
 
@@ -248,7 +248,7 @@ class Appointment
 
     public function editRequest($data)
     {
-        $this->db->query("UPDATE request SET request_description = :request_description WHERE request_id = :request_id");
+        $this->db->query("UPDATE request SET request_description = :request_description, counselor_seen = 0 WHERE request_id = :request_id");
         $this->db->bind(':request_description', $data['requestDescription']);
         $this->db->bind(':request_id', $data['requestID']);
 
@@ -260,7 +260,7 @@ class Appointment
     }
 
     public function cancelAppointment($data){
-        $this->db->query("UPDATE appointments SET appointmentStatus = 2, cancellationReason = :reason WHERE appointmentID = :appointmentID");
+        $this->db->query("UPDATE appointments SET appointmentStatus = 2, cancellationReason = :reason, counselor_seen = 0 WHERE appointmentID = :appointmentID");
         $this->db->bind(':appointmentID', $data['appointmentID']);
         $this->db->bind(':reason', $data['reason']);
         if ($this->db->execute()) {

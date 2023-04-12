@@ -23,16 +23,24 @@ class Student_facility extends Controller
 
     public function food()
     {
+        $university = $this->facility_studentModel->getStudentUni();
+        $university = $university->university;
         $data = [
-            'listings' => $this->facility_studentModel->foodView()
+            'listings' => $this->facility_studentModel->foodView($university),
+            'universities' => $this->facility_studentModel->getDistances(),
+            'studentUni' => $this->facility_studentModel->getStudentUni()
         ];
         $this->loadview('facility/foodView', $data);
     }
 
     public function furniture()
     {
+        $university = $this->facility_studentModel->getStudentUni();
+        $university = $university->university;
         $data = [
-            'listings' => $this->facility_studentModel->furnitureView()
+            'listings' => $this->facility_studentModel->furnitureView($university),
+            'universities' => $this->facility_studentModel->getDistances(),
+            'studentUni' => $this->facility_studentModel->getStudentUni()
         ];
         $this->loadview('facility/furnitureView', $data);
     }
@@ -47,7 +55,7 @@ class Student_facility extends Controller
 
         $this->loadView('facility/viewOne', $data);
     }
-
+//university filter
     public function uni_filter_handler()
     {
         if (isset($_GET['filter'])) {
@@ -57,6 +65,22 @@ class Student_facility extends Controller
         }
     }
 
+    public function uni_furniture_filter_handler(){
+        if (isset($_GET['filter'])) {
+            $uni = trim($_GET['filter']);
+            $res =  json_encode($this->facility_studentModel->getListingsForUniFurniture($uni));
+            echo $res;
+        }
+    }
+
+    public function uni_food_filter_handler(){
+        if (isset($_GET['filter'])) {
+            $uni = trim($_GET['filter']);
+            $res =  json_encode($this->facility_studentModel->getListingsForUniFood($uni));
+            echo $res;
+        }
+    }
+//price filter
     public function price_sorter_handler()
     {
         if (isset($_GET['uni']) && isset($_GET['sort'])) {
@@ -66,6 +90,27 @@ class Student_facility extends Controller
             echo $res;
         }
     }
+
+    public function price_furniture_sorter_handler()
+    {
+        if (isset($_GET['uni']) && isset($_GET['sort'])) {
+            $sort_order = trim($_GET['sort']);
+            $uni = trim($_GET['uni']);
+            $res =  json_encode($this->facility_studentModel->getListingsForPriceFurniture($sort_order, $uni));
+            echo $res;
+        }
+    }
+
+    public function price_food_sorter_handler()
+    {
+        if (isset($_GET['uni']) && isset($_GET['sort'])) {
+            $sort_order = trim($_GET['sort']);
+            $uni = trim($_GET['uni']);
+            $res =  json_encode($this->facility_studentModel->getListingsForPriceFood($sort_order, $uni));
+            echo $res;
+        }
+    }
+//listing filter
     public function rating_sorter_handler()
     {
         if (isset($_GET['uni']) && isset($_GET['sort'])) {
@@ -76,6 +121,26 @@ class Student_facility extends Controller
         }
     }
 
+    public function rating_furniture_sorter_handler()
+    {
+        if (isset($_GET['uni']) && isset($_GET['sort'])) {
+            $sort_order = trim($_GET['sort']);
+            $uni = trim($_GET['uni']);
+            $res =  json_encode($this->facility_studentModel->getListingsForRatingFurniture($sort_order, $uni));
+            echo $res;
+        }
+    }
+
+    public function rating_food_sorter_handler()
+    {
+        if (isset($_GET['uni']) && isset($_GET['sort'])) {
+            $sort_order = trim($_GET['sort']);
+            $uni = trim($_GET['uni']);
+            $res =  json_encode($this->facility_studentModel->getListingsForRatingFood($sort_order, $uni));
+            echo $res;
+        }
+    }
+//date filter
     public function date_sorter_handler()
     {
         if (isset($_GET['uni']) && isset($_GET['sort'])) {
@@ -86,18 +151,66 @@ class Student_facility extends Controller
         }
     }
 
+    public function date_furniture_sorter_handler()
+    {
+        if (isset($_GET['uni']) && isset($_GET['sort'])) {
+            $sort_order = trim($_GET['sort']);
+            $uni = trim($_GET['uni']);
+            $res =  json_encode($this->facility_studentModel->getListingsForDateFurniture($sort_order, $uni));
+            echo $res;
+        }
+    }
+
+    public function date_food_sorter_handler()
+    {
+        if (isset($_GET['uni']) && isset($_GET['sort'])) {
+            $sort_order = trim($_GET['sort']);
+            $uni = trim($_GET['uni']);
+            $res =  json_encode($this->facility_studentModel->getListingsForDateFood($sort_order, $uni));
+            echo $res;
+        }
+    }
+//search filter
     public function search_listing()
     {
-        header("Access-Control-Allow-Origin: *");
         if (isset($_GET['query'])) {
             //Check whether the search query is empty or not
             if (empty($_GET['query'])) {
-                $university = $this->facility_studentModel->getStudentUni();
-                $university = $university->university;
-                $res =  json_encode($this->facility_studentModel->propertyView($university));
+                Student_facility::index();
             } else {
                 $keyword = "%" . trim($_GET['query']) . "%";
-                $res =  $this->facility_studentModel->searchPosts($keyword);
+                $uni = trim($_GET['uni']);
+                $res =  json_encode($this->facility_studentModel->searchListings($keyword,$uni));
+            }
+            echo $res;
+        }
+    }
+
+    public function furniture_search_listing()
+    {
+        if (isset($_GET['query'])) {
+            //Check whether the search query is empty or not
+            if (empty($_GET['query'])) {
+                Student_facility::index();
+            } else {
+                $keyword = "%" . trim($_GET['query']) . "%";
+                $uni = trim($_GET['uni']);
+                $res =  json_encode($this->facility_studentModel->searchListingsFurniture($keyword,$uni));
+            }
+            echo $res;
+        }
+    }
+
+    public function food_search_listing()
+    {
+        if (isset($_GET['query'])) {
+            //Check whether the search query is empty or not
+            if (empty($_GET['query'])) {
+                Student_facility::index();
+            } else {
+                $keyword = "%" . trim($_GET['query']) . "%";
+                $uni = trim($_GET['uni']);
+                $res =  json_encode($this->facility_studentModel->searchListingsFood($keyword,$uni));
             }
             echo $res;
         }

@@ -120,10 +120,7 @@
                 <h1 class="topic"><?php echo $data['viewone']->topic; ?>
                     <span>
                         <a href=<?php echo URLROOT. "/facility_provider/editItem/" . $data['viewone']->listing_id?>>
-                            <i class="fa fa-pen"></i>
                         </a>
-                        
-                        <i class="fa fa-trash"></i>
                     </span>
                 </h1>
 

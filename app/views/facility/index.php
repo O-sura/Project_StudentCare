@@ -135,10 +135,10 @@
                         </select>
                     </div>
                     <div class="search-container">
-                        <form action="#">
-                            <input type="text" placeholder="Search...">
-                            <button type="submit">Search</button>
-                        </form>
+                        
+                            <input type="text" placeholder="Search..." id = "search-box">
+                            <button id = "search-btn">Search</button>
+                     
                     </div>
 
                 </div>
