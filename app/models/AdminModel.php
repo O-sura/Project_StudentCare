@@ -44,6 +44,34 @@ class AdminModel{
         $info = $this->db->getAllRes();
         return $info;
     }
+
+    public function getUserManagementInfo(){
+        $this->db->query("SELECT userID,username,user_role,isBlocked from users");
+        $res = $this->db->getAllRes();
+        return $res;
+    }
+
+    public function toggleBlockState($userID){
+        $this->db->query("UPDATE users SET isBlocked = !isBlocked WHERE userID  = :userID");
+        $this->db->bind(':userID',$userID);
+        $this->db->getRes();
+        
+        $this->db->query("SELECT isBlocked FROM users WHERE userID = :userID");
+        $this->db->bind(':userID',$userID);
+        $currstate = $this->db->getRes();
+        return json_encode($currstate);
+    }
+
+    public function deleteUser($userID){
+        $this->db->query("DELETE FROM users WHERE userID  = :userID");
+        $this->db->bind(':userID',$userID);
+        if($this->db->getRes()){
+            $res = 1;
+        }else{
+            $res = 0;
+        }
+        return json_encode($res);
+    }
     
 }
 

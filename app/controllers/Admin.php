@@ -8,7 +8,15 @@
         }
         
         public function index(){
-            $this->loadView('helo');
+            // //$this->loadView('helo');
+            // $res = sendMail('osura.silva1@gmail.com',"A test mail","This is a test mail","This is a test mail");
+            // if($res){
+            //     echo 'Success';
+            // }
+            // else{
+            //     echo 'Failed';
+            // }
+
         }
 
         public function home(){
@@ -119,6 +127,24 @@
 
         public function complaints(){
             $this->loadView('admin/complaint-log');
+        }
+
+        public function user_management(){
+            $data = $this->adminModel->getUserManagementInfo();
+            if($data){
+                $this->loadView('admin/user-management', $data);
+            }
+            
+        }
+
+        public function block_user($userID){
+            $status = $this->adminModel->toggleBlockState($userID);
+            echo $status;
+        }
+
+        public function delete_user($userID){
+            $status = $this->adminModel->deleteUser($userID);
+            echo $status;
         }
 
     }

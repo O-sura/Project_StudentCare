@@ -116,6 +116,7 @@ body{
 }
 
 .analytics{
+    margin-top: 1rem;
     display: flex;
 }
 

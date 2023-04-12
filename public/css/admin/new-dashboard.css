@@ -1,0 +1,182 @@
+
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    min-height: 100vh;
+    display: grid;
+    /* background-color: cadetblue; */
+    font-size: 16px;
+    grid-template-columns: 2fr 9fr;
+    overflow-y: auto;
+    background-color: #F6F6F6;
+}
+
+.section{
+    padding: 20px;
+    /* background-color: aquamarine; */
+    text-align: center;
+    border: 1px solid rebeccapurple
+}
+
+#page-content{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.greeting-container{
+    text-align: start;
+    margin-top: 1rem;
+    width: 100%;
+    background-color: white;
+    border-radius: 10px;
+    padding: 1rem;
+}
+
+.greeting-container h6{
+    font-size: 0.8rem;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 200;
+}
+
+
+.greeting-container h2{
+    font-size: 1.5rem;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bolder;
+}
+
+.div-1{
+    display: grid;
+    background-color: white;
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2rem;
+    margin-top: 2rem;
+    padding: 2rem;
+    border-radius: 10px;
+}
+
+.row-1{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.row-2{
+    margin-top: 5rem;
+}
+
+.row-3{
+    margin-top: 2rem;
+}
+
+.row-3 a{
+    text-decoration: none;
+    color: #1A285A;
+    margin-left: 0.5rem;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}
+
+.row-3 a:hover{
+    color:  rgba(0, 0, 0, 0.4);
+}
+
+.pie-chart-container{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 800;
+}
+
+#users-types{
+    padding: 3rem;
+}
+
+.card{
+    background-color: #1A285A;
+    border-radius: 20px;
+    width: max-content;
+    padding:1rem;
+    color: white;
+    text-align: start;
+    width: 100%;
+    margin: 0.5rem;
+}
+
+.card span{
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.card h2{
+    font-weight: 300;
+}
+
+.stat-and-chart{
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 2fr;
+    column-gap: 4rem;
+    background-color: white;
+    padding: 2rem;
+    margin-top: 2rem;
+    border-radius: 10px;
+}
+
+.stat-div{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+
+.community-chart{
+    padding: 2rem;
+}
+
+.div-3{
+    background-color: white;
+    width: 100%;
+    padding: 2rem;
+    margin-top: 1rem;
+    border-radius: 10px;
+}
+
+.div-3 span{
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.stat-table{
+    width: 100%;
+    margin-top: 1.5rem;
+}
+
+table{
+    margin: 3rem auto;
+    background-color: white;
+    width: 100%;
+    border-radius: 5px;
+    border-collapse: collapse;
+}
+
+.stat-table th{
+    height: 3rem;
+    padding: 0.5rem;
+    border-bottom: 0.5px solid lightgray;
+    color:  rgba(0, 0, 0, 0.4);
+}
+
+.stat-table tr{
+    height: 3rem;
+    border-bottom: 1pt solid rgba(0, 0, 0, 0.07);
+    font-size: 0.9rem;
+}
+
+.chart-div h3{
+    color: rgba(0, 0, 0, 0.5);
+}

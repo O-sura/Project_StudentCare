@@ -17,6 +17,12 @@
                 
                 $cookieFound = $this->userModel->getCookie($token);
                 if($cookieFound != null){
+
+                        //Check whether the user profile is deleted or blocked first
+                        $userInfo = $this->userModel->getUserInfo($cookieFound->username);
+                        $this->blockAndDeletionHandlder($userInfo);
+
+                        //Else use the cookie to set the session
                         Session::set('userrole', $cookieFound->user_role);
                         Session::set('userID', $cookieFound->userID);
                         Session::set('username', $cookieFound->username);
@@ -71,6 +77,8 @@
                     else{
                         $userInfo = $this->userModel->getUserInfo($data['username']);
 
+                        //If the user is logging in as a counselor, check whether he/she is verified by admin
+                        //If not verified, then redirect to still under review page
                         if($userInfo->user_role == 'counsellor'){
                             if(!$this->userModel->isAdminVerified($userInfo->userID)){
                                 $this->loadView('under-verification');
@@ -78,6 +86,21 @@
                             }
                         }
 
+                        // //If the user is bloked redirect to user bloked page
+                        // if($userInfo->isBloked == 1){
+                        //     $this->loadView('under-verification');
+                        //     die();
+                        // }
+
+                        // //If the user is deleted redirect to user deleted page
+                        // if($userInfo->isDeleted == 1){
+                        //     $this->loadView('under-verification');
+                        //     die();
+                        // }
+
+                        $this->blockAndDeletionHandlder($userInfo);
+
+                        //If everything is set then log them in
                         Session::set('userrole', $userInfo->user_role);
                         Session::set('userID', $userInfo->userID);
                         Session::set('username', $userInfo->username);
@@ -809,6 +832,14 @@
                 $this->loadView('password-reset',$data);
              }
  
+        }
+
+        public function blockAndDeletionHandlder($userInfo){
+            //If the user is bloked or deleted, redirect to profile unavailable page
+            if($userInfo->isBlocked == 1 || $userInfo->isDeleted == 1){
+                $this->loadView('profile-unavailable');
+                die();
+            }
         }
 
         public function index(){

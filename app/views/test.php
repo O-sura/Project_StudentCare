@@ -15,11 +15,9 @@
 <body>
     <h1>Test Page</h1>
     
-
+    <?php print_r($data)?>
 <script>
-    let getVideoCall = () =>{
-        window.open('http://localhost:3000', '_blank');
-    }
+    
 </script>
 </body>
 </html>
