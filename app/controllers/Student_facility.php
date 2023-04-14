@@ -50,7 +50,10 @@ class Student_facility extends Controller
         $viewone = $this->facility_studentModel->viewOneListing($id);
 
         $data = [
-            'viewone' => $viewone
+            'viewone' => $viewone,
+            'studentDetails' => $this->facility_studentModel->getStudentDetails($id),
+            'universities' => $this->facility_studentModel->getDistance($id),
+            'comments' => $this->facility_studentModel->getComments($id)
         ];
 
         $this->loadView('facility/viewOne', $data);
@@ -215,4 +218,32 @@ class Student_facility extends Controller
             echo $res;
         }
     }
+
+    public function comment_loader(){
+        if (isset($_GET['feedback'])==NULL) {
+            $listing_id = trim($_GET['id']);
+            $res =  json_encode($this->facility_studentModel->getComments($listing_id));
+        }else{
+            $review_id = substr(sha1(date(DATE_ATOM)), 0, 8);
+            $listing_id = trim($_GET['id']);
+            $rating = trim($_GET['rating']);
+            $feedback = trim($_GET['feedback']);
+    
+            //check if the user has already commented
+            if($this->facility_studentModel->checkComment($listing_id)){
+                if($this->facility_studentModel->updateComment($listing_id, $rating, $feedback)){
+                    $res =  json_encode($this->facility_studentModel->getComments($listing_id));
+                }
+            }else{
+                if($this->facility_studentModel->addComment($review_id,$listing_id, $rating, $feedback)){
+                    $res =  json_encode($this->facility_studentModel->getComments($listing_id));
+                }
+            }
+
+
+        }
+
+        echo $res;
+    }
+
 }

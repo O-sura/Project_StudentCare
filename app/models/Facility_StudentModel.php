@@ -308,6 +308,13 @@ class Facility_StudentModel
         return $result;
     }
 
+    public function getDistance($id){
+        $this->db->query("SELECT * FROM uni_distance_listing WHERE listing_id = :id");
+        $this->db->bind(':id', $id);
+        $result = $this->db->getAllRes();
+        return $result;
+    }
+
     public function getStudentUni()
     {
         $this->db->query("SELECT university FROM student WHERE studentID=:std");
@@ -375,4 +382,58 @@ class Facility_StudentModel
         $result = $this->db->getAllRes();
         return $result;
     }
+
+    public function getStudentDetails(){
+        $this->db->query("SELECT * FROM student WHERE studentID=:std");
+        $this->db->bind(':std', Session::get('userID'));
+        $result = $this->db->getRes();
+        return $result;
+    }
+
+    public function getComments($id){
+        $this->db->query("SELECT listing_feedback.*,users.username,student.profile_img 
+        FROM listing_feedback
+        INNER JOIN users ON listing_feedback.student_id = users.userID
+        INNER JOIN student ON users.userID = student.studentID 
+        WHERE listing_feedback.listing_id=:id");
+        $this->db->bind(':id', $id);
+        $result = $this->db->getAllRes();
+        return $result;
+    }
+
+    public function addComment($review_id,$listing_id, $rating, $feedback){
+        $this->db->query("INSERT INTO listing_feedback (review_id, listing_id, student_id, star_rating, feedback) VALUES (:review_id, :listing_id, :student_id, :rating, :feedback)");
+        $this->db->bind(':review_id', $review_id);
+        $this->db->bind(':listing_id', $listing_id);
+        $this->db->bind(':student_id', Session::get('userID'));
+        $this->db->bind(':rating', $rating);
+        $this->db->bind(':feedback', $feedback);
+        $result = $this->db->execute();
+        return $result;
+    }
+
+    public function updateComment($id, $rating, $feedback){
+        $this->db->query("UPDATE listing_feedback SET star_rating=:rating, feedback=:feedback WHERE listing_id=:id AND student_id=:std");
+        $this->db->bind(':id', $id);
+        $this->db->bind(':std', Session::get('userID'));
+        $this->db->bind(':rating', $rating);
+        $this->db->bind(':feedback', $feedback);
+        $result = $this->db->execute();
+        return $result;
+    }
+
+    public function checkComment($id){
+        $this->db->query("SELECT * FROM listing_feedback WHERE listing_id=:id AND student_id=:std");
+        $this->db->bind(':id', $id);
+        $this->db->bind(':std', Session::get('userID'));
+       //count no.of results
+        $result = $this->db->rowCount();
+        if($result>0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
 }
