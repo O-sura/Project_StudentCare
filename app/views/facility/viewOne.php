@@ -194,11 +194,11 @@
                                     </div>
 
                                     <div class="helpful">
-                                        <p>423 people found this review helpful</p>
+                                        <p><?php echo $comment->helpful_count?> people found this review helpful</p>
                                         <div class="radio-group">
                                             <p> did you find this review helpful?
-                                                <input type="radio" name="helpful" value="yes" id="yes"><label for="yes">Yes</label>
-                                                <input type="radio" name="helpful" value="no" id="no"><label for="no">No</label>
+                                                <input type="radio" name="helpful" value="yes" id=<?php echo $comment->review_id ?> ><label for="yes">Yes</label>
+                                                <input type="radio" name="helpful" value="no" id=<?php echo $comment->review_id ?>><label for="no">No</label>
                                             </p>
                                         </div>
                                     </div>

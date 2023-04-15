@@ -391,7 +391,7 @@ class Facility_StudentModel
     }
 
     public function getComments($id){
-        $this->db->query("SELECT listing_feedback.*,users.username,student.profile_img 
+        $this->db->query("SELECT listing_feedback.*,users.username,student.profile_img
         FROM listing_feedback
         INNER JOIN users ON listing_feedback.student_id = users.userID
         INNER JOIN student ON users.userID = student.studentID 

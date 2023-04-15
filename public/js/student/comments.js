@@ -1,10 +1,12 @@
 export class Comments{
-    constructor(username,date,rating,image,description){
+    constructor(id,username,date,rating,image,description,count){
+        this.id = id;
         this.username = username;
         this.date = date;
         this.rating = rating;
         this.image = image;
         this.description = description;
+        this.count = count;
     }
 
     
@@ -42,11 +44,11 @@ export class Comments{
             </div>
 
             <div class="helpful">
-                <p>423 people found this review helpful</p>
+                <p>${this.count} people found this review helpful</p>
                 <div class="radio-group">
                     <p> did you find this review helpful?
-                        <input type="radio" name="helpful" value="yes" id="yes"><label for="yes">Yes</label>
-                        <input type="radio" name="helpful" value="no" id="no"><label for="no">No</label>
+                        <input type="radio" name="helpful" value="yes" id=${this.id}><label for="yes">Yes</label>
+                        <input type="radio" name="helpful" value="no" id=${this.id}><label for="no">No</label>
                     </p>
                 </div>
             </div>
