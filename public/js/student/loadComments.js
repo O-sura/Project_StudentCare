@@ -13,8 +13,9 @@ const radios = document.getElementsByName('helpful');
 
 radios.forEach((radio) => {
   radio.addEventListener('click', () => {
-    const id = radio.value;
-    alert(id); // prints the selected radio button's value to the console
+    const radio_value = radio.value;
+    const radio_id = radio.id;
+    helpful(radio_id,radio_value); // prints the selected radio button's value to the console
   });
 });
 

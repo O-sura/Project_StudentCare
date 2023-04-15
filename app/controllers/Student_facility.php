@@ -246,4 +246,8 @@ class Student_facility extends Controller
         echo $res;
     }
 
+    public function comment_helpful_handler(){
+        
+    }
+
 }
