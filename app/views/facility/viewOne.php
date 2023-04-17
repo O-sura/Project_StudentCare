@@ -83,8 +83,9 @@
 
         <div class="home_content">
             <div class="container">
-
+                    <input type="text" value=<?php echo $data['viewone']->listing_id ?> id='listing_id'>
                 <div class="left_side">
+                    
                     <div id="image_container" align="center">
                         <br>
                         <?php
@@ -197,7 +198,7 @@
                                         <p><?php echo $comment->helpful_count?> people found this review helpful</p>
                                         <div class="radio-group">
                                             <p> did you find this review helpful?
-                                                <input type="radio" name="helpful" value="yes" id=<?php echo $comment->review_id ?> ><label for="yes">Yes</label>
+                                                <input type="radio" name="helpful" value="yes" id=<?php echo $comment->review_id ?>><label for="yes">Yes</label>
                                                 <input type="radio" name="helpful" value="no" id=<?php echo $comment->review_id ?>><label for="no">No</label>
                                             </p>
                                         </div>

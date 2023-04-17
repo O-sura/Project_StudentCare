@@ -185,19 +185,19 @@
                 </div>
 
                 <div class="input5">
-                    <input type="text" name="nic" id="nic" value="<?php echo $data["userDetails"]->nic ?>" readonly>
+                    <input type="text" name="nic" id="nic" value="<?php echo $data["userDetails"]->nic ?>" disabled>
                 </div>
 
                 <div class="input6">
-                    <input type="text" name="uni" id="uni" value="<?php echo $data["userDetails"]->university ?>" readonly>
+                    <input type="text" name="uni" id="uni" value="<?php echo $data["userDetails"]->university ?>" disabled>
                 </div>
 
                 <div class="input7">
-                    <input type="text" name="dob" id="dob" value="<?php echo $data["userDetails"]->dob ?>" readonly>
+                    <input type="text" name="dob" id="dob" value="<?php echo $data["userDetails"]->dob ?>" disabled>
                 </div>
 
                 <div class="input8">
-                    <input type="text" name="email" id="email" value="<?php echo $data["userDetails"]->email ?>" readonly>
+                    <input type="text" name="email" id="email" value="<?php echo $data["userDetails"]->email ?>" disabled>
                 </div>
         </div>
 

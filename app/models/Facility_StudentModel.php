@@ -395,7 +395,7 @@ class Facility_StudentModel
         FROM listing_feedback
         INNER JOIN users ON listing_feedback.student_id = users.userID
         INNER JOIN student ON users.userID = student.studentID 
-        WHERE listing_feedback.listing_id=:id");
+        WHERE listing_feedback.listing_id=:id ORDER BY listing_feedback.date_added DESC");
         $this->db->bind(':id', $id);
         $result = $this->db->getAllRes();
         return $result;
@@ -433,6 +433,36 @@ class Facility_StudentModel
         }else{
             return false;
         }
+    }
+
+    public function checkHelpful($review_id){
+        $this->db->query("SELECT * FROM review_helpful WHERE student_id=:std AND review_id=:review_id");
+        $this->db->bind(':std', Session::get('userID'));
+        $this->db->bind(':review_id', $review_id);
+       //count no.of results
+        $result = $this->db->rowCount();
+        if($result>0){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+    public function addHelpful($review_id){
+        $this->db->query("INSERT INTO review_helpful (review_id, student_id) VALUES (:review_id, :student_id)");
+        $this->db->bind(':review_id', $review_id);
+        $this->db->bind(':student_id', Session::get('userID'));
+        $result = $this->db->execute();
+        return $result;
+    }
+
+    public function removeHelpful($review_id){
+        $this->db->query("DELETE FROM review_helpful WHERE review_id=:review_id AND student_id=:std");
+        $this->db->bind(':review_id', $review_id);
+        $this->db->bind(':std', Session::get('userID'));
+        $result = $this->db->execute();
+        return $result;
     }
 
 

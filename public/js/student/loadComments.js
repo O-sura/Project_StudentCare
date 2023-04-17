@@ -62,8 +62,9 @@ function loadComments(listing_id){
 
 function helpful(review_id,value){
     
+    let listingID = document.getElementById('listing_id').value;
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://localhost/StudentCare/Student_facility/comment_helpful_handler/?id=" + review_id + '&value=' + value , true);
+    xhr.open("GET", "http://localhost/StudentCare/Student_facility/comment_helpful_handler/?id=" + review_id + '&value=' + value + '&listing=' + listingID, true);
    
     xhr.onload = () => {
         if (xhr.status === 200) {
@@ -87,15 +88,9 @@ function helpful(review_id,value){
         }
     };
     xhr.send();
+    
 }
 
 
-function clearposts(){
-    let posts = document.querySelectorAll('.other_comment');
-    if(posts != null){
-        posts.forEach((post) =>{
-            post.parentNode.removeChild(post);
-        })
-    }
-}
+
 

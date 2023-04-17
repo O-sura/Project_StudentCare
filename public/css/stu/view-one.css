@@ -541,3 +541,7 @@ input[type=radio]{
 ::-webkit-scrollbar-thumb:hover {
   background: #1A285A; 
 }
+
+#listing_id{
+  display: none;
+}

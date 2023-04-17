@@ -15,9 +15,9 @@ export class Comments{
         let stars = '';
         for (let i = 1; i < 6; i++) {
             if (i <= this.rating) {
-                stars += '<i class="fa-solid fa-star fa-xs"></i>';
+                stars += '<i class="fa-solid fa-star fa-xs"></i>&nbsp;';
             } else {
-                stars += '<i class="fa-regular fa-star fa-xs"></i>';
+                stars += '<i class="fa-regular fa-star fa-xs"></i>&nbsp;';
             }
         }
 

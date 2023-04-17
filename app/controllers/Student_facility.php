@@ -247,7 +247,29 @@ class Student_facility extends Controller
     }
 
     public function comment_helpful_handler(){
+        $review_id = trim($_GET['id']);
+        $value = trim($_GET['value']);
+        $listing_id = trim($_GET['listing']);
         
+        if($this->facility_studentModel->checkHelpful($review_id)){
+            if($value=='no'){
+                if($this->facility_studentModel->removeHelpful($review_id)){
+                    $res =  json_encode($this->facility_studentModel->getComments($listing_id));
+                }
+            }else{
+                $res =  json_encode($this->facility_studentModel->getComments($listing_id));
+            }
+        }else{
+            if($value=='yes'){
+                if($this->facility_studentModel->addHelpful($review_id)){
+                    $res =  json_encode($this->facility_studentModel->getComments($listing_id));
+                }
+            }else{
+                $res =  json_encode($this->facility_studentModel->getComments($listing_id));
+            }
+        }
+
+        echo $res;
     }
 
 }
