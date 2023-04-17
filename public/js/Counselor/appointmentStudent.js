@@ -42,7 +42,7 @@ clickDivs.forEach((div) =>{
                     <p class="dob">DOB  : ${response.dob}</p>
                     <p class="email">Email  : ${response.email}
                     <p class="uni">University   : ${response.university}</p>
-                    <p class="note">Notice  : Get some advices for studies</p>
+                    <p class="note">Notice  : ${response.appointmentDescription}</p>
 
 
                 </div>

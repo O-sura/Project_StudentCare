@@ -125,10 +125,10 @@
             foreach ($data['announcements'] as $rows) :
             ?>
                 <?php
-                $id = $rows->announcement_id;
-                $subject = $rows->subject;
+                $id = $rows->post_id;
+                $subject = $rows->post_head;
                 $name = $rows->fullname;
-                $timestamp = strtotime($rows->date);
+                $timestamp = strtotime($rows->posted_date);
                 $date = date('Y-m-d', $timestamp);
                 ?>
                 <div class="row3">

@@ -53,7 +53,7 @@
                     <div class="studentList">
                         <!-- <div id="search-results"></div> -->
                         <?php foreach ($data['row'] as $row) :?>
-                            <button name="clickStu" data-student-id="<?php echo $row->studentID; ?>" class="student"  value="<?php echo $row->studentID; ?>"><?php echo $row->studentName; ?></button><br>
+                            <button name="clickStu" data-student-id="<?php echo $row->studentID; ?>" class="student"  value="<?php echo $row->studentID; ?>"><?php echo $row->fullname; ?></button><br>
                         <?php endforeach ?> 
 
                     

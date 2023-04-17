@@ -294,7 +294,8 @@
         //to get the students based on counselor decision
         public function getStudents($statusOfRequest,$userid){
 
-            $this->db->query('SELECT * FROM requests WHERE counsellorID = :userid AND statusPP = :statusPP;');
+            $this->db->query('SELECT requests.*, users.fullname FROM requests INNER JOIN users ON requests.counsellorID = users.userID INNER JOIN student ON users.userID = student.studentID WHERE requests.counsellorID = :userid AND requests.statusPP = :statusPP;');
+            //$this->db->query('SELECT requests.*, users.fullname FROM requests INNER JOIN student users ON requests.counsellorID = users.userID WHERE requests.counsellorID = :userid AND requests.statusPP = :statusPP;');
             $this->db->bind(':userid',$userid);
             $this->db->bind(':statusPP',$statusOfRequest);
 
@@ -339,7 +340,7 @@
         }
 
         public function getstudentforemail($userid){
-            $this->db->query('SELECT * FROM users  WHERE userID = :gotStu;');
+            $this->db->query('SELECT users.*,student.university,student.dob,appointments.appointmentDescription FROM users INNER JOIN student ON student.userID = users.userID INNER JOIN appointments ON appointments.studentID = users.userID WHERE users.userID = :gotStu;');
 
             $this->db->bind(':gotStu',$userid);
 
@@ -407,6 +408,86 @@
 
         }
 
+
+        //for notification generation
+
+        //new request notifications
+        public function newRequestStudents($userid){
+
+            $this->db->query('SELECT requests.studentID,requests.requested_on,users.fullname,student.profile_img FROM requests INNER JOIN student ON requests.studentID = student.studentID INNER JOIN users ON student.studentID = users.userID WHERE requests.statusPP = 0 AND requests.counsellorID = :userid ORDER BY requests.requested_on ASC;');
+            $this->db->bind(':userid',$userid);
+
+            $results = $this->db->getAllRes();
+
+            return $results;
+        }
+
+
+        //notification for request cancelling
+        public function notiCancelReq($userid){
+
+            $this->db->query('SELECT requests.studentID,requests.requested_on,requests.reason,users.fullname,student.profile_img  FROM requests INNER JOIN student ON requests.studentID = student.studentID INNER JOIN users ON users.userID = student.studentID WHERE requests.statusPP = 3 AND requests.counsellorID = :userid ORDER BY requests.requested_on ASC ;');
+            $this->db->bind(':userid',$userid);
+
+            $results = $this->db->getAllRes();
+
+            return $results;
+
+
+        }
+
+        //update request seen status
+        public function updateRequestSeen($userid){
+
+            $this->db->query('UPDATE requests SET counselor_seen = 1 WHERE counsellorID = :userid ;');
+            $this->db->bind(':userid',$userid);
+
+            if($this->db->execute()){
+                return true;
+            }else{
+                return false;
+            }
+
+        }
+
+        //notification for cancelling appointment
+        public function notiCancelApp($userid){
+
+            $this->db->query('SELECT appointments.studentID,appointments.appointmentDate,appointments.appointmentTime,appointments.cancellationReason,student.profile_img,users.fullname FROM appointments INNER JOIN student ON appointments.studentID = student.studentID INNER JOIN users ON student.studentID = users.userID WHERE appointments.appointmentStatus = 2 AND appointments.counsellorID = :userid ;');
+            $this->db->bind(':userid',$userid);
+
+            $results = $this->db->getAllRes();
+
+            return $results;
+
+        }
+
+
+        //update appointment cancel notificationt seen status
+        public function updateAppointmentSeen($userid){
+
+            $this->db->query('UPDATE appointments SET counselor_seen = 1 WHERE counsellorID = :userid ;');
+            $this->db->bind(':userid',$userid);
+
+            if($this->db->execute()){
+                return true;
+            }else{
+                return false;
+            }
+
+        }
+
+
+        public function getInformationForNotification($userid){
+
+            $this->db->query('SELECT requests.*,student.*,appointments.*,users.* FROM requests INNER JOIN student ON requests.studentID = student.studentID INNER JOIN appointments ON appointments.studentID = student.studentID INNER JOIN users ON users.userID = student.studentID WHERE (requests.statusPP = 0 AND requests.counsellorID = :userid) OR (requests.statusPP = 3 AND requests.counsellorID = :userid) OR (appointments.appointmentStatus = 2 AND appointments.counsellorID = :userid);');
+            $this->db->bind(':userid',$userid);
+
+            $results = json_encode($this->db->getAllRes());
+
+            return $results;
+
+        }
 
 
 

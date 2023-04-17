@@ -14,15 +14,14 @@ class Announcement
     public function getAnnouncements()
     {
         $this->db->query("SELECT 
-        announcement.announcement_id, 
-        announcement.subject, 
-        announcement.date, 
-        users.fullname
-        FROM announcement 
-        JOIN 
-        counselor_alloc ON announcement.counselor_id = counselor_alloc.counselor_id 
-        JOIN 
-        users ON users.userID = counselor_alloc.counselor_id
+        ann_post.post_id, 
+        ann_post.post_head, 
+        ann_post.posted_date, 
+        ann_post.fullname
+        FROM counselor_alloc
+        INNER JOIN 
+        ann_post  ON ann_post.userID = counselor_alloc.counselor_id 
+        
         WHERE counselor_alloc.student_id = :studentID;");
         $usr =   '789';
         $this->db->bind(':studentID', $usr);

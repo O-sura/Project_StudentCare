@@ -387,9 +387,60 @@
             $this->postModel = $this->loadModel('Counselor');
             $userid = Session::get('userID');
 
+            //$this->postModel->updateRequestSeen($userid);
+            //$this->postModel->updateAppointmentSeen($userid);
+
+            // $res1 = $this->postModel->newRequestStudents($userid);
+
+            // $res2 = $this->postModel->notiCancelReq($userid);
+
+            // $res3 = $this->postModel->notiCancelApp($userid);
+
+            $res = json_decode($this->postModel->getInformationForNotification($userid));
+
             $data = [
+                // 'row1' => $res1,
+                // 'row2' => $res2,
+                // 'row3' => $res3
+                'row' => $res,
+                'newReqCount' => "",
+                'canReqCount' => "",
+                'canAppCount' => ""
                 
             ];
+
+            //to categorize the notifications
+            $count1 = 0;
+            $count2 = 0;
+            $count3 = 0;
+            foreach ($res as $item) {
+                if ($item->statusPP == 0) {
+                    $count1++;
+                }
+                elseif($item->statusPP == 3) {
+                    $count2++;
+                }
+                elseif($item->appointmentStatus == 2) {
+                    $count3++;
+                }
+            }
+
+
+            if( $count1 > 0){
+                $data['newReqCount'] = 'have';
+            }
+
+            if( $count2 > 0){
+                $data['canReqCount'] = 'have';
+            }
+
+            if( $count3 > 0){
+                $data['canAppCount'] = 'have';
+            }
+
+            
+            // print_r($data);
+            // exit();
 
             $this->loadView('Counselor/notification',$data);
         }
