@@ -106,7 +106,18 @@
 
                     <div class="contact">
                         <h2>Contact Info.</h2>
-                        <p><span>Contact No: </span>0777896812</p>
+                        <div class="facility-details">
+                            <div class="facility-image">
+                            <img id ="facility_img" src="<?php echo URLROOT . "/public/img/facility_provider/" . $data['facilityProviderDetails']->profile_img; ?>" alt="">
+                            </div>
+                            <div class="facility-name">
+                                <h4><?php echo $data['facilityProviderDetails']->fullname; ?></h4>
+                            </div>
+                            <div class="buttons" id="message">
+                                <button class="btn"><i class="fa-solid fa-envelope"></i>  Message</button>
+                            </div>
+                        </div>
+                        <p><span>Contact No: </span><?php echo $data['facilityProviderDetails']->contact_no; ?></p>
                         <p><span>Address: </span><?php echo $data['viewone']->address; ?></p>
 
                         <div class="map">
@@ -231,6 +242,15 @@
             btn.onclick = function() {
                 sidebar.classList.toggle("active");
             }
+
+            let messagebtn = document.querySelector("#message");
+
+            messagebtn.onclick = function() {
+                //go to php controller
+                window.location.href = "<?php echo URLROOT . "/messaging/create_chat/" . $data['facilityProviderDetails']->userID ?>";
+            }
+
+            
         </script>
 
 </body>

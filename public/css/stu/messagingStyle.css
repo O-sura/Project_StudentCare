@@ -93,6 +93,7 @@ body {
   background-color: #4a4b4b;
   color: #fff;
   border-radius: 30px;
+  height: 100px;
 }
 
 .header h1 {
@@ -421,6 +422,7 @@ body {
   height: 50px;
   width: 50px;
   border-radius: 50px;
+  object-fit: cover;
  } 
  
  #chat-header-img{
@@ -429,6 +431,7 @@ body {
   border-radius: 50px;
   margin-right: 20px;
   display: none;
+  object-fit: cover;
  } 
 
 /* width */

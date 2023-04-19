@@ -11,25 +11,16 @@ class Stu_msg_Model
 
     public function getChats($id)
     {
-        if ($id == '789') {
-            $this->db->query('SELECT chats.*, users.username, student.profile_img
+        
+            $this->db->query('SELECT chats.*, users.username, facility_provider.profile_img
             FROM chats
             INNER JOIN users ON chats.facility_id = users.userID
-            INNER JOIN student ON users.userID = student.userID
-            WHERE student_id = :id 
+            INNER JOIN facility_provider ON users.userID = facility_provider.userID
+            WHERE chats.student_id = :id 
             ORDER BY chats.date DESC');
             $this->db->bind(':id', $id);
             $results = $this->db->getAllRes();
-        } else {
-            $this->db->query('SELECT chats.*, users.username, student.profile_img
-            FROM chats
-            INNER JOIN users ON chats.student_id = users.userID
-            INNER JOIN student ON users.userID = student.userID
-            WHERE facility_id = :id 
-            ORDER BY chats.date DESC');
-            $this->db->bind(':id', $id);
-            $results = $this->db->getAllRes();
-        }
+        
 
         return $results;
     }
@@ -89,6 +80,29 @@ class Stu_msg_Model
             $this->db->query('UPDATE messages SET isReadByReceiver = 1 WHERE messageID = :messageID');
             $this->db->bind(':messageID', $messageId);
             $this->db->execute();
+        }
+    }
+
+    public function createChat($studentId,$facilityId){
+        $this->db->query('INSERT INTO chats (student_id, facility_id) VALUES (:student_id, :facility_id)');
+        $this->db->bind(':student_id', $studentId);
+        $this->db->bind(':facility_id', $facilityId);
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function checkChat($studentId,$facilityId){
+        $this->db->query('SELECT * FROM chats WHERE student_id = :student_id AND facility_id = :facility_id');
+        $this->db->bind(':student_id', $studentId);
+        $this->db->bind(':facility_id', $facilityId);
+        $this->db->execute();
+        if($this->db->rowCount() > 0){
+            return true;
+        }else{
+            return false;
         }
     }
 }

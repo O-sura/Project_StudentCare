@@ -465,5 +465,15 @@ class Facility_StudentModel
         return $result;
     }
 
+    public function getFacilityProviderDetails($id){
+        $this->db->query("SELECT facility_provider.*,users.* FROM 
+        facility_provider 
+        INNER JOIN users ON facility_provider.userID = users.userID
+        INNER JOIN listing ON facility_provider.fpID = listing.fpID
+        WHERE listing.listing_id=:id");
+        $this->db->bind(':id', $id);
+        $result = $this->db->getRes();
+        return $result;
+    }
 
 }

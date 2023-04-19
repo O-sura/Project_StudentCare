@@ -51,6 +51,7 @@ class Student_facility extends Controller
 
         $data = [
             'viewone' => $viewone,
+            'facilityProviderDetails'=>$this->facility_studentModel->getFacilityProviderDetails($id),
             'studentDetails' => $this->facility_studentModel->getStudentDetails($id),
             'universities' => $this->facility_studentModel->getDistance($id),
             'comments' => $this->facility_studentModel->getComments($id)

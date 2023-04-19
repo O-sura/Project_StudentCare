@@ -87,15 +87,18 @@
 
             <ul class="chat-list">
                 <?php foreach ($data['chats'] as $chat) : ?>
-                    <?php if ($_SESSION['userID'] == 789) {
-                        $id = 790;
+                    <?php
+                    $id = $chat->facility_id;
+                    if ($chat->profile_img != NULL) {
+                        $image = $chat->profile_img;
                     } else {
-                        $id = 789;
-                    } ?>
-                    <li onclick="loadChat('<?php echo $id ?>','<?php echo $chat->username ?>','<?php echo $chat->profile_img ?>')">
+                        $image = "avatar.jpg";
+                    }
+                    ?>
+                    <li onclick="loadChat('<?php echo $id ?>','<?php echo $chat->username ?>','<?php echo $image ?>')">
                         <div class="pic">
 
-                            <img src="<?php echo URLROOT . "/public/img/student/" . $chat->profile_img ?>" id="img2">
+                            <img src="<?php echo URLROOT . "/public/img/facility_provider/" . $image ?>" id="img2">
                         </div>
                         <div class="name">
                             <?php echo $chat->username ?>
@@ -104,7 +107,7 @@
                 <?php endforeach; ?>
                 <!-- more chat names here -->
             </ul>
-            <input type="text" id = "receiver_id">
+            <input type="text" id="receiver_id">
         </div>
         <div class="chat-container">
             <div class="header">
@@ -159,7 +162,7 @@
         let senderID = <?php echo json_encode($_SESSION['userID']); ?>;
 
         function clearposts() {
-            let posts = document.querySelectorAll('.other_comment');
+            let posts = document.querySelectorAll('.chat-box');
             if (posts != null) {
                 posts.forEach((post) => {
                     post.parentNode.removeChild(post);
@@ -173,10 +176,11 @@
 
         // load all the messages which have sent so far into the chat
         function loadChat(id, username, profileImg) {
-            document.getElementById("chat-header-img").src = URLROOT + "/public/img/student/" + profileImg;
+            document.getElementById("chat-header-img").src = URLROOT + "/public/img/facility_provider/" + profileImg;
             document.getElementById("chat-header-username").innerText = username;
             document.getElementById("chat-header-img").style.display = "block";
             document.getElementById("receiver_id").value = id;
+            clearposts();
             fetch(`http://localhost/StudentCare/Messaging/get_all?id=${id}`)
                 .then(response => response.json())
                 .then(data => {
@@ -204,7 +208,7 @@
         // Function to fetch new messages
         function fetchMessages() {
             let Rid = document.getElementById("receiver_id").value;
-            if (Rid=="") {
+            if (Rid == "") {
                 return;
             }
             fetch(`http://localhost/StudentCare/Messaging/fetch_messages?id=${Rid}`)
@@ -247,7 +251,7 @@
                     },
                     body: JSON.stringify({
                         messageBody: message,
-                        id:id2
+                        id: id2
                     })
                 })
                 .then(response => response.json())

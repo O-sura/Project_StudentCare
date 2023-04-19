@@ -19,6 +19,14 @@ radios.forEach((radio) => {
   });
 });
 
+function clearposts(){
+    let posts = document.querySelectorAll('.other_comments');
+    if(posts != null){
+        posts.forEach((post) =>{
+            post.parentNode.removeChild(post);
+        })
+    }
+}
 
 //Function to filter the community posts based on the dropdown value
 function loadComments(listing_id){

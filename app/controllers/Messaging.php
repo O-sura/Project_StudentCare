@@ -57,4 +57,21 @@ class Messaging extends Controller
             echo json_encode($res);
         }
     }
+
+    public function create_chat($id)
+    {
+        $studentId = Session::get('userID');
+        $facilityId = $id;
+        if($this->messagingModel->checkChat($studentId, $facilityId)){
+            Messaging::index();
+        }else{
+            if($this->messagingModel->createChat($studentId, $facilityId)){
+                Messaging::index();
+            }else{
+                echo 'error';
+            }
+        }
+
+       
+    }
 }
