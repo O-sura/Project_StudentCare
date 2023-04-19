@@ -19,13 +19,15 @@
                 if($cookieFound != null){
 
                         //Check whether the user profile is deleted or blocked first
-                        $userInfo = $this->userModel->getUserInfo($cookieFound->username);
-                        $this->blockAndDeletionHandlder($userInfo);
+                        $this->blockAndDeletionHandlder($cookieFound);
 
                         //Else use the cookie to set the session
                         Session::set('userrole', $cookieFound->user_role);
                         Session::set('userID', $cookieFound->userID);
                         Session::set('username', $cookieFound->username);
+                        Session::set('lastLogin', $cookieFound->last_login);
+
+                        $this->userModel->setLastLogin($cookieFound->userID);
                         Middleware::redirect(Session::get('userrole') . '/home');
                         exit();
                         
@@ -86,31 +88,21 @@
                             }
                         }
 
-                        // //If the user is bloked redirect to user bloked page
-                        // if($userInfo->isBloked == 1){
-                        //     $this->loadView('under-verification');
-                        //     die();
-                        // }
-
-                        // //If the user is deleted redirect to user deleted page
-                        // if($userInfo->isDeleted == 1){
-                        //     $this->loadView('under-verification');
-                        //     die();
-                        // }
-
                         $this->blockAndDeletionHandlder($userInfo);
 
                         //If everything is set then log them in
                         Session::set('userrole', $userInfo->user_role);
                         Session::set('userID', $userInfo->userID);
                         Session::set('username', $userInfo->username);
+                        Session::set('lastLogin', $userInfo->last_login);
 
                         if ($data['remember-me'] == true) {
                     
                             // store the token in the database, associated with the user's account
                             $this->userModel->setCookie($data['username']);
                         }
-
+                        //Store the new logged in time after picking up the lastly recorded data
+                        $this->userModel->setLastLogin($userInfo->userID);
                         Middleware::redirect(Session::get('userrole') . '/home');
                     }
                 }

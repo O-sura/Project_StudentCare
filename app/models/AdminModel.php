@@ -72,6 +72,82 @@ class AdminModel{
         }
         return json_encode($res);
     }
+
+    public function getRole($userID){
+        $this->db->query("SELECT user_role FROM users WHERE userID  = :userID");
+        $this->db->bind(':userID',$userID);
+        return $this->db->getRes();
+    }
+
+    public function getCurrentUsername($userID){
+        $this->db->query("SELECT username FROM users WHERE userID  = :userID");
+        $this->db->bind(':userID',$userID);
+        return $this->db->getRes();
+    }
+
+    public function updateStudentDetails($data,$userID){
+        $this->db->query('UPDATE users SET username = :Cusername, fullname = :Cname, home_address = :Caddress, contact_no = :contact, nic = :nic, email = :email WHERE  userID = :userid;');
+
+        $this->db->bind(':userid', $userID);
+        $this->db->bind(':Cusername', $data['username']);
+        $this->db->bind(':Cname', $data['name']);
+        $this->db->bind(':Caddress', $data['address']);
+        $this->db->bind(':contact', $data['contact']);
+        $this->db->bind(':email', $data['email']);
+        $this->db->bind(':nic', $data['nic']);
+
+        if($this->db->execute()){
+            $this->db->query('UPDATE student SET profile_img = :pimg, dob = :dob, university = :university WHERE  userID = :userid;');
+            $this->db->bind(':userid', $userID);
+            $this->db->bind(':university', $data['university']);
+            $this->db->bind(':dob', $data['dob']);
+            $this->db->bind(':pimg',$data['profile_img']);
+
+            if($this->db->execute()){
+                return true;
+            }else{
+                return false;
+            }
+
+        }else{
+            return false;
+        }
+    }
+
+    public function updateCounselorDetails($data,$user_id){
+        $this->db->query('UPDATE users SET username = :Cusername, fullname = :Cname, email = :Cemail, home_address = :Caddress, contact_no = :contact, nic = :nic WHERE  userID = :userid;');
+
+        $this->db->bind(':userid', $user_id);
+        $this->db->bind(':Cusername', $data['username']);
+        $this->db->bind(':Cemail', $data['email']);
+        $this->db->bind(':Cname', $data['name']);
+        $this->db->bind(':Caddress', $data['address']);
+        $this->db->bind(':contact', $data['contact']);
+        $this->db->bind(':nic', $data['nic']);
+
+        if($this->db->execute()){
+            
+            $this->db->query('UPDATE counsellor SET specialization = :Cspecialization, qualifications = :Cqualifications, profile_img = :pimg, dob = :dob WHERE  userID = :userid;');
+
+            $this->db->bind(':userid', $user_id);
+            $this->db->bind(':Cspecialization', $data['specialization']);
+            $this->db->bind(':Cqualifications',implode(",", $data['qualifications']));
+            $this->db->bind(':pimg',$data['profile_img']);
+            $this->db->bind(':dob', $data['dob']);
+
+            if($this->db->execute()){
+                return true;
+            }else{
+                return false;
+            }
+
+
+
+        }else{
+            return false;
+        }
+        
+    }
     
 }
 

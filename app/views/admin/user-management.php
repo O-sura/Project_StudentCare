@@ -16,7 +16,7 @@
         <?php include 'sidebar.php'?>
 
         <div class="section" id="page-content"><br><br>
-            <span>All Users  <i class="fa-solid fa-users"></i></span>
+            <span class="heading">All Users  <i class="fa-solid fa-users"></i></span>
             <div class="div-3">
                 <table class="stat-table">
                         <tr>
@@ -38,6 +38,7 @@
                                         <td class="btn-row">
                                             <input type="submit" class="'.$user->userID . ' block-unblock-btn"  id="block-btn" value="block">
                                             <input type="submit" class="'.$user->userID . ' delete-btn" value="delete">
+                                            <input type="submit" class="'.$user->userID . ' profile-btn" value="view profile">
                                         </td>
                                     </tr>';
                                 }else{
@@ -45,6 +46,7 @@
                                         <td class="btn-row">
                                             <input type="submit" class="'.$user->userID . ' block-unblock-btn" id="unblock-btn" value="unblock">
                                             <input type="submit" class="'.$user->userID . ' delete-btn" value="delete">
+                                            <input type="submit" class="'.$user->userID . ' profile-btn" value="view profile">
                                         </td>
                                     </tr>';
                                 }

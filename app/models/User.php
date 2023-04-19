@@ -282,6 +282,13 @@
                 return false;
             }
         }
+
+        public function setLastLogin($id){
+           $this->db->query("UPDATE users SET last_login = NOW() WHERE userID = :userID");            
+           $this->db->bind(':userID', $id);
+
+           $this->db->getRes();
+        }
     
     }
 

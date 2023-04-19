@@ -1,31 +1,14 @@
 ==== ALL =====
-- Forgot Password/Reset Password - Almost Done
-- Remember me - Almost Done
-- Access Restriction - Partially Done
-- Check Logics
-- Uni mail only for students
-- Break user controller into multiple controllers
-- Make sub folders for each view and stuff
-- Modify the session to set an array inside a session
+Report Generation
+Connect dashboard with backend
+Site tour model-UI coding and connecting
+Pagination fix - Community
+Search for user management
+Responsive UI
 
-==== STUDENT =====
-- Community
-    post validation on submitting
-    comments
-    update/delete posts
-    
-- Video Call/Counselling Requests
-- Messaging 
-
-==== ADMIN =====
-- Counselling Registration Requests
-- Report Generation
-- Chart Analytics
-- Complains Section
-
-==== UI-Fixes =====
-Userrole-selection
-Admin dashboard
-Report Generation page
-Counsellor-Profile View when accepting req. => From tharindu
+Report types
+=============
+Facility-provider => listing overview[Name,username,generated date + listing info(same info shown in admin dashboard)]
+Counselor => Name,username,generated date + sessions,associated students
+Admin => Single-user info, system analytics overview
 

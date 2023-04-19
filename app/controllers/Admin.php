@@ -2,20 +2,17 @@
     Session::init();
     class Admin extends Controller{
         private $adminModel;
+        private $studentModel;
+        private $counselorModel;
+        private $fpModel;
         public function __construct(){
             Middleware::authorizeUser(Session::get('userrole'), 'admin');
             $this->adminModel = $this->loadModel('AdminModel');
+            $this->studentModel = $this->loadmodel('Student_model');
+            $this->counselorModel = $this->loadmodel('Counselor');
         }
         
         public function index(){
-            // //$this->loadView('helo');
-            // $res = sendMail('osura.silva1@gmail.com',"A test mail","This is a test mail","This is a test mail");
-            // if($res){
-            //     echo 'Success';
-            // }
-            // else{
-            //     echo 'Failed';
-            // }
 
         }
 
@@ -147,6 +144,322 @@
             echo $status;
         }
 
-    }
+        //function for handling student profile viewing
+        public function studentProfileHandler($userID){
+            $user = $this->studentModel->getProfile($userID);
+            $data = [
+                'userID' => $userID,
+                'profile_img' => $user->profile_img,
+                'name' => $user->fullname,
+                'username' => $user->username,
+                'contact' => $user->contact_no,
+                'address' => $user->home_address,
+                'nic' => $user->nic,
+                'university' => $user->university,
+                'dob' => $user->dob,
+                'email' => $user->email,
+                'name_err' => '',
+                'username_err' => '',
+                'contact_err' => '',
+                'address_err' => '',
+                'nic_err' => '',
+                'university_err' => '',
+                'dob_err' => '',
+                'email_err' => ''
+            ];
+            $this->loadview('admin/admin_stu_edit', $data);
+        }
+
+        public function counselorProfileHandler($userID){
+            $user = $this->counselorModel->getCounselorProfile($userID);
+            $data = [
+                'userID' => $userID,
+                'profile_img' => $user->profile_img,
+                'name' => $user->fullname,
+                'username' => $user->username,
+                'contact' => $user->contact_no,
+                'address' => $user->home_address,
+                'nic' => $user->nic,
+                'specialization' => $user->specialization,
+                'qualifications' => explode(",", $user->qualifications),
+                'dob' => $user->dob,
+                'email' => $user->email,
+                'name_err' => '',
+                'username_err' => '',
+                'contact_err' => '',
+                'address_err' => '',
+                'nic_err' => '',
+                'dob_err' => '',
+                'email_err' => ''
+            ];
+            $this->loadview('admin/admin_counselor_edit', $data);
+        }
+
+        //This function is not yet implemented - Waiting for Facility provider
+        public function fpProfileHandler($userID){
+            $user = $this->fpModel->getProfile($userID);
+            $data = [
+                'userID' => $userID,
+                'profile_img' => $user->profile_img,
+                'name' => $user->fullname,
+                'username' => $user->username,
+                'contact' => $user->contact_no,
+                'address' => $user->home_address,
+                'nic' => $user->nic,
+                'categories' => $user->category,
+                'dob' => $user->dob,
+                'email' => $user->email,
+                'name_err' => '',
+                'username_err' => '',
+                'contact_err' => '',
+                'address_err' => '',
+                'nic_err' => '',
+                'dob_err' => '',
+                'email_err' => ''
+            ];
+            $this->loadview('admin/admin_fp_edit', $data);
+        }
+
+        //function for viewing single user profile
+        public function show_user($userID){
+            $role = $this->adminModel->getRole($userID);
+            $role = $role->{'user_role'};
+            if($role == 'student'){
+                //load student details
+                $this->studentProfileHandler($userID);
+            }else if($role == 'counselor'){
+                //load counselor details
+                $this->counselorProfileHandler($userID);
+            }else if($role == 'facility_provider'){
+                //load facility provider details 
+                $this->fpProfileHandler($userID);
+            }
+        }
+
+        public function update_student($userID){
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $row = $this->studentModel->getProfile($userID);
+    
+    
+                //Check and validate the data
+                //Set errors if something is wrong
+                $name = $_POST['name'];
+                $username = $_POST['username'];
+                $address = $_POST['address'];
+                $contact = $_POST['phone'];
+                $nic = $_POST['nic'];
+                $university = $_POST['university'];
+                $dob = $_POST['dob'];
+                $email = $_POST['email'];
+    
+                $data = [
+                    'userID' => $userID,
+                    'profile_img' => $row->profile_img,
+                    'name' => $name,
+                    'username' => $username,
+                    'contact' => $contact,
+                    'address' => $address,
+                    'nic' => $nic,
+                    'university' => $university,
+                    'dob' => $dob,
+                    'email' => $email,
+                    'name_err' => '',
+                    'username_err' => '',
+                    'contact_err' => '',
+                    'address_err' => '',
+                    'nic_err' => '',
+                    'university_err' => '',
+                    'dob_err' => '',
+                    'email_err' => ''
+                ];
+    
+    
+                //Check whether all the fields are filled properly
+                if (empty($data['username'])) {
+                    //echo("Must fill all the fields in the form!");
+                    $data['username_err'] = "*Username field is Required";
+                }
+
+                //Check whether an account already exists with the provided username
+                if ($this->studentModel->findUserByUsername($username)) {
+                    $curr_username = $this->adminModel->getCurrentUsername($userID);
+                    $curr_username = $curr_username->{'username'};
+                    //echo("This Username is already taken");
+                    if ($username == $curr_username) {
+                        $data['username_err'] = "";
+                    } else {
+                        $data['username_err'] = "*This Username is already taken";
+                    }
+                }
+    
+                if (empty($data['name'])) {
+                    $data['name_err'] =  "*Name field is Required";
+                }
+    
+                if (empty($data['address'])) {
+                    $data['address_err'] = "*Address field is Required";
+                }
+    
+                if (empty($data['contact'])) {
+                    $data['contact_err'] = "*Contact field is Required";
+                }
+
+                if (empty($data['nic'])) {
+                    $data['nic_err'] = "*NIC field is Required";
+                }
+
+                if (empty($data['university'])) {
+                    $data['university_err'] = "*University field is Required";
+                }
+
+                if (empty($data['dob'])) {
+                    $data['dob_err'] = "*DOB field is Required";
+                }
+
+                if (empty($data['email'])) {
+                    $data['email_err'] = "*Email field is Required";
+                }
+    
+                //Check the mobile number
+                if (strlen($contact) != 10) {
+                    $data['contact_err'] = "*Invalid Contact Number";
+                }
+
+                //Make sure there are no error flags are set
+                if (empty($data['username_err']) && empty($data['name_err'])  && empty($data['contact_err']) && empty($data['address_err']) && empty($data['university_err']) && empty($data['nic_err']) && empty($data['dob_err']) && empty($data['email_err'])) {
+                    $res = $this->adminModel->updateStudentDetails($data, $userID);
+    
+                    if ($res) {
+                        FlashMessage::flash('update_profile_flash', "Successfully Updated Your Profile Details!", "success");
+                        Admin::user_management();
+                    } else {
+                        //Error Notification
+                        echo 'Error: Something went wrong in adding post to the databse';
+                        Admin::user_management();
+                        die();
+                    }
+                } else {
+                    $this->loadview('admin/admin_stu_edit', $data);
+                }
+            }
+        
+
+        
+        }
+
+        public function update_counselor($userID){
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $row = $this->counselorModel->getCounselorProfile($userID);
+    
+    
+                //Check and validate the data
+                //Set errors if something is wrong
+                $name = $_POST['name'];
+                $username = $_POST['username'];
+                $address = $_POST['address'];
+                $contact = $_POST['phone'];
+                $nic = $_POST['nic'];
+                $dob = $_POST['dob'];
+                $email = $_POST['email'];
+    
+                $data = [
+                    'userID' => $userID,
+                    'profile_img' => $row->profile_img,
+                    'name' => $name,
+                    'username' => $username,
+                    'contact' => $contact,
+                    'address' => $address,
+                    'nic' => $nic,
+                    'specialization' => $row->specialization,
+                    'qualifications' => explode(",", $row->qualifications),
+                    'dob' => $dob,
+                    'email' => $email,
+                    'name_err' => '',
+                    'username_err' => '',
+                    'contact_err' => '',
+                    'address_err' => '',
+                    'nic_err' => '',
+                    'dob_err' => '',
+                    'email_err' => ''
+                ];
+    
+    
+                //Check whether all the fields are filled properly
+                if (empty($data['username'])) {
+                    //echo("Must fill all the fields in the form!");
+                    $data['username_err'] = "*Username field is Required";
+                }
+
+                //Check whether an account already exists with the provided username
+                if ($this->studentModel->findUserByUsername($username)) {
+                    $curr_username = $this->adminModel->getCurrentUsername($userID);
+                    $curr_username = $curr_username->{'username'};
+                    //echo("This Username is already taken");
+                    if ($username == $curr_username) {
+                        $data['username_err'] = "";
+                    } else {
+                        $data['username_err'] = "*This Username is already taken";
+                    }
+                }
+    
+                if (empty($data['name'])) {
+                    $data['name_err'] =  "*Name field is Required";
+                }
+    
+                if (empty($data['address'])) {
+                    $data['address_err'] = "*Address field is Required";
+                }
+    
+                if (empty($data['contact'])) {
+                    $data['contact_err'] = "*Contact field is Required";
+                }
+
+                if (empty($data['nic'])) {
+                    $data['nic_err'] = "*NIC field is Required";
+                }
+
+                if (empty($data['dob'])) {
+                    $data['dob_err'] = "*DOB field is Required";
+                }
+
+                if (empty($data['email'])) {
+                    $data['email_err'] = "*Email field is Required";
+                }
+    
+                //Check the mobile number
+                if (strlen($contact) != 10) {
+                    $data['contact_err'] = "*Invalid Contact Number";
+                }
+
+                //Make sure there are no error flags are set
+                if (empty($data['username_err']) && empty($data['name_err'])  && empty($data['contact_err']) && empty($data['address_err']) &&  empty($data['nic_err']) && empty($data['dob_err']) && empty($data['email_err'])) {
+                    $res = $this->adminModel->updateCounselorDetails($data, $userID);
+    
+                    if ($res) {
+                        FlashMessage::flash('update_profile_flash', "Successfully Updated Your Profile Details!", "success");
+                        Admin::user_management();
+                    } else {
+                        //Error Notification
+                        echo 'Error: Something went wrong in adding post to the databse';
+                        Admin::user_management();
+                        die();
+                    }
+                } else {
+                    $this->loadview('admin/admin_counselor_edit', $data);
+                }
+            }
+        }
+
+        public function update_fp($userID){
+
+        }
+
+        public function test(){
+            $this->loadView('test');
+        }
+
+    
+
+}
 
 ?>

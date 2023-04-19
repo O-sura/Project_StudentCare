@@ -1,6 +1,7 @@
 
 const blockBtns = document.querySelectorAll('.block-unblock-btn');
 const deleteBtns = document.querySelectorAll('.delete-btn');
+const profileBtns = document.querySelectorAll('.profile-btn');
 
 //function for reloading the page
 function reloadPage() {
@@ -29,17 +30,17 @@ blockBtns.forEach(btn => {
     })
 })
 
+//Linking the stylesheet for model box
+const linkElement = document.createElement('link');
+linkElement.rel = 'stylesheet';
+linkElement.href = 'http://localhost/StudentCare/public/css/modal.css';
+document.head.appendChild(linkElement);
+
 deleteBtns.forEach(btn=>{
     btn.addEventListener("click", ()=>{
         let userID = btn.getAttribute('class').split(" ")[0];
         
         //Handling user deletions
-        const linkElement = document.createElement('link');
-        linkElement.rel = 'stylesheet';
-        linkElement.href = 'http://localhost/StudentCare/public/css/modal.css';
-        document.head.appendChild(linkElement);
-
-
         const section = document.querySelector('section'),
         overlay = document.querySelector('.overlay'),
         cancelBtn = document.querySelector('#cancel-button'),
@@ -74,6 +75,13 @@ deleteBtns.forEach(btn=>{
         })
                
         })
+})
+
+profileBtns.forEach(btn =>{
+    btn.addEventListener('click', ()=>{
+        let userID = btn.getAttribute('class').split(" ")[0];
+        window.open(`http://localhost/StudentCare/admin/show_user/${userID}`, '_blank');
+    })
 })
 
 

@@ -97,14 +97,14 @@
         </div>
         <div class="stat-and-chart">
             <div class="stat-div">
-                <h1>Community Overview</h1><br><br>
+                <h1>Listings Overview</h1><br><br>
                 <div class="card">
-                    <h2 class="card-text">New Posts</h2>
+                    <h2 class="card-text">Total Listings</h2>
                     <span>18</span>
                 </div>
                 <div class="card">
-                    <h2 class="card-text">New Comments</h2>
-                    <span>10</span>
+                    <h2 class="card-text">Average Rating</h2>
+                    <span>3.3</span>
                 </div>
             </div>
             <div class="chart-div">
