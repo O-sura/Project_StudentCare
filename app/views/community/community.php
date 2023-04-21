@@ -13,15 +13,23 @@ use function PHPSTORM_META\type;
     <title>StudentCare - Community</title>
     <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/community/community.css"?> >
     <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/community/dropdown.css"?> >
+    <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/modal.css"?> >
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script type="module" src= <?php echo URLROOT . "/public/js/community.js"?> defer></script>
+    <script src= <?php echo URLROOT . "/public/js/flash.js"?> defer></script>
 </head>
 <body>
     <!-- This includes the sidebar and the opening tag to home-content -->
     <?php include 'sidebar.php'?>
+    <?php 
+        // Has to link the css-not added because some issue
+        FlashMessage::flash('post_reported');
+        FlashMessage::flash('post_not_reported');
+    ?>
     
     <!-- Below here should be the content for homepage -->
-
+    <section>
     <div class="content-section">
             <div class="upper-row">
                 <input type="search" name="search" id="searchbar" placeholder="Search Here">
@@ -79,7 +87,7 @@ use function PHPSTORM_META\type;
                             <?= $post->{'post_desc'} ?>
                         </div>
                         <div class="options">
-                            <a href=<?php echo "./view_post/" . $post->post_id ?>><input type="button" value="Read More" class="button"></a>
+                            <a href=<?php echo URLROOT . "/community/view_post/" . $post->post_id ?>><input type="button" value="Read More" class="button"></a>
                             <div class="bottom">
                                 <div class="option" id="save-button">
                                     <i class="fa-regular fa-bookmark"></i>
@@ -97,13 +105,25 @@ use function PHPSTORM_META\type;
             <div class="pagination">
                 <?php for ($i = 1; $i <= $data['total_pages']; $i++): ?>
                     <?php if ($i == $data['current_page']): ?>
-                    <span class="active"><?php echo $i; ?></span>
+                        <span class="active"><?php echo $i; ?></span>
                     <?php else: ?>
-                    <a href="<?php echo URLROOT. "/community/home/?page=" .  $i; ?>"><?php echo $i; ?></a>
+                        <a href="<?php echo URLROOT. "/community/home/?page=" .  $i; ?>"><?php echo $i; ?></a>
                     <?php endif; ?>
                 <?php endfor; ?>
             </div>
     <!-- Above here should be the content for homepage -->
-</div>                             
+    </div>
+    <span class="overlay"></span>
+
+    <div class="modal-box-3">
+            <center><h3 class="modal-title-text">Reason for Reporting?</h3></center>
+            <form method="POST" class="report-form">
+                <label for="reason">Tell Us Why:</label><br>
+                <input type="text" name="userID" value=<?php echo Session::get('userID')?> hidden>
+                <textarea name="reason" id="reason" cols="20" rows="5" maxlength="255"></textarea>
+                <input type="submit" value="Continue" class="continue-button" name="report">
+            </form>
+    </div>  
+    </section>                         
 </body>
 </html>

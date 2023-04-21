@@ -32,6 +32,11 @@ function createNodeFromString(str) {
 //add event lisner to the delete button
 let deleteBtn = document.getElementById('delete-btn');
 
+const linkElement = document.createElement('link');
+linkElement.rel = 'stylesheet';
+linkElement.href = 'http://localhost/StudentCare/public/css/modal.css';
+document.head.appendChild(linkElement);
+
 if(deleteBtn !== null){
     // let deleteDiv = createNodeFromString(createModal('delete'));
     // console.log(deleteDiv)
@@ -39,10 +44,6 @@ if(deleteBtn !== null){
     // const body = document.querySelector("body");
     // body.appendChild(deleteDiv);
 
-    const linkElement = document.createElement('link');
-    linkElement.rel = 'stylesheet';
-    linkElement.href = 'http://localhost/StudentCare/public/css/modal.css';
-    document.head.appendChild(linkElement);
 
 
     const section = document.querySelector('section'),

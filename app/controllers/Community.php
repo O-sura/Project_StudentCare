@@ -43,7 +43,7 @@
             // Calculate the total number of pages
             $total_pages = ceil($total_posts / $posts_per_page);
             
-            // Set the data array
+            //Set the data array
             $data = [
                 'posts' => $posts,
                 'total_pages' => $total_pages,
@@ -53,20 +53,51 @@
             $this->loadView('community/community', $data);
         }
 
+        public function next_page(){
+             // Get the current page number from the query string
+            $page = isset($_GET['page']) ? $_GET['page'] : 1;
+            
+            // Set the number of posts to display per page
+            $posts_per_page = 10;
+            
+            // Calculate the offset for the current page
+            $offset = ($page - 1) * $posts_per_page;
+            
+            // Get the total number of posts
+            $total_posts = $this->CommunityModel->getAllPostCount();
+            
+            // Get the posts for the current page
+            $posts = $this->CommunityModel->getPostsWithLimit($posts_per_page,$offset);
+            
+            // Calculate the total number of pages
+            $total_pages = ceil($total_posts / $posts_per_page);
+            echo json_encode($posts);
+            //return json_encode($posts);
+        }
+
         public function new_post(){
             if(isset($_POST['submit'])) {
 
-                $filename = $_FILES["post-image"]["name"];
-                $tempname = $_FILES["post-image"]["tmp_name"];
-                $folder =  PUBLICPATH . "/img/community/" . $filename;
-            
-                if (move_uploaded_file($tempname, $folder)) {
-                    echo 'File successfully uploaded';
-                } else {
-                    //Image uploading error notification
-                    echo 'Error in uploading the image';
-                    die();
-                }
+                if(isset($_FILES['post-image']) && !empty($_FILES['post-image']['name'])) {
+                    // file has been uploaded
+                    $filename = $_FILES["post-image"]["name"];
+                    $tempname = $_FILES["post-image"]["tmp_name"];
+                    $folder =  PUBLICPATH . "/img/community/" . $filename;
+                
+                    if (move_uploaded_file($tempname, $folder)) {
+                        echo 'File successfully uploaded';
+                    } else {
+                        //Image uploading error notification
+                        echo 'Error in uploading the image';
+                        die();
+                    }
+                 } else {
+                    // file upload field is empty
+                    // handle this case
+                    $filename = "grey-background.jpg";
+                 }
+
+                
             
                 $data = [
                     'title' => trim($_POST['post-title']),
@@ -314,6 +345,21 @@
                     } 
                 }
             }
+
+        public function report_post($postID){
+            if(($_SERVER['REQUEST_METHOD'] == "POST") && isset($_POST['report'])){
+                $reason = trim($_POST['reason']);
+                $reason = htmlspecialchars($reason, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+                $userID = htmlspecialchars($_POST['userID'], ENT_QUOTES | ENT_HTML5, 'UTF-8');
+                if($this->CommunityModel->reportPost($userID,$postID,$reason) == true){
+                    //post reporting was successesfully added to teh database
+                    FlashMessage::flash('post_reported', 'Post Successfully Reported', 'success');
+                }else{
+                    FlashMessage::flash('post_not_reported', 'Something went Wrong!', 'error');
+                }
+                Middleware::redirect('community/home');
+            }
+        }
                     
     }
          

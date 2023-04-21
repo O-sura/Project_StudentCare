@@ -153,3 +153,60 @@ section.active .modal-box-2{
     transition-duration: 0.5s;
     border: 0.5px solid grey;
 } */
+
+/*Modal box 3*/
+.modal-box-3{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    background-color: #1A285A;;
+    color: white;
+    border-radius: 10px;
+    max-width: 30rem;
+    padding: 1rem 3rem;
+    opacity: 0;
+    pointer-events: none;
+}
+
+section.active .modal-box-3{
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.report-form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+}
+
+.report-form h1{
+    margin-bottom: none;
+}
+
+.report-form textarea{
+    width: 100%;
+    resize: none;
+    margin-top: none;
+    margin-bottom: 1rem;
+    border: none;
+    border-radius: 5px;
+    padding: 0.3rem;
+}
+
+.report-form textarea:focus{
+    outline: none;
+}
+
+.continue-button{
+    margin: 0.2rem;
+    padding: 0.5rem;
+    width: 100%;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    border-radius: 5px;
+    background-color: #fed84c;
+}

@@ -183,6 +183,24 @@ class CommunityModel{
         }
     }
 
+    public function reportPost($userID,$postID,$reason){
+            $this->db->query('SELECT * FROM post_reported WHERE userID= :userID AND postID= :postID');
+            $this->db->bind(':postID', $postID);
+            $this->db->bind(':userID', $userID);
+            $count = $this->db->rowCount();
+
+            if($count < 1){
+                $this->db->query('INSERT INTO post_reported(userID, postID, reason, reported_at) VALUES(:userID, :postID, :reason, NOW())');
+                $this->db->bind(':postID', $postID);
+                $this->db->bind(':userID', $userID);
+                $this->db->bind(':reason', $reason);
+                $this->db->execute();
+                return true;
+            }else{
+                return false;
+            }
+    }
+
     public function test(){
         $this->db->query('SELECT author FROM posts WHERE post_id = :postID');
             $this->db->bind(':postID', 21);

@@ -48,7 +48,7 @@ export class CommunityPost{
             </div>
             <div class="meta-data">
                 <h4>By: ${this.author}</h4>
-                <h4>${this.postedTime})</h4>
+                <h4>${this.postedTime}</h4>
                 <h4>Category: ${this.category}</h4>
             </div>
             <div class="content">

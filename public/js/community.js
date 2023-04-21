@@ -100,6 +100,7 @@ searchBar.addEventListener('input', () => {
                 }
                 resultList.innerHTML = postList;
                 votingCountHandler();
+                removePagination();
             }
         };
         xhr.send();
@@ -258,42 +259,25 @@ function savedPostHandler(){
     })
 }
 
-// Add event listeners to pagination links
-var paginationLinks = document.querySelectorAll('.pagination a');
-for (var i = 0; i < paginationLinks.length; i++) {
-    paginationLinks[i].addEventListener('click', function(event) {
-        event.preventDefault();
-        var page = this.getAttribute('href').split('=')[1];
-        loadPosts(page);
-    });
+//remove current pagination
+function removePagination(){
+    let pagDiv = document.querySelector('.pagination');
+    pagDiv.remove();
 }
 
-// Load the posts for the selected page using AJAX
-function loadPosts(page) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://localhost/StudentCare/community/home/?page=' + page);
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            //Parse the JSON response from the server
-            var searchRes = JSON.parse(xhr.responseText);
-            //console.log(searchRes)
+//Community post repoting handler
+const section = document.querySelector('section'),
+overlay = document.querySelector('.overlay');
 
-            // Update the contents of the page to display the search results
-            clearposts();
-            var resultList = document.getElementById("search-results");
-            let postList = "";
-           
-            for (var i = 0; i < searchRes.length; i++) {
-                let result = searchRes[i];
-                //id,title,author,postedTime,category,votes,thumbnail,body
-                let post = new CommunityPost(result.post_id,result.post_title,result.author,result.posted_at,result.category,result.votes,result.post_thumbnail,result.post_desc,loggedInUser);
-                postList += post.createPost();
-            }
-            resultList.innerHTML = postList;
-            votingCountHandler();
-        } else {
-            console.log('Error loading posts.');
-        }
-    };
-    xhr.send();
-}
+let reportBtns = document.querySelectorAll('#report-button');
+reportBtns.forEach(btn => btn.addEventListener('click', ()=>{
+    let parentDiv = btn.parentElement.parentElement.parentElement.parentElement;
+    let reportedPostId = parseInt(parentDiv.querySelector("p#post-id").textContent);
+    section.classList.add("active");
+    let reportForm = document.querySelector('.report-form');
+    reportForm.action = "http://localhost/StudentCare/community/report_post/" + reportedPostId;
+}))
+
+overlay.addEventListener('click', () => {
+    section.classList.remove("active");
+})
