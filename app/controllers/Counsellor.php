@@ -25,10 +25,12 @@
 
             $row = $this->postModel->getAppointmentTimes($userid,$curdate);
             $rowNext = $this->postModel->nextAppointmentDetails($userid,$curdate,$currtime);
-            
+            $recentNoti = json_decode($this->postModel->getInformationForDashboardNotification($userid));
 
             $getApp = json_decode($row,true);
             $getNextApp = json_decode($rowNext,true);
+
+            
 
             // print_r($getNextApp);
             // exit;
@@ -38,8 +40,34 @@
 
             $data = [
                 'row'=> $getApp,
-                'rowNext' => $getNextApp
+                'rowNext' => $getNextApp,
+                'recentNoti' => $recentNoti,
+                'reqCount' => "",
+                'appCancelCount' => ""
             ];
+
+            $reqCount = 0;
+            $appCount = 0;
+            foreach ($recentNoti as $itemNoti) {
+                if ($itemNoti->statusPP == 0) {
+                    $reqCount++;
+                }
+                elseif($itemNoti->appointmentStatus == 2) {
+                    $appCount++;
+                }
+            }
+
+
+            if( $reqCount > 0){
+                $data['reqCount'] = 'have';
+            }
+
+            if( $appCount > 0){
+                $data['appCancelCount'] = 'have';
+            }
+
+            // print_r($recentNoti);
+            // exit;
 
             // print_r ($data[0]['appointmentTime']);
             // exit;
@@ -412,16 +440,12 @@
             //to categorize the notifications
             $count1 = 0;
             $count2 = 0;
-            $count3 = 0;
             foreach ($res as $item) {
                 if ($item->statusPP == 0) {
                     $count1++;
                 }
-                elseif($item->statusPP == 3) {
-                    $count2++;
-                }
                 elseif($item->appointmentStatus == 2) {
-                    $count3++;
+                    $count2++;
                 }
             }
 
@@ -431,15 +455,11 @@
             }
 
             if( $count2 > 0){
-                $data['canReqCount'] = 'have';
-            }
-
-            if( $count3 > 0){
                 $data['canAppCount'] = 'have';
             }
 
-            
-            // print_r($data);
+       
+            // print_r($res);
             // exit();
 
             $this->loadView('Counselor/notification',$data);
@@ -550,6 +570,7 @@
 
         }
 
+        //To accept or reject student's requests
         public function acceptRejectStudent($id){
 
             $this->postModel = $this->loadModel('Counselor');
@@ -563,13 +584,35 @@
                     $newStatus = 1;
 
                     $result = $this->postModel->updateStudentStatus($newStatus,$userid,$id);
+                    Counsellor::studentView();
                 }
                 else if(isset($_POST['decline'])){
                     $newStatus = 2;
 
                     $result = $this->postModel->updateStudentStatus($newStatus,$userid,$id);
+                    Counsellor::studentView();
                 }
 
+               
+            }
+        }
+
+        //To remove accepted student
+        public function removeStudent($id){
+
+            $this->postModel = $this->loadModel('Counselor');
+            $userid = Session::get('userID');
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+              
+
+                if(isset($_POST['remove'])){
+
+                    $newStatus = 2;
+
+                    $result = $this->postModel->updateStudentStatus($newStatus,$userid,$id);
+                    Counsellor::studentView();
+                }
                
             }
         }

@@ -198,7 +198,9 @@
                     'body' => $ann->post_desc,
                     'topic' => $ann->post_head,
                     'posts' => $posts,
-                    'action_url' => URLROOT . '/CounselorAnnouncement/edit/$id'
+                    'action_url' => URLROOT . '/CounselorAnnouncement/edit/$id',
+                    'body_err' => '',
+                    'topic_err' => ''
             
                     
                 ];

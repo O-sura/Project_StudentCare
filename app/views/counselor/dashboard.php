@@ -75,9 +75,28 @@
                 <h2 class="subTopic">Daily Notifications</h2><br>
                 <div class="row3">
                     <div class="row3div1">
-                        <span><i class="fa-regular fa-circle-dot" style="color:grey;"></i><div class="row3div2">You have new student request from Mr. M.H Ranasinghe</div></span>
-                        <span><i class="fa-regular fa-circle-dot" style="color:grey;"></i><div class="row3div2">You have new student request from Ms. G.K Gamage</div></span>
-                        <span><i class="fa-regular fa-circle-dot" style="color:grey;"></i><div class="row3div2">You have a important message from the admin</div></span>
+                        <?php if(!empty($data['recentNoti'])) :?>
+                            <?php foreach ($data['recentNoti'] as $recN ): ?>
+                        
+                                    <?php  if ($data['reqCount'] == 'have'): ?>                      
+
+                                        <span><i class="fa-regular fa-circle-dot" style="color:grey;"></i><div class="row3div2">You have new student request from <?php echo $recN->fullname ;?></div></span>
+                                               
+                                    <?php endif ;?>
+                                    <?php if ($data['appCancelCount'] == 'have') :?>   
+
+                                        <span><i class="fa-regular fa-circle-dot" style="color:grey;"></i><div class="row3div2"><?php echo $recN->fullname;?> has requested to cancel the appointment on <?php echo $recN->appointmentDate ;?></div></span>
+                                        
+                                    <?php endif ;?>
+                                <?php endforeach  ?>
+                                
+                                
+
+                            <?php else : ?>
+
+                                <div class="noNoti">You don't have any notification yet</div>
+
+                            <?php endif ; ?>
                     </div>
                 </div>
             </div>

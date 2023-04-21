@@ -159,6 +159,33 @@ h3{
 
 
 
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #fffdfd; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #1A285A; 
+  border-radius: 10px;
+  width: 8px;
+  height: 8px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #1A285A; 
+}
+
+
+
 @media screen and (max-width:1000px) {
     
   

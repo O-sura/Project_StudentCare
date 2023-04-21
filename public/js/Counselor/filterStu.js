@@ -43,10 +43,10 @@ function addBtnListeners() {
             </div>
           </div>
           <div class="infoSection">
-            <br><label for="name">Name  : </label>${response.studentName}<br>
-            <label for="age">Age    : </label>${response.studentID}<br>
-            <label for="uni">University : </label><br>
-            <label for="address">Address    : </label>${response.location}<br>
+            <br><label for="name">Name  : </label>${response.fullname}<br>
+            <label for="age">DOB    : </label>${response.dob}<br>
+            <label for="uni">University : </label>${response.university}<br>
+            <label for="address">Address    : </label>${response.home_address}<br>
             <label for="email">University email : </label>
 
             <span>
@@ -65,15 +65,16 @@ function addBtnListeners() {
               <img class="dpImg" src="http://localhost/StudentCare/public/img/counselor/${response.profile_img}" alt=""><br>
             </div>
             <div class="btnDiv">
-              <button class="remove"><i class="fa-solid fa-user-minus"></i>   Remove</button>
-              
+              <form method="post" action="http://localhost/StudentCare/Counsellor/removeStudent/${response.studentID}">
+                <button class="remove" name="remove"><i class="fa-solid fa-user-minus"></i>   Remove</button>
+              </form>
             </div>
           </div>
           <div class="infoSection">
-            <br><label for="name">Name  : </label>${response.studentName}<br>
-            <label for="age">Age    : </label>${response.studentID}<br>
-            <label for="uni">University : </label><br>
-            <label for="address">Address    : </label>${response.location}<br>
+            <br><label for="name">Name  : </label>${response.fullname}<br>
+            <label for="age">DOB    : </label>${response.dob}<br>
+            <label for="uni">University : </label>${response.university}<br>
+            <label for="address">Address    : </label>${response.home_address}<br>
             <label for="email">University email : </label>
 
             <span>
@@ -93,10 +94,10 @@ function addBtnListeners() {
             </div>
           </div>
           <div class="infoSection">
-            <br><label for="name">Name  : </label>${response.studentName}<br>
-            <label for="age">Age    : </label>${response.studentID}<br>
-            <label for="uni">University : </label><br>
-            <label for="address">Address    : </label>${response.location}<br>
+            <br><label for="name">Name  : </label>${response.fullname}<br>
+            <label for="age">DOB    : </label>${response.dob}<br>
+            <label for="uni">University : </label>${response.university}<br>
+            <label for="address">Address    : </label>${response.home_address}<br>
             <label for="email">University email : </label>
 
             <span>
@@ -151,7 +152,7 @@ selectMenu.addEventListener("change", function() {
 
       for(let stu of response) {
         out += `
-        <button class="student" data-student-id="${stu.studentID}">${stu.studentName}</button><br>
+        <button class="student" data-student-id="${stu.studentID}">${stu.fullname}</button><br>
         `;
       }
 

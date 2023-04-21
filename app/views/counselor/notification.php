@@ -46,36 +46,19 @@
                                     <button class="btnDel"><i class="fa-regular fa-trash-can"></i></button>
                                 </div>
                             </div>               
-                    
-                        <?php elseif ($data['canReqCount'] == 'have') : ?>              
+                        <?php endif ;?>
+                        <?php if ($data['canAppCount'] == 'have') :?>   
 
                             <div  class="noti">
                                 <div class="intro"></div>
                                 <div class="dp"><img class="dpImg" src="<?php echo URLROOT."/public/img/img1.jpg"?>" alt=""></div>
                                 <div class="desc">
-                                    <h4 class="topic">Cancellation of Request</h4>
-                                    <div class="para"><div class=paraX>Name : &nbsp;</div><?php echo $row->fullname ;?></div>
-                                    <div class="para"><div class=paraX>Reason : &nbsp;</div><?php echo $row->reason ;?> </div>
-                                    <p class="time">Date : <?php echo date('Y:m:d',strtotime($row->requested_on)) ;?>&nbsp;&nbsp; <?php echo date('H:i a',strtotime($row->requested_on)) ;?></p>
-                                </div>
-                                <div class="btns">
-                                    <button class="right"><i class="fa-regular fa-square-check"></i></button>
-                                    <button class="btnDel"><i class="fa-regular fa-trash-can"></i></button>
-                                </div>
-                            </div>     
-                    
-                        <?php elseif ($data['canAppCount'] == 'have') :?>   
-
-                            <div  class="noti">
-                                <div class="intro"></div>
-                                <div class="dp"><img class="dpImg" src="<?php echo URLROOT."/public/img/img1.jpg"?>" alt=""></div>
-                                <div class="desc">
-                                    <h4 class="topic">Cancellation of Request</h4>
+                                    <h4 class="topic">Cancellation of an Appointment</h4>
                                     <div class="para"><div class=paraX>Name : &nbsp;</div><?php echo $row->fullname ;?></div>
                                     <div class="para"><div class=paraX>Reason : &nbsp;</div><?php echo $row->cancellationReason ;?> </div>
                                     <div class="para"><div class=paraX>Appointment Date : &nbsp;</div><?php echo $row->appointmentDate ;?> </div>
                                     <div class="para"><div class=paraX>Appointment Time : &nbsp;</div><?php echo date('H:i a',strtotime($row->appointmentTime)) ;?> </div>
-                                    <p class="time">Date : <?php echo date('Y:m:d',strtotime($row->appointmentDate)) ;?>&nbsp;&nbsp; <?php echo date('H:i a',strtotime($row->appointmentTime)) ;?></p>
+                                    <p class="time">Date : <?php echo date('Y:m:d',strtotime($row->requested_on)) ;?>&nbsp;&nbsp; <?php echo date('H:i a',strtotime($row->requested_on)) ;?></p>
                                 </div>
                                 <div class="btns">
                                     <button class="right"><i class="fa-regular fa-square-check"></i></button>

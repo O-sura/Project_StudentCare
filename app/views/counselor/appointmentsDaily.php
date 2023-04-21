@@ -7,6 +7,8 @@
   <script src="https://unpkg.com/feather-icons"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script src= <?php echo URLROOT . "/public/js/flash.js"?> defer></script>
+  <link rel="stylesheet" href="<?php echo URLROOT . "/public/css/flash.css"?>">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="<?php echo URLROOT . "/public/css/Counselor/dailyAppointments.css"?>">
   <script src=<?php echo URLROOT . "/public/js/Counselor/goback.js"?> defer></script>
@@ -15,6 +17,7 @@
 </head>
 
 <body>
+    <?php FlashMessage::flash('appointment_cancel_flash') ;?> 
     <?php 
       require_once '../app/views/counselor/sidebar.php';
     ?>
@@ -33,7 +36,7 @@
             
             <div class="content">
                 <div class="day">
-                    <p class="clickedDate"><?php echo $data['day']; ?> <?php echo $data['dayNum']; ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>   
+                    <p class="clickedDate"><?php echo $data['day']; ?> <?php echo $data['dayNum']; ?> <?php echo $data['dayYear']; ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>   
                 </div>
                 <hr class="hr1">
 
@@ -43,37 +46,81 @@
                         
                             <?php foreach ($data['row'] as $row ): ?>
                                 <!-- <div class="app"> -->
-                                    <div class="app" >
+                                    <?php if($row->appointmentStatus != 3) : ?>
+
+                                        <div class="app" id="app">
                                     
-                                            <div class="time">
-                                                    <?php if(date('H',strtotime($row->appointmentTime)) < 12):?> 
-                                                        <?php echo date('H : i',strtotime($row->appointmentTime))." A.M" ;?> 
-                                                    <?php else :?>
-                                                        <?php echo date('H : i',strtotime($row->appointmentTime))." P.M" ; ?>
-                                                    <?php endif ;?>
-                                            </div>
-                                            
-                                            <div class="image">
-                                                <button class="btnImage" id="stu" value="<?php echo $row->studentID ?>"><img class="imgg" src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFufGVufDB8fDB8fA%3D%3D&w=1000&q=80" alt=""> </button>
-                                            </div>
-                                            <div class="name">
-                                                <?php echo $row->studentName ;?>  
-                                            </div> 
-                                            <div class="divBtn">
-                                                <button class="btn">
-                                                    <div class="btn-class">
-                                                        <div class="btnName" >
-                                                            Join<!-- <a class='start' href="http://localhost:3000/<?php echo $row->meetingID ?>" target="_blank">Start</a> -->
-                                                        </div>
-                                                        <div class="btnIcon">
-                                                            <i class="fa-solid fa-play"></i>
-                                                        </div>
-                                                    </div>
+                                                <div class="time">
+                                                        <?php if(date('H',strtotime($row->appointmentTime)) < 12):?> 
+                                                            <?php echo date('H : i',strtotime($row->appointmentTime))." A.M" ;?> 
+                                                        <?php else :?>
+                                                            <?php echo date('H : i',strtotime($row->appointmentTime))." P.M" ; ?>
+                                                        <?php endif ;?>
+                                                </div>
                                                 
-                                                </button>    
-                                            </div>
+                                                <div class="image" >
+                                                    <button class="btnImage" id="stu" value="<?php echo $row->studentID ?>"><img class="imgg" src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFufGVufDB8fDB8fA%3D%3D&w=1000&q=80" alt=""> </button>
+                                                    <input type="hidden" id="aPPtime" value="<?php echo $row->appointmentDate ?>">
+                                                </div>
+                                                <div class="name">
+                                                    <?php echo $row->studentName ;?>  
+                                                </div> 
+                                                <div class="divBtn">
+                                                    <button class="btn" id="getAppStu" value="<?php echo $row->studentID ?>">
+                                                        <div class="btn-class">
+                                                            <div class="btnName" id="btnName">
+                                                                Join
+                                                                <input type="hidden" id="getAppTime" value="<?php echo $row->appointmentDate ?>">
+                                                                <input type="hidden" id="getAppStu" value="<?php echo $row->studentID ?>">
+                                                            </div>
+                                                            <div class="btnIcon">
+                                                                <i class="fa-solid fa-play"></i>
+                                                            </div>
+                                                        </div>
+                                                    
+                                                    </button>    
+                                                </div>
+                                        
+                                        </div>
+
+                                    <?php else: ?>
+
+                                        <div class="appCancel" id="app"  style="pointer-events: none;">
                                     
-                                                    </div>
+                                                <div class="time">
+                                                        <?php if(date('H',strtotime($row->appointmentTime)) < 12):?> 
+                                                            <?php echo date('H : i',strtotime($row->appointmentTime))." A.M" ;?> 
+                                                        <?php else :?>
+                                                            <?php echo date('H : i',strtotime($row->appointmentTime))." P.M" ; ?>
+                                                        <?php endif ;?>
+                                                </div>
+                                                
+                                                <div class="image" >
+                                                    <button class="btnImage" id="stu" value="<?php echo $row->studentID ?>"><img class="imgg" src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFufGVufDB8fDB8fA%3D%3D&w=1000&q=80" alt=""> </button>
+                                                    <input type="hidden" id="aPPtime" value="<?php echo $row->appointmentDate ?>">
+                                                </div>
+                                                <div class="name">
+                                                    <?php echo $row->studentName ;?>  
+                                                </div> 
+                                                <div class="divBtn">
+                                                    <button class="btn" id="getAppStu" value="<?php echo $row->studentID ?>">
+                                                        <div class="btn-class">
+                                                            <div class="btnName" id="btnName">
+                                                                Join
+                                                                <input type="hidden" id="getAppTime" value="<?php echo $row->appointmentDate ?>">
+                                                                <input type="hidden" id="getAppStu" value="<?php echo $row->studentID ?>">
+                                                            </div>
+                                                            <div class="btnIcon">
+                                                                <i class="fa-solid fa-play"></i>
+                                                            </div>
+                                                        </div>
+                                                    
+                                                    </button>    
+                                                </div>
+                                        
+                                        </div>
+                                    
+                                    <?php endif; ?>
                                 <!-- </div> -->
                             <?php endforeach ?> 
                         </div>
@@ -112,18 +159,6 @@
 
         </div>
 
-        <!-- The Modal -->
-        <div id="myModal" class="modal">
-
-            <!-- Modal content -->
-            <div class="modal-content">
-                <span class="close">&times;</span>
-
-                <button class = "btnStart" id="uploadBtn"><a class='start' href="http://localhost:3000/<?php echo $row->meetingID ?>" target="_blank">Start meeting</a></button>
-                <button id="removeBtn" class="rbtn">Cancel appointment</button>
-            </div>
-
-        </div>
 
         <!-- The Modal for start meeting or cancellation -->
         <div id="myModal" class="modal">
@@ -131,9 +166,10 @@
             <!-- Modal content -->
             <div class="modal-content">
                 <span class="close">&times;</span>
-                <h3>Appointment Cancellation</h3>
+                
                 <button class = "btnStart" id="uploadBtn"><a class='start' href="http://localhost:3000/<?php echo $row->meetingID ?>" target="_blank">Start meeting</a></button>
-                <button id="removeBtn">Cancel appointment</button>
+                <button id="removeBtn" class="rbtn" value="<?php echo $row->studentID ?>">Cancel appointment</button>
+                
             </div>
 
         </div>
@@ -143,28 +179,31 @@
         <div id="myModalCancel" class="modalCancel">
 
         <!-- Modal content -->
-            <form  action="http://localhost/StudentCare/CounselorAppointment/cancellationOfAppointment/?studentID=<?php echo $row->studentID; ?>" method="POST">
+            <form  id="formID" action="" method="POST"> 
                 <div class="modalCancel-content">
 
                     <input type="text" name="studentID" value="Hi" hidden>
 
                     <span class="closeC">&times;</span>
                     <h3>Appointment Cancellation</h3><br>
-                    <p class="detCancel">Student Name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <?php echo $row->studentName ;?></p>
-                    <p class="detCancel">Appointment Date : <?php echo $row->appointmentDate ;?></p>
+                    <p class="detCancel" id="cancelName"></p>
+                    <p class="detCancel" id="cancelDate"></p>
+                    <p class="detCancel" id="cancelTime"></p>
+                    <p class="detCancel">Requested by student to cancel : <input type="checkbox" name="check"></p> 
                     <p class="detCancel">Reason for Cancellation :</p>
                     
 
-                    <!-- <?php 
+                    <?php 
                         if($data['descC_err'])
                             echo '<div class="form-field" data-error=" ' . $data['descC_err'] . '">';
                         else
                             echo '<div class="form-field">';
-                    ?> -->
+                    ?>
                     <textarea name="descC" id="" placeholder="Description" rows = "15" cols = "5" class="Desc"></textarea><br>
                     </div>
                     <button id="removeBtnC" type="submit" name="submit">Cancel appointment</button>
-                <!-- </div> -->
+                   
+                </div>
             </form>
         </div>
         
