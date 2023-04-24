@@ -83,4 +83,23 @@ class Student_model
         }
         
     }
+
+    public function getNewMessagesCount($studentID)
+    {
+        $this->db->query("SELECT * FROM messages WHERE receiverID = :studentID AND isReadByReceiver = 0;");
+        $this->db->bind(':studentID', $studentID);
+        $count = $this->db->rowCount();
+
+        return $count;
+    }
+
+    public function getTaskNotificationCount($studentID)
+    {
+        $this->db->query("SELECT * FROM task WHERE task_user = :studentID AND task_date = :today AND task_status = 'not started';");
+        $this->db->bind(':studentID', $studentID);
+        $this->db->bind(':today', date('Y-m-d'));
+        $count = $this->db->rowCount();
+
+        return $count;
+    }
 }
