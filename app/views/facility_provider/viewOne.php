@@ -59,7 +59,12 @@
                             <i class="fa fa-pen"></i>
                         </a>
                         
-                        <i class="fa fa-trash"></i>
+                        <!-- <a href=<?php echo URLROOT. "/facility_provider/delete"?>>
+                            <i class="fa fa-trash"></i>
+                        </a> -->
+                        <a href="<?php echo URLROOT."/facility_provider/delete/". $data['viewone']->listing_id;?>"><i class="fa-solid fa-trash"></i></a>
+
+                        
                     </span>
                 </h1>
 
@@ -86,17 +91,6 @@
                     </div>
 
                     <div class="feedback">
-                        <input type="text" value="Highly recommend.">
-                        <input type="text" value="This is situated in safe area.">
-                        <input type="text" value="Highly recommend.">
-                        <input type="text" value="Highly recommend.">
-                        <input type="text" value="Highly recommend.">
-                        <input type="text" value="Highly recommend.">
-                        <input type="text" value="Highly recommend.">
-                        <input type="text" value="Highly recommend.">
-                        <input type="text" value="Highly recommend.">
-                        <input type="text" value="Highly recommend.">
-                        <input type="text" value="Highly recommend.">
                         <input type="text" value="Highly recommend.">
                     </div>
                     
