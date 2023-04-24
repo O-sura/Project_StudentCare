@@ -27,9 +27,10 @@
             <div class="head">
                 <h1>Property</h1>
 
-                <form class="box" method="POST" action="propertyView">
+                <form class="box" method="GET" action="propertyView">
                     <button type="submit" name="search"><i class="fa-solid fa-search" aria-hidden="true"></i></button>
-                    <input type="text" placeholder="Search Here" name="searchbtn" class="searchbtn">
+                    <input type="search" placeholder="Search Here" name="searchbtn" id="searchbar" class="searchbtn">
+                    <div id="search-results"></div>
                 </form>
 
             </div>
@@ -70,43 +71,7 @@
                     </select>
                 </div>
 
-                <!-- <div class="dropdown-menu">
-                    <div class="select-btn">
-                        <span class="Sbtn-text">Location</span>
-                        <i class="fa-sharp fa-solid fa-chevron-down"></i>
-                    </div>
-                    <input type="text" name="topic" class="location-dropdown" hidden>
-                    <ul class="options">
-                        <li class="option">Anuradhapura</li> 
-                        <li class="option">Colombo</li> 
-                        <li class="option">Kandy</li>
-                    </ul>
-                </div> -->
-        
-               <!--  <div class="dropdown-menu">
-                    <div class="select-btn">
-                        <span class="Sbtn-text">Type</span>
-                        <i class="fa-sharp fa-solid fa-chevron-down"></i>
-                    </div>
-                    <input type="text" name="topic" class="type-dropdown" hidden>
-                    <ul class="options">
-                        <li class="option">House</li> 
-                        <li class="option">Room</li> 
-                    </ul>
-                </div>
-
-                <div class="dropdown-menu">
-                    <div class="select-btn">
-                        <span class="Sbtn-text">University</span>
-                        <i class="fa-sharp fa-solid fa-chevron-down"></i>
-                    </div>
-                    <input type="text" name="uniName" class="university-dropdown" hidden>
-                    <ul class="options">
-                        <li class="option">University of Colombo</li> 
-                        <li class="option">University of Peradeniya</li> 
-                        <li class="option">NIBM</li>
-                    </ul>
-                </div> -->
+                
             </div>
 
             <main>

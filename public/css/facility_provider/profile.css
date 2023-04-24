@@ -37,6 +37,15 @@ h1{
     margin: 35px 300px;
 }
 
+.detail_form{
+    width: 1050px;
+    height: 500px;
+    padding: 10px;
+    position: relative;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
 .container .profile{
     display: flex;
 }
@@ -80,6 +89,7 @@ input[type = file]::-webkit-file-upload-button{
 }
 
 .container .details{
+    margin-left: 30px;
     margin-top: 40px;
     display: flex;
 }
@@ -89,7 +99,7 @@ input[type = file]::-webkit-file-upload-button{
 }
 
 .container .details .category_details{
-    margin-left: 200px;
+    margin-left: 150px;
 }
 
 .container .details .category_details i{

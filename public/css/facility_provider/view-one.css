@@ -21,19 +21,19 @@
  }
  
  .preview img{
-    border: 1px solid;
     padding: 1px;
     width: 400px;
     height: 250px;
+    border-radius: 5px;
  }
  
  .thumbnails img{
     height: 60px;
     width: 80px;
-    border: 1px solid;
     padding: 1px;
     margin: 0 10px 10px 0;
     cursor: pointer;
+    border-radius: 5px;
  }
  
  .contact{
@@ -48,7 +48,6 @@
  
  .map{
     margin-top: 20px;
-    border: 1px solid;
     width: 402px;
     height: 252px;
     object-fit: cover;

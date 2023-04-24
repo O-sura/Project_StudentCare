@@ -1,4 +1,4 @@
-/* let alert = document.getElementsByClassName('alert')[0];
+let alert = document.getElementsByClassName('alert')[0];
 let closeBtn = document.getElementsByClassName('close-btn')[0];
 
 closeBtn.addEventListener('click' , () => {
@@ -9,4 +9,4 @@ closeBtn.addEventListener('click' , () => {
 setTimeout(() => {
     alert.classList.remove('show');
     alert.classList.add('hide');
-}, 5000); */
+}, 5000);
