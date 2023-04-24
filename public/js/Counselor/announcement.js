@@ -34,7 +34,7 @@ export class CounselorAnnouncementPost{
                     
                 </div>
             </div>
-            `
+            `;
         }
         else{
             controllers = `
@@ -57,7 +57,7 @@ export class CounselorAnnouncementPost{
         <div class="annDescription">
             ${controllers}
         </div>
-        `
+        `;
     }
 
 }

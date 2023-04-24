@@ -107,7 +107,9 @@
                 <div class="row-4">
                     Tasks today
                 </div>
+
                 <div class="row-x">
+
                     <div class="col-x">
                         <?php
                         if (count($data['all']) == 0) {
@@ -138,7 +140,7 @@
                                             <div class="col-6">
 
                                                 <select class="select" id=<?php echo $rows->task_id ?> name=<?php echo $rows->task_id ?> onchange="dropDown(this.id,'<?php echo $rows->task_color; ?>');">
-                                                    <option value="not started">Not started</option>
+                                                    <option value="not started" selected>Not started</option>
                                                     <option value="started">In progress</option>
                                                     <option value="completed">Completed</option>
                                                 </select>
@@ -183,7 +185,7 @@
                                             <div class="col-12">
 
                                                 <select class="select" id=<?php echo $rows2->task_id ?> name=<?php echo $rows2->task_id ?> onchange="dropDown(this.id,'<?php echo $rows2->task_color; ?>');">
-                                                    <option value="started">In progress</option>
+                                                    <option value="started" selected>In progress</option>
                                                     <option value="completed">Completed</option>
                                                     <option value="not started">Not started</option>
 
@@ -225,14 +227,14 @@
                                         <div class="col-16" id="_<?php echo $rows3->task_id ?>">
                                             <div class="col-17">
 
-                                                <h3 class="completed" id="__<?php echo $rows3->task_id ?> onclick()"><a href="EditTask.php"><?php echo $rows3->task_description; ?></a></h3>
+                                                <h3 class="completed" id="__<?php echo $rows3->task_id ?>"><a href="EditTask.php"><?php echo $rows3->task_description; ?></a></h3>
 
                                             </div>
 
                                             <div class="col-18">
 
-                                                <select class="select" id=<?php echo $rows3->task_id ?> name="<?php echo $rows3->task_id ?>" onchange="dropDown(this.id,'<?php echo $rows3->task_color; ?>');">
-                                                    <option value="completed">Completed</option>
+                                                <select class="select" id=<?php echo $rows3->task_id ?> name=<?php echo $rows3->task_id ?> onchange="dropDown(this.id,'<?php echo $rows3->task_color; ?>');">
+                                                    <option value="completed" selected>Completed</option>
                                                     <option value="not started">Not started</option>
                                                     <option value="started">In progress</option>
                                                 </select>
@@ -257,13 +259,10 @@
                         <div class="col-2">
                             <button class="btn" id="btn4"><a href="<?php echo URLROOT; ?>/tasks/add">Add task</a></button>
                         </div>
-                        <div class="col-14">
-                            <button class="btn2" type="submit" name="submit">Submit</button>
-                        </div>
                     </div>
+
                 </div>
             </div>
-        </form>
     </div>
 
 

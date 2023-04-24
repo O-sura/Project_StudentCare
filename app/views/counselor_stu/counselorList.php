@@ -129,9 +129,14 @@
                     <div class="sort">
                         <select class="select">
 
-                            <option value="Exam">All</option>
-                            <option value="Club">Guidance</option>
-                            <option value="Gym">Mental Health</option>
+                            <option value="All">All</option>
+                            <option value="Academic">Academic Counselors</option>
+                            <option value="Career">Career Counselors</option>
+                            <option value="Mental Health">Mental Health Counselors</option>
+                            <option value="Financial Aid">Financial Aid Counselors</option>
+                            <option value="Relationship">Relationship Counselors</option>
+                            <option value="Disability Services">Disability Services Counselors</option>
+                            <option value="Residential Life">Residential Life Counselors</option>
                         </select>
                     </div>
                 </div>

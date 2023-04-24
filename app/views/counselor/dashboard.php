@@ -25,7 +25,7 @@
                 <div class="row1">
                     <div class="row1div1">
                         <h3 class="subb">Appointment Stats</h3>
-                        <div class="pie" style="width:70%; ">
+                        <div class="pie" style="width:65%; ">
                             <canvas id="pieChart"></canvas>
                         </div>
                         <!-- <img class="piechart" src="<?php echo URLROOT."/public/img/free-pie-chart-icon-683-thumb.png"?>"> -->
@@ -33,8 +33,14 @@
                     <div class="row1div2">
                         <h3 class="subb">Next Appointment</h3><br>
                         <i class="fa-regular fa-calendar-check" style="font-size: 3em"></i><br><br>
-                        <p class="cont">Name : Mr. P.H Gurusinghe</p><br>
-                        <p class="cont">Time : 11.30 a.m</P>
+                        <?php if(!empty($data['rowNext'])) : ?>
+
+                            <p class="cont">Name : <?php echo $data['rowNext']['studentName'] ?></p><br>
+                            <p class="cont">Time : <?php echo date("g:i  A", strtotime($data['rowNext']['appointmentTime'])); ?></P>
+
+                        <?php else: ?>
+                            <p class="noappP">No appointments</p>
+                        <?php endif ;?>
                     </div>
                     <div class="row1div3">
                         <h3 class="subb">Students Stats</h3>
@@ -47,12 +53,23 @@
                
                 <h2 class="subTopic">Daily Appointments</h2><br>
                 <div class="row2">
+                    <?php if(count($data['row']) > 0) : ?>
+
+                        <?php foreach ($data['row'] as $row ): ?>
+
+                            <div class="row2div1"><?php echo date("g:i  A", strtotime($row['appointmentTime'])); ?></div>
+                            
+                        <?php endforeach ?> 
                     
-                    <div class="row2div1">10:00 <br>A.M</div>
+                    <?php else: ?>
+                        <div class="noappR"><p class="noappP"><?php echo "There is no any appointment yet for today" ?></p></div>
+                    <?php endif ;?>
+                    
+                    <!-- <div class="row2div1">10:00 <br>A.M</div>
                     <div class="row2div1">11:30 <br>A.M</div>
                     <div class="row2div1">01:30 <br>P.M</div>
                     <div class="row2div1">02:45 <br>P.M</div>
-                    <div class="row2div1">04:15 <br>P.M</div>
+                    <div class="row2div1">04:15 <br>P.M</div> -->
                 </div>
            
                 <h2 class="subTopic">Daily Notifications</h2><br>

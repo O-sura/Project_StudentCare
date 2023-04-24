@@ -29,6 +29,12 @@
       require_once '../app/views/counselor/sidebar.php';
     ?>
     <div class="home_content">  
+
+        <div class="topic">
+            <span><h1 class="headApp">Announcements</h1></span>
+        </div>
+        <hr class="hrbar">
+
             <div class="div4">
                 <div class="topSection">
                     <input class="search" type="search" id="searchbar" name="search" placeholder="search">
@@ -52,49 +58,58 @@
                 <div class="bottomSection">
                     <div class="div5">
                         <div id="search-results"></div>
-                        <?php foreach ($data['posts'] as $post ): ?>
-                            <div class="annDescription">
-                                    <?php if($post->userID === $_SESSION['userID']) : ?>
-                                        
-                                        <div class="own">
-                                            <div class="descriptionOwn">
-                                                <h4 class="postH"><?= $post->{'post_head'}; ?></h4>
-                                                <?= $post->{'post_desc'}; ?><br><br>
-                                                <span class="pdate"><?= $post->{'posted_date'} ;?> </span> <span class="puser">     Posted By :  <?= $post->{'fullname'} ;?></span>
+                        <?php if(count($data['posts']) == 0) :?>
+                                
+                            <div class="ifnot">There is no announcement posted yet by any counselor</div>
 
-                                                <div class="buttonU"> 
-                                                    <button class="btnEdit" name="btnEdit" type="submit"><a href="<?php echo URLROOT."/CounselorAnnouncement/edit/". $post->post_id;?>"><i class="fa-solid fa-pen-to-square"></i></a></button>
-                                                        
-                                                    <button class="btnDlt" name="btnDlt" type="submit" ><a href="<?php echo URLROOT."/CounselorAnnouncement/delete/". $post->post_id;?>"><i class="fa-solid fa-trash"></i></a></button>
+                        <?php else : ?>
+
+                            <?php foreach ($data['posts'] as $post ): ?>
+                                <div class="annDescription">
+                                        <?php if($post->userID === $_SESSION['userID']) : ?>
+                                            
+                                            <div class="own">
+                                                <div class="descriptionOwn">
+                                                    <h4 class="postH"><?= $post->{'post_head'}; ?></h4>
+                                                    <?= $post->{'post_desc'}; ?><br><br>
+                                                    <span class="pdate"><?= $post->{'posted_date'} ;?> </span> <span class="puser">     Posted By :  <?= $post->{'fullname'} ;?></span>
+
+                                                    <div class="buttonU"> 
+                                                        <button class="btnEdit" name="btnEdit" type="submit"><a href="<?php echo URLROOT."/CounselorAnnouncement/edit/". $post->post_id;?>"><i class="fa-solid fa-pen-to-square"></i></a></button>
+                                                            
+                                                        <button class="btnDlt" name="btnDlt" type="submit" ><a href="<?php echo URLROOT."/CounselorAnnouncement/delete/". $post->post_id;?>"><i class="fa-solid fa-trash"></i></a></button>
+                                                    </div>
+                                                    
                                                 </div>
-                                                
-                                            </div>
-                                            <div class="dpOwn">
+                                                <div class="dpOwn">
 
-                                                <img class="dpImgOwn" src="<?php echo URLROOT."/public/img/counselor/".$post->{'profile_img'};?>" alt=""><br>
-                                                
-                                            </div>
-                                        </div>
-
-                                    <?php else: ?>
-
-                                        <div class="other">
-                                            <div class="dp">
-                                                <img class="dpImg" src="<?php echo URLROOT."/public/img/counselor/".$post->{'profile_img'};?>" alt=""><br>
+                                                    <img class="dpImgOwn" src="<?php echo URLROOT."/public/img/counselor/".$post->{'profile_img'};?>" alt=""><br>
+                                                    
+                                                </div>
                                             </div>
 
-                                            <div class="description">
-                                                <h4 class="postH"><?= $post->{'post_head'}; ?></h4>
-                                                <?= $post->{'post_desc'}; ?><br><br>
-                                                <span class="pdate"><?= $post->{'posted_date'} ;?> </span> <span class="puser">     Posted By :  <?= $post->{'fullname'} ;?></span>
-                                                
+                                        <?php else: ?>
+
+                                            <div class="other">
+                                                <div class="dp">
+                                                    <img class="dpImg" src="<?php echo URLROOT."/public/img/counselor/".$post->{'profile_img'};?>" alt=""><br>
+                                                </div>
+
+                                                <div class="description">
+                                                    <h4 class="postH"><?= $post->{'post_head'}; ?></h4>
+                                                    <?= $post->{'post_desc'}; ?><br><br>
+                                                    <span class="pdate"><?= $post->{'posted_date'} ;?> </span> <span class="puser">     Posted By :  <?= $post->{'fullname'} ;?></span>
+                                                    
+                                                </div>
                                             </div>
-                                        </div>
-                                    <?php endif;?>
-                            </div>
-                        <?php endforeach ?> 
+                                        <?php endif;?>
+                                </div>
+                            <?php endforeach ?> 
+
+                        <?php endif ; ?>
+                        
                     </div>
-                    <? if ($condition): ?>
+        
  
                     <div class="div6">
                         <form action="<?php echo (!empty($data['action_url'])) ? $data['action_url'] : URLROOT.'/CounselorAnnouncement/add'; ?>" method="post">
@@ -127,3 +142,14 @@
 </body>
 
 </html> 
+
+
+
+
+
+
+
+
+
+
+

@@ -24,7 +24,7 @@ margin-top: 25px;
 
 
 #image2{
-width: 50%;
+width: 250px;
 height: auto;
 border-radius: 50%;
 }
@@ -93,12 +93,15 @@ padding: 30px;
 justify-content: center;
 height: fit-content;
 }
+
 .boxes{
 display: flex;
 justify-content: space-around;
 box-sizing: border-box;
 width: 80vw;
 flex-wrap: wrap;
+padding-bottom: 10px;
+padding-top: 30px;
 }
 
 .messages{
@@ -217,3 +220,26 @@ a {
   width: calc(100%-240px);
   left: 240px;
 }
+
+.messages{
+  position: relative;
+}
+
+.icon_button_badge{
+  position: absolute;
+  top:-10px;
+  right:-10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #FFBF42;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+}
+
+.prof-details{
+  font-size: 20px;
+}
+

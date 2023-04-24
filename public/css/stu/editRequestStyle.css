@@ -1,0 +1,152 @@
+@import "sidebar.css";
+/* The styling for home content */
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter';
+}
+
+body{
+    display: flex;
+    /* min-height: 100vh; */
+    background: white;
+    color: #1A285A;
+}
+
+hr{
+  border: 2px solid #929292;
+  margin-top: 25px;
+}
+
+.heading{
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+
+
+.image2{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+#image2{
+  width: 300px;
+  height: 300px;
+  border-radius:50%;
+  object-fit: cover;
+}
+#image3{
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.container{
+  display: grid;
+  grid-template-rows: 1fr 4fr 4fr ;
+  height: auto;
+  margin-left: 5%;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+
+
+
+  .home_content{
+    position: absolute;
+    height: auto;
+    width: calc(100%-78px);
+    left: 78px;
+    transition: all 0.5s ease;
+    width: 70vw;
+    
+  }
+  
+  .sidebar.active ~ .home_content{
+    width: calc(100%-240px);
+    left: 240px;
+  }
+
+  a { 
+    color: inherit;
+    text-decoration: inherit; 
+  }
+
+.request-form{
+  display:grid;
+  grid-template-rows: 1fr 4fr 4fr;
+  margin-top: 3%;
+}
+
+.counselor-details{
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+}
+
+.counslor-name{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 2%;
+}
+
+.desc-name{
+  font-weight: 600;
+  font-size: 1.3rem;
+}
+
+.description{
+  display: grid;
+  grid-template-rows: 1fr 3fr;
+  margin-top: 10px
+}
+
+textarea{
+  width: 100%;
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 20px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  resize: none;;
+}
+
+.btn {
+  background: #1A285A;
+  background-image: -webkit-linear-gradient(top, #1A285A, #1A285A);
+  background-image: -moz-linear-gradient(top, #1A285A, #1A285A);
+  background-image: -ms-linear-gradient(top, #1A285A, #1A285A);
+  background-image: -o-linear-gradient(top, #1A285A, #1A285A);
+  background-image: linear-gradient(to bottom, #1A285A, #1A285A);
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  border: none;
+}
+
+.btn:hover {
+  background: #3cb0fd;
+  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+  text-decoration: none;
+}
+
+.submit{
+  text-align: end;
+  margin-top: 2%;
+}
+

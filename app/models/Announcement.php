@@ -24,7 +24,7 @@ class Announcement
         JOIN 
         users ON users.userID = counselor_alloc.counselor_id
         WHERE counselor_alloc.student_id = :studentID;");
-        $usr =   '789';
+        $usr =   Session::get('userID');
         $this->db->bind(':studentID', $usr);
         $results = $this->db->getAllRes();
 

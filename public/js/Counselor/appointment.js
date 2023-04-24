@@ -2,7 +2,7 @@ let btn = document.querySelector("#btn");
 let sidebar = document.querySelector(".sidebar");
 
   
-
+//
 const currentDate = document.querySelector('.current-date');
 daysTag = document.querySelector('.days');
 prevNextIcon =  document.querySelectorAll('.icons i');

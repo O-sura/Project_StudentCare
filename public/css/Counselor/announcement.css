@@ -1,24 +1,54 @@
-body{
-  overflow: auto;
-}
 
 /* home section */
+/* 
+body{
+  overflow: auto;
+} */
 
+.ifnot{
+  width: 80%;
+  height: 20%;
+  margin-top: 15%;
+  margin-left: 10%;
+  border-radius: 20px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  font-size: 22px;
+  font-weight: 500;
+  text-align: center;
+
+}
+
+.topic{
+  margin-left: 6%;
+  margin-top: 1.5%;
+}
+
+.hrbar{
+  margin-left: 6%;
+  margin-top: 1%;
+  width: 95%;
+  background-color: rgb(187, 185, 185);
+  color: rgb(187, 185, 185);
+ 
+}
 
 .div4{
     
-    margin: 4% 2%;
+    margin-top: 2%;
+    margin-left: 6%;
     align-items: center;
     justify-content: center;
     position: relative;
     width: 95%;
+    height: 700px;
+    overflow: auto;
    
 }
 
 .topSection{
     display: flex;
     font-size: 15px;
-    margin-bottom: 1%;
+    margin-bottom: 2%;
 }
 
 .search{
@@ -30,7 +60,7 @@ body{
     
 }
 
-.selector{
+/* .selector{
     width: 15%;
     padding: 0.2%;
     border-radius: 20px;
@@ -39,7 +69,7 @@ body{
     margin-left: 65%;
     height: 5%;
     padding: 0.5%;
-}
+} */
 
 .bottomSection{
     display: flex;
@@ -49,7 +79,7 @@ body{
 .div5{
     
     width: 65%;
-    height: 620px;
+    height: 570px;
     border-radius: 10px;
     overflow: auto;
     border: 10px solid  #c9d4ddf5;
@@ -215,7 +245,7 @@ body{
 .div6{
     
     width: 35%;
-    height: 620px;
+    height: 570px;
     margin-left: 2%;
     justify-content: center;
     text-align: center;
@@ -282,6 +312,30 @@ textarea{
   
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #fffdfd; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #1A285A; 
+  border-radius: 10px;
+  width: 8px;
+  height: 8px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #1A285A; 
+}
 
 
 @media screen and (max-width:1100px) {
