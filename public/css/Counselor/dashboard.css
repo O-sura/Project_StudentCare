@@ -2,19 +2,15 @@
   
   /* home section */
   
-  .home_content{
-    width: 90%;
-    float: none;
-}
   
   .divSection{
-      height: 7px;
+    
       justify-content: center;
-      margin-left: 5%;
+      margin-left: 4%;
       margin-top: 1%;
       align-items: center;
       position: relative;
-      width: 1200px;
+  
   }
   
   .subTopic{
@@ -26,7 +22,6 @@
   .row1{
       height: 320px;
       display: flex;
-
       
   }
 
@@ -86,6 +81,7 @@
 
   .cont{
     font-size: 18px;
+    font-weight: 500;
   }
   
   .row1div3{
@@ -129,6 +125,31 @@
       text-align: center;
       padding: 3%;
 
+  }
+
+  .noappR{
+    height: 120px;
+    width: 40%;
+    background-color:#7381b7;
+    margin: 2.5% 4%;
+    float: left;
+    border-radius: 15px;
+    color: white;
+    text-align: center;
+    
+  }
+
+  .noappP{
+    margin-top: 5%;
+    text-align: center;
+    padding: 3% 3%;
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  .noappR:hover {
+    transform:scale(1.2) ;
+    transition-duration: 0.7s;
   }
 
   .row2div1:hover {

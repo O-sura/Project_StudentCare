@@ -26,12 +26,15 @@ body{
     font-size: 25px;
     font-weight: bold;
     width: 20vw;
-    
 }
 .food{
     color: #a8aab2;
+    margin-right: 10px;
 }
 
+.property{
+    margin-right: 10px;
+}
 .furniture{
     color: #a8aab2;
 }
@@ -41,6 +44,7 @@ body{
   
 .container{
     margin-left: 120px;
+    width: 80vw;
 }
 a { 
     color: inherit;
@@ -70,12 +74,7 @@ h1{
     margin: 20px 0;
 }
 
-.container .head .searchbtn{
-    width: 200px;
-    height: 25px;
-    border: none;
-    outline: none;
-}
+
 
 .container .head button{
     border: none;
@@ -119,9 +118,11 @@ hr{
 
 .container .wrapper{
     text-align: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     display: flex;
-    margin: 0 250px;
+    align-items: center;
+    /* margin: 0 250px; */
+    flex-wrap: wrap;
 }
 
 .container .wrapper .select .filter{
@@ -178,35 +179,40 @@ hr{
     text-align: left;
     line-height: 30px;
     height: 25%;
+    text-align: center;
 }
 
 .container main .item .data .topic{
     font-size: 20px;
     color: black;
     font-weight: bold;
+    text-align: center;
 }
 
 .container main .item .data .uni{
     font-size: 15px;
     color: black;
+    text-align: center;
 }
 
 .container main .item .data .price{
     font-size: 20px;
-    color: #d4ba3a;
+    color: black;
     font-weight: bold;
+    text-align: center;
 }
 
 .container main .item .data .price span{
     
-    color: black;
+    color: #d4ba3a;
 }
 
 .container main .item .data .rating{
-    font-size: 18px;
+    font-size: 15px;
     color: #0d0d0d;
-    font-weight: 400;
+    font-weight: 700;
     padding-top: 5px;
+    text-align: center;
 }
 
 .home_content{
@@ -224,7 +230,7 @@ hr{
     left: 240px;
   }
 
-  .select{
+  /* .select{
     padding: 10px 20px;
     color: white;
     background-color: #1A285A;
@@ -239,10 +245,102 @@ hr{
     /* box-shadow: 0 5px 20px 0 #B9B9B9; */
   
   
-  }
+  /* }
   .select:focus,
   .select:hover{
     outline: none;
     border: 1px solid #eeee;
+  } */ 
+
+  /* Use a modern font and typography */
+  .select {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    padding: 10px;
+    border: none;
+    background-color: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    appearance: none;
+    outline: none;
+    border-radius: 50px;
+    text-align: center;
+    
+  }
+  
+  /* Add hover and focus effects */
+  .select:hover, .select:focus {
+    background-color: #f7f7f7;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Add dropdown arrow icon */
+  .select-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    fill: #333;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  /* Animate icon on open/close */
+  .select-btn.open .select-icon {
+    transform: translateY(-50%) rotate(180deg);
+  }
+  
+  /* Style dropdown options */
+  .select option {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    background-color: #fff;
+    border: none;
+    outline: none;
   }
 
+  .select-btn{
+    margin-right: 10px;
+    margin-left: 20px;
+  }
+
+#date-filter{
+    margin-right: 100px;
+}
+#universityFilter{
+    margin-right: 20px;
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .search-container form {
+    display: flex;
+    align-items: center;
+  }
+  
+  .search-container input[type="text"] {
+    padding: 10px;
+    border-radius: 50px;
+    border: none;
+    margin-right: 10px;
+    font-size: 14px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+  }
+  
+  .search-container button {
+    padding: 10px;
+    border-radius: 50px;
+    border: none;
+    background-color: #1A285A;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+  }

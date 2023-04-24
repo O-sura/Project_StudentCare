@@ -45,7 +45,10 @@ class Facility_Provider extends Controller{
 
 
     public function editprofile(){
+
         /* $profile = $this->ListingModel->editprofile();
+
+
             
         $data =[
             'name' => $profile->fullname,
@@ -73,6 +76,7 @@ class Facility_Provider extends Controller{
 
         $this->loadView('facility_provider/editprofile',$data);
     }
+
 
     public function changeprofile(){
         $user_id = Session::get('userID');
@@ -208,6 +212,7 @@ class Facility_Provider extends Controller{
         } */
     }
 
+
     
     public function addItem(){
 
@@ -325,7 +330,7 @@ class Facility_Provider extends Controller{
             }
 
             $image_urls = json_encode($image_urls);
-     
+            
             $uniName = json_encode($uniName);
             
             $validatedData = [

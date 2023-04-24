@@ -16,6 +16,7 @@ body{
 
 /* CSS for messaging content */
 
+
 * {
 box-sizing: border-box;
 margin: 0;
@@ -302,6 +303,7 @@ margin-right: 20px;
     border-radius: 12px;
     line-height: 50px;
     text-align: center;
+
 }
 
 .sidebar .links_name{
@@ -434,6 +436,7 @@ display: none;
 object-fit: cover;
 } 
 
+
 /* width */
 ::-webkit-scrollbar {
 width: 8px;
@@ -444,6 +447,7 @@ height: 8px;
 /* Track */
 ::-webkit-scrollbar-track {
 background: none; 
+
 }
 
 /* Handle */

@@ -139,6 +139,7 @@
 
 
         public function propertysearch($keyword){
+
             $this->db->query('SELECT * FROM listing WHERE topic LIKE :keyword OR uniName LIKE :keyword OR price LIKE :keyword');
             $this->db->bind(':keyword', $keyword);
             $result = $this->db->getAllRes();

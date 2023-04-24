@@ -17,11 +17,10 @@ body{
 .wrapper{
   width: 800px;
   background-color: white;
-  border-radius: 10px;
- 
-  height:600px;
-  /* border-width: 1px;
-  box-shadow: 0 5px 20px 0 #B9B9B9; */
+  border-radius: 30px;
+  height:fit-content;
+  border-width: 1px;
+  box-shadow: 0 5px 20px 0 #B9B9B9;
   
 }
 
@@ -188,6 +187,7 @@ header .icons i:last-child{
   justify-content: center;
   /* align-items: center; */
   height: 80%;
+  margin-top: 20px;
 }
 
 .month{
@@ -286,16 +286,17 @@ a {
   color: #ffffff;
 }
 
-.column{
+.column {
   display: grid;
-  grid-template-rows: 2fr 0.3fr 5fr;
-  grid-gap: 20px;
+  grid-template-rows: 1fr 5fr;
   background-color: #1A285A;
   width: 50%;
- border-radius: 20px;
- height: 80vh;
- text-align: center;
- margin-top: 2%;
+  border-radius: 20px;
+  height: 80vh;
+  text-align: center;
+  margin-top: 20px;
+  box-shadow: 0 5px 20px 0 #1A285A;
+ 
 }
 
 
@@ -305,25 +306,30 @@ a {
   padding-bottom: 5%;
   padding-left: 10px;
   margin-left: 6%;
-  margin-top: 3%;
+  margin-top:15%;
 }
 
-.task{
-  display: grid;
-  grid-template-rows: auto;
-  grid-gap: 30px;
-  color: white;
-  justify-items: center;
-}
 
 .todayTasks{
   color:#1A285A;
   padding: 25px;
-  height: 100%;
+  height: fit-content;
   width: 90%;
   border-radius: 20px;
   margin-left: 6%;
   justify-content: center;
+  margin-top: 3%;
+  transition: all 0.5s ease;
+
+}
+
+.todayTasks:hover
+{
+
+  box-shadow: 0 5px 10px 0 #090e21;
+  padding-left: 50px;
+  border-radius: 20px;
+ 
 }
 
 .new{
@@ -332,3 +338,6 @@ a {
   width: 100%;
 }
 
+.task{
+  overflow-y: auto;
+}

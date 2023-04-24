@@ -8,7 +8,9 @@ function clearlistings(){
     }
 }
 
+
 /* let searchBar = document.getElementById('searchbar');
+
 searchBar.addEventListener('input', () => {
     // Send an AJAX request to the server with the search query
     var xhr = new XMLHttpRequest();
@@ -34,6 +36,7 @@ searchBar.addEventListener('input', () => {
     };
     xhr.send();
 })
+
  */
 
 /* let loggedInUser = document.getElementById('loggedInUser').innerText;
@@ -67,3 +70,4 @@ searchBar.addEventListener('input', () => {
     }
 )
  */
+

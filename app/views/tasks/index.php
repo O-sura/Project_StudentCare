@@ -21,49 +21,49 @@
       <i class="fa-solid fa-bars" id="btn"></i>
     </div>
     <ul class="nav_list">
-            <li>
-                <a href='<?php echo URLROOT ?>/student/home'>
-                    <i class="fa-solid fa-gauge"></i>
-                    <span class="links_name">Dashboard</span>
-                </a>
-                <span class="tooltip">Dashboard</span>
-            </li>
-            <li>
-                <a href='<?php echo URLROOT ?>/community/home'>
-                    <i class="fa-solid fa-users"></i>
-                    <span class="links_name">Community</span>
-                </a>
-                <span class="tooltip">Community</span>
-            </li>
-            <li>
-                <a href='<?php echo URLROOT ?>/tasks/'>
-                    <i class="fa-solid fa-calendar-days"></i>
-                    <span class="links_name">Schedule</span>
-                </a>
-                <span class="tooltip">Schedule</span>
-            </li>
-            <li>
-                <a href='<?php echo URLROOT ?>/appointments/'>
-                    <i class="fa-solid fa-calendar-check"></i></i>
-                    <span class="links_name">Appointments</span>
-                </a>
-                <span class="tooltip">Appointments</span>
-            </li>
-            <li>
-                <a href='<?php echo URLROOT ?>/announcements/'>
-                    <i class="fa-solid fa-bullhorn"></i></i>
-                    <span class="links_name">Announcements</span>
-                </a>
-                <span class="tooltip">Announcements</span>
-            </li>
-            <li>
-                <a href="<?php echo URLROOT ?>/Student_facility/">
-                    <i class="fa-solid fa-house-circle-check"></i>
-                    <span class="links_name">Listings</span>
-                </a>
-                <span class="tooltip">Listings</span>
-            </li>
-        </ul>
+      <li>
+        <a href='<?php echo URLROOT ?>/student/home'>
+          <i class="fa-solid fa-gauge"></i>
+          <span class="links_name">Dashboard</span>
+        </a>
+        <span class="tooltip">Dashboard</span>
+      </li>
+      <li>
+        <a href='<?php echo URLROOT ?>/community/home'>
+          <i class="fa-solid fa-users"></i>
+          <span class="links_name">Community</span>
+        </a>
+        <span class="tooltip">Community</span>
+      </li>
+      <li>
+        <a href='<?php echo URLROOT ?>/tasks/'>
+          <i class="fa-solid fa-calendar-days"></i>
+          <span class="links_name">Schedule</span>
+        </a>
+        <span class="tooltip">Schedule</span>
+      </li>
+      <li>
+        <a href='<?php echo URLROOT ?>/appointments/'>
+          <i class="fa-solid fa-calendar-check"></i></i>
+          <span class="links_name">Appointments</span>
+        </a>
+        <span class="tooltip">Appointments</span>
+      </li>
+      <li>
+        <a href='<?php echo URLROOT ?>/announcements/'>
+          <i class="fa-solid fa-bullhorn"></i></i>
+          <span class="links_name">Announcements</span>
+        </a>
+        <span class="tooltip">Announcements</span>
+      </li>
+      <li>
+        <a href="<?php echo URLROOT ?>/Student_facility/">
+          <i class="fa-solid fa-house-circle-check"></i>
+          <span class="links_name">Listings</span>
+        </a>
+        <span class="tooltip">Listings</span>
+      </li>
+    </ul>
     <div class="profile_content">
       <div class="profile">
         <div class="profile_details">
@@ -128,29 +128,7 @@
           </div>
         </div>
         <div class="column">
-          <div class="buttons">
-            <div class="topic">
-              <h3>Choose Event</h3>
-            </div>
-            <div class="event">
-
-              <select class="select">
-
-                <option value="Exam">Exam</option>
-                <option value="Club">Club</option>
-                <option value="Gym">Gym</option>
-              </select>
-
-            </div>
-            <div class="add">
-              <button class="btn"><a href="AddEvent.php">Add new</a></button>
-            </div>
-
-          </div>
-          <div class="horizontal">
-            <hr class="new">
-          </div>
-          <div class="tasks">
+          
             <div class="topic">
               <h3>Tasks today</h3>
             </div>
@@ -186,8 +164,9 @@
               <?php } ?>
 
             </div>
-          </div>
+
         </div>
+        
 
       </div>
     </div>
