@@ -64,7 +64,7 @@
             </li>
 
             <li>
-                <a href=<?php echo URLROOT. "/facility_provider/message"?>>
+                <a href=<?php echo URLROOT. "/messaging_facility/index"?>>
                     <i class="fa-solid fa-message"></i>
                     <span class="links_name">Message</span>
                 </a>

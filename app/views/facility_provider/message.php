@@ -11,7 +11,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/facility_provider/message.css"?>>
-    <script src=<?php echo URLROOT . "/public/js/facility_provider/message.js"?> defer ></script>
     <title>Add Listings</title>
 </head>
 <body>
@@ -29,7 +28,7 @@
             <ul class="chat-list">
                 <?php foreach ($data['chats'] as $chat) : ?>
                     <?php
-                    $id = $chat->facility_id;
+                    $id = $chat->student_id;
                     if ($chat->profile_img != NULL) {
                         $image = $chat->profile_img;
                     } else {
@@ -39,7 +38,7 @@
                     <li onclick="loadChat('<?php echo $id ?>','<?php echo $chat->username ?>','<?php echo $image ?>')">
                         <div class="pic">
 
-                            <img src="<?php echo URLROOT . "/public/img/facility_provider/" . $image ?>" id="img2">
+                            <img src="<?php echo URLROOT . "/public/img/student/" . $image ?>" id="img2">
                         </div>
                         <div class="name">
                             <?php echo $chat->username ?>
@@ -117,12 +116,12 @@
 
         // load all the messages which have sent so far into the chat
         function loadChat(id, username, profileImg) {
-            document.getElementById("chat-header-img").src = URLROOT + "/public/img/facility_provider/" + profileImg;
+            document.getElementById("chat-header-img").src = URLROOT + "/public/img/student/" + profileImg;
             document.getElementById("chat-header-username").innerText = username;
             document.getElementById("chat-header-img").style.display = "block";
             document.getElementById("receiver_id").value = id;
             clearposts();
-            fetch(`http://localhost/StudentCare/Messaging/get_all?id=${id}`)
+            fetch(`http://localhost/StudentCare/Messaging_facility/get_all?id=${id}`)
                 .then(response => response.json())
                 .then(data => {
                     console.log(data);
@@ -152,7 +151,7 @@
             if (Rid == "") {
                 return;
             }
-            fetch(`http://localhost/StudentCare/Messaging/fetch_messages?id=${Rid}`)
+            fetch(`http://localhost/StudentCare/Messaging_facility/fetch_messages?id=${Rid}`)
                 .then(response => response.json())
                 .then(data => {
                     console.log(data);
@@ -185,7 +184,7 @@
             if (message == '') return;
 
             // Make the fetch request
-            fetch('http://localhost/StudentCare/Messaging/send_message', {
+            fetch('http://localhost/StudentCare/Messaging_facility/send_message', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
