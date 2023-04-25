@@ -52,7 +52,8 @@
 
                     <div class="sub22">
                         <p>Universities/Institutions Nearby:</p>
-                        <input class="uniName" name="uniName[]" id="uniName_0" type="text">
+                        <input class="uniName" name="uniName[]" id="uniName_0" type="text" >
+                        <input class="uniName" name="uniName[]" id="uniName_0" type="text" >
                         <div id="another"></div>
                         <button type="button" class="addAnother" onclick="addAnother()">+ Add Another</button>
                     </div>

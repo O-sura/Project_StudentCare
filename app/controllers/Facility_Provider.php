@@ -14,7 +14,8 @@ class Facility_Provider extends Controller{
         $myview = $this->ListingModel->myListing();
 
         $data =[
-            'myview' => $myview
+            'myview' => $myview,
+            'universities' => $this->ListingModel->getDistances(),
         ]; 
         
         $this->loadView('facility_provider/myListing',$data);
@@ -393,7 +394,8 @@ class Facility_Provider extends Controller{
 
         //Prepare the data to be passed to the view
         $data =[
-            'view' => $view
+            'view' => $view,
+            'universities' => $this->ListingModel->getDistances()
         ]; 
         
         //Load the view and pass the data to it
@@ -406,7 +408,8 @@ class Facility_Provider extends Controller{
         $view = $this->ListingModel->foodView();
 
         $data =[
-            'view' => $view
+            'view' => $view,
+            'universities' => $this->ListingModel->getDistances()
         ]; 
         
         $this->loadView('facility_provider/foodView',$data);
@@ -418,7 +421,8 @@ class Facility_Provider extends Controller{
         $view = $this->ListingModel->furnitureView();
 
         $data =[
-            'view' => $view
+            'view' => $view,
+            'universities' => $this->ListingModel->getDistances()
         ]; 
         
         $this->loadView('facility_provider/furnitureView',$data);
@@ -430,7 +434,8 @@ class Facility_Provider extends Controller{
         $viewone = $this->ListingModel->viewOneListing($id);
 
         $data =[
-            'viewone' => $viewone
+            'viewone' => $viewone,
+            'universities' => $this->ListingModel->getDistances()
         ]; 
         
         $this->loadView('facility_provider/viewOne',$data);

@@ -54,13 +54,13 @@
 
                     <div class="data">
                         <p class="topic"><?php echo $myview->topic; ?></p>
-                        <p class="uni">Near to <?php 
-                            $uniName = json_decode($myview->uniName);
-                            foreach($uniName as $name) {
-                                echo $name;
-                                echo '<br>';
-                            }
-                        ?></p>
+                        <p class="uni">
+                        <?php foreach ($data['universities'] as $university) : ?>
+                                        <?php if ($university->listing_id == $myview->listing_id) : ?>
+                                            <?php echo $university->distance ?> km from <?php echo $university->uni_name; ?> <br>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                        </p>
                         <p class="price"><span>Rs. </span><?php echo $myview->rental; ?>/Month</p>
                     </div>
                 </div>
