@@ -81,9 +81,11 @@
     <div class="home_content">
         <div class="container">
             <?php
-            $subject = $data['announcement']->subject;
-            $message = $data['announcement']->message_body;
+            $subject = $data['announcement']->post_head;
+            $message = $data['announcement']->post_desc;
             $format_message = nl2br($message);
+            $datetime_stamp = $data['announcement']->posted_date; // example datetime stamp
+            $formatted_date = date("l, j F Y, g.i A", strtotime($datetime_stamp));
             ?>
             <div class="row1">
                 <h1>Announcements</h1>
@@ -92,14 +94,22 @@
 
             <div class="row2">
                 <div class="col1">
-                    <img id="image" src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFufGVufDB8fDB8fA%3D%3D&w=1000&q=80" alt="">
+                    <?php
+
+                    if ($data['announcement']->profile_img != NULL) {
+                        $image = $data['announcement']->profile_img;
+                    } else {
+                        $image = "avatar.jpg";
+                    }
+                    ?>
+                    <img id="image" src="<?php echo URLROOT . "/public/img/counselor/" . $image; ?>" alt="">
                 </div>
                 <div class="col2">
                     <div class="col2-row1">
                         <?php echo $subject; ?>
                     </div>
                     <div class="col2-row2">
-                        by Dr.Jason Anthony on Friday, 11 November 2022, 5.30 PM
+                        by <?php echo  $data['announcement']->fullname; ?> on <?php echo $formatted_date ?>
                     </div>
                 </div>
             </div>

@@ -1,19 +1,21 @@
 <?php
+Session::init();
 class Announcements extends Controller{
    
     private $announcementModel;
     public function __construct()
     {
         $this->announcementModel = $this->loadmodel('Announcement');
+        Middleware::authorizeUser(Session::get('userrole'), 'student');
     }
 
     
 
     public function index()
     {
-        
+        $usr = Session::get('userID');
         $data = [
-            'announcements' => $this->announcementModel->getAnnouncements()
+            'announcements' => $this->announcementModel->getAnnouncements($usr)
         ];
 
 

@@ -6,7 +6,7 @@ class Tasks extends Controller
     private $taskModel;
     public function __construct()
     {
-
+        Middleware::authorizeUser(Session::get('userrole'), 'student');
         $this->taskModel = $this->loadmodel('Task');
     }
 

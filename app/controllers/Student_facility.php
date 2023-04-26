@@ -6,6 +6,7 @@ class Student_facility extends Controller
 
     public function __construct()
     {
+        Middleware::authorizeUser(Session::get('userrole'), 'student');
         $this->facility_studentModel = $this->loadmodel('Facility_StudentModel');
     }
 
