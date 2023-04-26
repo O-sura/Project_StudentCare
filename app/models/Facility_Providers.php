@@ -69,35 +69,52 @@
 
         public function profile(){
             $userID = Session::get('userID');
-            $this->db->query('SELECT u.*, f.category FROM users u INNER JOIN facility_provider f ON u.userID = f.userID WHERE u.userID = :userID'); 
+            $this->db->query('SELECT u.*, f.category,f.profile_img FROM users u INNER JOIN facility_provider f ON u.userID = f.userID WHERE u.userID = :userID'); 
             $this->db->bind(':userID', $userID);
 
             $result = $this->db->getRes();
             return $result;
         }
 
-        public function editprofile($data){
-            $userID = Session::get('userID');
-            $this->db->query('SELECT u.*, f.category FROM users u INNER JOIN facility_provider f ON u.userID = f.userID WHERE u.userID = :userID'); 
-            $this->db->bind(':userID', $userID);
+        public function getUserByUsername($username){
+            $this->db->query('SELECT * from users WHERE username = :username'); 
+            $this->db->bind(':username', $username);
 
-            /* $this->db->bind(':name', $data['name']);
-            $this->db->bind(':nic', $data['nic']);
-            $this->db->bind(':home_address', $data['home_address']);
-            $this->db->bind(':email', $data['email']);
-            $this->db->bind(':contact_no', $data['contact_no']);
-            $this->db->bind(':category', $data['category']);
+            $result = $this->db->getRes();
+            return $result;
+        }
 
-            if($this->db->execute()){
-                return true;
-            }
-            else{
-                return false;
-            } */
-            $results = $this->db->getAllRes();
+        public function editprofile($user_id){
+            $this->db->query('SELECT users.*,facility_provider.* FROM users INNER JOIN facility_provider ON users.userID = facility_provider.fpID WHERE users.userID = :user_id');
+            $this->db->bind('user_id',$user_id);
+            $results = $this->db->getRes();
             return $results; 
         }
 
+        public function updateProfileDetails($data,$user_id){
+            $this->db->query('UPDATE users SET username = :FPusername, fullname = :FPname, email = :FPemail, home_address = :FPaddress, contact_no = :contact WHERE  userID = :userid;');
+            
+            $this->db->bind(':userid',$user_id);
+            $this->db->bind(':FPusername', $data['username']);
+            $this->db->bind(':FPemail', $data['email']);
+            $this->db->bind(':FPname', $data['name']);
+            $this->db->bind(':FPaddress', $data['address']);
+            $this->db->bind(':contact', $data['contact']);
+            //$this->db->bind(':category', $data['category']);
+
+            if($this->db->execute()){
+                $this->db->query('UPDATE facility_provider SET profile_img = :pimg WHERE  userID = :userid;');
+                $this->db->bind(':userid', $user_id);
+                $this->db->bind(':pimg',$data['profile']);
+                if($this->db->execute()){
+                    return true;
+                }else{
+                    return false;
+                }
+            }else{
+                return false;
+            }
+        }
 
         public function propertyView(){
             $category = 'Property';
@@ -137,10 +154,17 @@
             return $result;
         }
 
+        public function getlisting(){
+            $this->db->query('SELECT * FROM listing ORDER BY added_date DESC');
+
+            $results = $this->db->getAllRes();
+
+            return $results; 
+        }
 
         public function propertysearch($keyword){
 
-            $this->db->query('SELECT * FROM listing WHERE topic LIKE :keyword OR uniName LIKE :keyword OR price LIKE :keyword');
+            $this->db->query('SELECT * FROM listing WHERE listing.topic LIKE :keyword OR listing.uniName LIKE :keyword');
             $this->db->bind(':keyword', $keyword);
             $result = $this->db->getAllRes();
             return json_encode($result);
@@ -161,32 +185,6 @@
             return $result;
         }
 
-
-        public function findItemByLocation(){
-            $category = 'Furniture';
-            $this->db->query('SELECT * FROM listing WHERE category= :category'); 
-            $this->db->bind(':category', $category);
-            
-            $result = $this->db->getAllRes();
-            return $result;
-        
-        }
-
-
-        public function findItemByType($type){
-            
-        }
-
-
-        public function findItemByRent($rental){
-           
-        }
-
-        
-        public function findItemByUniversity($uniName){
-            
-        }
-
         public function deleteItem($id){
             $this->db->query('DELETE FROM listing WHERE listing_id=:id');
             
@@ -200,6 +198,14 @@
             else{
                 return false;
             }
+        }
+
+        public function university_filter($uni){
+            $this->db->query("SELECT * FROM listing WHERE listing.category='Property'");
+            $this->db->bind(':uni', $uni);
+
+            $result = $this->db->getAllRes();
+            return $result;
         }
 
     }

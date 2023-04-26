@@ -32,18 +32,16 @@
                     <div id="prof_img">
                         <?php 
                             if(!empty($data['profile']->profile_img)){
-                                $image = $data['profile']->profile_img;
+                                $image = "fprovider/" . $data['profile']->profile_img;
                             }
                             else{
                                 $image = "avatar.jpg";
                             }
                         ?>
-                    <img class="dp" src="<?php echo URLROOT."/public/img/fprovider/".$image ;?>" alt="Profile Picture">
+                    <img class="dp" src="<?php echo URLROOT."/public/img/".$image ;?>" alt="Profile Picture">
                     </div>
                     
-                    <div id="prof_img">
-                        <img src="<?php echo URLROOT . "/public/img/avatar.jpg"?>" alt="">
-                    </div>
+                    
                     <div class="personal">
                         <h2>Personal Information</h2>
                         <p class="info">

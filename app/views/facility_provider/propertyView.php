@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/facility_provider/view.css"?> >
-    <script src=<?php echo URLROOT . "/public/js/facility_provider/View.js"?> defer></script>
+    <script type="module" src=<?php echo URLROOT . "/public/js/facility_provider/View.js"?> defer></script>
     <title>Property View listings</title>
 </head>
 <body>
@@ -27,12 +27,12 @@
             <div class="head">
                 <h1>Property</h1>
 
-                <form class="box" method="GET" action="propertyView">
+                <!-- <form class="box" method="GET" action="propertyView">
                     <button type="submit" name="search"><i class="fa-solid fa-search" aria-hidden="true"></i></button>
                     <input type="search" placeholder="Search Here" name="searchbtn" id="searchbar" class="searchbtn">
                     <div id="search-results"></div>
-                </form>
-
+                </form> -->
+                <input class="search" type="search" id="searchbar" name="search" placeholder="search">
             </div>
 
             <hr>
@@ -54,6 +54,17 @@
                         <option value="kalutara">Kalutara</option>
                     </select>
                 </div>
+                <!-- <div class="select-btn">
+                    <i class="fa-solid fa-location-dot fa-lg"></i>
+                    <select class="select" id="universityFilter">
+                        <option value="<?php echo $data['studentUni']->university ?>" selected><?php echo $data['studentUni']->university ?></option>
+                        <option value="University of Colombo">University of Colombo</option>
+                        <option value="University of Kelaniya">University of Kelaniya</option>
+                        <option value="University of Peradeniya">University of Peradeniya</option>
+                        <option value="University of Moratuwa">University of Moratuwa</option>
+                        <option value="University of Moratuwa">SLIIT</option>
+                    </select>
+                </div> -->
 
                 <div class="select-btn">
                     <select class="filter" name="filterItem" id="filterItem">
@@ -75,6 +86,7 @@
             </div>
 
             <main>
+                <div id="search-results"></div>
                 <?php foreach($data['view'] as $view) : ?>
 
                 <div class="item">

@@ -34,7 +34,9 @@ class Facility_Provider extends Controller{
 
 
     public function profile(){
-        $profile = $this->ListingModel->profile();
+        $user_id = Session::get('userID');
+
+        $profile = $this->ListingModel->profile($user_id);
         
         $data =[
             'profile' => $profile
@@ -45,82 +47,52 @@ class Facility_Provider extends Controller{
 
 
     public function editprofile(){
-
-        /* $profile = $this->ListingModel->editprofile();
-
-
-            
-        $data =[
-            'name' => $profile->fullname,
-            'email' => $profile->email,
-            'nic' => $profile->nic,
-            'contact' => $profile->contact_no,
-            'address' => $profile->home_address,
-            'category' => $profile->category,
-            'profile' => $profile->profile_img,
-            'name_err' => '',
-            'email_err' => '',
-            'address_err' => '',
-            'contact_err' => '',
-            'category_err' => ''
-        ];  
-        $this->loadView('facility_provider/editprofile',$data);
-        */
-        
         $user_id = Session::get('userID');
-        $editprofile = $this->ListingModel->editprofile($user_id);
-          
-        $data = [    
-            'editprofile' => $editprofile
-        ];
+        $user_name = Session::get('username');
+        $row = $this->ListingModel->editprofile($user_id);
 
+          
+        $data = [
+            'profile_img' => $row->profile_img,
+            'name' => $row->fullname,
+            'username' => $row->username,
+            'email' => $row->email,
+            'nic' => $row->nic,
+            'contact' => $row->contact_no,
+            'address' => $row->home_address,
+            'name_err' => '',
+            'username_err' => '',
+            'email_err' => '',
+            'contact_err' => '',
+            'address_err' => ''
+        ];
+        
         $this->loadView('facility_provider/editprofile',$data);
     }
 
-
-    public function changeprofile(){
+    public function updateProfileDetails($userid){
         $user_id = Session::get('userID');
-        $editprofile = $this->ListingModel->editprofile($user_id);
+        $row = $this->ListingModel->editprofile($user_id);
 
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            if(isset($_POST['saveImg'])){
-                if(isset($_FILES['file']['name']) && $_FILES['file']['name'] != ""){
-
-                    $filename = $_FILES['file']['name'];
-                    $tempname = $_FILES['file']['tmp_name'];
-                    $folder = "/public/img/".$filename;
-
-                    if(move_uploaded_file($tempname,$folder)){
-                        echo 'File successfully uploaded!';
-                    }
-                    else{
-                        echo "Please add a valid image!";
-                    }
-                }
-            } 
-        }
-
-        $data = [    
-            'editprofile' => $editprofile
-        ];
-
-        $this->loadView('facility_provider/editprofile',$data);
-
-        /* $profile = $this->ListingModel->editprofile();
-
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            //to upload the profile image
             $filename = $_FILES["file"]["name"];
             $tempname = $_FILES["file"]["tmp_name"];
             $folder =  PUBLICPATH . "img/fprovider/".$filename;
 
-            if(move_uploaded_file($tempname, $folder)){
+            if (move_uploaded_file($tempname, $folder)) {
+                //print_r($tempname);
+                // exit;
                 echo 'File successfully uploaded';
             }
             else if(empty($filename) && empty($tempname)){
-                $filename = $profile->profile_img;
-                $folder = PUBLICPATH . "img/counselor/".$filename;
+                $filename = $row->profile_img;
+                $folder = PUBLICPATH . "img/fprovider/".$filename;
                 $tempname = tempnam(sys_get_temp_dir(), 'image_');
                 copy($folder,$tempname);
+                // echo 'File successfully uploaded';
+                //    print_r($tempname);
+                // exit;
             }
             else {
                 //Image uploading error notification
@@ -130,70 +102,109 @@ class Facility_Provider extends Controller{
 
             //Check and validate the data
             //Set errors if something is wrong
-            $name = $_POST['fullname'];
+            $name = $_POST['name'];
+            $username = $_POST['username'];
             $email = $_POST['email'];
-            $nic = $_POST['nic'];
-            $contact = $_POST['contact_no'];
-            $address = $_POST['home_address'];
-            $category = $_POST['category'];
-
-            $data =[
+            $address = $_POST['address'];
+            $contact = $_POST['contact'];
+               
+            $data = [
                 'profile_img' => $filename,
                 'name' => $name,
+                'username' => $username,
                 'email' => $email,
-                'nic' => $nic,
+                'nic' => $row->nic,
                 'contact' => $contact,
                 'address' => $address,
-                'category' => $category,
+                'profile' => $filename,
                 'name_err' => '',
+                'username_err' => '',
                 'email_err' => '',
-                'address_err' => '',
                 'contact_err' => '',
-                'category_err' => ''
-            ]; 
+                'address_err' => ''
+            ];
+
+            //  print_r ($data);
+            //  exit;
 
             //Check whether all the fields are filled properly
+            if(empty($data['username'])){
+                //echo("Must fill all the fields in the form!");
+                $data['username_err'] = "*Username field is Required";
+                  
+                // print_r ($data);
+                // exit;
+            }
+
             if(empty($data['name'])){
                 $data['name_err'] =  "*Name field is Required";
+                // print_r ($data);
+                // exit;
             }
 
             if(empty($data['email'])){
                 $data['email_err'] = "*Email field is Required";
+                // print_r ($data);
+                // exit;
             }
 
             if(empty($data['address'])){
                 $data['address_err'] = "*Address field is Required";
+                // print_r ($data);
+                // exit;
             }
 
             if( empty($data['contact'])){
                 $data['contact_err'] = "*Contact field is Required";
+                // print_r ($data);
+                // exit;
             }
 
-            if( empty($data['category'])){
-                $data['category_err'] = "*category field is Required";
+            //Check whether an account already exists with the provided username
+            $user = $this->ListingModel->getUserByUsername($username);
+            if($user){
+                //echo("This Username is already taken");
+                if(Session::get('username') == $user->username){
+                    $data['username_err'] = "";
+                }
+                else{
+                    $data['username_err'] = "*This Username is already taken";
+                }
+                    
+                //die();
             }
 
             //Email is valid or not
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                //echo("Invalid email format");
                 $data['email_err'] = "*Invalid email format";
+                //die();
             }
 
-             //Check the mobile number
-             if(strlen($contact) != 10){
+            //Check the mobile number
+            if(strlen($contact) != 10){
+                //echo 'Invalid Contact Number';
                 $data['contact_err'] = "*Invalid Contact Number";
+                //die();
             }
 
+            // print_r ($data);
+            //     exit;
             //Make sure there are no error flags are set
-            if(empty($data['name_err']) && empty($data['email_err']) && empty($data['address_err']) && empty($data['contact_err']) && empty($data['category_err']) ){
-                $res = $this->ListingModel->updateProfileDetails($data);
+            if(empty($data['username_err']) && empty($data['name_err']) && empty($data['email_err']) && empty($data['contact_err']) && empty($data['address_err'])){
+
+                // print_r ($data);
+                //  exit;
+                    
+                $res = $this->ListingModel->updateProfileDetails($data,$user_id);
 
                 if($res){
                     FlashMessage::flash('update_profile_flash', "Successfully Updated Your Profile Details!", "success");
-                    Middleware::redirect('Counsellor/ProfileView');
+                    Middleware::redirect('facility_provider/profile');
                 }else{
                     //Error Notification
                     echo 'Error: Something went wrong in adding post to the databse';
-                    Middleware::redirect('Counsellor/EditProfile');
+                    Middleware::redirect('facility_provider/editprofile');
                     die();
                 }
             }
@@ -203,15 +214,29 @@ class Facility_Provider extends Controller{
         }
         else{
             //get the relavent details from the model
-            $profile = $this->ListingModel->editprofile();
+            //$detail = $this->ListingModel->getCounselorEditDetails($user_id);
+            $row = $this->ListingModel->editprofile($user_id);
 
             $data = [
-                'profile' => $profile
+                'profile_img' => $row->profile_img,
+                'name' => $row->name,
+                'username' => $row->username,
+                'email' => $row->email,
+                'nic' => $row->nic,
+                'contact' => $row->contact,
+                'address' => $row->address,
+                'name_err' => '',
+                'username_err' => '',
+                'email_err' => '',
+                'contact_err' => '',
+                'address_err' => ''
             ];
-            $this->loadView('facility_provider/editprofile',$data);
-        } */
-    }
 
+                
+              print_r($data);  
+            //$this->loadView('facility_provider/editprofile',$data);
+        }
+    }
 
     
     public function addItem(){
@@ -330,7 +355,7 @@ class Facility_Provider extends Controller{
             }
 
             $image_urls = json_encode($image_urls);
-            
+     
             $uniName = json_encode($uniName);
             
             $validatedData = [
@@ -434,29 +459,6 @@ class Facility_Provider extends Controller{
         ]; 
         
         $this->loadView('facility_provider/viewOne',$data);
-    }
-
-    public function propertysearch(){
-        /* $this->ListingModel->propertysearch();
-        if(isset($_POST['search'])){
-            $string = '%' . $_POST['searchbtn'] . '%' ;
-        }
-        $this->loadView('facility_provider/report',$string); */
-        header("Access-Control-Allow-Origin: *");
-        if(isset($_GET['query'])){
-            //Check whether the search query is empty or not
-            if(empty($_GET['query'])){
-                $result =  json_encode($this->ListingModel->propertysearch());
-            }else{
-                $keyword = "%" . trim($_GET['query']) . "%";
-                $result =  $this->ListingModel->propertysearch($keyword);
-            }
-            echo $result;
-        }
-    }
-
-    public function findItemByLocation(){
-        
     }
 
     public function message(){
@@ -670,18 +672,57 @@ class Facility_Provider extends Controller{
 
         //check for owner
         if($item->listing_id != $_SESSION['userID']){
-
-            Middleware::redirect('./facility_provider/viewOne');
+            Middleware::redirect('./facility_provider/myListing');
         }
 
         if($this->ListingModel->deleteItem($id)){
             FlashMessage::flash('post_add_flash', "Item Successfully Deleted!", "success");
-            Middleware::redirect('./facility_provider/viewOne');
+            Middleware::redirect('./facility_provider/myListing');
         }
         else{
             die('Something went wrong');
         }
     }
+
+    public function propertysearch(){
+        header("Access-Control-Allow-Origin: *");
+        if(isset($_GET['query'])){
+            //Check whether the search query is empty or not
+            if(empty($_GET['query'])){
+                $result =  json_encode($this->ListingModel->getlisting());
+            }else{
+                $keyword = "%" . trim($_GET['query']) . "%";
+                $result =  $this->ListingModel->propertysearch($keyword);
+            }
+            echo $result;
+        }
+    }
+
+    //university filter
+    public function university_filter(){
+        if (isset($_GET['filter'])) {
+            $uni = trim($_GET['filter']);
+            $res =  json_encode($this->ListingModel->university_filter($uni));
+            echo $res;
+        }
+    }
+
+//search filter
+    public function search_listing()
+    {
+        if (isset($_GET['query'])) {
+            //Check whether the search query is empty or not
+            if (empty($_GET['query'])) {
+                Student_facility::index();
+            } else {
+                $keyword = "%" . trim($_GET['query']) . "%";
+                $uni = trim($_GET['uni']);
+                $res =  json_encode($this->ListingModel->searchListings($keyword,$uni));
+            }
+            echo $res;
+        }
+    }
+
 }
 
 ?>

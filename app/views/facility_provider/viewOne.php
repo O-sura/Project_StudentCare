@@ -6,10 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/facility_provider/view-one.css"?> >
+    <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/facility_provider/delete.css"?> >
     <script src=<?php echo URLROOT . "/public/js/facility_provider/viewOne.js"?> defer></script>
+    <script src=<?php echo URLROOT . "/public/js/facility_provider/delete.js"?> defer></script>
     <title>View One Property</title>
 </head>
 <body>
+    <section>
     <div class="page">
 
         <div class="sidebar">
@@ -59,10 +62,7 @@
                             <i class="fa fa-pen"></i>
                         </a>
                         
-                        <!-- <a href=<?php echo URLROOT. "/facility_provider/delete"?>>
-                            <i class="fa fa-trash"></i>
-                        </a> -->
-                        <a href="<?php echo URLROOT."/facility_provider/delete/". $data['viewone']->listing_id;?>"><i class="fa-solid fa-trash"></i></a>
+                        <i class="fa-solid fa-trash" id="deleteBtn"></i>
 
                         
                     </span>
@@ -101,6 +101,14 @@
 
         </div>
     </div>
-    
+    <span class="overlay"></span>
+    <div class="modal-box-1">
+            <center><h2 class="modal-title-text">Are your sure you want to delete this listing?</h2></center>
+            <div class="modal-button-section">
+                <button class="<?php echo $data['viewone']->listing_id?> modal-box-button" id="delete-button">Delete</button>
+                <button class="modal-box-button" id="cancel-button">Cancel</button>
+            </div>
+    </div>
+    </section>
 </body>
 </html>

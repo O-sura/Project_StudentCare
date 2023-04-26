@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo URLROOT . "/public/css/facility_provider/editDetails.css"?>">
-    
+    <script src=<?php echo URLROOT . "/public/js/facility_provider/editProfile.js"?> defer></script>
     <title></title>
 </head>
 
@@ -19,65 +19,111 @@
     </div>
     
     <div class="home_content">
-        <a id="back-link">
-            <i class="fa-sharp fa-solid fa-left-long"><span>  Go Back</span></i>
-        </a>
+        
         <div class="div5">
-            <?php foreach ($data['editprofile'] as $editprofile ): ?>
-                <div class="firstContainer">
+        
+            <form action=<?php echo URLROOT."/facility_provider/updateProfileDetails/".$_SESSION['userID'] ;?> method="post" enctype="multipart/form-data">  
+            <div class="firstContainer">
+                <!-- enctype="multipart/form-data" -->
                     <div class="topSection">
-                        <img class="dp" src="<?php echo URLROOT."/public/img/avatar.jpg"?>" alt="">
+                        <a id="back-link">
+                            <i class="fa-sharp fa-solid fa-left-long"><span>  Go Back</span></i>
+                        </a>
+                        <?php 
+                            if(!empty($data['profile_img'])){
+                                $image = "fprovider/" . $data['profile_img'];
+                            }
+                            else{
+                                $image = "avatar.jpg";
+                            }
+                        ?>
+
+                        <div class="dp">
+                            <img  class="dpI" id="output" src="<?php echo URLROOT."/public/img/".$image ;?>" alt="Profile Picture">
+                        </div>
+                        
+                        
                         <div class="buttonU">
-
-                        <form action="<?php echo URLROOT."/Counsellor/changeProfile"?>" method="post" enctype="multipart/form-data">
-
                             <label for="inputTag" style="cursor:pointer;">
                                 <br/>
-                                <i class="fa fa-2x fa-camera" style="cursor:pointer;"></i>
-                                <input id="inputTag" type="file" name="file" style="display:none;"/>
+                                <i class="fa fa-2x fa-camera" style="cursor:pointer; margin-left: 28%; margin-top: -20%;"></i>
+                                <input id="inputTag" type="file" name="file" style="display:none;" accept="image/*" onchange="loadFile(event)"/>
                                 <br/>
-                                <input type="submit" value="Save Image" class="changePP" name="saveImg"/>
                                 <span id="imageName"></span>
                             </label>
-                        </form>
-                            
                         </div>
-                        <button class="dlt">Delete My Profile</button>
                     </div>
                     <div class="middleSection">
                         <div class="colA">
+                            <?php 
+                                if($data['name_err'])
+                                    echo '<div class="form-field" data-error=" ' . $data['name_err'] . '">';
+                                else
+                                    echo '<div class="form-field">';
+                            ?>
                             <label for="name">Name</label><br>
-                            <input type="text" value="<?= $editprofile->{'fullname'} ;?>"><br><br>
-                            <label for="email">Email</label><br>
-                            <input type="email" value="<?= $editprofile->{'email'} ;?>"><br><br>
-                            <label for="contact">Contact Number</label><br>
-                            <input type="number" value="<?= $editprofile->{'contact_no'} ;?>"><br><br>
+                            <input type="text" value="<?= $data['name'] ;?>" name="name"  class="form-input">
+                            
+                            
+                            <?php 
+                                if($data['email_err'])
+                                    echo '<div class="form-field" data-error=" ' . $data['email_err'] . '">';
+                                else
+                                    echo '<div class="form-field">';
+                            ?>
+                            <br><label for="email">Email</label><br>
+                            <input type="email" value="<?= $data['email'] ;?>" name="email"  class="form-input">
+                            </div>
+
+                            <?php 
+                                if($data['contact_err'])
+                                    echo '<div class="form-field" data-error=" ' . $data['contact_err'] . '">';
+                                else
+                                    echo '<div class="form-field">';
+                            ?>
+                            <br><label for="contact">Contact Number</label><br>
+                            <input type="number" value="<?= $data['contact'] ;?>" name="contact"  class="form-input">
+                            </div>
+                            
                         </div>
                         <div class="colB">
+                            <?php 
+                                if($data['username_err'])
+                                    echo '<div class="form-field" data-error=" ' . $data['username_err'] . '">';
+                                else
+                                    echo '<div class="form-field">';
+                            ?>
                             <label for="uName">Username</label><br>
-                            <input type="text" value="<?= $editprofile->{'username'} ;?>"><br><br>
-                            <label for="nic">NIC</label><br>
-                            <input type="text" value="<?= $editprofile->{'nic'} ;?>"><br><br>
-                            <label for="address">Address</label><br>
-                            <input type="text" value="<?= $editprofile->{'home_address'} ;?>"><br><br>
-                        </div>
+                            <input type="text" value="<?= $data['username'] ;?>" name="username"  class="form-input">
+                            </div>
+                            
+                            <br><label for="nic">NIC</label><br>
+                            <input type="text" value="<?= $data['nic'] ;?>" name="nic" disabled="disabled"  class="form-input">
+
+                            <?php 
+                                if($data['address_err'])
+                                    echo '<div class="form-field" data-error=" ' . $data['address_err'] . '">';
+                                else
+                                    echo '<div class="form-field">';
+                            ?>
+                            <br><label for="address">Address</label><br>
+                            <input type="text" value="<?= $data['address'] ;?>" name="address"  class="form-input">
+                            </div>
+
                     
+                        </div>
+                    </div>
+            
+                <div class="bottomSection">
+                    <div class="last">
+                        <input type="submit" class="save" value="Save Changes" name="saveChanges">
                     </div>
                 </div>
-                
-                <div class="categorySection">
-                    <label for="category">Category(s)</label><br>
-                    <input class="category" type="text" value="<?= $editprofile->{'category'} ;?>"><br><br>
-                </div>
-                <div class="bottomSection">
-                    <input type="submit" class="save" value="Save Changes">
-                </div>
-            <?php endforeach ?>  
+
+            </div>
+            </form>
         </div>
-  
-  </div>
+    </div>
 
 </body>
-<script type="text/javascript" src="<?php echo URLROOT . "/public/js/facility_provider/editProfile.js"?>"></script>
-
 </html>

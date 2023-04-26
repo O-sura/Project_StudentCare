@@ -1,11 +1,14 @@
 const section = document.querySelector('section'),
 overlay = document.querySelector('.overlay'),
-showBtn = document.querySelector('.trigger'),
+deleteBtn = document.querySelector('#deleteBtn'),
 cancelBtn = document.querySelector('#cancel-button')
 
-showBtn.addEventListener('click', ()=> {
-    section.classList.add("active");
-})
+if(deleteBtn){
+    deleteBtn.addEventListener('click', ()=> {
+        section.classList.add("active");
+        
+    })
+}
 
 overlay.addEventListener('click', () => {
     section.classList.remove("active");
@@ -14,3 +17,9 @@ overlay.addEventListener('click', () => {
 cancelBtn.addEventListener('click', () => {
     section.classList.remove("active");
 })
+
+
+const deleteConfirmBtn = document.querySelector('#delete-button');
+if(deleteConfirmBtn){
+    //make the request to teh backend to delete the listing
+}
