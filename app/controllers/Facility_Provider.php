@@ -358,21 +358,32 @@ class Facility_Provider extends Controller{
                 && empty($data['uniName_err']) && empty($data['images_err']) && empty($data['special_note_err']) && empty($data['category_err']) && empty($data['uniDistance_err'])){
 
                 $num = count($uniList);
-                
-                $this->ListingModel->addItem($validatedData); //add basic listing details to the database
 
-                for($i=0; $i<$num; $i++){  //add university details to the database
-                    $name = $uniList[$i];
-                    $distance = $uniDistanceList[$i];
-                    $uniData['uniID'] = $listing_id;
-                    $uniData['uniName'] = $name;
-                    $uniData['uniDistance'] = $distance;
-                    $this->ListingModel->addUniDistance($uniData);
+                if($this->ListingModel->addItem($validatedData)){//add basic listing details to the database
+                    $is_successful = false;
+
+                    for($i=0; $i<$num; $i++){  //add university details to the database
+                        $name = $uniList[$i];
+                        $distance = $uniDistanceList[$i];
+                        $uniData['uniID'] = $listing_id;
+                        $uniData['uniName'] = $name;
+                        $uniData['uniDistance'] = $distance;
+                        if($this->ListingModel->addUniDistance($uniData)){
+                            $is_successful = true;
+                        }else{
+                            $is_successful = false;
+                        }
+                    }
+
+                    if($is_successful){
+                        //redirect to the listing page
+                        Middleware::redirect('./facility_provider/addItem');
+                    }else{
+                        die("Something went wrong");
+                    }
                 }
-
-
-                Middleware::redirect('./facility_provider/addItem');
                 
+
             }else{
                 //load the same page with erros
                 $this->loadView('facility_provider/addItem', $data);
@@ -406,7 +417,7 @@ class Facility_Provider extends Controller{
 
         }
     }
-
+    
 
     //take data relevent to property items
     public function propertyView(){
