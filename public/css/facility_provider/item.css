@@ -240,3 +240,70 @@ label{
    font-size: 15px;
    color: black
 }
+
+.university-adder{
+   display: flex;
+   flex-direction: column;
+   justify-items: center;
+}
+
+.university-field{
+   display: flex;
+   flex-direction: row;
+}
+
+  /* Use a modern font and typography */
+  .select {
+   font-size: 16px;
+   font-weight: bold;
+   color: #333;
+   padding: 10px;
+   border: none;
+   background-color: #fff;
+   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+   cursor: pointer;
+   transition: all 0.2s ease-in-out;
+   appearance: none;
+   outline: none;
+   border-radius: 50px;
+   text-align: center;
+   
+ }
+ 
+ /* Add hover and focus effects */
+ .select:hover, .select:focus {
+   background-color: #f7f7f7;
+   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+ }
+ 
+ /* Add dropdown arrow icon */
+ .select-icon {
+   position: absolute;
+   top: 50%;
+   right: 10px;
+   transform: translateY(-50%);
+   width: 24px;
+   height: 24px;
+   fill: #333;
+   transition: all 0.2s ease-in-out;
+ }
+ 
+ /* Animate icon on open/close */
+ .select-btn.open .select-icon {
+   transform: translateY(-50%) rotate(180deg);
+ }
+ 
+ /* Style dropdown options */
+ .select option {
+   font-size: 16px;
+   font-weight: bold;
+   color: #333;
+   background-color: #fff;
+   border: none;
+   outline: none;
+ }
+
+ .select-btn{
+   margin-right: 10px;
+   margin-left: 20px;
+ }

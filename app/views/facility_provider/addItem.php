@@ -52,9 +52,19 @@
 
                     <div class="sub22">
                         <p>Universities/Institutions Nearby:</p>
-                        <input class="uniName" name="uniName[]" id="uniName_0" type="text" >
-                        <input class="uniName" name="uniName[]" id="uniName_0" type="text" >
-                        <div id="another"></div>
+                        <div class="university-adder">
+                            <div class = "university-field">
+                                <select class="select" id="universityFilter_0">
+                                    <option value="University of Colombo">University of Colombo</option>
+                                    <option value="University of Kelaniya">University of Kelaniya</option>
+                                    <option value="University of Peradeniya">University of Peradeniya</option>
+                                    <option value="University of Moratuwa">University of Moratuwa</option>
+                                    <option value="University of Moratuwa">SLIIT</option>
+                                </select>
+                                <input class="uniName" name="uniName[]" id="uniName_0" type="number" min="1" max="10"><p>Km</p>
+                            </div>
+                        </div>
+
                         <button type="button" class="addAnother" onclick="addAnother()">+ Add Another</button>
                     </div>
                 </div>
