@@ -42,29 +42,7 @@
                 'row'=> $getApp,
                 'rowNext' => $getNextApp,
                 'recentNoti' => $recentNoti,
-                'reqCount' => "",
-                'appCancelCount' => ""
             ];
-
-            $reqCount = 0;
-            $appCount = 0;
-            foreach ($recentNoti as $itemNoti) {
-                if ($itemNoti->statusPP == 0) {
-                    $reqCount++;
-                }
-                elseif($itemNoti->appointmentStatus == 2) {
-                    $appCount++;
-                }
-            }
-
-
-            if( $reqCount > 0){
-                $data['reqCount'] = 'have';
-            }
-
-            if( $appCount > 0){
-                $data['appCancelCount'] = 'have';
-            }
 
             // print_r($recentNoti);
             // exit;
@@ -425,41 +403,46 @@
             // $res3 = $this->postModel->notiCancelApp($userid);
 
             $res = json_decode($this->postModel->getInformationForNotification($userid));
+            $rowcount = count($res);
+            // print_r ($res);
+            // exit;
 
             $data = [
                 // 'row1' => $res1,
                 // 'row2' => $res2,
                 // 'row3' => $res3
                 'row' => $res,
-                'newReqCount' => "",
-                'canReqCount' => "",
-                'canAppCount' => ""
+                'rowcount' =>  $rowcount
+                // 'newReqCount' => "",
+                // 'canAppCount' => ""
                 
             ];
 
             //to categorize the notifications
-            $count1 = 0;
-            $count2 = 0;
-            foreach ($res as $item) {
-                if ($item->statusPP == 0) {
-                    $count1++;
-                }
-                elseif($item->appointmentStatus == 2) {
-                    $count2++;
-                }
-            }
+            // $count1 = 0;
+            // $count2 = 0;
+            // foreach ($res as $item) {
+            //     if ($item->statusPP == 0 && $item->appointmentStatus == 0) {
+            //         $count1++;
+            //     }
+            //     elseif($item->appointmentStatus == 2) {
+            //         $count2++;
+            //     }
+            // }
+                    
 
 
-            if( $count1 > 0){
-                $data['newReqCount'] = 'have';
-            }
+            // if( $count1 > 0){
+            //     $data['newReqCount'] = 'have';
+            // }
 
-            if( $count2 > 0){
-                $data['canAppCount'] = 'have';
-            }
+            // if( $count2 > 0){
+            //     $data['canAppCount'] = 'have';
+            // }
 
        
-            // print_r($res);
+            // print_r($data);
+            // echo $count1, $count2;
             // exit();
 
             $this->loadView('Counselor/notification',$data);

@@ -78,12 +78,12 @@
                         <?php if(!empty($data['recentNoti'])) :?>
                             <?php foreach ($data['recentNoti'] as $recN ): ?>
                         
-                                    <?php  if ($data['reqCount'] == 'have'): ?>                      
+                                    <?php  if($recN->statusPP == 0 && $recN->appointmentStatus == 0): ?>                      
 
                                         <span><i class="fa-regular fa-circle-dot" style="color:grey;"></i><div class="row3div2">You have new student request from <?php echo $recN->fullname ;?></div></span>
                                                
-                                    <?php endif ;?>
-                                    <?php if ($data['appCancelCount'] == 'have') :?>   
+                                    
+                                    <?php else :?>   
 
                                         <span><i class="fa-regular fa-circle-dot" style="color:grey;"></i><div class="row3div2"><?php echo $recN->fullname;?> has requested to cancel the appointment on <?php echo $recN->appointmentDate ;?></div></span>
                                         
@@ -94,7 +94,7 @@
 
                             <?php else : ?>
 
-                                <div class="noNoti">You don't have any notification yet</div>
+                                <div class="row3div2"><?php echo "You dont have any notification yet" ;?></div>
 
                             <?php endif ; ?>
                     </div>

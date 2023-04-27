@@ -27,11 +27,11 @@
            
             <div class="div5">
 
-                <?php if(!empty($data)) : ?>
+                <?php if($data['rowcount'] != 0 ) : ?>
                     
                     <?php foreach ($data['row'] as $row ): ?>
                         
-                        <?php  if ($data['newReqCount'] == 'have'): ?>                      
+                        <?php  if ($row->statusPP == 0 && $row->appointmentStatus == 0): ?>                      
 
                             <div  class="noti">
                                 <div class="intro"></div>
@@ -46,8 +46,8 @@
                                     <button class="btnDel"><i class="fa-regular fa-trash-can"></i></button>
                                 </div>
                             </div>               
-                        <?php endif ;?>
-                        <?php if ($data['canAppCount'] == 'have') :?>   
+                       
+                        <?php else :?>   
 
                             <div  class="noti">
                                 <div class="intro"></div>
@@ -73,7 +73,7 @@
 
                 <?php else : ?>
 
-                    <div class="noNoti">You don't have any notification yet</div>
+                    <div class="noNoti"> <?php echo "There is no any notification yet" ;?></div>
 
                 <?php endif ; ?>
                 <!-- <div  class="noti">

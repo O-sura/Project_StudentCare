@@ -102,6 +102,8 @@ buttons.forEach((button) => {
   button.addEventListener('click', function() {
     // get the student ID value from the button clicked
     let studentId = this.value;
+   
+    const completeAppLink = document.getElementById('completedApp');
 
     // get the appointment date value from the hidden input field within the button
     let appointmentDate = this.querySelector('#getAppTime').value;
@@ -122,6 +124,7 @@ buttons.forEach((button) => {
         let c2 = `Appointment Date : ${response.appointmentDate}`;
         let c3 = `Appointment Time : ${response.appointmentTime}`;
 
+        completeAppLink.href = `http://localhost/StudentCare/CounselorAppointment/completeAppointment/?appdate=${response.appointmentDate}&appID=${response.appointmentID}`;
         myForm.action = `http://localhost/StudentCare/CounselorAppointment/cancellationOfAppointment/?appdate=${response.appointmentDate}&appID=${response.appointmentID}`;
         cancelName.innerHTML = c1;
         cancelDate.innerHTML = c2;
@@ -141,4 +144,15 @@ buttons.forEach((button) => {
 
 
 ////////////////////////////////////
+
+function validateTextArea() {
+  var textArea = document.getElementById("textDes");
+  var text = textArea.value.trim(); // trim() removes whitespace from both ends of the string
+  var error = document.getElementById("error");
+
+  if (text.length < 12) {
+    error.innerHTML = "Please enter at least 10 character reason.";
+    return true;
+  }
+}
 

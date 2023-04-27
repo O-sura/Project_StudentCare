@@ -46,7 +46,7 @@
                         
                             <?php foreach ($data['row'] as $row ): ?>
                                 <!-- <div class="app"> -->
-                                    <?php if($row->appointmentStatus != 3) : ?>
+                                    <?php if($row->appointmentStatus == 0) : ?>
 
                                         <div class="app" id="app">
                                     
@@ -69,7 +69,7 @@
                                                     <button class="btn" id="getAppStu" value="<?php echo $row->studentID ?>">
                                                         <div class="btn-class">
                                                             <div class="btnName" id="btnName">
-                                                                Join
+                                                                Meeting
                                                                 <input type="hidden" id="getAppTime" value="<?php echo $row->appointmentDate ?>">
                                                                 <input type="hidden" id="getAppStu" value="<?php echo $row->studentID ?>">
                                                             </div>
@@ -83,7 +83,7 @@
                                         
                                         </div>
 
-                                    <?php else: ?>
+                                    <?php elseif($row->appointmentStatus == 3): ?>
 
                                         <div class="appCancel" id="app"  style="pointer-events: none;">
                                     
@@ -106,12 +106,12 @@
                                                     <button class="btn" id="getAppStu" value="<?php echo $row->studentID ?>">
                                                         <div class="btn-class">
                                                             <div class="btnName" id="btnName">
-                                                                Join
+                                                                Cancelled
                                                                 <input type="hidden" id="getAppTime" value="<?php echo $row->appointmentDate ?>">
                                                                 <input type="hidden" id="getAppStu" value="<?php echo $row->studentID ?>">
                                                             </div>
                                                             <div class="btnIcon">
-                                                                <i class="fa-solid fa-play"></i>
+                                                                <i class="fa-solid fa-ban"></i>
                                                             </div>
                                                         </div>
                                                     
@@ -119,7 +119,43 @@
                                                 </div>
                                         
                                         </div>
+                                    <?php elseif($row->appointmentStatus == 1) : ?>
+
+                                        <div class="appComplete" id="appCom"  style="pointer-events: none;">
                                     
+                                                <div class="time">
+                                                        <?php if(date('H',strtotime($row->appointmentTime)) < 12):?> 
+                                                            <?php echo date('H : i',strtotime($row->appointmentTime))." A.M" ;?> 
+                                                        <?php else :?>
+                                                            <?php echo date('H : i',strtotime($row->appointmentTime))." P.M" ; ?>
+                                                        <?php endif ;?>
+                                                </div>
+                                                
+                                                <div class="image" >
+                                                    <button class="btnImage" id="stu" value="<?php echo $row->studentID ?>"><img class="imgg" src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFufGVufDB8fDB8fA%3D%3D&w=1000&q=80" alt=""> </button>
+                                                    <input type="hidden" id="aPPtime" value="<?php echo $row->appointmentDate ?>">
+                                                </div>
+                                                <div class="name">
+                                                    <?php echo $row->studentName ;?>  
+                                                </div> 
+                                                <div class="divBtn">
+                                                    <button class="btn" id="getAppStu" value="<?php echo $row->studentID ?>">
+                                                        <div class="btn-class">
+                                                            <div class="btnName" id="btnName">
+                                                                Completed
+                                                                <input type="hidden" id="getAppTime" value="<?php echo $row->appointmentDate ?>">
+                                                                <input type="hidden" id="getAppStu" value="<?php echo $row->studentID ?>">
+                                                            </div>
+                                                            <div class="btnIcon">
+                                                                 <i class="fa-sharp fa-solid fa-circle-check"></i>
+                                                            </div>
+                                                        </div>
+                                                    
+                                                    </button>    
+                                                </div>
+                                        
+                                        </div>
+
                                     <?php endif; ?>
                                 <!-- </div> -->
                             <?php endforeach ?> 
@@ -164,10 +200,13 @@
         <div id="myModal" class="modal">
 
             <!-- Modal content -->
+        
+
             <div class="modal-content">
                 <span class="close">&times;</span>
                 
                 <button class = "btnStart" id="uploadBtn"><a class='start' href="http://localhost:3000/<?php echo $row->meetingID ?>" target="_blank">Start meeting</a></button>
+                <button class = "btnCom" id="comBtn" name="completeBtn"><a name="completeLink" id="completedApp" class='complete'  href=" ">Completed</a></button>
                 <button id="removeBtn" class="rbtn" value="<?php echo $row->studentID ?>">Cancel appointment</button>
                 
             </div>
@@ -193,15 +232,10 @@
                     <p class="detCancel">Reason for Cancellation :</p>
                     
 
-                    <?php 
-                        if($data['descC_err'])
-                            echo '<div class="form-field" data-error=" ' . $data['descC_err'] . '">';
-                        else
-                            echo '<div class="form-field">';
-                    ?>
-                    <textarea name="descC" id="" placeholder="Description" rows = "15" cols = "5" class="Desc"></textarea><br>
-                    </div>
-                    <button id="removeBtnC" type="submit" name="submit">Cancel appointment</button>
+                    <p id="error"></p>
+                    <textarea name="descC" id="textDes" placeholder="Description" rows = "15" cols = "5" class="Desc"></textarea><br>
+                
+                    <button id="removeBtnC" type="submit" name="submit" onclick="validateTextArea()">Cancel appointment</button>
                    
                 </div>
             </form>

@@ -92,7 +92,7 @@
                     'stuID' => $_POST['stuID'],
                     'stuName' => $_POST['stuName'],
                     'appDate' => $_POST['appDate'],
-                    'appTime' => date('H : i',strtotime($_POST['appTime'])),
+                    'appTime' => date('H:i:s',strtotime($_POST['appTime'])),
                     'desc' => trim($_POST['desc']),
                     'stuID_err' => '',
                     'stuName_err' => '',
@@ -146,17 +146,22 @@
                 
 
                 //have to check whether the student is in counselors' accepted list
+                $inList = $this->postModel->checkStudentForCounselor($userid,$data['stuID']);
+                if($inList == false){
+                    $data['stuID_err'] = 'This student is not under you';
+                    $data['stuName_err'] = 'This student is not under you';
+                }
 
                 //check the inserted time is between following times
                 $timediff = 30;
             
                 $addtimes = new DateTime($data['appTime']);
                 $addtimes->add(new DateInterval('PT'.$timediff.'M')); 
-                $afterTime = $addtimes->format('H:i');
+                $afterTime = $addtimes->format('H:i:s');
 
                 $reducetimes = new DateTime($data['appTime']);
                 $reducetimes->sub(new DateInterval('PT'.$timediff.'M'));
-                $beforeTime = $reducetimes->format('H:i');
+                $beforeTime = $reducetimes->format('H:i:s');
 
                 $getdate = $this->postModel->checkTime($data,$afterTime,$beforeTime);
                 $getdateC = json_decode($getdate,true);
@@ -183,7 +188,7 @@
                 date_default_timezone_set('Asia/Kolkata');
                 $currtime = date('H:i');
 
-                if($data['appTime'] <= $currtime){
+                if($data['appTime'] <= $currtime && $data['appDate'] == $currdate){
                     $data['appTime_err'] = 'Please pick a time after 15 minutes from current time';
                 }
 
@@ -306,7 +311,7 @@
                         else{
                             //$this->loadView('counselor/appointment',$data);
                             // $this->loadView('counselor/appointmentsDaily',$data);
-                            CounselorAppointment::dailyAppointment($appdate);
+                            //CounselorAppointment::dailyAppointment($appdate);
                         }
         
                     }
@@ -320,6 +325,22 @@
             }
 
 
+        }
+
+        public function completeAppointment(){
+
+            $appdate = $_GET['appdate'];
+            
+            $appID = $_GET['appID'];
+
+            // echo $appdate;
+            // echo $appID;
+            // exit;
+
+            $this->postModel->completeAppointmentUpdate($appdate,$appID);
+
+            // CounselorAppointment::dailyAppointment($appdate);
+        
         }
 
 
