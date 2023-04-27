@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,9 +15,10 @@
     <script type="module" src=<?php echo URLROOT . "/public/js/facility_provider/View.js"?> defer></script>
     <title>Property View listings</title>
 </head>
+
 <body>
     <div class="page">
-        
+
         <div class="sidebar">
             <?php include "sidebar.php"; ?>
         </div>
@@ -82,40 +84,41 @@
                     </select>
                 </div>
 
-                
+
             </div>
 
             <main>
                 <div id="search-results"></div>
                 <?php foreach($data['view'] as $view) : ?>
 
-                <div class="item">
-                    <div class="image">
-                        <?php
-                            $images = json_decode($view->image); 
-                        ?>
-                        <a href=<?php echo "viewOneListing/" . $view->listing_id; ?>><img src="<?= URLROOT . "/public/img/listing/" . $images[0] ?>"></a>
-                      
+                    <div class="item">
+                        <div class="image">
+                            <?php
+                            $images = json_decode($view->image);
+                            ?>
+                            <a href=<?php echo "viewOneListing/" . $view->listing_id; ?>><img src="<?= URLROOT . "/public/img/listing/" . $images[0] ?>"></a>
+
+                        </div>
+
+                        <div class="data">
+                            <p class="topic"><?php echo $view->topic; ?></p>
+                            <p class="uni">
+                                <?php foreach ($data['universities'] as $university) : ?>
+                                    <?php if ($university->listing_id == $view->listing_id) : ?>
+                                        <?php echo $university->distance ?> km from <?php echo $university->uni_name; ?> <br>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </p>
+                            <p class="price"><span>Rs. </span><?php echo $view->rental; ?>/Month</p>
+                        </div>
                     </div>
 
-                    <div class="data">
-                        <p class="topic"><?php echo $view->topic; ?></p>
-                        <p class="uni">Near to <?php 
-                            $uniName = json_decode($view->uniName);
-                            foreach($uniName as $name) {
-                                echo $name;
-                                echo '<br>';
-                            }
-                        ?></p>
-                        <p class="price"><span>Rs. </span><?php echo $view->rental; ?>/Month</p>
-                    </div>
-                </div>
-    
                 <?php endforeach; ?>
-                
+
             </main>
         </div>
     </div>
-    
+
 </body>
+
 </html>

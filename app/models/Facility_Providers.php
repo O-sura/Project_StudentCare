@@ -10,19 +10,36 @@
 
         public function addItem($data){
             //$listing_id = substr(sha1(date(DATE_ATOM)), 0, 8);
-            $this->db->query('INSERT INTO listing(fpID, topic, description, rental, location, address, uniName, image, special_note, category) VALUES (:fpID, :topic, :description, :rental, :location, :address, :uniName, :image_urls, :special_note, :category)');
+            $this->db->query('INSERT INTO listing(listing_id, fpID, topic, description, rental, location, address, image, special_note, category) VALUES (:listingID ,:fpID, :topic, :description, :rental, :location, :address, :image_urls, :special_note, :category)');
             
+            $this->db->bind(':listingID', $data['listingID']);
             $this->db->bind(':topic', $data['topic']);
             $this->db->bind(':description', $data['description']);
             $this->db->bind(':rental', $data['rental']);
             $this->db->bind(':location', $data['location']);
             $this->db->bind(':address', $data['address']);
-            $this->db->bind(':uniName', $data['uniName']);
+            // $this->db->bind(':uniName', $data['uniName']);
             $this->db->bind(':image_urls', $data['image_urls']);
             $this->db->bind(':special_note', $data['special_note']);
             $this->db->bind(':category', $data['category']);
             $this->db->bind(':fpID', $data['fpID']);
 
+
+            if($this->db->execute()){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
+        public function addUniDistance($data){
+            //$listing_id = substr(sha1(date(DATE_ATOM)), 0, 8);
+            $this->db->query('INSERT INTO uni_distance_listing(listing_id, uni_name, distance) VALUES (:listingID, :uniName, :distance)');
+            
+            $this->db->bind(':listingID', $data['uniID']);
+            $this->db->bind(':uniName', $data['uniName']);
+            $this->db->bind(':distance', $data['uniDistance']);
 
             if($this->db->execute()){
                 return true;

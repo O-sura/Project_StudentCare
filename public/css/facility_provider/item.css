@@ -240,3 +240,15 @@ label{
    font-size: 15px;
    color: black
 }
+
+.university-adder{
+   display: flex;
+   flex-direction: column;
+   justify-items: center;
+}
+
+.university-field{
+   display: flex;
+   flex-direction: row;
+}
+
