@@ -255,7 +255,7 @@
 
         public function getAppointmentsDetails($date,$userid){
 
-            $this->db->query('SELECT * FROM appointments INNER JOIN student ON appointments.studentID = student.studentID  WHERE appointments.appointmentDate = :appDate AND appointments.counsellorID = :userid ORDER BY appointments.appointmentTime;');
+            $this->db->query('SELECT appointments.*,student.* FROM appointments INNER JOIN student ON appointments.studentID = student.studentID  WHERE appointments.appointmentDate = :appDate AND appointments.counsellorID = :userid ORDER BY appointments.appointmentTime;');
             $this->db->bind(':appDate',$date);
             $this->db->bind(':userid',$userid);
             

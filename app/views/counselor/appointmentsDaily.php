@@ -46,7 +46,7 @@
                         
                             <?php foreach ($data['row'] as $row ): ?>
                                 <!-- <div class="app"> -->
-                                    <?php if($row->appointmentStatus == 0) : ?>
+                                    <?php if($row->appointmentStatus == 0 || $row->appointmentStatus == 2) : ?>
 
                                         <div class="app" id="app">
                                     
