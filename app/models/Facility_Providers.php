@@ -171,6 +171,14 @@
             return $result;
         }
 
+        public function getDistance($id){
+            $this->db->query("SELECT * FROM uni_distance_listing WHERE listing_id = :id");
+            $this->db->bind(':id', $id);
+            $result = $this->db->getAllRes();
+            return $result;
+        }
+    
+
         public function getlisting(){
             $this->db->query('SELECT * FROM listing ORDER BY added_date DESC');
 
@@ -226,10 +234,32 @@
         }
 
         public function getDistances(){
-        $this->db->query("SELECT * FROM uni_distance_listing");
-        $result = $this->db->getAllRes();
-        return $result;
-    }
+            $this->db->query("SELECT * FROM uni_distance_listing");
+            $result = $this->db->getAllRes();
+            return $result;
+        }
+
+        public function getFacilityProviderDetails($id){
+            $this->db->query("SELECT facility_provider.*,users.* FROM 
+            facility_provider 
+            INNER JOIN users ON facility_provider.userID = users.userID
+            INNER JOIN listing ON facility_provider.fpID = listing.fpID
+            WHERE listing.listing_id=:id");
+            $this->db->bind(':id', $id);
+            $result = $this->db->getRes();
+            return $result;
+        }
+
+        public function getComments($id){
+            $this->db->query("SELECT listing_feedback.*,users.username,student.profile_img
+            FROM listing_feedback
+            INNER JOIN users ON listing_feedback.student_id = users.userID
+            INNER JOIN student ON users.userID = student.studentID 
+            WHERE listing_feedback.listing_id=:id ORDER BY listing_feedback.date_added DESC");
+            $this->db->bind(':id', $id);
+            $result = $this->db->getAllRes();
+            return $result;
+        }
 
 
 
