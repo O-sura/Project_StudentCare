@@ -32,9 +32,7 @@
             //$_GET['userid'] = Session::get('userID');
 
             
-            $posts = $this->postModel->getCounselorAnnouncement();
-
-            
+            $posts = $this->postModel->getCounselorAnnouncement();  
           
             $data = [
                 'posts' => $posts,
@@ -84,6 +82,7 @@
                      if($this->postModel->addPost($data)){
                         FlashMessage::flash('post_add_flash', "Announcement Successfully Added!", "success");
                         Middleware::redirect('CounselorAnnouncement');
+                       
                     } 
                     else{
                         die('Something went wong');
@@ -128,7 +127,8 @@
  
                 if($this->postModel->deletePost($id)){
                     FlashMessage::flash('post_add_flash', "Announcement Successfully Deleted!", "success");
-                    Middleware::redirect('CounselorAnnouncement');
+                    //Middleware::redirect('CounselorAnnouncement');
+                    counselorAnnouncements::home();
                 }
                 else{
                     die('Something went wrong');

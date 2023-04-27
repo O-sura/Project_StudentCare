@@ -143,16 +143,4 @@ buttons.forEach((button) => {
 
 
 
-////////////////////////////////////
-
-function validateTextArea() {
-  var textArea = document.getElementById("textDes");
-  var text = textArea.value.trim(); // trim() removes whitespace from both ends of the string
-  var error = document.getElementById("error");
-
-  if (text.length < 12) {
-    error.innerHTML = "Please enter at least 10 character reason.";
-    return true;
-  }
-}
 

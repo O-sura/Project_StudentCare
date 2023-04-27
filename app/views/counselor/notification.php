@@ -73,7 +73,7 @@
 
                 <?php else : ?>
 
-                    <div class="noNoti"> <?php echo "There is no any notification yet" ;?></div>
+                    <div class="noNoti"> <p class="noNotiState"><?php echo "There is no any notification yet" ;?></p></div>
 
                 <?php endif ; ?>
                 <!-- <div  class="noti">

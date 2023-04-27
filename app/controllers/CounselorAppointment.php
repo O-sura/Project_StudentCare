@@ -249,30 +249,6 @@
 
                 if(isset($_POST['submit'])){
 
-                    if(isset($_POST['check'])){
-                        $data = [
-                            'descC' => "",
-                            'appdate' => $appdate
-        
-                        ];
-
-                        if($this->postModel->cancelAppointment($data['descC'],$appID,$appdate,$userid)){
-    
-                            FlashMessage::flash('appointment_cancel_flash', "Appointment Cancelled!", "success");
-                            CounselorAppointment::dailyAppointment($appdate);
-    
-                            
-                            //Middleware::redirect('CounselorAppointment/dailyAppointment/'.$appdate);
-                            //$this->loadView('counselor/appointment',$data);
-                            
-                        }
-                        else{
-                            die('Something went wong');
-                        }
-
-                    }
-                    else{
-
                         $data = [
                             'descC' => trim($_POST['descC']),
                             'appdate' => $appdate,
@@ -287,17 +263,19 @@
                         // exit;
         
                         //validate appointment cancellation description
-                        if(empty($data['descC'])){
-                            $data['descC_err'] = 'Appointment cancellation description is required';
-                        }
+                        // if(empty($data['descC'])){
+                        //     $data['descC_err'] = 'Appointment cancellation description is required';
+                        // }
         
                         if(empty($data['descC_err'])){
         
                             if($this->postModel->cancelAppointment($data['descC'],$appID,$appdate,$userid)){
-        
+                                
+                                
                                 FlashMessage::flash('appointment_cancel_flash', "Appointment Cancelled!", "success");
                                 CounselorAppointment::dailyAppointment($appdate);
-        
+                                
+
                                 
                                 //Middleware::redirect('CounselorAppointment/dailyAppointment/'.$appdate);
                                 //$this->loadView('counselor/appointment',$data);
@@ -314,7 +292,7 @@
                             //CounselorAppointment::dailyAppointment($appdate);
                         }
         
-                    }
+                    
                 }
 
                     

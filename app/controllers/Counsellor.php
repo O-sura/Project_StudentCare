@@ -393,9 +393,6 @@
             $this->postModel = $this->loadModel('Counselor');
             $userid = Session::get('userID');
 
-            //$this->postModel->updateRequestSeen($userid);
-            //$this->postModel->updateAppointmentSeen($userid);
-
             // $res1 = $this->postModel->newRequestStudents($userid);
 
             // $res2 = $this->postModel->notiCancelReq($userid);

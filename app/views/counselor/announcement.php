@@ -60,7 +60,7 @@
                         <div id="search-results"></div>
                         <?php if(count($data['posts']) == 0) :?>
                                 
-                            <div class="ifnot">There is no announcement posted yet by any counselor</div>
+                            <div class="ifnot"><?php echo "There is no announcement posted yet by any counselor" ;?></div>
 
                         <?php else : ?>
 

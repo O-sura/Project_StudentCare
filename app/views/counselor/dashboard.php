@@ -94,7 +94,7 @@
 
                             <?php else : ?>
 
-                                <div class="row3div2"><?php echo "You dont have any notification yet" ;?></div>
+                                <div class="noNotifi"><?php echo "You dont have any notification yet" ;?></div>
 
                             <?php endif ; ?>
                     </div>

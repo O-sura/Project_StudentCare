@@ -293,7 +293,7 @@
         //to cancel an appointment
         public function cancelAppointment($desc,$appID,$appdate,$userid){
 
-            $this ->db->query('UPDATE appointments SET appointmentStatus = 3, cancellationReason = :reason WHERE counsellorID = :userid AND appointmentDate = :appdate AND appointmentID = :appID ;');
+            $this ->db->query('UPDATE appointments SET appointmentStatus = 3, cancellationReason = :reason, student_seen = 0 WHERE counsellorID = :userid AND appointmentDate = :appdate AND appointmentID = :appID ;');
 
             $this->db->bind(':userid',$userid);
             $this->db->bind(':appID',$appID);
@@ -397,7 +397,7 @@
          //to update the status of requested students for particular counselor
         public function updateStudentStatus($decision,$userid,$stuID){
 
-            $this->db->query('UPDATE requests SET statusPP = :decision WHERE  counsellorID = :userid AND studentID = :stuID ;');
+            $this->db->query('UPDATE requests SET statusPP = :decision, student_seen = 0 WHERE  counsellorID = :userid AND studentID = :stuID ;');
             $this->db->bind(':userid',$userid);
             $this->db->bind(':stuID',$stuID);
             $this->db->bind(':decision',$decision);

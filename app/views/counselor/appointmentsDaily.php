@@ -228,14 +228,13 @@
                     <p class="detCancel" id="cancelName"></p>
                     <p class="detCancel" id="cancelDate"></p>
                     <p class="detCancel" id="cancelTime"></p>
-                    <p class="detCancel">Requested by student to cancel : <input type="checkbox" name="check"></p> 
                     <p class="detCancel">Reason for Cancellation :</p>
                     
 
                     <p id="error"></p>
-                    <textarea name="descC" id="textDes" placeholder="Description" rows = "15" cols = "5" class="Desc"></textarea><br>
+                    <textarea name="descC" id="textDes" placeholder="Description" rows = "15" cols = "5" class="Desc" required></textarea><br>
                 
-                    <button id="removeBtnC" type="submit" name="submit" onclick="validateTextArea()">Cancel appointment</button>
+                    <button id="removeBtnC" type="submit" name="submit">Cancel appointment</button>
                    
                 </div>
             </form>
