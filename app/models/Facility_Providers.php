@@ -225,6 +225,14 @@
             return $result;
         }
 
+        public function getDistances(){
+        $this->db->query("SELECT * FROM uni_distance_listing");
+        $result = $this->db->getAllRes();
+        return $result;
+    }
+
+
+
     }
 
 ?>
