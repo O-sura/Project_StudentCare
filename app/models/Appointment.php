@@ -205,13 +205,13 @@ class Appointment
     }
 
     public function getCancelledAppointments($studentID){
-        $this->db->query("SELECT appointments.meetingID,appointments.appointmentID, appointments.appointmentDate, appointments.appointmentTime,appointments.cancellationReason, users.fullname, counsellor.profile_img, counsellor.specialization, counsellor.counsellorID
+        $this->db->query("SELECT appointments.meetingID,appointments.appointmentID, appointments.appointmentDate, appointments.appointmentTime,appointments.cancellationReason,appointments.appointmentStatus, users.fullname, counsellor.profile_img, counsellor.specialization, counsellor.counsellorID
         FROM appointments
         INNER JOIN users
         ON appointments.counsellorID = users.userID
         INNER JOIN counsellor
         ON appointments.counsellorID = counsellor.userID
-        WHERE appointments.studentID = :studentID AND appointments.appointmentDate >= CURDATE() AND appointments.appointmentStatus = 2
+        WHERE appointments.studentID = :studentID AND appointments.appointmentDate >= CURDATE() AND (appointments.appointmentStatus = 2 OR appointments.appointmentStatus = 3)
         ORDER BY appointments.appointmentDate ASC, appointments.appointmentTime ASC;");
         $this->db->bind(':studentID', $studentID);
         $results = $this->db->getAllRes();
@@ -275,7 +275,7 @@ class Appointment
     }
 
     public function cancelAppointment($data){
-        $this->db->query("UPDATE appointments SET appointmentStatus = 2, cancellationReason = :reason, counselor_seen = 0, cancelled_on = :cancelledOn WHERE appointmentID = :appointmentID");
+        $this->db->query("UPDATE appointments SET appointmentStatus = 2, cancellationReason = :reason, counselor_seen = 0, requested_on = :cancelledOn WHERE appointmentID = :appointmentID");
         $this->db->bind(':appointmentID', $data['appointmentID']);
         $this->db->bind(':reason', $data['reason']);
         $this->db->bind(':cancelledOn', $data['cancelledDate']);
