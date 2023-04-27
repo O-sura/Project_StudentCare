@@ -129,9 +129,14 @@
                     <div class="sort">
                         <select class="select">
 
-                            <option value="Exam">All</option>
-                            <option value="Club">Guidance</option>
-                            <option value="Gym">Mental Health</option>
+                            <option value="All">All</option>
+                            <option value="Academic">Academic Counselors</option>
+                            <option value="Career">Career Counselors</option>
+                            <option value="Mental Health">Mental Health Counselors</option>
+                            <option value="Financial Aid">Financial Aid Counselors</option>
+                            <option value="Relationship">Relationship Counselors</option>
+                            <option value="Disability Services">Disability Services Counselors</option>
+                            <option value="Residential Life">Residential Life Counselors</option>
                         </select>
                     </div>
                 </div>
@@ -147,11 +152,16 @@
                             $counselorDescription = $counselor->counselor_description;
                             $format_description = nl2br($counselorDescription);
                             $counselorSpecialization = $counselor->specialization;
+                            if ($counselor->profile_img != NULL) {
+                                $image = $counselor->profile_img;
+                            } else {
+                                $image = "avatar.jpg";
+                            }
                             ?>
 
                             <div class="list-item">
                                 <div class="prof-image">
-                                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fGZlbWFsZSUyMGRvY3RvcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" id="image3">
+                                    <img src="<?php echo URLROOT . "/public/img/counselor/" . $image; ?>" id="image3">
                                 </div>
                                 <div class="details">
                                     <div class="name">

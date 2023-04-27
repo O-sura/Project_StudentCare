@@ -22,7 +22,8 @@ class Appointments extends Controller
         $this->appointmentModel->updateAppointmentSeen($id);
         $data = [
             'appointments' => $this->appointmentModel->getAllAppointments($id),
-            'newAppointments' => $init_data['newAppointments']
+            'newAppointments' => $init_data['newAppointments'],
+            'cancelledAppointments' => $this->appointmentModel->getCancelledAppointments($id)
         ];
         $this->loadview('counselor_stu/index', $data);
     }
@@ -33,7 +34,8 @@ class Appointments extends Controller
         $init_data = [
             'reason' => trim($_POST['rdesc']),
             'appointmentID' => $appointmentID,
-            'appointmentStatus' => 2 //2 means cancelled
+            'appointmentStatus' => 2, //2 means cancelled
+            'cancelledDate' => date('Y-m-d H:i:s')
         ];
 
         if ($this->appointmentModel->cancelAppointment($init_data)) {

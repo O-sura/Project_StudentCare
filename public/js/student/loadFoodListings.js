@@ -66,7 +66,7 @@ dateFilter.onchange = () => {
 function dropdownFilter(option){
 
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://localhost/StudentCare/Student_facility/uni_filter_handler/?filter=" + option , true);
+    xhr.open("GET", "http://localhost/StudentCare/Student_facility/uni_food_filter_handler/?filter=" + option , true);
    
     xhr.onload = () => {
         if (xhr.status === 200) {
@@ -96,7 +96,7 @@ function dropdownFilter(option){
 function dropDownPrice(uni,sort){
 
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://localhost/StudentCare/Student_facility/price_sorter_handler/?sort=" + sort + '&uni=' + uni, true);
+    xhr.open("GET", "http://localhost/StudentCare/Student_facility/price_food_sorter_handler/?sort=" + sort + '&uni=' + uni, true);
    
     xhr.onload = () => {
         if (xhr.status === 200) {
@@ -126,7 +126,7 @@ function dropDownPrice(uni,sort){
 function dropDownRating(uni,sort){
 
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://localhost/StudentCare/Student_facility/rating_sorter_handler/?sort=" + sort + '&uni=' + uni, true);
+    xhr.open("GET", "http://localhost/StudentCare/Student_facility/rating_food_sorter_handler/?sort=" + sort + '&uni=' + uni, true);
    
     xhr.onload = () => {
         if (xhr.status === 200) {
@@ -156,7 +156,7 @@ function dropDownRating(uni,sort){
 function dropDownDate(uni,sort){
 
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://localhost/StudentCare/Student_facility/date_sorter_handler/?sort=" + sort + '&uni=' + uni, true);
+    xhr.open("GET", "http://localhost/StudentCare/Student_facility/date_food_sorter_handler/?sort=" + sort + '&uni=' + uni, true);
    
     xhr.onload = () => {
         if (xhr.status === 200) {
@@ -190,7 +190,7 @@ function searchListing() {
         const keyword = searchbox.value;
         const uni5 = document.getElementById('universityFilter').value; 
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", "http://localhost/StudentCare/Student_facility/search_listing/?query=" + keyword + '&uni=' + uni5, true);
+        xhr.open("GET", "http://localhost/StudentCare/Student_facility/food_search_listing/?query=" + keyword + '&uni=' + uni5, true);
        
         xhr.onload = () => {
             if (xhr.status === 200) {

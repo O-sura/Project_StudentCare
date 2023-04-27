@@ -123,7 +123,7 @@
             </div>
             <div class="row3">
                 <div class="appointments">
-
+                    <!-- pending appointments -->
                     <?php foreach ($data['appointments'] as $appointment) :
                         $date = date('jS \of F', strtotime($appointment->appointmentDate));
                         $time = date('h:i A', strtotime($appointment->appointmentTime));
@@ -131,13 +131,19 @@
                         $today = date('Y-m-d');
                         $currentTime = date('H:i');
                         $id = $appointment->appointmentID;
+                        $meetingId = $appointment->meetingID;
                         $counselorId = $appointment->counsellorID;
+                        if ($appointment->profile_img != NULL) {
+                            $image = $appointment->profile_img;
+                        } else {
+                            $image = "avatar.jpg";
+                        }
                         $appointmentIds = array_column($data['newAppointments'], 'appointmentID');
                     ?>
                         <!-- Popup Form -->
                         <div class="overlay">
                             <div class="popup">
-                                <form action="<?php echo URLROOT; ?>/appointments/cancel_appointment/<?php echo $id; ?> " method="post">
+                                <form action="<?php echo URLROOT; ?>/appointments/cancel_appointment/<?php echo $meetingId; ?> " method="post">
                                     <div class="heading">
                                         Appointment cancellation
                                     </div>
@@ -171,7 +177,7 @@
                                     <?php echo $time ?>
                                 </div>
                                 <div class="image">
-                                    <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFufGVufDB8fDB8fA%3D%3D&w=1000&q=80" class="image2">
+                                    <img src="<?php echo URLROOT . "/public/img/counselor/" . $image; ?>" class="image2">
                                 </div>
                                 <div class="counselor-name" id="<?php echo $counselorId ?>">
                                     <h3>Dr.<?php echo $counselor ?></h3>
@@ -231,12 +237,76 @@
                                         </button>
                                     </div>
                                     <?php
-                                    if (in_array($id, $appointmentIds)) {?>
+                                    if (in_array($id, $appointmentIds)) { ?>
                                         <span class="icon_button_badge"><i class="fa-solid fa-circle-exclamation"></i></span>
-                                
-                                <?php } 
+
+                                <?php }
                                 } ?>
 
+                            </div>
+                        </div>
+
+                    <?php endforeach; ?>
+                    <!-- cancelled appointments -->
+                    <h3>Appointment cancellation requests</h3>
+
+                    <?php foreach ($data['cancelledAppointments'] as $appointment) :
+                        $date = date('jS \of F', strtotime($appointment->appointmentDate));
+                        $time = date('h:i A', strtotime($appointment->appointmentTime));
+                        $counselor = $appointment->fullname;
+                        $today = date('Y-m-d');
+                        $currentTime = date('H:i');
+                        $id = $appointment->appointmentID;
+                        $meetingId = $appointment->meetingID;
+                        $counselorId = $appointment->counsellorID;
+                        $cancellationReason = $appointment->cancellationReason;
+                        $appointmentStatus =  $appointment->appointmentStatus;
+                        if ($appointment->profile_img != NULL) {
+                            $image = $appointment->profile_img;
+                        } else {
+                            $image = "avatar.jpg";
+                        }
+                        $appointmentIds = array_column($data['newAppointments'], 'appointmentID');
+                    ?>
+                        <div class="meeting">
+                            <div class="date">
+                                <h3><?php echo $date ?></h3>
+                            </div>
+                            <div class="call">
+                                <div class="time">
+                                    <?php echo $time ?>
+                                </div>
+                                <div class="image">
+                                    <img src="<?php echo URLROOT . "/public/img/counselor/" . $image; ?>" class="image2">
+                                </div>
+                                <div class="counselor-name" id="<?php echo $counselorId ?>">
+                                    <h3>Dr.<?php echo $counselor ?></h3>
+                                </div>
+                                    <div class="join">
+                                        <h4><?php echo $cancellationReason ?></h4>
+                                    </div>
+                                    <div class="join2">
+                                        <?php if($appointmentStatus == 2){?>
+                                        <button class="btn2" id="uploadBtn" onclick="showPopup()">
+                                            <div class="btn-class">
+                                                <div class="btnName">
+                                                    Pending
+                                                </div>
+                                                <div class="btnIcon">
+                                                    <i class="fa-solid fa-xmark"></i>
+                                                </div>
+                                            </div>
+                                        </button>
+                                        <?php } else { ?>
+                                            <button class="btn2" id="uploadBtn">
+                                            <div class="btn-class">
+                                                <div class="btnName">
+                                                    Cancelled
+                                                </div>
+                                            </div>
+                                        </button>
+                                        <?php } ?>
+                                    </div>
                             </div>
                         </div>
 

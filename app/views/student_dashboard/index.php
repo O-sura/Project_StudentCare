@@ -136,7 +136,9 @@
                         <div class="favcons">
                             <i class="fa-brands fa-facebook-messenger"></i>
                         </div>
-                        <span class="icon_button_badge">2</span>
+                        <?php if ($data['new_messages_count'] > 0) : ?>
+                            <span class="icon_button_badge"><?php echo $data['new_messages_count'] ?></span>
+                        <?php endif; ?>
                     </div>
                     <div class="messages" id="tasks">
                         <div class="topic">
@@ -145,7 +147,9 @@
                         <div class="favcons">
                             <i class="fa-solid fa-list-check"></i>
                         </div>
-                        <span class="icon_button_badge">2</span>
+                        <?php if ($data['task_notification_count'] > 0) : ?>
+                            <span class="icon_button_badge"><?php echo $data['task_notification_count'] ?></span>
+                        <?php endif; ?>
                     </div>
                     <div class="messages" id="announcements">
                         <div class="topic">

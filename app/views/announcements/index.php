@@ -130,6 +130,13 @@
                 $name = $rows->fullname;
                 $timestamp = strtotime($rows->posted_date);
                 $date = date('Y-m-d', $timestamp);
+                
+                if ($rows->profile_img != NULL) {
+                    $image = $rows->profile_img;
+                } else {
+                    $image = "avatar.jpg";
+                }
+               
                 ?>
                 <div class="row3">
 
@@ -144,7 +151,7 @@
 
                     <div class="details">
                         <div class="image">
-                            <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFufGVufDB8fDB8fA%3D%3D&w=1000&q=80" alt="">
+                            <img src="<?php echo URLROOT . "/public/img/counselor/" . $image; ?>" alt="">
                         </div>
                         <div class="name">
                             <?php echo $name; ?>
