@@ -127,13 +127,13 @@
                 </div>
                 <?php if ($data['acceptedCount'] > 0) {
                     foreach ($data['acceptedRequests'] as $accepted) :
-                        $id = $accepted->request_id;
+                        $id = $accepted->rID;
                         $requested_on = $accepted->requested_on;
                         $date = date("d M Y", strtotime($requested_on));
                         $specialization = $accepted->specialization;
                         $name = $accepted->fullname;
                         $email = $accepted->email;
-                        $requestIds = array_column($data['newRequests'], 'request_id');
+                        $requestIds = array_column($data['newRequests'], 'rID');
                 ?>
                         <div class="call" id="accepted">
                             <div class="date">
@@ -173,12 +173,12 @@
                 </div>
                 <?php if ($data['pendingCount'] > 0) {
                     foreach ($data['pendingRequests'] as $pending) :
-                        $id = $pending->request_id;
+                        $id = $pending->rID;
                         $requested_on = $pending->requested_on;
                         $date = date("d M Y", strtotime($requested_on));
                         $specialization = $pending->specialization;
                         $name = $pending->fullname;
-                        $requestIds = array_column($data['newRequests'], 'request_id');
+                        $requestIds = array_column($data['newRequests'], 'rID');
                 ?>
                         <div class="call">
                             <div class="date">
@@ -224,13 +224,13 @@
                 </div>
                 <?php if ($data['rejectedCount'] > 0) {
                     foreach ($data['rejectedRequests'] as $rejected) :
-                        $id = $rejected->request_id;
+                        $id = $rejected->rID;
                         $requested_on = $rejected->requested_on;
                         $date = date("d M Y", strtotime($requested_on));
                         $specialization = $rejected->specialization;
                         $reason = $rejected->reason;
                         $name = $rejected->fullname;
-                        $requestIds = array_column($data['newRequests'], 'request_id');
+                        $requestIds = array_column($data['newRequests'], 'rID');
                 ?>
 
                         <div class="call" id="rejected">

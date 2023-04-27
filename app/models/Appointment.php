@@ -38,7 +38,7 @@ class Appointment
     {
         $this->db->query("SELECT qualification_details
         FROM qualifications
-        WHERE counselor_id = :counselorID;");
+        WHERE counsellorID = :counselorID;");
         $this->db->bind(':counselorID', $data['counselorID']);
         $results = $this->db->getAllRes();
 
@@ -47,10 +47,10 @@ class Appointment
 
     public function addRequest($data)
     {
-        $requestId = substr(sha1(date(DATE_ATOM)), 0, 8);
+        // $requestId = substr(sha1(date(DATE_ATOM)), 0, 8);
 
-        $this->db->query("INSERT INTO request (request_id, student_id, counselor_id, request_status, request_description) VALUES (:requestID,  :studentID, :counselorID, :requestStatus, :requestDescription)");
-        $this->db->bind(':requestID', $requestId);
+        $this->db->query("INSERT INTO requests (studentID, counselorID, statusPP, rNote) VALUES (:studentID, :counselorID, :requestStatus, :requestDescription)");
+        // $this->db->bind(':requestID', $requestId);
         $this->db->bind(':counselorID', $data['counselorID']);
         $this->db->bind(':studentID', $data['studentID']);
         $this->db->bind(':requestStatus', $data['requestStatus']);
@@ -65,7 +65,7 @@ class Appointment
 
     public function hasRequested($data)
     {
-        $this->db->query("SELECT * FROM request WHERE student_id = :studentID AND counselor_id = :counselorID AND request_status = 0");
+        $this->db->query("SELECT * FROM requests WHERE studentID = :studentID AND counsellorID = :counselorID AND statusPP = 0");
         $this->db->bind(':counselorID', $data['counselorID']);
         $this->db->bind(':studentID', $data['studentID']);
         $results = $this->db->getRes();
@@ -79,7 +79,7 @@ class Appointment
 
     public function requestLimit($data)
     {
-        $this->db->query("SELECT * FROM request WHERE student_id = :studentID AND request_status = 0");
+        $this->db->query("SELECT * FROM requests WHERE studentID = :studentID AND statusPP = 0");
         $this->db->bind(':studentID', $data['studentID']);
         $count = $this->db->rowCount();
 
@@ -92,13 +92,13 @@ class Appointment
 
     public function getPendingRequests($studentID)
     {
-        $this->db->query("SELECT request.request_id, request.requested_on, request.request_status, users.fullname, counsellor.profile_img, counsellor.specialization
-        FROM request
+        $this->db->query("SELECT requests.rID, requests.requested_on, requests.statusPP, users.fullname, counsellor.profile_img, counsellor.specialization
+        FROM requests
         INNER JOIN users
-        ON request.counselor_id = users.userID
+        ON requests.counsellorID = users.userID
         INNER JOIN counsellor
-        ON request.counselor_id = counsellor.userID
-        WHERE request.student_id = :studentID AND request.request_status = 0;");
+        ON requests.counsellorID = counsellor.userID
+        WHERE requests.studentID = :studentID AND requests.statusPP = 0;");
         $this->db->bind(':studentID', $studentID);
         $results = $this->db->getAllRes();
 
@@ -107,13 +107,13 @@ class Appointment
 
     public function getAcceptedRequests($studentID)
     {
-        $this->db->query("SELECT request.request_id, request.requested_on, request.request_status, users.email, users.fullname, counsellor.profile_img ,counsellor.specialization
-        FROM request
+        $this->db->query("SELECT requests.rID, requests.requested_on, requests.statusPP, users.email, users.fullname, counsellor.profile_img ,counsellor.specialization
+        FROM requests
         INNER JOIN users
-        ON request.counselor_id = users.userID
+        ON requests.counsellorID = users.userID
         INNER JOIN counsellor
-        ON request.counselor_id = counsellor.userID
-        WHERE request.student_id = :studentID AND request.request_status = 1;");
+        ON requests.counsellorID = counsellor.userID
+        WHERE requests.studentID = :studentID AND requests.statusPP = 1;");
         $this->db->bind(':studentID', $studentID);
         $results = $this->db->getAllRes();
 
@@ -122,13 +122,13 @@ class Appointment
 
     public function getRejectedRequests($studentID)
     {
-        $this->db->query("SELECT request.request_id, request.requested_on, request.request_status,request.reason, users.fullname, counsellor.profile_img, counsellor.specialization
-        FROM request
+        $this->db->query("SELECT requests.rID, requests.requested_on, requests.statusPP,requests.reason, users.fullname, counsellor.profile_img, counsellor.specialization
+        FROM requests
         INNER JOIN users
-        ON request.counselor_id = users.userID
+        ON requests.counsellorID = users.userID
         INNER JOIN counsellor
-        ON request.counselor_id = counsellor.userID
-        WHERE request.student_id = :studentID AND request.request_status = 2;");
+        ON requests.counsellorID = counsellor.userID
+        WHERE requests.studentID = :studentID AND requests.statusPP = 2;");
         $this->db->bind(':studentID', $studentID);
         $results = $this->db->getAllRes();
 
@@ -137,7 +137,7 @@ class Appointment
 
     public function getPendingRequestsCount($studentID)
     {
-        $this->db->query("SELECT * FROM request WHERE student_id = :studentID AND request_status = 0");
+        $this->db->query("SELECT * FROM requests WHERE studentID = :studentID AND statusPP = 0");
         $this->db->bind(':studentID', $studentID);
         $count = $this->db->rowCount();
 
@@ -146,7 +146,7 @@ class Appointment
 
     public function getAcceptedRequestsCount($studentID)
     {
-        $this->db->query("SELECT * FROM request WHERE student_id = :studentID AND request_status = 1");
+        $this->db->query("SELECT * FROM requests WHERE studentID = :studentID AND statusPP = 1");
         $this->db->bind(':studentID', $studentID);
         $count = $this->db->rowCount();
 
@@ -155,7 +155,7 @@ class Appointment
 
     public function getRejectedRequestsCount($studentID)
     {
-        $this->db->query("SELECT * FROM request WHERE student_id = :studentID AND request_status = 2");
+        $this->db->query("SELECT * FROM requests WHERE studentID = :studentID AND statusPP = 2");
         $this->db->bind(':studentID', $studentID);
         $count = $this->db->rowCount();
 
@@ -163,13 +163,13 @@ class Appointment
     }
 
     public function getRequestDetails($id){
-        $this->db->query("SELECT request.request_id,request.requested_on ,request.request_description, users.fullname, counsellor.specialization
-        FROM request
+        $this->db->query("SELECT requests.rID,requests.requested_on ,requests.rNote, users.fullname, counsellor.specialization
+        FROM requests
         INNER JOIN users
-        ON request.counselor_id = users.userID
+        ON requests.counsellorID = users.userID
         INNER JOIN counsellor
-        ON request.counselor_id = counsellor.userID
-        WHERE request.request_id = :requestID;");
+        ON requests.counsellorID = counsellor.userID
+        WHERE requests.rID = :requestID;");
         $this->db->bind(':requestID', $id);
         $results = $this->db->getRes();
 
@@ -178,7 +178,7 @@ class Appointment
 
     public function deleteRequest($id)
     {
-        $this->db->query("DELETE FROM request WHERE request_id = :requestID");
+        $this->db->query("DELETE FROM requests WHERE rID = :requestID");
         $this->db->bind(':requestID', $id);
 
         if ($this->db->execute()) {
@@ -221,7 +221,7 @@ class Appointment
 
     public function updateSeen($id)
     {
-        $this->db->query("UPDATE request SET student_seen = 1 WHERE student_id = :studentID");
+        $this->db->query("UPDATE requests SET student_seen = 1 WHERE studentID = :studentID");
         $this->db->bind(':studentID', $id);
 
         if ($this->db->execute()) {
@@ -245,7 +245,7 @@ class Appointment
 
     public function getUnseenRequests($studentID)
     {
-        $this->db->query("SELECT request_id FROM request WHERE student_id = :studentID AND student_seen = 0");
+        $this->db->query("SELECT rID FROM requests WHERE studentID = :studentID AND student_seen = 0");
         $this->db->bind(':studentID', $studentID);
         $results = $this->db->getAllRes();
 
@@ -263,9 +263,9 @@ class Appointment
 
     public function editRequest($data)
     {
-        $this->db->query("UPDATE request SET request_description = :request_description, counselor_seen = 0 WHERE request_id = :request_id");
-        $this->db->bind(':request_description', $data['requestDescription']);
-        $this->db->bind(':request_id', $data['requestID']);
+        $this->db->query("UPDATE requests SET rNote = :rNote, counselor_seen = 0 WHERE rID = :rID");
+        $this->db->bind(':rNote', $data['requestDescription']);
+        $this->db->bind(':rID', $data['requestID']);
 
         if ($this->db->execute()) {
             return true;

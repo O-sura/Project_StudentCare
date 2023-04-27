@@ -81,8 +81,8 @@
     </div>
     <div class="home_content">
         <div class="container">
-            <?php $requestId = $data['requestDetails']->request_id; ?>
-            <form action="<?php echo URLROOT; ?>/appointments/editRequest/<?php echo $requestId; ?> " method="post">
+            <?php $requestId = $data['requestDetails']->rID; ?>
+            <form action="<?php echo URLROOT; ?>/appointments/editRequest/<?php echo $rID; ?> " method="post">
                 <div class="request-form">
                     <div class="heading">
                         Edit Appointment Request
@@ -120,7 +120,7 @@
                             Description
                         </div>
                         <div class="text">
-                            <textarea name="rdesc" cols="30" rows="30"><?php echo $data['requestDetails']->request_description ?></textarea>
+                            <textarea name="rdesc" cols="30" rows="30"><?php echo $data['requestDetails']->rNote ?></textarea>
                         </div>
                         <div class="submit">
                             <button type="submit" class="btn">Confirm Changes</button>
