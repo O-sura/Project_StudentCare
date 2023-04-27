@@ -143,7 +143,7 @@
                         <!-- Popup Form -->
                         <div class="overlay">
                             <div class="popup">
-                                <form action="<?php echo URLROOT; ?>/appointments/cancel_appointment/<?php echo $meetingId; ?> " method="post">
+                                <form action="<?php echo URLROOT; ?>/appointments/cancel_appointment/<?php echo $id; ?> " method="post">
                                     <div class="heading">
                                         Appointment cancellation
                                     </div>
@@ -187,7 +187,7 @@
                                         <button class="btn" id="uploadBtn">
                                             <div class="btn-class">
                                                 <div class="btnName">
-                                                    <a href="http://localhost:3000/<?php echo $id ?>"> Join </a>
+                                                    <a href="http://localhost:3000/<?php echo $meetingId ?>"> Join </a>
                                                 </div>
                                                 <div class="btnIcon">
                                                     <i class="fa-solid fa-play"></i>
