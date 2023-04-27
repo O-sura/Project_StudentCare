@@ -33,7 +33,7 @@ function addBtnListeners() {
           filling_0 += `
           <div class="imageSection">
             <div class="img">
-              <img class="dpImg" src="http://localhost/StudentCare/public/img/counselor/${response.profile_img}" alt=""><br>
+              <img class="dpImg" src="http://localhost/StudentCare/public/img/student/${response.profile_img}" alt=""><br>
             </div>
             <div class="btnDiv">
               <form method="post" action="http://localhost/StudentCare/Counsellor/acceptRejectStudent/${response.studentID}">
@@ -47,7 +47,7 @@ function addBtnListeners() {
             <label for="age">DOB    : </label>${response.dob}<br>
             <label for="uni">University : </label>${response.university}<br>
             <label for="address">Address    : </label>${response.home_address}<br>
-            <label for="email">University email : </label>
+            <label for="email">University email : </label>${response.unimail}
 
             <span>
               <h3 class="note">  Request Note : </h3>
@@ -62,7 +62,7 @@ function addBtnListeners() {
           filling_1 += `
           <div class="imageSection">
             <div class="img">
-              <img class="dpImg" src="http://localhost/StudentCare/public/img/counselor/${response.profile_img}" alt=""><br>
+              <img class="dpImg" src="http://localhost/StudentCare/public/img/student/${response.profile_img}" alt=""><br>
             </div>
             <div class="btnDiv">
               <form method="post" action="http://localhost/StudentCare/Counsellor/removeStudent/${response.studentID}">
@@ -75,7 +75,7 @@ function addBtnListeners() {
             <label for="age">DOB    : </label>${response.dob}<br>
             <label for="uni">University : </label>${response.university}<br>
             <label for="address">Address    : </label>${response.home_address}<br>
-            <label for="email">University email : </label>
+            <label for="email">University email : </label>${response.unimail}
 
             <span>
               <h3 class="note">  Request Note : </h3>
@@ -90,7 +90,7 @@ function addBtnListeners() {
           filling_2 += `
           <div class="imageSection">
             <div class="img">
-              <img class="dpImg" src="http://localhost/StudentCare/public/img/counselor/${response.profile_img}" alt=""><br>
+              <img class="dpImg" src="http://localhost/StudentCare/public/img/student/${response.profile_img}" alt=""><br>
             </div>
           </div>
           <div class="infoSection">
@@ -98,7 +98,7 @@ function addBtnListeners() {
             <label for="age">DOB    : </label>${response.dob}<br>
             <label for="uni">University : </label>${response.university}<br>
             <label for="address">Address    : </label>${response.home_address}<br>
-            <label for="email">University email : </label>
+            <label for="email">University email : </label>${response.unimail}
 
             <span>
               <h3 class="note">  Request Note : </h3>
