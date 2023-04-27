@@ -38,7 +38,7 @@ class Appointment
     {
         $this->db->query("SELECT qualification_details
         FROM qualifications
-        WHERE counsellorID = :counselorID;");
+        WHERE counselor_id = :counselorID;");
         $this->db->bind(':counselorID', $data['counselorID']);
         $results = $this->db->getAllRes();
 
@@ -49,7 +49,7 @@ class Appointment
     {
         // $requestId = substr(sha1(date(DATE_ATOM)), 0, 8);
 
-        $this->db->query("INSERT INTO requests (studentID, counselorID, statusPP, rNote) VALUES (:studentID, :counselorID, :requestStatus, :requestDescription)");
+        $this->db->query("INSERT INTO requests (studentID, counsellorID, statusPP, rNote) VALUES (:studentID, :counselorID, :requestStatus, :requestDescription)");
         // $this->db->bind(':requestID', $requestId);
         $this->db->bind(':counselorID', $data['counselorID']);
         $this->db->bind(':studentID', $data['studentID']);
