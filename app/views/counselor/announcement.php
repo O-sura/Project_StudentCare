@@ -60,7 +60,7 @@
                         <div id="search-results"></div>
                         <?php if(count($data['posts']) == 0) :?>
                                 
-                            <div class="ifnot">There is no announcement posted yet by any counselor</div>
+                            <div class="ifnot"><?php echo "There is no announcement posted yet by any counselor" ;?></div>
 
                         <?php else : ?>
 
@@ -72,12 +72,13 @@
                                                 <div class="descriptionOwn">
                                                     <h4 class="postH"><?= $post->{'post_head'}; ?></h4>
                                                     <?= $post->{'post_desc'}; ?><br><br>
-                                                    <span class="pdate"><?= $post->{'posted_date'} ;?> </span> <span class="puser">     Posted By :  <?= $post->{'fullname'} ;?></span>
+                                                    <span class="pdate"><?php echo date('Y-m-d',strtotime($post->{'posted_date'}));?>&nbsp; <?php echo date('H:i A',strtotime($post->{'posted_date'}));?></span> <span class="puser">     Posted By :  <?= $post->{'fullname'} ;?></span>
+
 
                                                     <div class="buttonU"> 
                                                         <button class="btnEdit" name="btnEdit" type="submit"><a href="<?php echo URLROOT."/CounselorAnnouncement/edit/". $post->post_id;?>"><i class="fa-solid fa-pen-to-square"></i></a></button>
                                                             
-                                                        <button class="btnDlt" name="btnDlt" type="submit" ><a href="<?php echo URLROOT."/CounselorAnnouncement/delete/". $post->post_id;?>"><i class="fa-solid fa-trash"></i></a></button>
+                                                        <button class="btnDlt" name="btnDlt" type="submit" value="<?= $post->{'post_id'} ; ?>" ><i class="fa-solid fa-trash"></i></button>
                                                     </div>
                                                     
                                                 </div>
@@ -98,8 +99,7 @@
                                                 <div class="description">
                                                     <h4 class="postH"><?= $post->{'post_head'}; ?></h4>
                                                     <?= $post->{'post_desc'}; ?><br><br>
-                                                    <span class="pdate"><?= $post->{'posted_date'} ;?> </span> <span class="puser">     Posted By :  <?= $post->{'fullname'} ;?></span>
-                                                    
+                                                    <span class="pdate"><?php echo date('Y-m-d',strtotime($post->{'posted_date'}));?>&nbsp; <?php echo date('H:i A',strtotime($post->{'posted_date'}));?></span> <span class="puser">     Posted By :  <?= $post->{'fullname'} ;?></span>
                                                 </div>
                                             </div>
                                         <?php endif;?>
@@ -137,8 +137,19 @@
                     </div>
                 </div>
             </div>
-        
+        <!-- The Modal for start meeting or cancellation -->
+        <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                
+                <button id="removeBtn" class="rbtn"><a id="deleteLink" href=" ">Delete announcement</a></button>
+                
+        </div>
+
     </div>
+
 </body>
 
 </html> 

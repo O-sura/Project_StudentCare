@@ -24,7 +24,7 @@ export class CounselorAnnouncementPost{
                     <div class="buttonU"> 
                         <button class="btnEdit" name="btnEdit" type="submit"><a href="http://localhost/StudentCare/app/CounselorAnnouncement/edit/${this.postID}"><i class="fa-solid fa-pen-to-square"></i></a></button>
                             
-                        <button class="btnDlt" name="btnDlt" type="submit" ><a href="http://localhost/StudentCare/app/CounselorAnnouncement/delete/${this.postID}"><i class="fa-solid fa-trash"></i></a></button>
+                        <button class="btnDlt" name="btnDlt" type="submit" value="${this.postID}"><i class="fa-solid fa-trash"></i></button>
                     </div>
                     
                 </div>

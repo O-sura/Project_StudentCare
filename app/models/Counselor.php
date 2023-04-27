@@ -34,8 +34,9 @@
             $this->db->bind(':username',$data['username']);
             $user = $this->db->getRes();
 
-            $this->db->query('INSERT INTO ann_post(post_id,post_desc,username,fullname,userID,post_head) VALUES(:postID,:body,:username,:fullname,:userID,:topic)');
+            $this->db->query('INSERT INTO ann_post(post_id,post_desc,posted_date,username,fullname,userID,post_head) VALUES(:postID,:body,:posted_date,:username,:fullname,:userID,:topic)');
             
+            date_default_timezone_set('Asia/Kolkata');
             
             //bind values
             $this->db->bind(':userID',$user->userID);
@@ -44,6 +45,7 @@
             $this->db->bind(':body',$data['body']);
             $this->db->bind(':username',$data['username']);
             $this->db->bind(':topic',$data['topic']);
+            $this->db->bind(':posted_date',date('Y-m-d H:i'));
             
             //execute
             if($this->db->execute()){
@@ -60,10 +62,11 @@
            // $userID = substr(sha1(date(DATE_ATOM)), 0, 8);
             $this->db->query('UPDATE ann_post SET post_desc = :body, posted_date = :updated_date, post_head = :topic WHERE post_id = :id');
             
+            date_default_timezone_set('Asia/Kolkata');
             //bind values
             $this->db->bind(':id',$data['id']);
             $this->db->bind(':body',$data['body']);
-            $this->db->bind(':updated_date',date('Y-m-d H:i:s'));
+            $this->db->bind(':updated_date',date('Y-m-d H:i'));
             $this->db->bind(':topic',$data['topic']);
             
         
@@ -223,6 +226,19 @@
             return json_encode($results);
             
         }
+
+        //to check whether requested person already have an appointment on that or not
+        public function checkForSamePersonApp($data,$userid){
+
+            $this->db->query('SELECT COUNT(studentID), studentID, appointmentTime, counsellorID FROM appointments WHERE studentID = :stuid AND counsellorID = :cID AND appointmentDate = :appDate;');
+            $this->db->bind(':appDate',$data['appDate']);
+            $this->db->bind(':stuid',$data['stuID']);
+            $this->db->bind(':cID',$userid);
+
+            $results = $this->db->getRes();
+
+            return json_encode($results);
+        }
         
         //to get the count of own announcements
         public function countOwnAnnouncements($id){
@@ -275,13 +291,14 @@
         }
 
         //to cancel an appointment
-        public function cancelAppointment($userid,$data){
+        public function cancelAppointment($desc,$appID,$appdate,$userid){
 
-            $this ->db->query('UPDATE appointments SET appointmentStatus = 2, cancellationReason = :reason WHERE counsellorID = :userid AND studentID = :stuID ;');
+            $this ->db->query('UPDATE appointments SET appointmentStatus = 3, cancellationReason = :reason, student_seen = 0 WHERE counsellorID = :userid AND appointmentDate = :appdate AND appointmentID = :appID ;');
 
             $this->db->bind(':userid',$userid);
-            $this->db->bind(':stuID',$data['stuID']);
-            $this->db->bind(':reason',$data['descC']);
+            $this->db->bind(':appID',$appID);
+            $this->db->bind(':appdate',$appdate);
+            $this->db->bind(':reason',$desc);
 
             if($this->db->execute()){
                 return true;
@@ -291,10 +308,24 @@
 
         }
 
+        public function completeAppointmentUpdate($appdate,$appID){
+
+            $this ->db->query('UPDATE appointments SET appointmentStatus = 1 WHERE appointmentDate = :appdate AND appointmentID = :appID ;');
+            $this->db->bind(':appID',$appID);
+            $this->db->bind(':appdate',$appdate);
+
+            if($this->db->execute()){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
         //to get the students based on counselor decision
         public function getStudents($statusOfRequest,$userid){
 
-            $this->db->query('SELECT * FROM requests WHERE counsellorID = :userid AND statusPP = :statusPP;');
+            $this->db->query('SELECT requests.*, users.fullname FROM requests INNER JOIN users ON requests.studentID = users.userID INNER JOIN student ON users.userID = student.studentID WHERE requests.counsellorID = :userid AND requests.statusPP = :statusPP ORDER BY requests.requested_on DESC;');
+            //$this->db->query('SELECT requests.*, users.fullname FROM requests INNER JOIN student users ON requests.counsellorID = users.userID WHERE requests.counsellorID = :userid AND requests.statusPP = :statusPP;');
             $this->db->bind(':userid',$userid);
             $this->db->bind(':statusPP',$statusOfRequest);
 
@@ -325,9 +356,9 @@
         //get students ewhen click on student name
         public function getStudentDetails($gotStu){
 
-            //SELECT * FROM requests INNER JOIN student ON student.studentID = requests.studentID WHERE requests.studentID = :gotStu;
+            //SELECT * FROM requests INNER JOIN student ON student.studentID = requests.studentID INNER JOIN users ON users.userID = requests.studentID WHERE requests.studentID = :gotStu;
 
-            $this->db->query('SELECT * FROM requests  WHERE studentID = :gotStu;');
+            $this->db->query('SELECT student.*,requests.rNote,users.fullname,users.home_address FROM requests INNER JOIN student ON student.studentID = requests.studentID INNER JOIN users ON users.userID = requests.studentID WHERE requests.studentID = :gotStu;');
 
             $this->db->bind(':gotStu',$gotStu);
 
@@ -338,10 +369,24 @@
 
         }
 
+        //get student details for emailing
         public function getstudentforemail($userid){
-            $this->db->query('SELECT * FROM users  WHERE userID = :gotStu;');
+            $this->db->query('SELECT users.*,student.university,student.dob,appointments.appointmentDescription FROM users INNER JOIN student ON student.userID = users.userID INNER JOIN appointments ON appointments.studentID = users.userID WHERE users.userID = :gotStu;');
 
             $this->db->bind(':gotStu',$userid);
+
+            $results = $this->db->getRes();
+
+            return $results;
+        }
+
+        //to get appointed student details
+        public function getAppointedStudent($stuid,$appdate){
+
+            $this->db->query('SELECT users.fullname,users.home_address,users.email,student.university,student.dob,student.profile_img,appointments.appointmentDescription,appointments.appointmentDate,appointments.appointmentTime,appointments.appointmentID FROM users INNER JOIN student ON student.userID = users.userID INNER JOIN appointments ON appointments.studentID = users.userID WHERE users.userID = :gotStu AND appointments.appointmentDate = :gotDate;');
+
+            $this->db->bind(':gotStu',$stuid);
+            $this->db->bind(':gotDate',$appdate);
 
             $results = $this->db->getRes();
 
@@ -352,7 +397,7 @@
          //to update the status of requested students for particular counselor
         public function updateStudentStatus($decision,$userid,$stuID){
 
-            $this->db->query('UPDATE requests SET statusPP = :decision WHERE  counsellorID = :userid AND studentID = :stuID ;');
+            $this->db->query('UPDATE requests SET statusPP = :decision, student_seen = 0 WHERE  counsellorID = :userid AND studentID = :stuID ;');
             $this->db->bind(':userid',$userid);
             $this->db->bind(':stuID',$stuID);
             $this->db->bind(':decision',$decision);
@@ -374,6 +419,7 @@
             }
 
         }
+        
 
         //to get daily appointments to show on dashboard
         public function getAppointmentTimes($userid,$curdate){
@@ -406,6 +452,143 @@
             return json_encode($results); 
 
         }
+
+
+        //for notification generation
+
+        //new request notifications
+        public function newRequestStudents($userid){
+
+            $this->db->query('SELECT requests.studentID,requests.requested_on,users.fullname,student.profile_img FROM requests INNER JOIN student ON requests.studentID = student.studentID INNER JOIN users ON student.studentID = users.userID WHERE requests.statusPP = 0 AND requests.counsellorID = :userid ORDER BY requests.requested_on ASC;');
+            $this->db->bind(':userid',$userid);
+
+            $results = $this->db->getAllRes();
+
+            return $results;
+        }
+
+
+        //notification for request cancelling
+        public function notiCancelReq($userid){
+
+            $this->db->query('SELECT requests.studentID,requests.requested_on,requests.reason,users.fullname,student.profile_img  FROM requests INNER JOIN student ON requests.studentID = student.studentID INNER JOIN users ON users.userID = student.studentID WHERE requests.statusPP = 3 AND requests.counsellorID = :userid ORDER BY requests.requested_on ASC ;');
+            $this->db->bind(':userid',$userid);
+
+            $results = $this->db->getAllRes();
+
+            return $results;
+
+
+        }
+
+        //update request seen status
+        public function updateRequestSeen($userid){
+
+            $this->db->query('UPDATE requests SET counselor_seen = 1 WHERE counsellorID = :userid ;');
+            $this->db->bind(':userid',$userid);
+
+            if($this->db->execute()){
+                return true;
+            }else{
+                return false;
+            }
+
+        }
+
+        //notification for cancelling appointment
+        public function notiCancelApp($userid){
+
+            $this->db->query('SELECT appointments.studentID,appointments.appointmentDate,appointments.appointmentTime,appointments.cancellationReason,student.profile_img,users.fullname FROM appointments INNER JOIN student ON appointments.studentID = student.studentID INNER JOIN users ON student.studentID = users.userID WHERE appointments.appointmentStatus = 2 AND appointments.counsellorID = :userid ;');
+            $this->db->bind(':userid',$userid);
+
+            $results = $this->db->getAllRes();
+
+            return $results;
+
+        }
+
+
+        //update appointment cancel notificationt seen status
+        public function updateAppointmentSeen($userid){
+
+            $this->db->query('UPDATE appointments SET counselor_seen = 1 WHERE counsellorID = :userid ;');
+            $this->db->bind(':userid',$userid);
+
+            if($this->db->execute()){
+                return true;
+            }else{
+                return false;
+            }
+
+        }
+
+        public function checkStudentForCounselor($userid,$stuid){
+            $this->db->query('SELECT studentID,statusPP FROM requests WHERE counsellorID = :userid AND studentID = :stuid AND statusPP = 1;');
+            $this->db->bind(':userid',$userid);
+            $this->db->bind(':stuid',$stuid);
+
+            if($this->db->rowCount() > 0){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+
+        public function getInformationForNotification($userid){
+
+            $this->db->query('SELECT requests.requested_on,requests.statusPP,student.studentID,appointments.appointmentStatus,appointments.appointmentDate, appointments.appointmentTime, appointments.cancellationReason, users.fullname FROM student 
+            INNER JOIN users ON users.userID = student.studentID 
+            LEFT JOIN (
+              SELECT requests.studentID, MAX(requested_on) AS latest_request
+              FROM requests
+              WHERE requests.statusPP = 0 AND requests.counsellorID = :userid
+              GROUP BY requests.studentID
+            ) latest_request ON student.studentID = latest_request.studentID
+            LEFT JOIN requests ON requests.studentID = student.studentID AND requests.requested_on = latest_request.latest_request
+            LEFT JOIN (
+              SELECT appointments.studentID, MAX(appointmentDate) AS latest_appointment_date, MAX(appointmentTime) AS latest_appointment_time
+              FROM appointments
+              WHERE appointments.appointmentStatus = 2 AND appointments.counsellorID = :userid
+              GROUP BY appointments.studentID
+            ) latest_appointment ON student.studentID = latest_appointment.studentID
+            LEFT JOIN appointments ON appointments.studentID = student.studentID AND appointments.appointmentDate = latest_appointment.latest_appointment_date AND appointments.appointmentTime = latest_appointment.latest_appointment_time
+            WHERE latest_request.latest_request IS NOT NULL OR latest_appointment.latest_appointment_date IS NOT NULL;');
+            $this->db->bind(':userid',$userid);
+
+            $results = json_encode($this->db->getAllRes());
+
+            return $results;
+
+        }
+
+        public function getInformationForDashboardNotification($userid){
+
+            $this->db->query('SELECT requests.requested_on,requests.statusPP,student.studentID,appointments.appointmentStatus,appointments.appointmentDate, appointments.appointmentTime, appointments.cancellationReason, users.fullname FROM student 
+            INNER JOIN users ON users.userID = student.studentID 
+            LEFT JOIN (
+              SELECT requests.studentID, MAX(requested_on) AS latest_request
+              FROM requests
+              WHERE requests.statusPP = 0 AND requests.counsellorID = :userid
+              GROUP BY requests.studentID
+            ) latest_request ON student.studentID = latest_request.studentID
+            LEFT JOIN requests ON requests.studentID = student.studentID AND requests.requested_on = latest_request.latest_request
+            LEFT JOIN (
+              SELECT appointments.studentID, MAX(appointmentDate) AS latest_appointment_date, MAX(appointmentTime) AS latest_appointment_time
+              FROM appointments
+              WHERE appointments.appointmentStatus = 2 AND appointments.counsellorID = :userid
+              GROUP BY appointments.studentID
+            ) latest_appointment ON student.studentID = latest_appointment.studentID
+            LEFT JOIN appointments ON appointments.studentID = student.studentID AND appointments.appointmentDate = latest_appointment.latest_appointment_date AND appointments.appointmentTime = latest_appointment.latest_appointment_time
+            WHERE latest_request.latest_request IS NOT NULL OR latest_appointment.latest_appointment_date IS NOT NULL LIMIT 5;');
+            $this->db->bind(':userid',$userid);
+
+            $results = json_encode($this->db->getAllRes());
+
+            return $results;
+
+        }
+
 
 
 

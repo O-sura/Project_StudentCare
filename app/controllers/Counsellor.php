@@ -17,6 +17,7 @@
             $this->postModel = $this->loadModel('Counselor');
             $userid = Session::get('userID');
 
+            //get the time zone
             date_default_timezone_set('Asia/Kolkata');
 
             $curdate = date('Y-m-d');
@@ -24,10 +25,12 @@
 
             $row = $this->postModel->getAppointmentTimes($userid,$curdate);
             $rowNext = $this->postModel->nextAppointmentDetails($userid,$curdate,$currtime);
-            
+            $recentNoti = json_decode($this->postModel->getInformationForDashboardNotification($userid));
 
             $getApp = json_decode($row,true);
             $getNextApp = json_decode($rowNext,true);
+
+            
 
             // print_r($getNextApp);
             // exit;
@@ -37,8 +40,12 @@
 
             $data = [
                 'row'=> $getApp,
-                'rowNext' => $getNextApp
+                'rowNext' => $getNextApp,
+                'recentNoti' => $recentNoti,
             ];
+
+            // print_r($recentNoti);
+            // exit;
 
             // print_r ($data[0]['appointmentTime']);
             // exit;
@@ -386,9 +393,54 @@
             $this->postModel = $this->loadModel('Counselor');
             $userid = Session::get('userID');
 
+            // $res1 = $this->postModel->newRequestStudents($userid);
+
+            // $res2 = $this->postModel->notiCancelReq($userid);
+
+            // $res3 = $this->postModel->notiCancelApp($userid);
+
+            $res = json_decode($this->postModel->getInformationForNotification($userid));
+            $rowcount = count($res);
+            // print_r ($res);
+            // exit;
+
             $data = [
+                // 'row1' => $res1,
+                // 'row2' => $res2,
+                // 'row3' => $res3
+                'row' => $res,
+                'rowcount' =>  $rowcount
+                // 'newReqCount' => "",
+                // 'canAppCount' => ""
                 
             ];
+
+            //to categorize the notifications
+            // $count1 = 0;
+            // $count2 = 0;
+            // foreach ($res as $item) {
+            //     if ($item->statusPP == 0 && $item->appointmentStatus == 0) {
+            //         $count1++;
+            //     }
+            //     elseif($item->appointmentStatus == 2) {
+            //         $count2++;
+            //     }
+            // }
+                    
+
+
+            // if( $count1 > 0){
+            //     $data['newReqCount'] = 'have';
+            // }
+
+            // if( $count2 > 0){
+            //     $data['canAppCount'] = 'have';
+            // }
+
+       
+            // print_r($data);
+            // echo $count1, $count2;
+            // exit();
 
             $this->loadView('Counselor/notification',$data);
         }
@@ -498,6 +550,7 @@
 
         }
 
+        //To accept or reject student's requests
         public function acceptRejectStudent($id){
 
             $this->postModel = $this->loadModel('Counselor');
@@ -511,13 +564,35 @@
                     $newStatus = 1;
 
                     $result = $this->postModel->updateStudentStatus($newStatus,$userid,$id);
+                    Counsellor::studentView();
                 }
                 else if(isset($_POST['decline'])){
                     $newStatus = 2;
 
                     $result = $this->postModel->updateStudentStatus($newStatus,$userid,$id);
+                    Counsellor::studentView();
                 }
 
+               
+            }
+        }
+
+        //To remove accepted student
+        public function removeStudent($id){
+
+            $this->postModel = $this->loadModel('Counselor');
+            $userid = Session::get('userID');
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+              
+
+                if(isset($_POST['remove'])){
+
+                    $newStatus = 2;
+
+                    $result = $this->postModel->updateStudentStatus($newStatus,$userid,$id);
+                    Counsellor::studentView();
+                }
                
             }
         }

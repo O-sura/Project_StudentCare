@@ -37,7 +37,7 @@ h3{
 
 .noti{
     width: 90%;
-    height: 20%;
+    max-height: fit-content;
     background-color: white;
     margin-top: 4%;
     margin-left: 5%;
@@ -56,7 +56,7 @@ h3{
 .intro{
 
   width: 1.5%;
-  height: 90%;
+  max-height: fit-content;
   margin: .5% 1%;
   border-radius: 5px;
   background-color: #abb1c9;
@@ -89,6 +89,11 @@ h3{
 
 .para{
   font-size: 17px;
+  display: flex;
+}
+
+.paraX{
+  font-weight: 500;
 }
 
 .desc{
@@ -105,6 +110,27 @@ h3{
   margin-bottom: 1%;
   font-size: small;
   color: #ccc;
+}
+
+
+  .noNoti{
+    width: 90%;
+    height: 70px;
+    font-size: 20px;
+    font-weight: 500;
+    border-radius:15px ;
+    background-color: white;
+    border: 1px solid;
+    padding: 0.5% 0.5%;
+    text-align: center;
+    margin: 4% 2%;
+    align-content: center;
+    display: flex;
+}
+
+.noNotiState{
+  margin-left: 35%;
+  margin-top: 1%;
 }
 
 .btns{
@@ -144,6 +170,33 @@ h3{
     background-color: red ;
     opacity: 0.8;
     transition-duration: 0.6s;
+}
+
+
+
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #fffdfd; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #1A285A; 
+  border-radius: 10px;
+  width: 8px;
+  height: 8px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #1A285A; 
 }
 
 
