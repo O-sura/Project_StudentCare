@@ -499,6 +499,7 @@ class Facility_Provider extends Controller{
         $this->loadView('facility_provider/viewOne',$data);
     }
 
+
     public function message(){
         $message = $this->ListingModel->message();
 
@@ -508,6 +509,7 @@ class Facility_Provider extends Controller{
         
         $this->loadView('facility_provider/message',$data);
     }
+
 
     //take data to generate reports
     public function report(){
@@ -519,6 +521,7 @@ class Facility_Provider extends Controller{
         
         $this->loadView('facility_provider/report',$data);
     }
+
 
     public function editItem($id){
 
@@ -733,6 +736,7 @@ class Facility_Provider extends Controller{
         }
     }
 
+
     public function deleteItem($id){
     
         //get existing post from model
@@ -752,6 +756,7 @@ class Facility_Provider extends Controller{
         }
     }
 
+
     public function propertysearch(){
         header("Access-Control-Allow-Origin: *");
         if(isset($_GET['query'])){
@@ -766,6 +771,7 @@ class Facility_Provider extends Controller{
         }
     }
 
+
     //university filter
     public function university_filter(){
         if (isset($_GET['filter'])) {
@@ -775,6 +781,7 @@ class Facility_Provider extends Controller{
         }
     }
 
+    
     //search filter
     public function search_listing(){
         if (isset($_GET['query'])) {
