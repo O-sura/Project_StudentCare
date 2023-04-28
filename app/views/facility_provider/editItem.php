@@ -52,12 +52,22 @@
 
                     <div class="sub22">
                         <p>Universities/Institutions Nearby:</p>
-
                         <?php foreach($data['unilist'] as $uni) : ?>
-                            <input class="uniName" name="uniName[]" id="uniName_0" type="text" value=<?php echo $uni ?>>
+                            <div class="university-adder">
+                                <div class = "university-field">
+                                    <select name="uniName[]" class="select" id="universityFilter_0" value=<?php echo $uni ?>>
+                                        <option value="University of Ruhuna">University of Ruhuna</option>
+                                        <option value="University of Colombo">University of Colombo</option>
+                                        <option value="University of Kelaniya">University of Kelaniya</option>
+                                        <option value="University of Peradeniya">University of Peradeniya</option>
+                                        <option value="University of Moratuwa">University of Moratuwa</option>
+                                        <option value="SLIIT">SLIIT</option>
+                                    </select>
+                                    <input class="uniName" name="uniDistance[]" id="uniName_0" value=<?php echo $uni ?> type="number" min="1" max="10"><p>Km</p>
+                                </div>
+                            </div>
                         <?php endforeach; ?>
-                        
-                        <div id="another"></div>
+
                         <button type="button" class="addAnother" onclick="addAnother()">+ Add Another</button>
                     </div>
                 </div>

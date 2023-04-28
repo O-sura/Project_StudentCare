@@ -60,10 +60,26 @@
             $this->db->bind(':rental', $data['rental']);
             $this->db->bind(':location', $data['location']);
             $this->db->bind(':address', $data['address']);
-            $this->db->bind(':uniName', $data['uniName']);
+            //$this->db->bind(':uniName', $data['uniName']);
             $this->db->bind(':image_urls', $data['image_urls']);
             $this->db->bind(':special_note', $data['special_note']);
             $this->db->bind(':category', $data['category']);
+
+            if($this->db->execute()){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
+        public function editUniDistance($data){
+            //$listing_id = substr(sha1(date(DATE_ATOM)), 0, 8);
+            $this->db->query('UPDATE uni_distance_listing SET uni_name = :uniName, distance = :uniDistance)');
+            
+            $this->db->bind(':listingID', $data['uniID']);
+            $this->db->bind(':uniName', $data['uniName']);
+            $this->db->bind(':distance', $data['uniDistance']);
 
             if($this->db->execute()){
                 return true;
@@ -187,7 +203,6 @@
             return json_encode($result);
         }
 
-
         public function report(){
             $this->db->query('SELECT * FROM listing'); 
             
@@ -217,6 +232,14 @@
             }
         }
 
+        public function getItemById($id){
+            $this->db->query('SELECT * FROM listing WHERE listing_id=:id');
+            $this->db->bind(':id',$id);
+            
+            $row = $this->db->getRes();
+            return $row;
+        }
+
         public function university_filter($uni){
             $this->db->query("SELECT * FROM listing WHERE listing.category='Property'");
             $this->db->bind(':uni', $uni);
@@ -226,12 +249,10 @@
         }
 
         public function getDistances(){
-        $this->db->query("SELECT * FROM uni_distance_listing");
-        $result = $this->db->getAllRes();
-        return $result;
-    }
-
-
+            $this->db->query("SELECT * FROM uni_distance_listing");
+            $result = $this->db->getAllRes();
+            return $result;
+        }
 
     }
 

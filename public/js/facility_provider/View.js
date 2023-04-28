@@ -38,14 +38,14 @@ let searchBar = document.getElementById('searchbar');
 searchBar.addEventListener('input', () => {
     // Send an AJAX request to the server with the search query
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://localhost/StudentCare/facility_provider/propertysearch/?query=" + searchBar.value, true);
-    
+    xhr.open("GET", "http://localhost/StudentCare/Facility_Provider/propertysearch/?query=" + searchBar.value, true);
+    console.log(xhr);
     xhr.onload = () => {
         if (xhr.status === 200) {
             //Parse the JSON response from the server
             var searchRes = JSON.parse(xhr.responseText);
             //console.log(searchRes)
-            //console.log(xhr.responseText)
+            console.log(xhr.responseText)
             // Update the contents of the page to display the search results
             clearlistings();
             var resultList = document.getElementById("search-results");
@@ -54,7 +54,7 @@ searchBar.addEventListener('input', () => {
             
             for (var i = 0; i < searchRes.length; i++) {
                 let result = searchRes[i];
-                let item = new propertyitem(result.topic,result.uniName,result.rental);
+                let item = new propertyitem(result.id,result.images,result.topic,result.uni,result.distance,result.rental,result.location);
                 itemList += item.createItem();
             }
             //console.log(propertyitem);

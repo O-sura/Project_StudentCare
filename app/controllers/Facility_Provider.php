@@ -22,16 +22,16 @@ class Facility_Provider extends Controller{
     }
 
 
-    public function myListing(){
-        $myview = $this->ListingModel->myListing();
+    // public function myListing(){
+    //     $myview = $this->ListingModel->myListing();
 
-        $data =[
-            'myview' => $myview
-        ]; 
+    //     $data =[
+    //         'myview' => $myview
+    //     ]; 
         
-        $this->loadView('facility_provider/myListing',$data);
-        //$this->loadView('test',$data);
-    }
+    //     $this->loadView('facility_provider/myListing',$data);
+    //     //$this->loadView('test',$data);
+    // }
 
 
     public function profile(){
@@ -523,7 +523,7 @@ class Facility_Provider extends Controller{
         if (isset($_POST['submit'])) {
 
             //Start the session
-            Session::init();
+            //Session::init();
 
             //Check and validate the data
             //Set errors if something is wrong
@@ -533,13 +533,19 @@ class Facility_Provider extends Controller{
             $location = $_POST['location'];
             $address = $_POST['address'];
             $uniName = $_POST['uniName'];
+            $uniDistance = $_POST['uniDistance'];
             $images = $_FILES['images'];
             $special_note = $_POST['special_note'];
             $category = $_POST['category'];
 
             $uniList = [];
+            $uniDistanceList = [];
             foreach ($uniName as $uni){
                 array_push($uniList, trim($uni));
+            }
+
+            foreach ($uniDistance as $distance){
+                array_push($uniDistanceList, trim($distance));
             }
 
             $data = [
@@ -565,13 +571,14 @@ class Facility_Provider extends Controller{
             ];
 
             //Check whether all the fields are filled properly
-            if(!$_POST['topic'] && !$_POST['description'] && !$_POST['rental'] && !$_POST['location'] && !$_POST['address'] && !$_POST['uniName'] && !$_POST['images'] && !$_POST['special_note'] && !$_POST['category']){
+            if(!$_POST['topic'] && !$_POST['description'] && !$_POST['rental'] && !$_POST['location'] && !$_POST['address'] && !$_POST['uniName'] && !$_POST ['uniDistance'] && !$_POST['images'] && !$_POST['special_note'] && !$_POST['category']){
                 $data['topic_err'] =  "*This field is Required";
                 $data['description_err'] = "*This field is Required";
                 $data['rental_err'] = "*This field is Required";
                 $data['location_err'] = "*This field is Required";
                 $data['address_err'] = "*This field is Required";
                 $data['uniName_err'] = "*This field is Required";
+                $data['uniDistance_err'] = "*This field is Required";
                 $data['images_err'] = "*This field is Required";
                 $data['special_note_err'] = "*This field is Required";
                 $data['category_err'] = "*You should choose a category";
@@ -629,7 +636,7 @@ class Facility_Provider extends Controller{
             $image_urls = json_encode($image_urls);
      
             $uniName = json_encode($uniName);
-            
+            $listing_id = substr(sha1(date(DATE_ATOM)), 0, 8);
             $validatedData = [
                 'id' => $_POST['id'],
                 'fpID' => Session::get('userID'),
@@ -638,7 +645,7 @@ class Facility_Provider extends Controller{
                 'rental' => $data['rental'],
                 'location' => $data['location'],
                 'address' => $data['address'],
-                'uniName' => $uniName,
+                //'uniName' => $uniName,
                 'image_urls' => $image_urls,
                 'special_note' => $data['special_note'],
                 'category' => $data['category']
@@ -646,10 +653,31 @@ class Facility_Provider extends Controller{
 
             //Make sure there are no error flags are set
             if(empty($data['topic_err']) && empty($data['description_err']) && empty($data['rental_err']) && empty($data['location_err']) && empty($data['address_err']) 
-                && empty($data['uniName_err']) && empty($data['images_err']) && empty($data['special_note_err']) && empty($data['category_err']) ){
+                && empty($data['uniName_err']) && empty($data['images_err']) && empty($data['special_note_err']) && empty($data['category_err']) && empty($data['uniDistance_err'])){
+                
+                $num = count($uniList);
 
-                if($this->ListingModel->editItem($validatedData)){
-                    Middleware::redirect('./facility_provider/editItem');
+                if($this->ListingModel->editItem($validatedData)){ //edit basic listing details to the database
+                    $is_successful = false;
+
+                    for($i=0; $i<$num; $i++){  //add university details to the database
+                        $name = $uniList[$i];
+                        $distance = $uniDistanceList[$i];
+                        $uniData['uniID'] = $listing_id;
+                        $uniData['uniName'] = $name;
+                        $uniData['uniDistance'] = $distance;
+                        if($this->ListingModel->addUniDistance($uniData)){
+                            $is_successful = true;
+                        }else{
+                            $is_successful = false;
+                        }
+                    }
+                    if($is_successful){
+                        //redirect to the listing page
+                        Middleware::redirect('./facility_provider/editItem');
+                    }else{
+                        die("Something went wrong");
+                    }
                 }
             }else{
                 //load the same page with erros
@@ -662,6 +690,8 @@ class Facility_Provider extends Controller{
             
             $uniList = $editlist->uniName;  //assigns the value of $editlist->uniName to the variable $uniList
             $uniList = str_replace(array("[", "]"), "", $uniList);  //remove the square brackets from the string and converting it to a comma-separated list 
+            $uniDistanceList = $editlist->uniDistance;
+            $uniDistanceList = str_replace(array("[", "]"), "", $uniDistanceList);
             $array = explode(",", $uniList);  //split the comma-separated list into an array
 
             $imageList = $editlist->image;
@@ -702,9 +732,9 @@ class Facility_Provider extends Controller{
     }
 
     public function deleteItem($id){
-        
+    
         //get existing post from model
-        $item = $this->ListingModel->deleteItem($id);
+        $item = $this->ListingModel->getItemById($id);
 
         //check for owner
         if($item->listing_id != $_SESSION['userID']){
@@ -743,9 +773,8 @@ class Facility_Provider extends Controller{
         }
     }
 
-//search filter
-    public function search_listing()
-    {
+    //search filter
+    public function search_listing(){
         if (isset($_GET['query'])) {
             //Check whether the search query is empty or not
             if (empty($_GET['query'])) {

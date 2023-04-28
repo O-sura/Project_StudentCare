@@ -55,11 +55,12 @@
                         <div class="university-adder">
                             <div class = "university-field">
                                 <select name="uniName[]" class="select" id="universityFilter_0">
+                                    <option value="University of Ruhuna">University of Ruhuna</option>
                                     <option value="University of Colombo">University of Colombo</option>
                                     <option value="University of Kelaniya">University of Kelaniya</option>
                                     <option value="University of Peradeniya">University of Peradeniya</option>
                                     <option value="University of Moratuwa">University of Moratuwa</option>
-                                    <option value="University of Moratuwa">SLIIT</option>
+                                    <option value="SLIIT">SLIIT</option>
                                 </select>
                                 <input class="uniName" name="uniDistance[]" id="uniName_0" type="number" min="1" max="10"><p>Km</p>
                             </div>
