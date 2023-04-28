@@ -491,7 +491,9 @@ class Facility_Provider extends Controller{
 
         $data =[
             'viewone' => $viewone,
-            'universities' => $this->ListingModel->getDistances()
+            'universities' => $this->ListingModel->getDistance($id),
+            'facilityProviderDetails'=>$this->ListingModel->getFacilityProviderDetails($id),
+            'comments' => $this->ListingModel->getComments($id)
         ]; 
         
         $this->loadView('facility_provider/viewOne',$data);

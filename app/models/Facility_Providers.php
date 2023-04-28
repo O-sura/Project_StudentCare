@@ -187,6 +187,14 @@
             return $result;
         }
 
+        public function getDistance($id){
+            $this->db->query("SELECT * FROM uni_distance_listing WHERE listing_id = :id");
+            $this->db->bind(':id', $id);
+            $result = $this->db->getAllRes();
+            return $result;
+        }
+    
+
         public function getlisting(){
             $this->db->query('SELECT * FROM listing ORDER BY added_date DESC');
 
