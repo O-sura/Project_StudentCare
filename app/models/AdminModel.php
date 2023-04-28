@@ -148,6 +148,118 @@ class AdminModel{
         }
         
     }
+
+    public function updateFpDetails($data,$user_id){
+        $this->db->query('UPDATE users SET username = :Cusername, fullname = :Cname, email = :Cemail, home_address = :Caddress, contact_no = :contact, nic = :nic WHERE  userID = :userid;');
+
+        $this->db->bind(':userid', $user_id);
+        $this->db->bind(':Cusername', $data['username']);
+        $this->db->bind(':Cemail', $data['email']);
+        $this->db->bind(':Cname', $data['name']);
+        $this->db->bind(':Caddress', $data['address']);
+        $this->db->bind(':contact', $data['contact']);
+        $this->db->bind(':nic', $data['nic']);
+
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+        
+    }
+
+    public function totalUserCount(){
+        $this->db->query("SELECT COUNT(*) as count from users");
+        $res = $this->db->getAllRes();
+        return $res;
+    }
+
+    public function totalStudentCount(){
+        $this->db->query("SELECT COUNT(*) as count from users WHERE user_role = \"student\" ");
+        $res = $this->db->getAllRes();
+        return $res;
+    }
+
+    public function newCounselorReq(){
+        $this->db->query("SELECT COUNT(*) as count from counsellor WHERE admin_verified = 0 ");
+        $res = $this->db->getAllRes();
+        return $res;
+    }
+
+     public function newRegUsers(){
+        $this->db->query("SELECT DAYNAME(registeredAt) AS reg_date, COUNT(*) AS count FROM users WHERE registeredAt BETWEEN DATE_SUB(NOW(), INTERVAL 10 DAY) AND NOW() GROUP BY DATE(registeredAt);");
+        $res = $this->db->getAllRes();
+        return json_encode($res);
+    }
+
+     public function userCountByRole(){
+        $this->db->query("SELECT user_role, COUNT(*) as count from users WHERE user_role != \"admin\" GROUP BY user_role;");
+        $res = $this->db->getAllRes();
+        return json_encode($res);
+    }
+
+    public function postCount(){
+        $this->db->query("SELECT COUNT(*) as count from posts;");
+        $res = $this->db->getAllRes();
+        return $res;
+    }
+
+    public function authorCount(){
+        $this->db->query("SELECT DISTINCT author FROM posts");
+        $res1 = $this->db->getAllRes();
+
+        $this->db->query("SELECT DISTINCT author FROM comments");
+        $res2 = $this->db->getAllRes();
+
+        
+        
+        if($res1 && $res2){
+            //merging two arrays together and finding only the unique author who have made either a comment or a post
+            $mergedAuthors = array_merge($res1,$res2);
+            $uniqueAuthors = array_unique(array_column($mergedAuthors, 'author'));
+            $total_engaged =  count($uniqueAuthors);
+            $total_students = $this->totalStudentCount()[0]->count;
+            $engaged_percent = ($total_engaged/$total_students)*100;
+            return $engaged_percent;
+        }
+    }
+
+    public function getCommunityPostData(){
+        $this->db->query("SELECT DAYNAME(posted_at) AS posted_date, COUNT(*) AS count FROM posts WHERE posted_at BETWEEN DATE_SUB(NOW(), INTERVAL 7 DAY) AND NOW() GROUP BY DATE(posted_at);");
+        $res = $this->db->getAllRes();
+        return json_encode($res);
+    }
+
+    public function getCommunityCommentData(){
+        $this->db->query("SELECT DAYNAME(added_date) AS posted_date, COUNT(*) AS count FROM comments WHERE added_date BETWEEN DATE_SUB(NOW(), INTERVAL 7 DAY) AND NOW() GROUP BY DATE(added_date);");
+        $res = $this->db->getAllRes();        
+        return json_encode($res);
+    }
+
+    public function getTopPosts(){
+        $this->db->query("SELECT posts.post_id, posts.post_title, posts.author, COUNT(comments.comment_id) AS comment_count, MAX(posts.votes) AS max_votes FROM posts LEFT JOIN comments ON posts.post_id = comments.post_id GROUP BY posts.post_id ORDER BY max_votes DESC LIMIT 5;");
+        $res = $this->db->getAllRes();
+        return $res;
+    }
+
+    public function listingCount(){
+        $this->db->query("SELECT COUNT(*) as count, AVG(rating) as avg_rating from listing;");
+        $res = $this->db->getAllRes();
+        return $res;
+    }
+
+    public function getListingData(){
+        $this->db->query("SELECT DAY(added_date) AS added_date, COUNT(*) AS count FROM listing WHERE added_date BETWEEN DATE_SUB(NOW(), INTERVAL 7 DAY) AND NOW() GROUP BY DATE(added_date);");
+        $res = $this->db->getAllRes();
+        return json_encode($res);
+    }
+
+    public function getTopListings(){
+        $this->db->query("SELECT listing.listing_id, listing.topic, listing.category, COUNT(listing_feedback.review_id) AS review_count, MAX(listing.rating) AS rating FROM listing LEFT JOIN listing_feedback ON listing.listing_id = listing_feedback.listing_id GROUP BY listing.listing_id ORDER BY rating DESC LIMIT 5;");
+        $res = $this->db->getAllRes();
+        return $res;
+    }
+    
     
 }
 

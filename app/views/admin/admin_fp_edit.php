@@ -22,7 +22,7 @@
             ?>
             <img src="<?php echo URLROOT . "/public/img/student/" . $image; ?>" class="profile-pic">
         </div>
-        <form method="post" action=<?php echo URLROOT . "/admin/update_counselor/" . $data['userID']?>>
+        <form method="post" action=<?php echo URLROOT . "/admin/update_fp/" . $data['userID']?>>
              <?php 
                 if($data['name_err'])
                     echo '<div class="form-field" data-error=" ' . $data['name_err'] . '">';
@@ -67,15 +67,6 @@
             ?>
                 <label for="field1">NIC:</label>
                 <input type="text" id="field1" name="nic" value="<?php echo $data["nic"] ?>">
-            </div>
-            <?php 
-                if($data['dob_err'])
-                    echo '<div class="form-field" data-error=" ' . $data['dob_err'] . '">';
-                else
-                    echo '<div class="form-field">';
-            ?>
-                <label for="field1">DOB:</label>
-                <input type="text" id="field1" name="dob" value="<?php echo $data["dob"] ?>">
             </div>
             <?php 
                 if($data['email_err'])

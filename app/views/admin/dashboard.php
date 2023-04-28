@@ -22,11 +22,11 @@
             <div class="user-stat">
                 <div class="row-1">
                     <div class="card">
-                        <span>1221</span>
+                        <span><?php echo $data['total_users']?></span>
                         <h2 class="card-text">Total Users</h2>
                     </div>
                     <div class="card">
-                        <span>04</span>
+                        <span><?php echo $data['counselor_req']?></span>
                         <h2 class="card-text">Counselor Requests</h2>
                     </div>
                 </div>
@@ -48,11 +48,11 @@
                 <h1>Community Overview</h1><br><br>
                 <div class="card">
                     <h2 class="card-text">New Posts</h2>
-                    <span>18</span>
+                    <span><?php echo $data['new_posts']?></span>
                 </div>
                 <div class="card">
-                    <h2 class="card-text">New Comments</h2>
-                    <span>10</span>
+                    <h2 class="card-text">Engagement</h2>
+                    <span><?php echo $data['engagement']?>%</span>
                 </div>
             </div>
             <div class="chart-div">
@@ -69,30 +69,17 @@
                         <th>Comments</th>
                         <th>Author</th>
                     </tr>
-                    <tr>
-                        <td>21</td>
-                        <td>Why Mental health is important</td>
-                        <td>12</td>
-                        <td>OsuraV</td>
-                    </tr>
-                    <tr>
-                        <td>20</td>
-                        <td>Why Free Education?</td>
-                        <td>10</td>
-                        <td>Praveen</td>
-                    </tr>
-                    <tr>
-                        <td>18</td>
-                        <td>Best Courses to Follow</td>
-                        <td>10</td>
-                        <td>KaviN</td>
-                    </tr>
-                    <tr>
-                        <td>11</td>
-                        <td>20 Ace your Assignments</td>
-                        <td>7</td>
-                        <td>OsuraV</td>
-                    </tr>
+                   
+                    <?php foreach ($data['top_posts'] as $post): ?>
+                       <?php echo ' 
+                                <tr>
+                                    <td>'. $post->max_votes .'</td>
+                                    <td>'. $post->post_title .'</td>
+                                    <td>'. $post->comment_count .'</td>
+                                    <td>'. $post->author .'</td>
+                                    </tr>';
+                        ?>      
+                    <?php endforeach ?>
             </table>
         </div>
         <div class="stat-and-chart">
@@ -100,11 +87,11 @@
                 <h1>Listings Overview</h1><br><br>
                 <div class="card">
                     <h2 class="card-text">Total Listings</h2>
-                    <span>18</span>
+                    <span><?php echo $data['total_listings']?></span>
                 </div>
                 <div class="card">
                     <h2 class="card-text">Average Rating</h2>
-                    <span>3.3</span>
+                    <span><?php echo $data['average_rating']?></span>
                 </div>
             </div>
             <div class="chart-div">
@@ -121,30 +108,17 @@
                         <th>Category</th>
                         <th>Reviews</th>
                     </tr>
-                    <tr>
-                        <td>5.0</td>
-                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit</td>
-                        <td>12</td>
-                        <td>OsuraV</td>
-                    </tr>
-                    <tr>
-                        <td>4.8</td>
-                        <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</td>
-                        <td>10</td>
-                        <td>Praveen</td>
-                    </tr>
-                    <tr>
-                        <td>4.5</td>
-                        <td>Lorem ipsum dolor sit amet.</td>
-                        <td>10</td>
-                        <td>KaviN</td>
-                    </tr>
-                    <tr>
-                        <td>4.2</td>
-                        <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aperiam, laboriosam.</td>
-                        <td>7</td>
-                        <td>OsuraV</td>
-                    </tr>
+                    
+                    <?php foreach ($data['top_listings'] as $listing): ?>
+                       <?php echo ' 
+                                <tr>
+                                    <td>'. $listing->rating .'</td>
+                                    <td>'. $listing->topic .'</td>
+                                    <td>'. $listing->category .'</td>
+                                    <td>'. $listing->review_count .'</td>
+                                    </tr>';
+                        ?>      
+                    <?php endforeach ?>
             </table>
         </div>
     </div>

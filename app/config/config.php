@@ -11,4 +11,4 @@ define('APPPATH', 'C:/Xampp/htdocs/StudentCare/app');
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
 define('DB_PASSWD', '');
-define('DB_NAME', 'studentcare');
+define('DB_NAME', 'final');
