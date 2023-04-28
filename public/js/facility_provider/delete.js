@@ -23,7 +23,7 @@ const deleteConfirmBtn = document.querySelector('#delete-button');
 if(deleteConfirmBtn){
     //make the request to the backend to delete the listing
     deleteConfirmBtn.addEventListener('click', () => {
-        const url = 'http://localhost/StudentCare/facility_provider/delete'; 
+        const url = 'http://localhost/StudentCare/Facility_Provider/deleteItem'; 
         const options = {
             method: 'DELETE',
             headers: {

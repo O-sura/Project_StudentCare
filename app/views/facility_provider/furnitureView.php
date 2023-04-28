@@ -90,7 +90,7 @@
                                     <?php if ($university->listing_id == $view->listing_id) : ?>
                                         <?php echo $university->distance ?> km from <?php echo $university->uni_name; ?> <br>
                                     <?php endif; ?>
-                                    <?php endforeach; ?>/p>
+                                    <?php endforeach; ?>
                             <p class="price"><span>Rs. </span><?php echo $view->rental; ?>/Month</p>
                         </div>
                     </div>

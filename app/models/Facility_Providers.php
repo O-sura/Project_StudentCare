@@ -33,6 +33,7 @@
             }
         }
 
+
         public function addUniDistance($data){
             //$listing_id = substr(sha1(date(DATE_ATOM)), 0, 8);
             $this->db->query('INSERT INTO uni_distance_listing(listing_id, uni_name, distance) VALUES (:listingID, :uniName, :distance)');
@@ -60,10 +61,27 @@
             $this->db->bind(':rental', $data['rental']);
             $this->db->bind(':location', $data['location']);
             $this->db->bind(':address', $data['address']);
-            $this->db->bind(':uniName', $data['uniName']);
+            //$this->db->bind(':uniName', $data['uniName']);
             $this->db->bind(':image_urls', $data['image_urls']);
             $this->db->bind(':special_note', $data['special_note']);
             $this->db->bind(':category', $data['category']);
+
+            if($this->db->execute()){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
+
+        public function editUniDistance($data){
+            //$listing_id = substr(sha1(date(DATE_ATOM)), 0, 8);
+            $this->db->query('UPDATE uni_distance_listing SET uni_name = :uniName, distance = :uniDistance)');
+            
+            $this->db->bind(':listingID', $data['uniID']);
+            $this->db->bind(':uniName', $data['uniName']);
+            $this->db->bind(':distance', $data['uniDistance']);
 
             if($this->db->execute()){
                 return true;
@@ -93,6 +111,7 @@
             return $result;
         }
 
+
         public function getUserByUsername($username){
             $this->db->query('SELECT * from users WHERE username = :username'); 
             $this->db->bind(':username', $username);
@@ -101,12 +120,14 @@
             return $result;
         }
 
+
         public function editprofile($user_id){
             $this->db->query('SELECT users.*,facility_provider.* FROM users INNER JOIN facility_provider ON users.userID = facility_provider.fpID WHERE users.userID = :user_id');
             $this->db->bind('user_id',$user_id);
             $results = $this->db->getRes();
             return $results; 
         }
+
 
         public function updateProfileDetails($data,$user_id){
             $this->db->query('UPDATE users SET username = :FPusername, fullname = :FPname, email = :FPemail, home_address = :FPaddress, contact_no = :contact WHERE  userID = :userid;');
@@ -132,6 +153,7 @@
                 return false;
             }
         }
+
 
         public function propertyView(){
             $category = 'Property';
@@ -171,6 +193,7 @@
             return $result;
         }
 
+
         public function getDistance($id){
             $this->db->query("SELECT * FROM uni_distance_listing WHERE listing_id = :id");
             $this->db->bind(':id', $id);
@@ -179,6 +202,30 @@
         }
     
 
+        public function getFacilityProviderDetails($id){
+            $this->db->query("SELECT facility_provider.*,users.* FROM 
+            facility_provider 
+            INNER JOIN users ON facility_provider.userID = users.userID
+            INNER JOIN listing ON facility_provider.fpID = listing.fpID
+            WHERE listing.listing_id=:id");
+            $this->db->bind(':id', $id);
+            $result = $this->db->getRes();
+            return $result;
+        }
+
+
+        public function getComments($id){
+            $this->db->query("SELECT listing_feedback.*,users.username,student.profile_img
+            FROM listing_feedback
+            INNER JOIN users ON listing_feedback.student_id = users.userID
+            INNER JOIN student ON users.userID = student.studentID 
+            WHERE listing_feedback.listing_id=:id ORDER BY listing_feedback.date_added DESC");
+            $this->db->bind(':id', $id);
+            $result = $this->db->getAllRes();
+            return $result;
+        }
+
+
         public function getlisting(){
             $this->db->query('SELECT * FROM listing ORDER BY added_date DESC');
 
@@ -186,6 +233,7 @@
 
             return $results; 
         }
+
 
         public function propertysearch($keyword){
 
@@ -203,12 +251,14 @@
             return $result;
         }
 
+
         public function message(){
             $this->db->query('SELECT * FROM listing'); 
             
             $result = $this->db->getAllRes();
             return $result;
         }
+
 
         public function deleteItem($id){
             $this->db->query('DELETE FROM listing WHERE listing_id=:id');
@@ -225,6 +275,16 @@
             }
         }
 
+
+        public function getItemById($id){
+            $this->db->query('SELECT * FROM listing WHERE listing_id=:id');
+            $this->db->bind(':id',$id);
+            
+            $row = $this->db->getRes();
+            return $row;
+        }
+
+
         public function university_filter($uni){
             $this->db->query("SELECT * FROM listing WHERE listing.category='Property'");
             $this->db->bind(':uni', $uni);
@@ -233,35 +293,12 @@
             return $result;
         }
 
+        
         public function getDistances(){
             $this->db->query("SELECT * FROM uni_distance_listing");
             $result = $this->db->getAllRes();
             return $result;
         }
-
-        public function getFacilityProviderDetails($id){
-            $this->db->query("SELECT facility_provider.*,users.* FROM 
-            facility_provider 
-            INNER JOIN users ON facility_provider.userID = users.userID
-            INNER JOIN listing ON facility_provider.fpID = listing.fpID
-            WHERE listing.listing_id=:id");
-            $this->db->bind(':id', $id);
-            $result = $this->db->getRes();
-            return $result;
-        }
-
-        public function getComments($id){
-            $this->db->query("SELECT listing_feedback.*,users.username,student.profile_img
-            FROM listing_feedback
-            INNER JOIN users ON listing_feedback.student_id = users.userID
-            INNER JOIN student ON users.userID = student.studentID 
-            WHERE listing_feedback.listing_id=:id ORDER BY listing_feedback.date_added DESC");
-            $this->db->bind(':id', $id);
-            $result = $this->db->getAllRes();
-            return $result;
-        }
-
-
 
     }
 
