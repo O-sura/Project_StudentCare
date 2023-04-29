@@ -1,32 +1,22 @@
 import {propertyitem} from "./listing.js";
-//JS code for dropdown menu in community homepage
+//dropdown
 // Get the select element
-//const universityFilter = document.getElementById('universityFilter');
-//Clear all the posts currently showing to the user
-/* function clearposts(){
-    let posts = document.querySelectorAll('.item');
-    if(posts != null){
-        posts.forEach((post) =>{
-            post.parentNode.removeChild(post);
-        })
-    }
-} */
+const locationFilter = document.getElementById('filterlocation');
+
 // Add onchange event listener to the select element
-// universityFilter.onchange = () => {
-//     // Get the selected option value
-//     const selectedOption = universityFilter.value;
+locationFilter.onchange = () => {
+     // Get the selected option value
+     const selectedOption = locationFilter.value;
     
-//     // Call the dropdownFilter function with the selected option value
-//     dropdownFilter(selectedOption);
-// };
-
-
-
+     // Call the dropdownFilter function with the selected option value
+     dropdownFilter(selectedOption);
+};
 
 
 //Search listings
+//Clear all the listings currently showing to the user
 function clearlistings(){
-    let listings = document.querySelectorAll('.parent'); //is line gets all the HTML elements with a class of "parent" and stores them in the listings variable
+    let listings = document.querySelectorAll('.item'); //is line gets all the HTML elements with a class of "item" and stores them in the listings variable
     if(listings != null){   //checks if the listings variable is not null. If there are no search results on the page, listings will be null.
         listings.forEach((view) =>{
             view.parentNode.removeChild(view);

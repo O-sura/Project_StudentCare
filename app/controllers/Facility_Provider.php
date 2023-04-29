@@ -748,7 +748,7 @@ class Facility_Provider extends Controller{
         }
 
         if($this->ListingModel->deleteItem($id)){
-            FlashMessage::flash('post_add_flash', "Item Successfully Deleted!", "success");
+            FlashMessage::flash('item_add_flash', "Item Successfully Deleted!", "success");
             Middleware::redirect('./facility_provider/myListing');
         }
         else{
@@ -771,19 +771,26 @@ class Facility_Provider extends Controller{
         }
     }
 
+    public function locationfilter(){
+        if(isset($_GET['filter'])){
+            $location = trim($_GET['filter']);
+            $res =  $this->ListingModel->getlocationfilter($location);
+            echo $res;
+        }
+    }
 
     //university filter
-    public function university_filter(){
+    /* public function university_filter(){
         if (isset($_GET['filter'])) {
             $uni = trim($_GET['filter']);
             $res =  json_encode($this->ListingModel->university_filter($uni));
             echo $res;
         }
-    }
+    } */
 
     
     //search filter
-    public function search_listing(){
+    /* public function search_listing(){
         if (isset($_GET['query'])) {
             //Check whether the search query is empty or not
             if (empty($_GET['query'])) {
@@ -795,7 +802,7 @@ class Facility_Provider extends Controller{
             }
             echo $res;
         }
-    }
+    } */
 
 }
 

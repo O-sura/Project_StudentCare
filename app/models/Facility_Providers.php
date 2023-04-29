@@ -234,16 +234,6 @@
             return $results; 
         }
 
-
-        public function propertysearch($keyword){
-
-            $this->db->query('SELECT * FROM listing WHERE listing.topic LIKE :keyword OR listing.uniName LIKE :keyword');
-            $this->db->bind(':keyword', $keyword);
-            $result = $this->db->getAllRes();
-            return json_encode($result);
-        }
-
-
         public function report(){
             $this->db->query('SELECT * FROM listing'); 
             
@@ -285,17 +275,32 @@
         }
 
 
-        public function university_filter($uni){
-            $this->db->query("SELECT * FROM listing WHERE listing.category='Property'");
+        /* public function university_filter($uni){
+            $this->db->query("SELECT * FROM uni_distance_listing");
             $this->db->bind(':uni', $uni);
 
             $result = $this->db->getAllRes();
             return $result;
-        }
-
+        } */
         
         public function getDistances(){
             $this->db->query("SELECT * FROM uni_distance_listing");
+            $result = $this->db->getAllRes();
+            return $result;
+        }
+
+        public function propertysearch($keyword){
+
+            $this->db->query('SELECT * FROM listing WHERE listing.topic LIKE :keyword OR listing.uniName LIKE :keyword');
+            $this->db->bind(':keyword', $keyword);
+            $result = $this->db->getAllRes();
+            return json_encode($result);
+        }
+
+
+        public function getlocationfilter($location){
+            $this->db->query("SELECT * FROM listing WHERE location = :location");
+            $this->db->bind(':location', $location);
             $result = $this->db->getAllRes();
             return $result;
         }

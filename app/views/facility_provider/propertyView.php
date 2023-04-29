@@ -40,9 +40,20 @@
             <hr>
 
             <div class="wrapper">
+                <!-- <div class="dropdown-menu">
+                    <div class="select-btn">
+                        <span class="Sbtn-text">All Announcements</span>
+                        <i class="fa-sharp fa-solid fa-chevron-down"></i>
+                    </div>
+                    <ul class="options">
+                        <li class="option">All Announcements</li> 
+                        <li class="option">Your Announcements</li> 
+                        
+                    </ul>
+                </div> -->
 
                 <div class="select-btn">
-                    <select class="filter" name="filterItem" id="filterItem">
+                    <select class="filter" name="filterItem" id="filterlocation">
                         <option value="" selected="selected">Location</option>
                         <option value="ampara">Ampara</option>
                         <option value="anuradhapura">Anuradhapura</option>
@@ -56,18 +67,7 @@
                         <option value="kalutara">Kalutara</option>
                     </select>
                 </div>
-                <!-- <div class="select-btn">
-                    <i class="fa-solid fa-location-dot fa-lg"></i>
-                    <select class="select" id="universityFilter">
-                        <option value="<?php echo $data['studentUni']->university ?>" selected><?php echo $data['studentUni']->university ?></option>
-                        <option value="University of Colombo">University of Colombo</option>
-                        <option value="University of Kelaniya">University of Kelaniya</option>
-                        <option value="University of Peradeniya">University of Peradeniya</option>
-                        <option value="University of Moratuwa">University of Moratuwa</option>
-                        <option value="University of Moratuwa">SLIIT</option>
-                    </select>
-                </div> -->
-
+            
                 <div class="select-btn">
                     <select class="filter" name="filterItem" id="filterItem">
                         <option value="" selected="selected">Type</option>
