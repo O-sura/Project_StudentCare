@@ -124,6 +124,15 @@
             <div class="row3">
                 <div class="appointments">
                     <!-- pending appointments -->
+                    <h2>Upcoming appointments</h2>
+
+                    <?php if (empty($data['appointments'])) {?>
+                        <div class="call-empty">
+                            <h3>No appointments yet</h3>
+                        </div>
+                    <?php } ?>
+
+
                     <?php foreach ($data['appointments'] as $appointment) :
                         $date = date('jS \of F', strtotime($appointment->appointmentDate));
                         $time = date('h:i A', strtotime($appointment->appointmentTime));
@@ -248,7 +257,13 @@
 
                     <?php endforeach; ?>
                     <!-- cancelled appointments -->
-                    <h3>Appointment cancellation requests</h3>
+                    <br><br><h2>Appointment cancellation requests</h2>
+
+                    <?php if (empty($data['cancelledAppointments'])) {?>
+                        <div class="call-empty">
+                            <h3>No cancellation requests</h3>
+                        </div>
+                    <?php } ?>
 
                     <?php foreach ($data['cancelledAppointments'] as $appointment) :
                         $date = date('jS \of F', strtotime($appointment->appointmentDate));
@@ -298,8 +313,8 @@
                                             </div>
                                         </button>
                                         <?php } else { ?>
-                                            <button class="btn2" id="uploadBtn">
-                                            <div class="btn-class">
+                                            <button class="btn3" id="uploadBtn">
+                                            <div class="btn-class2">
                                                 <div class="btnName">
                                                     Cancelled
                                                 </div>
