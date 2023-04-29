@@ -1,18 +1,40 @@
-//add more universities
-var counter = 1;
-var textbox = "";
-var another = document.getElementById("another");
-function addAnother(){
-    var div = document.createElement("div");
-    div.setAttribute("class", "sub22");
-    div.setAttribute("id","");
+function addAnother() {
+  // Get the container element
+  var container = document.querySelector('.university-adder');
 
-    var textbox = "<input class='uniName' name='uniName[]' id='uniName_"+counter+"' type='text'>";
+  // Get the number of existing university fields
+  var numFields = container.querySelectorAll('.university-field').length;
 
-    div.innerHTML = textbox;
-    another.appendChild(div);
-    counter++;
+  // Clone the first university field div
+  var newField = container.querySelector('.university-field').cloneNode(true);
+
+  // Increment the ids of the select and input fields
+  var select = newField.querySelector('.select');
+  select.id = 'universityFilter_' + numFields;
+
+  var input = newField.querySelector('.uniName');
+  input.id = 'uniName_' + numFields;
+
+  // Add a class to the new university field
+  newField.classList.add('added-field');
+
+  // Append the new university field to the container
+  container.appendChild(newField);
 }
+
+function remove() {
+  var addedFields = document.getElementsByClassName("added-field");
+  if (addedFields.length > 0) {
+    addedFields[addedFields.length - 1].remove();
+  } else {
+    var universityAdders = document.getElementsByClassName("university-adder");
+    if (universityAdders.length > 1) {
+      universityAdders[universityAdders.length - 1].remove();
+    }
+  }
+}
+
+
 
 //category select dropdown
 const optionMenu = document.querySelector('.dropdown-menu');
@@ -41,18 +63,6 @@ let input = document.querySelector('input[name="uniName[]"'); // Get the input e
 //add more universities
 var counter = 1;
 var textbox = "";
-var another = document.getElementById("another");
-function addAnother(){
-    var div = document.createElement("div");
-    div.setAttribute("class", "sub22");
-    div.setAttribute("id","");
-
-    var textbox = "<input class='uniName' name='uniName[]' id='uniName_"+counter+"' type='text'>";
-
-    div.innerHTML = textbox;
-    another.appendChild(div);
-    counter++;
-}
 
 
 //image preview

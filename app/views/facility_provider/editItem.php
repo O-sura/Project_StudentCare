@@ -55,20 +55,28 @@
                         <?php foreach($data['unilist'] as $uni) : ?>
                             <div class="university-adder">
                                 <div class = "university-field">
-                                    <select name="uniName[]" class="select" id="universityFilter_0" value=<?php echo $uni ?>>
-                                        <option value="University of Ruhuna">University of Ruhuna</option>
-                                        <option value="University of Colombo">University of Colombo</option>
-                                        <option value="University of Kelaniya">University of Kelaniya</option>
-                                        <option value="University of Peradeniya">University of Peradeniya</option>
-                                        <option value="University of Moratuwa">University of Moratuwa</option>
-                                        <option value="SLIIT">SLIIT</option>
+                                    <select name="uniName[]" class="select" id="universityFilter_0">
+                                        <?php
+                                            foreach($data['universities'] as $university) :
+                                                if($university == $uni->uni_name) {
+                                        ?>
+                                                    <option value="<?php echo $university ?>" selected><?php echo $university ?></option>
+                                        <?php
+                                                 } else {
+                                        ?>
+                                                    <option value="<?php echo $university ?>"><?php echo $university ?></option>
+                                        <?php
+                                                }
+                                            endforeach; 
+                                        ?>
                                     </select>
-                                    <input class="uniName" name="uniDistance[]" id="uniName_0" value=<?php echo $uni ?> type="number" min="1" max="10"><p>Km</p>
+                                    <input class="uniName" name="uniDistance[]" id="uniName_0" value=<?php echo $uni->distance ?> type="number" min="1" max="10"><p>Km</p>
                                 </div>
                             </div>
                         <?php endforeach; ?>
 
-                        <button type="button" class="addAnother" onclick="addAnother()">+ Add Another</button>
+                        <button type="button" class="addAnother" onclick="addAnother()">+ add</button>
+                        <button type="button" class="addAnother" onclick="remove()">remove</button>
                     </div>
                 </div>
 

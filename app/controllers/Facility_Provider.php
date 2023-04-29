@@ -545,6 +545,7 @@ class Facility_Provider extends Controller{
 
             $uniList = [];
             $uniDistanceList = [];
+            
             foreach ($uniName as $uni){
                 array_push($uniList, trim($uni));
             }
@@ -553,6 +554,11 @@ class Facility_Provider extends Controller{
                 array_push($uniDistanceList, trim($distance));
             }
 
+
+
+          
+
+
             $data = [
                 'id' => $id,
                 'topic' => trim($topic),
@@ -560,7 +566,7 @@ class Facility_Provider extends Controller{
                 'rental' => trim($rental),
                 'location' => trim($location),
                 'address' => trim($address),
-                'uniName' => json_encode($uniList),
+                // 'uniName' => json_encode($uniList),
                 'images' => $_FILES['images'],
                 'special_note' => trim($special_note),
                 'category' => trim($category),
@@ -589,6 +595,13 @@ class Facility_Provider extends Controller{
                 $data['category_err'] = "*You should choose a category";
             }
 
+            $unique_array = array_unique($uniList); //check for duplicates
+
+            if(count($uniList) != count($unique_array)){
+                $data['uniName_err'] = 'Duplicate university names are not allowed';
+            }
+
+            
             $num_of_images = count($images['name']);    //number of images
 
             $uploaded_images = [];
@@ -637,20 +650,19 @@ class Facility_Provider extends Controller{
                     echo("You can't upload files of this category");
                 }
             }
-
+                
             $image_urls = json_encode($image_urls);
      
             $uniName = json_encode($uniName);
-            $listing_id = substr(sha1(date(DATE_ATOM)), 0, 8);
+            $listing_id = $id;
+
             $validatedData = [
-                'id' => $_POST['id'],
-                'fpID' => Session::get('userID'),
+                'id' => $listing_id,
                 'topic' => $data['topic'],
                 'description' => $data['description'],
                 'rental' => $data['rental'],
                 'location' => $data['location'],
                 'address' => $data['address'],
-                //'uniName' => $uniName,
                 'image_urls' => $image_urls,
                 'special_note' => $data['special_note'],
                 'category' => $data['category']
@@ -664,22 +676,26 @@ class Facility_Provider extends Controller{
 
                 if($this->ListingModel->editItem($validatedData)){ //edit basic listing details to the database
                     $is_successful = false;
-
-                    for($i=0; $i<$num; $i++){  //add university details to the database
-                        $name = $uniList[$i];
-                        $distance = $uniDistanceList[$i];
-                        $uniData['uniID'] = $listing_id;
-                        $uniData['uniName'] = $name;
-                        $uniData['uniDistance'] = $distance;
-                        if($this->ListingModel->addUniDistance($uniData)){
-                            $is_successful = true;
-                        }else{
-                            $is_successful = false;
+                    if($this->ListingModel->deleteUniDistances($listing_id)){ //delete previous entries before entering new ones
+                        $is_successful = true;
+                        for($i=0; $i<$num; $i++){  //add university details to the database
+                            $name = $uniList[$i];
+                            $distance = $uniDistanceList[$i];
+                            $uniData['uniID'] = $listing_id;
+                            $uniData['uniName'] = $name;
+                            $uniData['uniDistance'] = $distance;
+                            if($this->ListingModel->addUniDistance($uniData)){
+                                $is_successful = true;
+                            }else{
+                                $is_successful = false;
+                            }
                         }
+
                     }
+                    
                     if($is_successful){
                         //redirect to the listing page
-                        Middleware::redirect('./facility_provider/editItem');
+                        Facility_Provider::index();
                     }else{
                         die("Something went wrong");
                     }
@@ -693,20 +709,25 @@ class Facility_Provider extends Controller{
             //Send the empty detail page
             $editlist = $this->ListingModel->viewOneListing($id);
             
-            $uniList = $editlist->uniName;  //assigns the value of $editlist->uniName to the variable $uniList
-            $uniList = str_replace(array("[", "]"), "", $uniList);  //remove the square brackets from the string and converting it to a comma-separated list 
-            $uniDistanceList = $editlist->uniDistance;
-            $uniDistanceList = str_replace(array("[", "]"), "", $uniDistanceList);
-            $array = explode(",", $uniList);  //split the comma-separated list into an array
+            $uniList = $this->ListingModel->getUniDistances($id);
 
             $imageList = $editlist->image;
             $imageList = str_replace(array("[", "]"), "", $imageList);
             $array_2 = explode(",", $imageList);
-
+            $universities = array(
+                "University of Sri Jayewardenepura",
+                "University of Ruhuna",
+                "University of Colombo",
+                "University of Kelaniya",
+                "University of Peradeniya",
+                "University of Moratuwa",
+                "SLIIT"
+            );
             $data = [
                 'id' => $id,
                 'viewone' => $editlist,
-                'unilist' => $array,
+                'unilist' => $uniList,
+                'universities' => $universities,
                 'imagelist' => $array_2,
                 'topic' => '',
                 'description' => '',
