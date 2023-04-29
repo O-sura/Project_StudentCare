@@ -693,20 +693,25 @@ class Facility_Provider extends Controller{
             //Send the empty detail page
             $editlist = $this->ListingModel->viewOneListing($id);
             
-            $uniList = $editlist->uniName;  //assigns the value of $editlist->uniName to the variable $uniList
-            $uniList = str_replace(array("[", "]"), "", $uniList);  //remove the square brackets from the string and converting it to a comma-separated list 
-            $uniDistanceList = $editlist->uniDistance;
-            $uniDistanceList = str_replace(array("[", "]"), "", $uniDistanceList);
-            $array = explode(",", $uniList);  //split the comma-separated list into an array
+            $uniList = $this->ListingModel->getUniDistances($id);
 
             $imageList = $editlist->image;
             $imageList = str_replace(array("[", "]"), "", $imageList);
             $array_2 = explode(",", $imageList);
-
+            $universities = array(
+                "University of Sri Jayewardenepura",
+                "University of Ruhuna",
+                "University of Colombo",
+                "University of Kelaniya",
+                "University of Peradeniya",
+                "University of Moratuwa",
+                "SLIIT"
+            );
             $data = [
                 'id' => $id,
                 'viewone' => $editlist,
-                'unilist' => $array,
+                'unilist' => $uniList,
+                'universities' => $universities,
                 'imagelist' => $array_2,
                 'topic' => '',
                 'description' => '',

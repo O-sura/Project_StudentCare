@@ -300,6 +300,13 @@
             return $result;
         }
 
+        public function getUniDistances($id){
+            $this->db->query("SELECT * FROM uni_distance_listing WHERE listing_id = :id");
+            $this->db->bind(':id', $id);
+            $result = $this->db->getAllRes();
+            return $result;
+        }
+
     }
 
 ?>
