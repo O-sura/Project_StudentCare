@@ -98,12 +98,13 @@
    margin-left: 10px;
 }
 
-.container form .sub2 .sub22 button{
+/* .container form .sub2 .sub22 button{
    background: #1A285A;
    color: #fff;
    float: right;
    margin-right: 10px;
-}
+   font-size: small;
+} */
 
 .container form i{
    height: 30px;
@@ -244,11 +245,53 @@ label{
 .university-adder{
    display: flex;
    flex-direction: column;
-   justify-items: center;
+
 }
 
 .university-field{
    display: flex;
    flex-direction: row;
+   justify-items: center;
+   align-items: center;
+   justify-content: space-between;
 }
 
+
+.select{
+   font-size: small;
+   height: fit-content;
+   padding: 5px;
+   border-radius: 10px;
+}
+
+.container form .sub2 .sub22 .addAnother {
+   background: #1A285A;
+   background-image: -webkit-linear-gradient(top, #1A285A, #1A285A);
+   background-image: -moz-linear-gradient(top, #1A285A, #1A285A);
+   background-image: -ms-linear-gradient(top, #1A285A, #1A285A);
+   background-image: -o-linear-gradient(top, #1A285A, #1A285A);
+   background-image: linear-gradient(to bottom, #1A285A, #1A285A);
+   -webkit-border-radius: 28;
+   -moz-border-radius: 28;
+   border-radius: 28px;
+   font-family: Arial;
+   color: #ffffff;
+   font-size: 20px;
+   padding: 10px 20px 10px 20px;
+   text-decoration: none;
+   float: right;
+   margin-right: 10px;
+   font-size: small;
+   border: none;
+ }
+ 
+ .container form .sub2 .sub22 .addAnother:hover {
+   background: #3cb0fd;
+   background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+   background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+   background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+   background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+   background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+   text-decoration: none;
+ }
+ 

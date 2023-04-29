@@ -75,7 +75,7 @@
                             </div>
                         <?php endforeach; ?>
 
-                        <button type="button" class="addAnother" onclick="addAnother()">+ Add Another</button>
+                        <button type="button" class="addAnother" onclick="addAnother()">+ add</button>
                         <button type="button" class="addAnother" onclick="remove()">remove</button>
                     </div>
                 </div>

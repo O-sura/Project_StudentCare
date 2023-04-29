@@ -1,4 +1,3 @@
-//add more universities
 function addAnother() {
   // Get the container element
   var container = document.querySelector('.university-adder');
@@ -16,15 +15,25 @@ function addAnother() {
   var input = newField.querySelector('.uniName');
   input.id = 'uniName_' + numFields;
 
+  // Add a class to the new university field
+  newField.classList.add('added-field');
+
   // Append the new university field to the container
   container.appendChild(newField);
 }
+
 function remove() {
-  var universityAdders = document.getElementsByClassName("university-adder");
-  if (universityAdders.length > 1) {
-    universityAdders[universityAdders.length - 1].remove();
+  var addedFields = document.getElementsByClassName("added-field");
+  if (addedFields.length > 0) {
+    addedFields[addedFields.length - 1].remove();
+  } else {
+    var universityAdders = document.getElementsByClassName("university-adder");
+    if (universityAdders.length > 1) {
+      universityAdders[universityAdders.length - 1].remove();
+    }
   }
 }
+
 
 
 //category select dropdown
