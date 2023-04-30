@@ -85,115 +85,121 @@
                 <h1>Counselor Profile</h1>
             </div>
             <div class="counselor-details">
-                <div class="row1">
-                    <div class="prof-image">
-                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fGZlbWFsZSUyMGRvY3RvcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" id="image2">
-                    </div>
-                    <div class="personal">
-                        <div class="heading">
-                            Personal Information
-                        </div>
-                        <div class="content-1">
-                            <div class="indexes-1">
-                                <div>
-                                    Name:
-                                </div>
-                                <div>
-                                    Age:
-                                </div>
-                                <div>
-                                    Specialized In:
-                                </div>
-                            </div>
-                            <div class="values-1">
-                                <div>
-                                    <?php echo $data['counselorProfile']->fullname; ?>
-                                </div>
-                                <div>
-                                    <?php echo $data['counselorProfile']->age; ?>
-                                </div>
-                                <div>
-                                    <?php echo $data['counselorProfile']->specialization; ?>
-                                </div>
-                            </div>
-                        </div>
 
-                    </div>
-                </div>
-                <div class="row2">
-                    <div class="col1">
-                        <div class="heading">
-                            Contact Info
-                        </div>
-                        <div class="content-2">
-                            <div class="indexes-2">
-                                <div>
-                                    Address:
-                                </div>
-                                <div>
-                                    Contact Number:
-                                </div>
-                            </div>
-                            <div class="values-2">
-                                <div>
-                                    <?php echo $data['counselorProfile']->home_address; ?>
-                                </div>
-                                <div>
-                                    <?php echo $data['counselorProfile']->contact_no; ?>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="col2">
-                        <div class="heading">
-                            Qualifications
-                        </div>
-                        <div>
-                            <ul>
-                                <?php foreach ($data['qualifications'] as $qualification) : ?>
-                                    <li>
-                                        <?php echo $qualification->qualification_details; ?>
-                                    </li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <?php $counselorId = $data['counselorId'];?>
-            <form action="<?php echo URLROOT; ?>/appointments/add_request/<?php echo $counselorId; ?> " method="post">
-            <div class="request-form">
-                    <?php 
-                        $hadRequested = $data['hasRequested']; 
-                        $reachedLimit = $data['requestLimit'];
+                <div class="prof-image">
+                    <?php
+                    if ($data["counselorProfile"]->profile_img != NULL) {
+                        $image = $data["counselorProfile"]->profile_img;
+                    } else {
+                        $image = "avatar.jpg";
+                    }
                     ?>
-                    <?php if($hadRequested == 1) { ?>
-                         <p id="already"><i class="fa-solid fa-circle-info"></i>   You already have a pending request with this counselor. </p>
-                            
-                        
+                    <img src="<?php echo URLROOT . "/public/img/counselor/" . $image; ?>" id="image2">
+                </div>
+                <div class="personal">
+                    <div class="heading">
+                        Personal Information
+                    </div>
+                    <div class="content-1">
+                        <div class="indexes-1">
+                            <div>
+                                Name:
+                            </div>
+                            <div>
+                                Age:
+                            </div>
+                            <div>
+                                Specializaton:
+                            </div>
+                        </div>
+                        <div class="values-1">
+                            <div>
+                                <?php echo $data['counselorProfile']->fullname; ?>
+                            </div>
+                            <div>
+                                <?php echo $data['counselorProfile']->age; ?>
+                            </div>
+                            <div>
+                                <?php echo $data['counselorProfile']->specialization; ?>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col1">
+                    <div class="heading">
+                        Contact Info
+                    </div>
+                    <div class="content-2">
+                        <div class="indexes-2">
+                            <div>
+                                Address:
+                            </div>
+                            <div>
+                                Contact Number:
+                            </div>
+                        </div>
+                        <div class="values-2">
+                            <div>
+                                <?php echo $data['counselorProfile']->home_address; ?> <br> <br>
+                            </div>
+                            <div>
+                                <?php echo $data['counselorProfile']->contact_no; ?>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col2">
+                    <div class="heading">
+                        Qualifications
+                    </div>
+                    <div>
+                        <ul>
+                            <?php foreach ($data['qualifications'] as $qualification) : ?>
+                                <li>
+                                    <?php echo $qualification->qualification_details; ?>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+
+                </div>
+
+
+            </div>
+            <?php $counselorId = $data['counselorId']; ?>
+            <form action="<?php echo URLROOT; ?>/appointments/add_request/<?php echo $counselorId; ?> " method="post">
+                <div class="request-form">
+                    <?php
+                    $hadRequested = $data['hasRequested'];
+                    $reachedLimit = $data['requestLimit'];
+                    ?>
+                    <?php if ($hadRequested == 1) { ?>
+                        <p id="already"><i class="fa-solid fa-circle-info"></i> You already have a pending request with this counselor. </p>
+
+
                     <?php } else { ?>
-                            <?php if($reachedLimit == 1) { ?>
-                                <p id="already"><i class="fa-solid fa-circle-info"></i>   You have reached the request limit. </p>
-                            <?php } else { ?>
-                            <div class="heading">
+                        <?php if ($reachedLimit == 1) { ?>
+                            <p id="already"><i class="fa-solid fa-circle-info"></i> You have reached the request limit. </p>
+                        <?php } else { ?>
+                            <div class="heading" id = "requests">
                                 Request an Appointment
                             </div>
                             <div class="description">
                                 <div class="desc-name">
-                                    Description
+                                    Appointment description : 
                                 </div>
                                 <div class="text">
-                                    <textarea name="rdesc"  cols="30" rows="30">Write a short desciption about why you need counselling....</textarea>
+                                    <textarea name="rdesc" cols="30" rows="30">Write a short desciption about why you need counselling....</textarea>
                                 </div>
                                 <div class="submit">
                                     <button type="submit" class="btn">Submit</button>
                                 </div>
                             </div>
-                            <?php } ?>
+                        <?php } ?>
                     <?php } ?>
-            </div>
+                </div>
             </form>
 
         </div>
