@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href=<?php echo URLROOT . "/public/css/stu/appointmentStyle.css" ?>>
     <script type="module" src=<?php echo URLROOT . "/public/js/student/loadCounselors.js" ?> defer></script>
-    <script src=<?php echo URLROOT . "/public/js/flash.js" ?> defer></script>
+    <script src= <?php echo URLROOT . "/public/js/flash.js"?> defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" defer></script>
 </head>
 
@@ -78,7 +78,7 @@
                         Oshada
                     </div>
                 </div>
-                <a href="logout.php"><i class="fa-solid fa-arrow-right-from-bracket fa-flip-horizontal" id="log_out"></i></a>
+                <a href="<?php echo URLROOT . "/users/logout" ?>"><i class="fa-solid fa-arrow-right-from-bracket fa-flip-horizontal" id="log_out"></i></a>
             </div>
         </div>
     </div>
@@ -168,7 +168,7 @@
                                         </div>
                                     </div>
                                 </form>
-                                <button class="close-button">&times;</button>
+                                <button class="exit-button">&times;</button>
                             </div>
                         </div>
 
@@ -302,7 +302,7 @@
                                     </div>
                                     <div class="join2">
                                         <?php if($appointmentStatus == 2){?>
-                                        <button class="btn2" id="uploadBtn" onclick="showPopup()">
+                                        <button class="btn2" id="uploadBtn" onclick="undo('<?php echo $id ?>')">
                                             <div class="btn-class">
                                                 <div class="btnName">
                                                     Pending
@@ -399,20 +399,28 @@ families.
             sidebar.classList.toggle("active");
         }
 
-        function showPopup() {
+        function showPopup() { //show modal for cancel appointment
             var popup = document.querySelector(".overlay");
             popup.style.display = "block";
         }
+
+        function undo(id){
+            //got to a function in the controller to undo the cancellation
+           
+            let url = `http://localhost/StudentCare/Appointments/undoCancellation?id=${id}`;
+            window.location.href = url;
+        }
+
         const overlay = document.querySelector('.overlay');
         const popup = overlay.querySelector('.popup');
-        const closeButton = popup.querySelector('.close-button');
+        const exitButton = popup.querySelector('.exit-button');
 
         function closePopup() {
             var popup = document.querySelector(".overlay");
             popup.style.display = "none";
         }
 
-        closeButton.addEventListener('click', closePopup);
+        exitButton.addEventListener('click', closePopup);
         overlay.addEventListener('click', (event) => {
             if (event.target === overlay) {
                 closePopup();

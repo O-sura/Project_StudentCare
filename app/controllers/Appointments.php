@@ -165,4 +165,16 @@ class Appointments extends Controller
             $this->loadview('counselor_stu/editRequest', $data);
         }
     }
+
+    public function undoCancellation(){
+     
+        $appointmentID = trim($_GET['id']);
+        if($this->appointmentModel->undoCancellation($appointmentID)){
+            Appointments::index();
+        }else{
+            die('Something went wrong');
+        }
+    }
+
+
 }

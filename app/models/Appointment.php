@@ -286,5 +286,15 @@ class Appointment
         }
     }
 
+    public function undoCancellation($appointmentID){
+        $this->db->query("UPDATE appointments SET appointmentStatus = 0, cancellationReason = NULL, counselor_seen = 0, requested_on = NULL WHERE appointmentID = :appointmentID");
+        $this->db->bind(':appointmentID', $appointmentID);
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
 }
