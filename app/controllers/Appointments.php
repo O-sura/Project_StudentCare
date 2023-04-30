@@ -176,5 +176,31 @@ class Appointments extends Controller
         }
     }
 
+    public function counselor_type_handler()
+    {
+        if (isset($_GET['filter'])) {
+            $specialization = trim($_GET['filter']);
+            if($specialization == 'All'){
+                $res = json_encode($this->appointmentModel->getAllCounselorDetails());
+            }else{
+                $res =  json_encode($this->appointmentModel->getCounselorsByType($specialization));
+            }
 
+
+            echo $res;
+        }
+    }
+
+    public function counselor_search_handler()
+    {
+        if (isset($_GET['query'])) {
+            $search = trim($_GET['query']);
+            $type = trim($_GET['type']);
+           
+            $res =  json_encode($this->appointmentModel->getCounselorsBySearch($search, $type));
+            
+
+            echo $res;
+        }
+    }
 }

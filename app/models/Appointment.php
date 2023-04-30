@@ -296,5 +296,47 @@ class Appointment
         }
     }
 
+    public function getCounselorsByType($specialization){
+        $this->db->query("SELECT users.userID, users.fullname, counsellor.counselor_description, counsellor.specialization, counsellor.profile_img
+        FROM users
+        INNER JOIN counsellor
+        ON users.userID = counsellor.userID
+        WHERE counsellor.specialization = :specialization;");
+        $this->db->bind(':specialization', $specialization);
+        $results = $this->db->getAllRes();
+
+        return $results;
+    }
+
+    public function getCounselorsBySearch($search,$type){
+
+        if($type == 'All'){
+            $this->db->query("SELECT users.userID, users.fullname, counsellor.counselor_description, counsellor.specialization, counsellor.profile_img
+            FROM users
+            INNER JOIN counsellor
+            ON users.userID = counsellor.userID
+            WHERE LOWER(users.fullname) LIKE LOWER(:search) OR LOWER(counsellor.specialization) LIKE LOWER(:search) OR LOWER(counsellor.counselor_description) LIKE LOWER(:search);");
+            $this->db->bind(':search', '%'.$search.'%');
+            $results = $this->db->getAllRes();
+
+            return $results;
+        }else{
+
+            $this->db->query("SELECT users.userID, users.fullname, counsellor.counselor_description, counsellor.specialization, counsellor.profile_img
+            FROM users
+            INNER JOIN counsellor
+            ON users.userID = counsellor.userID
+            WHERE (LOWER(users.fullname) LIKE LOWER(:search) OR LOWER(counsellor.specialization) LIKE LOWER(:search) OR LOWER(counsellor.counselor_description) LIKE LOWER(:search)) AND (counsellor.specialization = :type);");
+            $this->db->bind(':search', '%'.$search.'%');
+            $this->db->bind(':type', $type);
+            $results = $this->db->getAllRes();
+
+            return $results;
+
+
+        }
+
+    }
+
 
 }

@@ -1,8 +1,7 @@
 import { ListingDetails } from "./listings.js";
 
 //JS code for dropdown menu in community homepage
-// Get the select element
-const universityFilter = document.getElementById('universityFilter');
+
 //Clear all the posts currently showing to the user
 function clearposts(){
     let posts = document.querySelectorAll('.item');
@@ -12,6 +11,10 @@ function clearposts(){
         })
     }
 }
+
+// Get the select element
+const universityFilter = document.getElementById('universityFilter');
+
 // Add onchange event listener to the select element
 universityFilter.onchange = () => {
     // Get the selected option value
