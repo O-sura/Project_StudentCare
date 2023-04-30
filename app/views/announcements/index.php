@@ -95,7 +95,7 @@
                     </select>
 
                 </div>
-                <div class="event2">
+                <!-- <div class="event2">
 
                     <select class="select">
                         <option value="none" selected disabled hidden>filter by</option>
@@ -106,7 +106,7 @@
                 </div>
                 <div class="add">
                     <button class="btn">Mark all as read</a></button>
-                </div>
+                </div> -->
 
             </div>
             <div class="row2">

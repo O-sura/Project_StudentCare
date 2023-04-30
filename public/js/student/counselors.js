@@ -1,5 +1,5 @@
 export class CounselorDetails{
-    constructor(id,name,description,img,specialization,address,dob){
+    constructor(id,name,description,img,specialization,address,dob,qualifications){
         this.id = id;
         this.name = name;
         this.description = description;
@@ -7,6 +7,7 @@ export class CounselorDetails{
         this.specialization = specialization;
         this.address = address;
         this.dob = dob;
+        this.qualifications = qualifications;
     }
 
     
@@ -52,7 +53,7 @@ export class CounselorDetails{
                     ${this.specialization}
                 </div>
                 <div class="qualification-details">
-                    MBBS, MD, FRCPsych
+                    ${this.qualifications}
                 </div>
                 <div class="description-details">
                     ${this.description}

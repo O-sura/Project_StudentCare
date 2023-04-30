@@ -154,11 +154,12 @@
                     <div class="heading">
                         Qualifications
                     </div>
+                    <?php $qualifications = explode(",", $data['counselorProfile']->qualifications); ?>
                     <div>
                         <ul>
-                            <?php foreach ($data['qualifications'] as $qualification) : ?>
+                            <?php foreach ($qualifications as $qualification) : ?>
                                 <li>
-                                    <?php echo $qualification->qualification_details; ?>
+                                    <?php echo $qualification; ?>
                                 </li>
                             <?php endforeach; ?>
                         </ul>

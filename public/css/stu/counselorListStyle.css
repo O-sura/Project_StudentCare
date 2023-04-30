@@ -108,7 +108,7 @@ input:focus{
   border: none;
   margin-right: 10px;
   font-size: 14px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   font-weight: bold;
 }
 
@@ -128,6 +128,7 @@ input:focus{
   grid-gap: 20px;
   height: fit-content; /* set a height limit */
   margin-top: 30px;
+  justify-content: center;
 }
 
 .specialization{
@@ -145,7 +146,7 @@ input:focus{
   padding-bottom: 1%;
   width: 75vw;
   align-items: center;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .prof-image{

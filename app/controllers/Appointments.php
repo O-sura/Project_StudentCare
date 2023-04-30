@@ -88,7 +88,6 @@ class Appointments extends Controller
         $data = [
             'counselorId' => $counselorId,
             'counselorProfile' => $this->appointmentModel->getProfile($init_data),
-            'qualifications' => $this->appointmentModel->getQualifications($init_data),
             'hasRequested' => $this->appointmentModel->hasRequested($init_data),
             'requestLimit' => $this->appointmentModel->requestLimit($init_data)
         ];

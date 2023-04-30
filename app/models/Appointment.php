@@ -23,7 +23,7 @@ class Appointment
 
     public function getProfile($data)
     {
-        $this->db->query("SELECT users.userID, users.fullname, users.home_address, users.contact_no, TIMESTAMPDIFF(YEAR, counsellor.dob, CURDATE()) AS age , counsellor.specialization, counsellor.counselor_description, counsellor.profile_img
+        $this->db->query("SELECT users.userID, users.fullname, users.home_address, users.contact_no, TIMESTAMPDIFF(YEAR, counsellor.dob, CURDATE()) AS age , counsellor.specialization, counsellor.counselor_description, counsellor.profile_img, counsellor.qualifications
         FROM users
         INNER JOIN counsellor
         ON users.userID = counsellor.userID
@@ -34,16 +34,6 @@ class Appointment
         return $results;
     }
 
-    public function getQualifications($data)
-    {
-        $this->db->query("SELECT qualification_details
-        FROM qualifications
-        WHERE counselor_id = :counselorID;");
-        $this->db->bind(':counselorID', $data['counselorID']);
-        $results = $this->db->getAllRes();
-
-        return $results;
-    }
 
     public function addRequest($data)
     {

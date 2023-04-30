@@ -476,4 +476,18 @@ class Facility_StudentModel
         return $result;
     }
 
+    public function incrementCounter($review_id){
+        $this->db->query("UPDATE listing_feedback SET helpful_count=helpful_count+1 WHERE review_id=:review_id");
+        $this->db->bind(':review_id', $review_id);
+        $result = $this->db->execute();
+        return $result;
+    }
+    
+    public function decrementCounter($review_id){
+        $this->db->query("UPDATE listing_feedback SET helpful_count=helpful_count-1 WHERE review_id=:review_id");
+        $this->db->bind(':review_id', $review_id);
+        $result = $this->db->execute();
+        return $result;
+    }
+
 }
