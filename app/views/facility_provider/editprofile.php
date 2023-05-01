@@ -23,12 +23,14 @@
         <div class="div5">
         
             <form action=<?php echo URLROOT."/facility_provider/updateProfileDetails/".$_SESSION['userID'] ;?> method="post" enctype="multipart/form-data">  
+            
+            <a id="back-link">
+                <i class="fa-sharp fa-solid fa-left-long"><span>  Go Back</span></i>
+            </a>
+
             <div class="firstContainer">
                 <!-- enctype="multipart/form-data" -->
                     <div class="topSection">
-                        <a id="back-link">
-                            <i class="fa-sharp fa-solid fa-left-long"><span>  Go Back</span></i>
-                        </a>
                         <?php 
                             if(!empty($data['profile_img'])){
                                 $image = "fprovider/" . $data['profile_img'];
@@ -63,7 +65,7 @@
                             ?>
                             <label for="name">Name</label><br>
                             <input type="text" value="<?= $data['name'] ;?>" name="name"  class="form-input">
-                            
+                            </div>
                             
                             <?php 
                                 if($data['email_err'])
@@ -97,8 +99,17 @@
                             <input type="text" value="<?= $data['username'] ;?>" name="username"  class="form-input">
                             </div>
                             
+
+                            <?php 
+                                if($data['nic_err'])
+                                    echo '<div class="form-field" data-error=" ' . $data['nic_err'] . '">';
+                                else
+                                    echo '<div class="form-field">';
+                            ?>
                             <br><label for="nic">NIC</label><br>
-                            <input type="text" value="<?= $data['nic'] ;?>" name="nic" disabled="disabled"  class="form-input">
+                            <input type="text" value="<?= $data['nic'] ;?>" name="nic" class="form-input">
+                            <!-- disabled="disabled" -->
+                            </div>
 
                             <?php 
                                 if($data['address_err'])
@@ -110,7 +121,7 @@
                             <input type="text" value="<?= $data['address'] ;?>" name="address"  class="form-input">
                             </div>
 
-                    
+                            
                         </div>
                     </div>
             
@@ -119,7 +130,9 @@
                         <input type="submit" class="save" value="Save Changes" name="saveChanges">
                     </div>
                 </div>
-
+                <!-- <div class="delete">
+                    <input type="submit" class="delete" value="Delete Profile" name="deleteProfile">
+                </div>-->
             </div>
             </form>
         </div>

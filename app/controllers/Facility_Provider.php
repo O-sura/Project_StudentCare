@@ -62,6 +62,7 @@ class Facility_Provider extends Controller{
             'contact' => $row->contact_no,
             'address' => $row->home_address,
             'name_err' => '',
+            'nic_err' => '',
             'username_err' => '',
             'email_err' => '',
             'contact_err' => '',
@@ -105,6 +106,7 @@ class Facility_Provider extends Controller{
             //Set errors if something is wrong
             $name = $_POST['name'];
             $username = $_POST['username'];
+            $nic = $_POST['nic'];
             $email = $_POST['email'];
             $address = $_POST['address'];
             $contact = $_POST['contact'];
@@ -114,88 +116,75 @@ class Facility_Provider extends Controller{
                 'name' => $name,
                 'username' => $username,
                 'email' => $email,
-                'nic' => $row->nic,
+                'nic' => $nic,
                 'contact' => $contact,
                 'address' => $address,
                 'profile' => $filename,
                 'name_err' => '',
                 'username_err' => '',
+                'nic_err' => '',
                 'email_err' => '',
                 'contact_err' => '',
                 'address_err' => ''
             ];
 
-            //  print_r ($data);
-            //  exit;
-
             //Check whether all the fields are filled properly
             if(empty($data['username'])){
-                //echo("Must fill all the fields in the form!");
                 $data['username_err'] = "*Username field is Required";
-                  
-                // print_r ($data);
-                // exit;
             }
 
             if(empty($data['name'])){
                 $data['name_err'] =  "*Name field is Required";
-                // print_r ($data);
-                // exit;
             }
 
             if(empty($data['email'])){
                 $data['email_err'] = "*Email field is Required";
-                // print_r ($data);
-                // exit;
+            }
+
+            if(empty($data['nic'])){
+                $data['nic_err'] = "*NIC field is Required";
             }
 
             if(empty($data['address'])){
                 $data['address_err'] = "*Address field is Required";
-                // print_r ($data);
-                // exit;
             }
 
             if( empty($data['contact'])){
                 $data['contact_err'] = "*Contact field is Required";
-                // print_r ($data);
-                // exit;
             }
 
             //Check whether an account already exists with the provided username
             $user = $this->ListingModel->getUserByUsername($username);
             if($user){
-                //echo("This Username is already taken");
                 if(Session::get('username') == $user->username){
-                    $data['username_err'] = "";
-                }
-                else{
                     $data['username_err'] = "*This Username is already taken";
                 }
-                    
-                //die();
+                else{
+                    $data['username_err'] = "";
+                }
             }
 
             //Email is valid or not
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                //echo("Invalid email format");
                 $data['email_err'] = "*Invalid email format";
-                //die();
             }
 
             //Check the mobile number
             if(strlen($contact) != 10){
-                //echo 'Invalid Contact Number';
                 $data['contact_err'] = "*Invalid Contact Number";
-                //die();
             }
 
-            // print_r ($data);
-            //     exit;
-            //Make sure there are no error flags are set
-            if(empty($data['username_err']) && empty($data['name_err']) && empty($data['email_err']) && empty($data['contact_err']) && empty($data['address_err'])){
+            //check the nic number
+            if(strlen($nic) == 10){
+                if ($nic[9] !== 'v' && $nic[9] !== 'V') {  // Check if the 10th character of $nic is 'v' or 'V'
+                    $data['nic_err'] = "*Invalid NIC Number";
+                }
+            }else if(strlen($nic) != 12) {   // Check if the length of $nic is not equal to 12
+                $data['nic_err'] = "*Invalid NIC Number";
+            }
 
-                // print_r ($data);
-                //  exit;
+            //Make sure there are no error flags are set
+            if(empty($data['username_err']) && empty($data['name_err']) && empty($data['nic_err']) && empty($data['email_err']) && empty($data['contact_err']) && empty($data['address_err'])){
                     
                 $res = $this->ListingModel->updateProfileDetails($data,$user_id);
 
@@ -227,6 +216,7 @@ class Facility_Provider extends Controller{
                 'contact' => $row->contact,
                 'address' => $row->address,
                 'name_err' => '',
+                'nic_err' => '',
                 'username_err' => '',
                 'email_err' => '',
                 'contact_err' => '',
@@ -298,17 +288,40 @@ class Facility_Provider extends Controller{
             ];
 
             //Check whether all the fields are filled properly
-            if(!$_POST['topic'] && !$_POST['description'] && !$_POST['rental'] && !$_POST['location'] && !$_POST['address'] && !$_POST['uniName'] && !$_POST['images'] && !$_POST['special_note'] && !$_POST['category']){
-                $data['topic_err'] =  "*This field is Required";
-                $data['description_err'] = "*This field is Required";
-                $data['rental_err'] = "*This field is Required";
-                $data['location_err'] = "*This field is Required";
-                $data['address_err'] = "*This field is Required";
-                $data['uniName_err'] = "*This field is Required";
-                $data['uniDistance_err'] = "*This field is Required";
-                $data['images_err'] = "*This field is Required";
-                $data['special_note_err'] = "*This field is Required";
-                $data['category_err'] = "*You should choose a category";
+            if(empty($data['topic'])){
+                $data['topic_err'] =  "*Topic field is Required";
+            }
+
+            if(empty($data['description'])){
+                $data['description_err'] =  "*Description field is Required";
+            }
+
+            if(empty($data['rental'])){
+                $data['rental_err'] =  "*Price field is Required";
+            }
+
+            if(empty($data['location'])){
+                $data['location_err'] =  "*Nearest Town field is Required";
+            }
+
+            if(empty($data['address'])){
+                $data['address_err'] =  "*Address field is Required";
+            }
+
+            if(empty($data['uniName'])){
+                $data['uniName_err'] =  "*University field is Required";
+            }
+
+            if(empty($data['images'])){
+                $data['images_err'] =  "*Images field is Required";
+            }
+
+            if(empty($data['special_note'])){
+                $data['special_note_err'] =  "*Special note field is Required";
+            }
+
+            if(empty($data['category'])){
+                $data['category_err'] =  "*Category field is Required";
             }
 
             $num_of_images = count($images['name']);    //number of images
@@ -354,7 +367,6 @@ class Facility_Provider extends Controller{
 
                     $images = json_encode($images);
                     $image_urls[] = $new_image_name;
-                    // header("Location: propertyView.php");
                 }else{
                     echo("You can't upload files of this category");
                 }
@@ -399,15 +411,17 @@ class Facility_Provider extends Controller{
                             $is_successful = false;
                         }
                     }
-
-                    if($is_successful){
-                        //redirect to the listing page
-                        Middleware::redirect('./facility_provider/addItem');
-                    }else{
-                        die("Something went wrong");
-                    }
                 }
-                
+                if($is_successful){
+                    FlashMessage::flash('added_flash', "Successfully added Details!", "success");
+                    //redirect to the listing page
+                    Middleware::redirect('./facility_provider/addItem');
+                }else{
+                     //Error Notification
+                    echo 'Error: Something went wrong in adding item to the database';
+                    Middleware::redirect('./facility_provider/addItem');
+                    die();
+                }
 
             }else{
                 //load the same page with erros
@@ -554,11 +568,6 @@ class Facility_Provider extends Controller{
                 array_push($uniDistanceList, trim($distance));
             }
 
-
-
-          
-
-
             $data = [
                 'id' => $id,
                 'topic' => trim($topic),
@@ -582,7 +591,7 @@ class Facility_Provider extends Controller{
             ];
 
             //Check whether all the fields are filled properly
-            if(!$_POST['topic'] && !$_POST['description'] && !$_POST['rental'] && !$_POST['location'] && !$_POST['address'] && !$_POST['uniName'] && !$_POST ['uniDistance'] && !$_POST['images'] && !$_POST['special_note'] && !$_POST['category']){
+            /* if(!$_POST['topic'] && !$_POST['description'] && !$_POST['rental'] && !$_POST['location'] && !$_POST['address'] && !$_POST['uniName'] && !$_POST ['uniDistance'] && !$_POST['images'] && !$_POST['special_note'] && !$_POST['category']){
                 $data['topic_err'] =  "*This field is Required";
                 $data['description_err'] = "*This field is Required";
                 $data['rental_err'] = "*This field is Required";
@@ -593,6 +602,41 @@ class Facility_Provider extends Controller{
                 $data['images_err'] = "*This field is Required";
                 $data['special_note_err'] = "*This field is Required";
                 $data['category_err'] = "*You should choose a category";
+            } */
+            if(empty($data['topic'])){
+                $data['topic_err'] =  "*Topic field is Required";
+            }
+
+            if(empty($data['description'])){
+                $data['description_err'] =  "*Description field is Required";
+            }
+
+            if(empty($data['rental'])){
+                $data['rental_err'] =  "*Price field is Required";
+            }
+
+            if(empty($data['location'])){
+                $data['location_err'] =  "*Nearest Town field is Required";
+            }
+
+            if(empty($data['address'])){
+                $data['address_err'] =  "*Address field is Required";
+            }
+
+            if(empty($data['uniName'])){
+                $data['uniName_err'] =  "*University field is Required";
+            }
+
+            if(empty($data['images'])){
+                $data['images_err'] =  "*Images field is Required";
+            }
+
+            if(empty($data['special_note'])){
+                $data['special_note_err'] =  "*Special note field is Required";
+            }
+
+            if(empty($data['category'])){
+                $data['category_err'] =  "*Category field is Required";
             }
 
             $unique_array = array_unique($uniList); //check for duplicates
@@ -694,10 +738,14 @@ class Facility_Provider extends Controller{
                     }
                     
                     if($is_successful){
+                        FlashMessage::flash('added_flash', "Successfully added Details!", "success");
                         //redirect to the listing page
-                        Facility_Provider::index();
+                        Middleware::redirect('./facility_provider/viewOne');
                     }else{
-                        die("Something went wrong");
+                         //Error Notification
+                        echo 'Error: Something went wrong in adding item to the databse';
+                        Middleware::redirect('./facility_provider/editItem');
+                        die();
                     }
                 }
             }else{
@@ -706,7 +754,7 @@ class Facility_Provider extends Controller{
             }
                
         }else{
-            //Send the empty detail page
+            //get the relavent details from the model
             $editlist = $this->ListingModel->viewOneListing($id);
             
             $uniList = $this->ListingModel->getUniDistances($id);

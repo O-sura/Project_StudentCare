@@ -25,116 +25,157 @@
         <div class="container">
             <form action=<?php echo URLROOT . "/facility_provider/editItem/" .$data['id']; ?> method="POST" enctype="multipart/form-data">
                 <h1>Tell Us More About Your Listing</h1>
+                
+                <div class="sub">
+                    <div class="sub1">
+                        <?php
+                            if (isset($data['viewone']) && $data['viewone'] !== null) {
+                                // Access the topic property of $data['viewone'] only if it exists and is not null
+                                $topic = $data['viewone']->topic;
+                            } else {
+                                // Handle the case where $data['viewone'] is undefined or null
+                                $topic = '';
+                            }
+                        ?>
+                        <p>Topic:</p>
+                        <input class="topic" name="topic" type="text" value="<?php echo $topic; ?>">
 
-                <p>Topic:</p>
-                <input class="topic" name="topic" type="text" value="<?php echo $data['viewone']->topic; ?>">
 
-                <p>Description:</p>
-                <input class="description" name="description" type="text" value="<?php echo $data['viewone']->description; ?>">
+                        <?php
+                            if (isset($data['viewone']) && $data['viewone'] !== null) {
+                                $description = $data['viewone']->description;
+                            } else {
+                                $description = '';
+                            }
+                        ?>
+                        <p>Description:</p>
+                        <input class="description" name="description" type="text" value="<?php echo $description; ?>">
 
-                <div class="sub1">
-                    <div class="sub11">
+
+                        <?php
+                            if (isset($data['viewone']) && $data['viewone'] !== null) {
+                                $rental = $data['viewone']->rental;
+                            } else {
+                                $rental = '';
+                            }
+                        ?>
                         <p>Price(Rs.):</p>
-                        <input class="price" name="rental" type="text" value="<?php echo $data['viewone']->rental; ?>">
-                    </div>
+                        <input class="price" name="rental" type="text" value="<?php echo $rental; ?>">
+                    
 
-                    <div class="sub12">
+                        <?php
+                            if (isset($data['viewone']) && $data['viewone'] !== null) {
+                                $location = $data['viewone']->location;
+                            } else {
+                                $location = '';
+                            }
+                        ?>
                         <p>Nearest Town:</p>
-                        <input class="town" name="location" type="text" value="<?php echo $data['viewone']->location; ?>">
-                    </div>
-                </div>
+                        <input class="town" name="location" type="text" value="<?php echo $location; ?>">
 
-                <div class="sub2">
-                    <div class="sub21">
+
+                        <div class="unisub">                       
+                            <p>Universities/Institutions Nearby:</p>
+                            <?php if (isset($data['unilist']) && (is_array($data['unilist']) || is_object($data['unilist']))) : ?>
+                                <?php foreach($data['unilist'] as $uni) : ?>
+                                    <div class="university-adder">
+                                        <div class = "university-field">
+                                            <select name="uniName[]" class="select" id="universityFilter_0">
+                                                <?php
+                                                    foreach($data['universities'] as $university) :
+                                                        if($university == $uni->uni_name) {
+                                                ?>
+                                                            <option value="<?php echo $university ?>" selected><?php echo $university ?></option>
+                                                <?php
+                                                        } else {
+                                                ?>
+                                                            <option value="<?php echo $university ?>"><?php echo $university ?></option>
+                                                <?php
+                                                        }
+                                                    endforeach; 
+                                                ?>
+                                            </select>
+                                            <input class="uniName" name="uniDistance[]" id="uniName_0" value=<?php echo $uni->distance ?> type="number" min="1" max="10"><p>Km</p>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+
+                            <button type="button" class="addAnother" onclick="addAnother()">Add</button>
+                            <button type="button" class="addAnother" onclick="remove()">Remove</button>
+                        </div>
+                    </div>        
+
+                    <div class="sub2">
+                        <?php
+                            if (isset($data['viewone']) && $data['viewone'] !== null) {
+                                $address = $data['viewone']->address;
+                            } else {
+                                $address = '';
+                            }
+                        ?>
                         <p>Address:</p>
-                        <input class="address" name="address" type="text" value="<?php echo $data['viewone']->address; ?>">
-                    </div>
+                        <input class="address" name="address" type="text" value="<?php echo $address; ?>">
 
-                    <div class="sub22">
-                        <p>Universities/Institutions Nearby:</p>
-                        <?php foreach($data['unilist'] as $uni) : ?>
-                            <div class="university-adder">
-                                <div class = "university-field">
-                                    <select name="uniName[]" class="select" id="universityFilter_0">
-                                        <?php
-                                            foreach($data['universities'] as $university) :
-                                                if($university == $uni->uni_name) {
-                                        ?>
-                                                    <option value="<?php echo $university ?>" selected><?php echo $university ?></option>
-                                        <?php
-                                                 } else {
-                                        ?>
-                                                    <option value="<?php echo $university ?>"><?php echo $university ?></option>
-                                        <?php
-                                                }
-                                            endforeach; 
-                                        ?>
-                                    </select>
-                                    <input class="uniName" name="uniDistance[]" id="uniName_0" value=<?php echo $uni->distance ?> type="number" min="1" max="10"><p>Km</p>
+
+                        <?php
+                            if (isset($data['viewone']) && $data['viewone'] !== null) {
+                                $special_note = $data['viewone']->special_note;
+                            } else {
+                                $special_note = '';
+                            }
+                        ?>
+                        <p>Special Notes:</p>
+                        <input class="note" name="special_note" type="text" value="<?php echo $special_note; ?>">
+                    
+                
+                        <p>Images:</p>
+                        <label for="img"><i class="fa fa-plus"></i><br>Insert only four images</label>
+                        <input type="file" class="image" name="images[]" id="img" multiple>
+                        <div id="preview-container">
+                            <?php
+                                $images = [];
+                                if(isset($data['viewone']) && $data['viewone']->image) {
+                                    $images = json_decode($data['viewone']->image);
+                                }
+                            ?>
+                            <br>
+                            <div class="thumbnails">
+                                <img name="img1" src="<?= URLROOT . "/public/img/listing/" . $images[0] ?>">
+                                <img name="img2" src="<?= URLROOT . "/public/img/listing/" . $images[1] ?>">
+                                <img name="img3" src="<?= URLROOT . "/public/img/listing/" . $images[2] ?>">
+                                <img name="img4" src="<?= URLROOT . "/public/img/listing/" . $images[3] ?>">
+                            </div>
+                        </div>
+                        <?php if(isset($data['imagelist'])) : ?>
+                            <?php foreach($data['imagelist'] as $key => $img) : ?>
+                                <input class="image" name="images[]" id="img_<?php echo $key ?>" type="file" multiple value="<?php echo $img ?>">
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                        
+
+                        <div class="catsub">
+                            <div class="sub22">
+                                <p>Category:</p>
+                                <div class="dropdown-menu">
+                                    <div class="select-btn">
+                                        <span class="Sbtn-text"><?php echo $data['viewone']->category; ?></span>
+                                        <i class="fa-sharp fa-solid fa-chevron-down"></i>
+                                    </div>
+                                    <input type="text" name="category" class="category-dropdown" hidden>
+                                    <ul class="options">
+                                        <li class="option">Property</li> 
+                                        <li class="option">Food</li> 
+                                        <li class="option">Furniture</li>
+                                    </ul>
                                 </div>
                             </div>
-                        <?php endforeach; ?>
-
-                        <button type="button" class="addAnother" onclick="addAnother()">+ add</button>
-                        <button type="button" class="addAnother" onclick="remove()">remove</button>
-                    </div>
-                </div>
-
-                <?php
-                    if (isset($_GET['error'])){
-                        echo "<p class='error'>";
-                        echo htmlspecialchars($_GET['error']);
-                        echo "</p>";
-                    }
-                ?>
-                
-                <p>Images:</p>
-                <label for="img"><i class="fa fa-plus"></i><br>Insert only four images</label>
-                <!-- <input type="file" class="image" name="images[]" id="img" multiple> -->
-                <div id="preview-container">
-                    <?php
-                        $images = json_decode($data['viewone']->image); 
-                    ?>
-                    <br>
-                    <div class="thumbnails">
-                        <img name="img1" src="<?= URLROOT . "/public/img/listing/" . $images[0] ?>">
-                        <img name="img2" src="<?= URLROOT . "/public/img/listing/" . $images[1] ?>">
-                        <img name="img3" src="<?= URLROOT . "/public/img/listing/" . $images[2] ?>">
-                        <img name="img4" src="<?= URLROOT . "/public/img/listing/" . $images[3] ?>">
-                    </div>
-                </div>
-                <?php foreach($data['imagelist'] as $img) : ?>
-                    <input class="image" name="images[]" id="img" type="file" multiple value=<?php echo $img ?>>
-                    <!-- <input class="uniName" name="uniName[]" id="uniName_0" type="text" value=<?php echo $img ?>> -->
-                <?php endforeach; ?>
-                
-                
-                <p>Special Notes:</p>
-                <input class="note" name="special_note" type="text" value="<?php echo $data['viewone']->special_note; ?>">
-                
-                <div class="sub1">
-                    <div class="sub11">
-                        <p>Category:</p>
-                        <div class="dropdown-menu">
-                            <div class="select-btn">
-                                <span class="Sbtn-text"><?php echo $data['viewone']->category; ?></span>
-                                <i class="fa-sharp fa-solid fa-chevron-down"></i>
-                            </div>
-                            <input type="text" name="category" class="category-dropdown" hidden>
-                            <ul class="options">
-                                <li class="option">Property</li> 
-                                <li class="option">Food</li> 
-                                <li class="option">Furniture</li>
-                            </ul>
                         </div>
                     </div>
-                    <!-- <div class="sub12">
-                        <p>Type:</p>
-                    </div> -->
                 </div>
+                
                 <input type="text" name="id" value=<?php echo $data['id']?> hidden>
                 <button type="submit" class="submitbtn" name="submit">Add Listing</button>
-                
             </form>  
         </div>
 

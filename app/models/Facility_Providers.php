@@ -140,11 +140,12 @@
 
 
         public function updateProfileDetails($data,$user_id){
-            $this->db->query('UPDATE users SET username = :FPusername, fullname = :FPname, email = :FPemail, home_address = :FPaddress, contact_no = :contact WHERE  userID = :userid;');
+            $this->db->query('UPDATE users SET username = :FPusername, fullname = :FPname, nic = :FPnic, email = :FPemail, home_address = :FPaddress, contact_no = :contact WHERE  userID = :userid;');
             
             $this->db->bind(':userid',$user_id);
             $this->db->bind(':FPusername', $data['username']);
             $this->db->bind(':FPemail', $data['email']);
+            $this->db->bind(':FPnic', $data['nic']);
             $this->db->bind(':FPname', $data['name']);
             $this->db->bind(':FPaddress', $data['address']);
             $this->db->bind(':contact', $data['contact']);
@@ -238,9 +239,7 @@
 
         public function getlisting(){
             $this->db->query('SELECT * FROM listing ORDER BY added_date DESC');
-
             $results = $this->db->getAllRes();
-
             return $results; 
         }
 
@@ -300,7 +299,6 @@
         }
 
         public function propertysearch($keyword){
-
             $this->db->query('SELECT * FROM listing WHERE listing.topic LIKE :keyword OR listing.uniName LIKE :keyword');
             $this->db->bind(':keyword', $keyword);
             $result = $this->db->getAllRes();
@@ -311,6 +309,10 @@
         public function getlocationfilter($location){
             $this->db->query("SELECT * FROM listing WHERE location = :location");
             $this->db->bind(':location', $location);
+            $result = $this->db->getAllRes();
+            return $result;
+        }
+
         public function getUniDistances($id){
             $this->db->query("SELECT * FROM uni_distance_listing WHERE listing_id = :id");
             $this->db->bind(':id', $id);
