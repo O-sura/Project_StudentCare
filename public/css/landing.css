@@ -326,6 +326,11 @@ input:focus, textarea:focus{
    margin-right: 20px;
 }
 
+.social-icon a{
+   color: white;
+   text-decoration: none;
+}
+
 .copyrights{
   font-size: 14px;
   margin-bottom: 5px;

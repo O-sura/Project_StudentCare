@@ -204,26 +204,3 @@ fetch('http://localhost/StudentCare/admin/get_role_data')
 
     })
     .catch(error => console.error(error));
-
-    
-
-// var ctx5 = document.getElementById('listings-category');
-
-// new Chart(ctx5, {
-//     type: 'doughnut',
-//     data: {
-//       labels: ['Property', 'Food', 'Furniture and Equip.'],
-//       datasets: [{
-//         label: '# of Votes',
-//         data: [17,42,41],
-//         borderWidth: 1
-//       }]
-//     },
-//     options: {
-//       scales: {
-//         y: {
-//           beginAtZero: true
-//         }
-//       }
-//     }
-// });

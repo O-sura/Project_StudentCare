@@ -127,18 +127,18 @@
             <div class="mid">
                 <ul class="footer-links">
                     <li class="footer-link"><a href="#hero" class="footer-link">Home</a></li>
-                    <li class="footer-link"><a href="" class="footer-link">Privacy Policy</a></li>
-                    <li class="footer-link"><a href="" class="footer-link">Terms & Conditions</a></li>
-                    <li class="footer-link"><a href="" class="footer-link">Rules & Regulations</a></li>
+                    <li class="footer-link"><a href=<?php echo URLROOT . "/pages/privacy_policy"?> class="footer-link">Privacy Policy</a></li>
+                    <li class="footer-link"><a href=<?php echo URLROOT . "/pages/terms_and_conditions"?> class="footer-link">Terms & Conditions</a></li>
+                    <li class="footer-link"><a href=<?php echo URLROOT . "/pages/rules_and_regulations"?> class="footer-link">Rules & Regulations</a></li>
                 </ul>
             </div>
         </div>
         <div class="end">
             <h3 class="social-txt">FOLLOW US</h3>
             <div class="social-links">
-                <div class="social-icon"><i class="fa-brands fa-square-facebook"></i></div>
-                <div class="social-icon"><i class="fa-brands fa-square-instagram"></i></div>
-                <div class="social-icon"><i class="fa-brands fa-square-twitter"></i></div>
+                <div class="social-icon"><a href="https://www.facebook.com"><i class="fa-brands fa-square-facebook"></i></a></div>
+                <div class="social-icon"><a href="https://www.instagram.com"><i class="fa-brands fa-square-instagram"></i></a></div>
+                <div class="social-icon"><a href="https://www.twitter.com"><i class="fa-brands fa-square-twitter"></i></a></div>
             </div>
         </div>
     </div>

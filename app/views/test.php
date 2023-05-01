@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/flash.css"?> >
     <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/community/sidebar.css"?> >
-    <script src= <?php echo URLROOT . "/public/js/community.js"?> defer></script>
+    
     <title>Test</title>
 </head>
 <body>
@@ -17,7 +17,7 @@
     
     <?php print_r($data)?>
 <script>
-    
+  
 </script>
 </body>
 </html>

@@ -16,7 +16,7 @@ class AdminModel{
 
     //function to check whether a particular counsellor is manually verified by the admin or not
     public function changeAdminVerification($id,$state){
-        $this->db->query("UPDATE TABLE counsellor SET admin_verified = :verify_state WHERE userID = :id");
+        $this->db->query("UPDATE counsellor SET admin_verified = :verify_state WHERE userID = :id");
         $this->db->bind(':verify_state', $state);
         $this->db->bind(':id', $id);
 
@@ -41,7 +41,7 @@ class AdminModel{
     public function getCounselorInfo($id){
         $this->db->query("SELECT c.*, u.* FROM counsellor c INNER JOIN users u ON c.userID = u.userID WHERE c.counsellorID = :id");
         $this->db->bind(':id', $id);
-        $info = $this->db->getAllRes();
+        $info = $this->db->getRes();
         return $info;
     }
 
@@ -127,12 +127,11 @@ class AdminModel{
 
         if($this->db->execute()){
             
-            $this->db->query('UPDATE counsellor SET specialization = :Cspecialization, qualifications = :Cqualifications, profile_img = :pimg, dob = :dob WHERE  userID = :userid;');
+            $this->db->query('UPDATE counsellor SET specialization = :Cspecialization, qualifications = :Cqualifications, dob = :dob WHERE  userID = :userid;');
 
             $this->db->bind(':userid', $user_id);
             $this->db->bind(':Cspecialization', $data['specialization']);
             $this->db->bind(':Cqualifications',implode(",", $data['qualifications']));
-            $this->db->bind(':pimg',$data['profile_img']);
             $this->db->bind(':dob', $data['dob']);
 
             if($this->db->execute()){
@@ -259,7 +258,36 @@ class AdminModel{
         $res = $this->db->getAllRes();
         return $res;
     }
+
+    public function searchUsers($keyword){
+        $this->db->query('SELECT userID,username,user_role,isBlocked FROM users WHERE userID LIKE :keyword OR username LIKE :keyword OR user_role LIKE :keyword');
+        $this->db->bind(':keyword', $keyword);
+        $users = $this->db->getAllRes();
+        return json_encode($users);
+    }
     
+
+    public function createAdminProfile($data){
+        $this->db->query('INSERT INTO users (userID, username, email, password_hash, fullname, home_address, nic, contact_no, user_role, is_activated) VALUES (:userID, :username, :email, :password_hash, :fullname, :home_address, :nic, :contact_no, :user_role, :isActivated)');
+        $this->db->bind(':userID', $data['userID']);
+        $this->db->bind(':username', $data['username']);
+        $this->db->bind(':email', $data['email']);
+        $this->db->bind(':password_hash', $data['password']);
+        $this->db->bind(':fullname', $data['name']);
+        $this->db->bind(':home_address', $data['address']);
+        $this->db->bind(':nic', $data['nic']);
+        $this->db->bind(':contact_no', $data['contact']);
+        $this->db->bind(':user_role', $data['role']);
+        $this->db->bind(':isActivated', 1);
+            
+        if($this->db->execute()){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     
 }
 

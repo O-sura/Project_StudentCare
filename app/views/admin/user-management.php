@@ -18,6 +18,7 @@
         <div class="section" id="page-content"><br><br>
             <span class="heading">All Users  <i class="fa-solid fa-users"></i></span>
             <div class="div-3">
+                <input type="search" name="search" id="searchbar" placeholder="Search Here">
                 <table class="stat-table">
                         <tr>
                             <th>#UserID</th>
@@ -25,36 +26,39 @@
                             <th>Role</th>
                             <th>Action</th>
                         </tr>
-                        <!-- Ommit showing th logged in users profile among the profile list -->
-                        <?php foreach ($data as $user): ?>
-                            <?php if($user->userID != Session::get('userID')){
-                                echo ' 
-                                <tr>
-                                    <td>'. $user->userID .'</td>
-                                    <td>'. $user->username .'</td>
-                                    <td>'. $user->user_role .'</td>';
-                               if($user->isBlocked == 0){
-                                    echo '
-                                        <td class="btn-row">
-                                            <input type="submit" class="'.$user->userID . ' block-unblock-btn"  id="block-btn" value="block">
-                                            <input type="submit" class="'.$user->userID . ' delete-btn" value="delete">
-                                            <input type="submit" class="'.$user->userID . ' profile-btn" value="view profile">
-                                        </td>
-                                    </tr>';
-                                }else{
-                                    echo '
-                                        <td class="btn-row">
-                                            <input type="submit" class="'.$user->userID . ' block-unblock-btn" id="unblock-btn" value="unblock">
-                                            <input type="submit" class="'.$user->userID . ' delete-btn" value="delete">
-                                            <input type="submit" class="'.$user->userID . ' profile-btn" value="view profile">
-                                        </td>
-                                    </tr>';
-                                }
-                            }?>
-                        <?php endforeach ?>
+                        <tbody>
+                            <!-- Ommit showing th logged in users profile among the profile list -->
+                            <?php foreach ($data as $user): ?>
+                                <?php if($user->userID != Session::get('userID')){
+                                    echo ' 
+                                    <tr>
+                                        <td>'. $user->userID .'</td>
+                                        <td>'. $user->username .'</td>
+                                        <td>'. $user->user_role .'</td>';
+                                if($user->isBlocked == 0){
+                                        echo '
+                                            <td class="btn-row">
+                                                <input type="submit" class="'.$user->userID . ' block-unblock-btn"  id="block-btn" value="block">
+                                                <input type="submit" class="'.$user->userID . ' delete-btn" value="delete">
+                                                <input type="submit" class="'.$user->userID . ' profile-btn" value="view profile">
+                                            </td>
+                                        </tr>';
+                                    }else{
+                                        echo '
+                                            <td class="btn-row">
+                                                <input type="submit" class="'.$user->userID . ' block-unblock-btn" id="unblock-btn" value="unblock">
+                                                <input type="submit" class="'.$user->userID . ' delete-btn" value="delete">
+                                                <input type="submit" class="'.$user->userID . ' profile-btn" value="view profile">
+                                            </td>
+                                        </tr>';
+                                    }
+                                }?>
+                            <?php endforeach ?>
+                        </tbody>
                 </table>
             </div>
         </div>
+        
         <span class="overlay"></span>
 
         <div class="modal-box-1">

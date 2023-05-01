@@ -37,10 +37,11 @@
         public function register_helper($userID, $data){
             if($data['role'] == 'student'){
                 $studentID = substr(sha1(date(DATE_ATOM)), 0, 8);
-                $this->db->query('INSERT INTO student (userID, studentID, dob, university, locations) VALUES (:userID, :studentID, :dob, :university, :locations)');
+                $this->db->query('INSERT INTO student (userID, studentID, dob, university, unimail, locations) VALUES (:userID, :studentID, :dob, :university, :unimail, :locations)');
                 $this->db->bind(':userID', $userID);
                 $this->db->bind(':studentID', $studentID);
                 $this->db->bind(':dob', $data['dob']);
+                $this->db->bind(':unimail', $data['unimail']);
                 $this->db->bind(':university', $data['university']);
                 $this->db->bind(':locations', $data['locations']);
                 
@@ -108,6 +109,14 @@
             }
             else
                 return false;
+        }
+
+        public function getStudentUnimail($userID){
+            $this->db->query('SELECT unimail FROM student WHERE userID= :userID');
+            $this->db->bind(':userID', $userID);
+
+            $row = $this->db->getRes();
+            return $row;
         }
 
         //Get the userrole of the account based on the provided credentials

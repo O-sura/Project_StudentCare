@@ -1,14 +1,31 @@
 ==== ALL =====
 Report Generation
-Connect dashboard with backend
 Site tour model-UI coding and connecting
-Pagination fix - Community
-Search for user management
+
+
 Responsive UI
 
 Report types
 =============
 Facility-provider => listing overview[Name,username,generated date + listing info(same info shown in admin dashboard)]
 Counselor => Name,username,generated date + sessions,associated students
-Admin => Single-user info, system analytics overview
+
+Admin => Single-user info(FP,Counselor),
+    
+Overall Analytics  => Total users count for each type,
+                      New users count in month
+                      
+                      community- Total posts made,engagement,comments
+                      post reportings count
+                      counselling sessions overview by count(cancelled,completed)
+                      counselor-student engagement
+                      counselor-announcement engagement
+                      listing count,average rating for each type
+                      student-listings engagement
+                      listings percentage group by location
+                      student-mobile app engagement
+
+
+
+
 

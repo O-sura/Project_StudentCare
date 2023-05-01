@@ -46,9 +46,16 @@ $data = [
     'name' => "Osura Viduranga",
     'username' => "OsuraV",
     'listing_count' => 05,
-    'sessions' => 10,
     'categories' => "Furniture,Food",
-    'listing_details' => array()
+    'listing_details' => array(
+        array(
+                    "listingID" => "",
+                    "rating" => "",
+                    "description" => "",
+                    "category" => "",
+                    'review_count' => ''
+            )
+    )
 ];
 
 

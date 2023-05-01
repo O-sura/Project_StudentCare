@@ -19,7 +19,7 @@ body{
     padding: 20px;
     /* background-color: aquamarine; */
     text-align: center;
-    border: 1px solid rebeccapurple
+    /* border: 1px solid rebeccapurple */
 }
 
 #page-content{
@@ -34,8 +34,26 @@ body{
     padding: 2rem;
     margin-top: 2rem;
     border-radius: 10px;
+    height: 90%;
+    overflow: auto;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
+
+.div-3::-webkit-scrollbar {
+    width: 0.7rem; /* set the width of the scrollbar */
+  }
+  
+  .div-3::-webkit-scrollbar-thumb {
+    background-color: gray; /* set the color of the thumb */
+    border-radius: 5px; /* round the edges of the thumb */
+    height: 10px;
+  }
+  
+  .div-3::-webkit-scrollbar-track {
+    background-color: lightgray; /* set the color of the track */
+    border-radius: 5px;
+    height: 50px;
+  }
 
 .heading{
     font-size: 2rem;
@@ -99,3 +117,4 @@ input[type="submit"]{
 #unblock-btn{
     background-color: #08E152;
 }
+

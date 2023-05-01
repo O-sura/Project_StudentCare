@@ -48,14 +48,28 @@
                     <?php foreach($data->qualifications as $q): ?>
                         <p class="info"><?php echo $q;?></p>
                     <?php endforeach?>
-                    <a href="<?php echo APPPATH . "/uploads/" . $data->verification_doc;?>" class="download-link" download>Download Verification Document</a>
+                    <a id="download-button" href="<?php echo URLROOT . "/admin/download_verification/" . $data->verification_doc;?>" class="download-link" download>Download Verification Document</a>
                 </div>
             </div>
             <div class="button-section">
-                <a href=<?php  echo URLROOT . "/admin/counselor_verify/?id=" . $data->counsellorID ."&approval='approved'"?>><input type="submit" value="Accept Request" id="view-button"></a>
-                <a href=<?php  echo URLROOT . "/admin/counselor_verify/?id=" . $data->counsellorID ."&approval='decline'"?>><input type="submit" value="Decline Request" id="view-button"></a>
+                <a href=<?php  echo URLROOT . "/admin/counselor_verify/?id=" . $data->counsellorID ."&approval=1"?>><input type="submit" value="Accept Request" id="view-button"></a>
+                <a href=<?php  echo URLROOT . "/admin/counselor_verify/?id=" . $data->counsellorID ."&approval=0"?>><input type="submit" value="Decline Request" id="view-button"></a>
             </div>
         </div>
     </div>
+
+    <script>
+          var goToPrevious = () => {
+                javascript:history.go(-1)
+            }
+
+            const downloadLink = document.querySelector('.download-button');
+            
+            downloadLink.addEventListener('click', (event) => {
+                event.preventDefault();
+                window.location.href = downloadLink.href;
+            });
+    </script>
+
 </body>
 </html>

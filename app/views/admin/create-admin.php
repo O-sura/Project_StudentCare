@@ -4,27 +4,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/admin/admin_edit.css"?> >
-    <script src=<?php echo URLROOT . "/public/js/admin-counselor-edit.js"?> defer></script>
     <title>StudentCare</title>
+    <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/admin/admin_edit.css"?> >
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    <?php include 'sidebar.php'?>
+<?php include 'sidebar.php'?>
     <div class="section" id="page-content">
-    <h1>Edit Profile</h1>
+        <h1>New Admin Profile</h1>
         <hr>
         <div class="row-section">
-            <?php
-                if ($data["profile_img"] != NULL) {
-                    $image = $data["profile_img"];
-                } else {
-                    $image = "avatar.jpg";
-                }
-            ?>
-            <!-- need to properly link the folder which the profile images are saved -->
-            <img src="<?php echo URLROOT . "/public/img/student/" . $image; ?>" class="profile-pic">
+            
+            <img src="<?php echo URLROOT . "/public/img/avatar.jpg" ?>" class="profile-pic">
         </div>
-        <form method="post" action=<?php echo URLROOT . "/admin/update_counselor/" . $data['userID']?>>
+        <form method="post" action=<?php echo URLROOT . "/admin/create_admin"?>>
              <?php 
                 if($data['name_err'])
                     echo '<div class="form-field" data-error=" ' . $data['name_err'] . '">';
@@ -70,15 +64,7 @@
                 <label for="field1">NIC:</label>
                 <input type="text" id="field1" name="nic" value="<?php echo $data["nic"] ?>">
             </div>
-            <?php 
-                if($data['dob_err'])
-                    echo '<div class="form-field" data-error=" ' . $data['dob_err'] . '">';
-                else
-                    echo '<div class="form-field">';
-            ?>
-                <label for="field1">DOB:</label>
-                <input type="text" id="field1" name="dob" value="<?php echo $data["dob"] ?>">
-            </div>
+           
             <?php 
                 if($data['email_err'])
                     echo '<div class="form-field" data-error=" ' . $data['email_err'] . '">';
@@ -89,29 +75,32 @@
                 <input type="text" id="field1" name="email" value="<?php echo $data["email"] ?>">
             </div>
             <?php 
-                if($data['specialization_err'])
-                    echo '<div class="form-field" data-error=" ' . $data['specialization_err'] . '">';
+                if($data['password_err'])
+                    echo '<div class="form-field" data-error=" ' . $data['password_err'] . '">';
                 else
                     echo '<div class="form-field">';
             ?>
-                <label for="field1">Specialization:</label>
-                <input type="text" id="field1" name="specialization" value="<?php echo $data["specialization"] ?>">
+                <label for="field1">Password:</label>
+                <input type="password" id="field1" name="password" value="<?php echo $data["password"] ?>">
             </div>
             <?php 
-                if($data['qualification_err'])
-                    echo '<div class="form-field" data-error=" ' . $data['qualification_err'] . '">';
+                if($data['repassword_err'])
+                    echo '<div class="form-field" data-error=" ' . $data['repassword_err'] . '">';
                 else
                     echo '<div class="form-field">';
             ?>
-                <label for="field1">Qualifications:</label>
-                <?php foreach ($data['qualifications'] as $qualification): ?>
-                    <input type="text" id="field1" name="qualifications[]" id="qualification" value="<?php echo $qualification ?>">
-                <?php endforeach ?>
-                <button class="add" id="add-new">+ Add Another</button>
+                <label for="field1">Retype-Password:</label>
+                <input type="password" id="field1" name="repassword" value="<?php echo $data["repassword"] ?>">
             </div>
-            <div></div>
-            <input type="submit" value="Save Changes" class="save-btn">
+            <br><div></div>
+            <input type="submit" value="Create" class="save-btn">
         </form>
     </div>
+
+    <script>
+        document.querySelectorAll('input').forEach(e => {
+            e.addEventListener('input', () => e.parentElement.removeAttribute('data-error'));
+        })
+    </script>
 </body>
 </html>
