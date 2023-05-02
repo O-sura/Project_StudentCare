@@ -12,7 +12,7 @@
 <body>
     <?php FlashMessage::flash('verification-failed')?>
     <h1>ERROR: <?php echo $data['err_code']?></h1>
-    <img src="<?php echo URLROOT . "/public/img/error.png"?>" alt="error-logo">
+    <img src="<?php echo URLROOT . "/public/img/person.png"?>" alt="error-logo">
     <h3 class="unauth-txt"><?php echo $data['display_data']?></h3>
 </body>
 </html>

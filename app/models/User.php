@@ -37,10 +37,11 @@
         public function register_helper($userID, $data){
             if($data['role'] == 'student'){
                 $studentID = substr(sha1(date(DATE_ATOM)), 0, 8);
-                $this->db->query('INSERT INTO student (userID, studentID, dob, university, locations) VALUES (:userID, :studentID, :dob, :university, :locations)');
+                $this->db->query('INSERT INTO student (userID, studentID, dob, university, unimail, locations) VALUES (:userID, :studentID, :dob, :university, :unimail, :locations)');
                 $this->db->bind(':userID', $userID);
                 $this->db->bind(':studentID', $studentID);
                 $this->db->bind(':dob', $data['dob']);
+                $this->db->bind(':unimail', $data['unimail']);
                 $this->db->bind(':university', $data['university']);
                 $this->db->bind(':locations', $data['locations']);
                 
@@ -108,6 +109,14 @@
             }
             else
                 return false;
+        }
+
+        public function getStudentUnimail($userID){
+            $this->db->query('SELECT unimail FROM student WHERE userID= :userID');
+            $this->db->bind(':userID', $userID);
+
+            $row = $this->db->getRes();
+            return $row;
         }
 
         //Get the userrole of the account based on the provided credentials
@@ -269,6 +278,44 @@
            $this->db->getRes();
         }
 
+        //function to check whether a particular counsellor is manually verified by the admin or not
+        public function isAdminVerified($id){
+            $this->db->query("SELECT * FROM counsellor WHERE userID = :id");
+            $this->db->bind(':id', $id);
+
+            $isVerified = $this->db->getRes()->admin_verified;
+
+            if($isVerified == 1){
+                return true;
+            }else if($isVerified == 0){
+                return false;
+            }
+        }
+
+        public function setLastLogin($id){
+           $this->db->query("UPDATE users SET last_login = NOW() WHERE userID = :userID");            
+           $this->db->bind(':userID', $id);
+
+           $this->db->getRes();
+        }
+
+        public function sendContactNotification($data){
+            $notificationID = substr(sha1(date(DATE_ATOM)), 0, 8);
+            $this->db->query('INSERT INTO contact_notifications (notificationID, fname, lname, email,message_body, reported_at, admin_seen) VALUES (:notificationID, :fname, :lname, :email, :message_body, NOW(), 0)');
+            $this->db->bind(':notificationID', $notificationID);
+            $this->db->bind(':fname', $data['fname']);
+            $this->db->bind(':lname', $data['lname']);
+            $this->db->bind(':email', $data['email']);
+            $this->db->bind(':message_body', $data['message']);
+            
+            if($this->db->execute()){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+    
     }
 
 

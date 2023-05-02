@@ -76,13 +76,37 @@
             return $result;
         }
 
-        public function editprofile(){
-            $userID = Session::get('userID');
-            $this->db->query('UPDATE u.*, f.category FROM users u INNER JOIN facility_provider f ON u.userID = f.userID WHERE u.userID = :userID'); 
+        public function getProfile($userID){
+            $this->db->query('SELECT u.*, f.* FROM users u INNER JOIN facility_provider f ON u.userID = f.userID WHERE u.userID = :userID'); 
             $this->db->bind(':userID', $userID);
 
             $result = $this->db->getRes();
             return $result;
+        }
+
+        public function editprofile($user_id){
+            //$userID = Session::get('userID');
+            /* $this->db->query('SELECT u.*, f.category FROM users u INNER JOIN facility_provider f ON u.userID = f.userID WHERE u.userID = :userID'); 
+            $this->db->bind(':userID', $userID); */
+
+            /* $this->db->bind(':name', $data['name']);
+            $this->db->bind(':nic', $data['nic']);
+            $this->db->bind(':home_address', $data['home_address']);
+            $this->db->bind(':email', $data['email']);
+            $this->db->bind(':contact_no', $data['contact_no']);
+            $this->db->bind(':category', $data['category']);
+
+            if($this->db->execute()){
+                return true;
+            }
+            else{
+                return false;
+            } */
+
+            $this->db->query('SELECT * FROM users INNER JOIN facility_provider ON users.userID = facility_provider.fpID WHERE users.userID = :user_id');
+            $this->db->bind('user_id',$user_id);
+            $results = $this->db->getRes();
+            return $results; 
         }
 
 
@@ -126,13 +150,6 @@
 
 
         public function propertysearch($keyword){
-           /*  $this->db->query("SELECT * FROM propertylist WHERE uniName LIKE %:uniName OR topic LIKE %:topic OR price LIKE %:rental ");
-            $this->db->bind(':uniName', $uniName);
-            $this->db->bind(':topic', $topic);
-            $this->db->bind(':rental', $rental);
-
-            $result = $this->db->getRes();
-            return $result; */
             $this->db->query('SELECT * FROM listing WHERE topic LIKE :keyword OR uniName LIKE :keyword OR price LIKE :keyword');
             $this->db->bind(':keyword', $keyword);
             $result = $this->db->getAllRes();
@@ -181,8 +198,12 @@
         }
 
         public function deleteItem($id){
-            $this->db->query('DELETE FROM listing WHERE id=:id'); 
-
+            $this->db->query('DELETE FROM listing WHERE listing_id=:id');
+            
+            //bind values
+            $this->db->bind(':id',$id);
+            
+            //execute
             if($this->db->execute()){
                 return true;
             }
@@ -192,6 +213,5 @@
         }
 
     }
-
 
 ?>

@@ -21,7 +21,7 @@
         <img src="<?php echo URLROOT . "/public/img/login-banner.jpg"?>" alt="login-image" class="login-banner">
         <div class="login-form">
             <div class="form-container">
-                <center><h1>LOGIN</h1></center>
+                <center><h1>Welcome Back...</h1></center>
                 <form action="./login" method="POST" class="form">
                     <?php 
                         if($data['username_err'])
@@ -29,7 +29,7 @@
                         else
                             echo '<div class="form-field">';
                     ?>
-                        <label for="username" class="form-input-lable">Username:</label>
+                        <label for="username" class="form-input-lable">Username*</label>
                         <input type="text" name="username" class="form-input">
                     </div>
                     <?php 
@@ -38,7 +38,7 @@
                         else
                             echo '<div class="form-field">';
                     ?>
-                        <label for="password" class="form-input-lable">Password:</label>
+                        <label for="password" class="form-input-lable">Password*</label>
                         <input type="password" name="password" class="form-input">
                     </div>
                     <div class="additionals">
@@ -48,7 +48,7 @@
                         </span>
                         <a href="<?php echo URLROOT ?>/users/forgot_password">Forgot Password?</a>
                     </div>
-                    <input type="submit" value="Login" class="button">
+                    <input type="submit" value="Sign-in" class="button">
                     <div class="bottom-section">
                         <span class="register-text">Haven't Joined Yet? <a href="<?php echo URLROOT ?>/users/register">Register Here</a></span>
                     </div>

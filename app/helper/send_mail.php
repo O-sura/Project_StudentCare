@@ -21,7 +21,7 @@ function sendMail($sendAddr, $subject, $body, $albody){
         $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
         $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
         $mail->Username   = 'studentcare.noreply@gmail.com';                     //SMTP username
-        $mail->Password   = 'pcpikshihfiyfola';                               //SMTP password
+        $mail->Password   = 'jvretshahntgbbsl';                               //SMTP password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
         $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
@@ -35,6 +35,14 @@ function sendMail($sendAddr, $subject, $body, $albody){
         $mail->Body    = $body;
         $mail->AltBody = $albody;
 
+        $mail->SMTPOptions = array(
+            'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            )
+        );
+
         $mail->send();
         return true;
     } catch (Exception $e) {
@@ -43,4 +51,4 @@ function sendMail($sendAddr, $subject, $body, $albody){
     }
 }
 
-//App password for studentcare.noreply@gmail.com => pcpikshihfiyfola
+//App password for studentcare.noreply@gmail.com => jvretshahntgbbsl

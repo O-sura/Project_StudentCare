@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -38,7 +39,7 @@
         <span class="tooltip">Community</span>
       </li>
       <li>
-        <a href="<?php echo URLROOT . "/tasks/index"?>">
+        <a href="<?php echo URLROOT . "/schedule/home"?>">
           <i class="fa-solid fa-calendar-days"></i>
           <span class="links_name">Schedule</span>
         </a>
@@ -81,3 +82,4 @@
   </div>
   <div class="home_content">
     
+

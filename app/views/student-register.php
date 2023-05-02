@@ -27,7 +27,7 @@
                         echo '<div class="form-field">';
             ?>
                 <label for="dob" class="lable">Date of Birth:</label><br>
-                <input type="date" name="dob" id="dob" class="form-input">
+                <input type="date" name="dob" id="dob" class="form-input" max=<?php echo date('Y-m-d');?> >
             </div>
             <?php 
                     if($data['university_err'])
@@ -46,14 +46,26 @@
                     features given in our platform and all these information will be private)</p>
             </div>
             <?php 
+                    if($data['unimail_err'])
+                        echo '<div class="form-field" data-error=" ' . $data['unimail_err'] . '">';
+                    else
+                        echo '<div class="form-field">';
+            ?>
+                <label for="university" class="lable">University Email:</label><br>
+                <input type="email" name="unimail" id="unimal" class="form-input">
+                
+                <?php 
                     if($data['terms_err'])
                         echo '<div class="form-field" id="terms-cond" data-error=" ' . $data['terms_err'] . '">';
                     else
                         echo '<div class="form-field"  id="terms-cond">';
-            ?>
-                <input type="checkbox" name="terms" id="terms" class="form-input">
-                <span class="note">I hereby declare that the information given above is true and accurate to the best of my knowledge</span>
+                ?>
+                    <input type="checkbox" name="terms" id="terms" class="form-input">
+                    <span class="note">I hereby declare that the information given above is true and accurate to the best of my knowledge</span>
+                </div>
+
             </div>
+            
             <input type="submit" value="Register Me" class="button" name="register">
         </form>
     </div>

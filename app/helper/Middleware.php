@@ -7,7 +7,7 @@ class Middleware{
     }
     
     public static function authorizeUser($current_userrole, $authorized_role){
-        if($current_userrole == $authorized_role){
+        if($current_userrole == $authorized_role || $current_userrole == 'admin'){
             return;
         }
         else{
@@ -18,7 +18,6 @@ class Middleware{
     public static function isLoggedIn(){
         if(Session::isLoggedIn()){
             Middleware::redirect('access/restrict');
-            echo 'Error';
             exit();
         }
     }
@@ -32,14 +31,12 @@ class Middleware{
 
     //Method to set the current form level 
     public static function setFormLevel($currentLevel){
-        Session::init();
         Session::unset('currentLevel');
         Session::set('currentLevel', $currentLevel);
     }
 
     //Method to check whether the current form level is allowed
     public static function checkFormLevel($allowedLevel){
-        Session::init();
         if(Session::get('currentLevel') < $allowedLevel || Session::get('currentLevel') == null){
             Middleware::redirect('users/register');
             exit();
