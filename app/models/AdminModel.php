@@ -186,7 +186,7 @@ class AdminModel{
     }
 
      public function newRegUsers(){
-        $this->db->query("SELECT DAYNAME(registeredAt) AS reg_date, COUNT(*) AS count FROM users WHERE registeredAt BETWEEN DATE_SUB(NOW(), INTERVAL 10 DAY) AND NOW() GROUP BY DATE(registeredAt);");
+        $this->db->query("SELECT DAYNAME(registeredAt) AS reg_date, COUNT(*) AS count FROM users WHERE registeredAt BETWEEN DATE_SUB(NOW(), INTERVAL 7 DAY) AND NOW() GROUP BY DATE(registeredAt);");
         $res = $this->db->getAllRes();
         return json_encode($res);
     }
@@ -286,6 +286,51 @@ class AdminModel{
         else{
             return false;
         }
+    }
+
+    public function getPostReportings(){
+        $this->db->query('SELECT * from post_reported WHERE admin_seen = 0');
+        $notifications = $this->db->getAllRes();
+        return json_encode($notifications);
+        //return $users;
+    }
+
+    public function markAsRead($type,$notificationID){
+        if($type == 1){
+            $this->db->query('UPDATE post_reported SET admin_seen = 1 WHERE notificationID = :notificationID');
+        }
+        else if($type == 0){
+            $this->db->query('UPDATE contact_notifications SET admin_seen = 1 WHERE notificationID = :notificationID');
+        }
+        
+        //$this->db->bind(':tablename', $tablename);
+        $this->db->bind(':notificationID', $notificationID);
+        if($this->db->rowCount() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function markAllAsRead($type){
+        if($type == 1){
+            $this->db->query('UPDATE post_reported SET admin_seen = 1');
+        }
+        else if($type == 0){
+            $this->db->query('UPDATE contact_notifications SET admin_seen = 1');
+        }
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function getOtherNotifications(){
+        $this->db->query('SELECT * from contact_notifications WHERE admin_seen = 0');
+        $notifications = $this->db->getAllRes();
+        return json_encode($notifications);
+        //return $users;
     }
 
     

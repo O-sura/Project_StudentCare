@@ -190,7 +190,8 @@ class CommunityModel{
             $count = $this->db->rowCount();
 
             if($count < 1){
-                $this->db->query('INSERT INTO post_reported(userID, postID, reason, reported_at) VALUES(:userID, :postID, :reason, NOW())');
+                $this->db->query('INSERT INTO post_reported(notificationID,userID, postID, reason, reported_at,admin_seen) VALUES(:notificationID, :userID, :postID, :reason, NOW(), 0)');
+                $this->db->bind(':notificationID', substr(sha1(date(DATE_ATOM)), 0, 8));
                 $this->db->bind(':postID', $postID);
                 $this->db->bind(':userID', $userID);
                 $this->db->bind(':reason', $reason);

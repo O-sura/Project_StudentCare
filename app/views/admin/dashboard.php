@@ -52,7 +52,7 @@
                 </div>
                 <div class="card">
                     <h2 class="card-text">Engagement</h2>
-                    <span><?php echo $data['engagement']?>%</span>
+                    <span><?php echo round($data['engagement'], 2)?>%</span>
                 </div>
             </div>
             <div class="chart-div">
@@ -91,7 +91,7 @@
                 </div>
                 <div class="card">
                     <h2 class="card-text">Average Rating</h2>
-                    <span><?php echo $data['average_rating']?></span>
+                    <span><?php echo round($data['average_rating'],2)?></span>
                 </div>
             </div>
             <div class="chart-div">

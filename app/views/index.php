@@ -11,8 +11,15 @@
     <title>Document</title>
     <link rel="stylesheet" href=<?php echo URLROOT. "/public/css/landing.css"?>>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src= <?php echo URLROOT . "/public/js/flash.js"?> defer></script>
 </head>
 <body>
+<?php 
+        // Has to link the css-not added because some issue
+        FlashMessage::flash('message-sent-flash');
+        FlashMessage::flash('message-not-sent-flash');
+?>
+
 <div class="navbar">
     <h2 class="identity">StudentCare</h2>
     <ul class="navbar-item">
@@ -97,26 +104,46 @@
 <div class="contact-form-container" id="contact">
     <h1>Contact Us</h1>
     <div class="form-wrapper">
-        <form action="" method="post">
+        <form action="<?php echo URLROOT . "/pages/contact_us"?>" method="post">
             <div class="form-row">
-                <div class="form-field">
+                <?php 
+                    if($data['fname_err'])
+                        echo '<div class="form-field" data-error=" ' . $data['fname_err'] . '">';
+                    else
+                        echo '<div class="form-field">';
+                ?>
                     <label for="fname">First Name:</label><br>
-                    <input type="text" name="fname" id="fname">
+                    <input type="text" name="fname" id="fname" required>
                 </div>
-                <div class="form-field">
+                <?php 
+                    if($data['lname_err'])
+                        echo '<div class="form-field" data-error=" ' . $data['lname_err'] . '">';
+                    else
+                        echo '<div class="form-field">';
+                ?>
                     <label for="lname">Last Name:</label><br>
-                    <input type="text" name="lname" id="lname">
+                    <input type="text" name="lname" id="lname" required>
                 </div>
             </div>
-            <div class="form-field">
+            <?php 
+                    if($data['email_err'])
+                        echo '<div class="form-field" data-error=" ' . $data['email_err'] . '">';
+                    else
+                        echo '<div class="form-field">';
+            ?>
                 <label for="email">Email:</label><br>
-                <input type="email" name="email" id="email">
+                <input type="email" name="email" id="email" required>
             </div>
-            <div class="form-field">
+            <?php 
+                    if($data['message_err'])
+                        echo '<div class="form-field" data-error=" ' . $data['message_err'] . '">';
+                    else
+                        echo '<div class="form-field">';
+            ?>
                 <label for="message">Message:</label><br>
-                <textarea name="message" id="message" cols="30" rows="10"></textarea>
+                <textarea name="message" id="message" cols="30" rows="10" required></textarea>
             </div>
-            <center><input type="submit" value="Submit" class="btn"></center>
+            <center><input type="submit" value="Submit" class="btn" name="submit"></center>
         </form>
     </div>
 </div>
@@ -142,7 +169,7 @@
             </div>
         </div>
     </div>
-    <center><p class="copyrights">StudentCare © 2022 - 2023</p></center>
+    <center><p class="copyrights">StudentCare © 2023 - 2024</p></center>
 </div>
 </body>
 </html>

@@ -7,6 +7,7 @@
     <title>StudenCare</title>
     <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/admin/complaint-log.css"?> >
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src=<?php echo URLROOT . "/public/js/complaint-log.js"?> defer></script>
 </head>
 <body>
     <!-- <div class="section" id="sidebar">1</div> -->
@@ -15,33 +16,19 @@
     <div class="section" id="page-content">
         <div class="section-header">
             <h1>Complaint Log</h1>
-            <button type="submit" value="" id="mark-all">Mark All as Read</button>
+            <button type="submit" value="" class="mark-all" id="mark-all-1">Mark All as Read</button>
         </div>
-        <div class="complaint">
-            <h4 class="date">10-February</h4>
-            <div class="complaint-body">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
-                <i class="fa-solid fa-circle-check"></i>
-            </div>
-            <div class="complaint-body">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
-                <i class="fa-solid fa-circle-check"></i>
-            </div>
+
+        <div class="complaint-box-1">
+           
         </div>
-        <div class="complaint">
-            <h4 class="date">09-February</h4>
-            <div class="complaint-body">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
-                <i class="fa-solid fa-circle-check"></i>
-            </div>
-            <div class="complaint-body">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
-                <i class="fa-solid fa-circle-check"></i>
-            </div>
-            <div class="complaint-body">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
-                <i class="fa-solid fa-circle-check"></i>
-            </div>
+        
+        <div class="section-header">
+            <h1>Other Notifications</h1>
+            <button type="submit" value="" class="mark-all" id="mark-all-2">Mark All as Read</button>
+        </div>
+        <div class="complaint-box-2">
+            
         </div>
     </div>
 </body>

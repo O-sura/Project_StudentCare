@@ -29,7 +29,7 @@
     <div class="section" id="post-content">
         <div class="title-and-buttons">
             <h3 class="title"><?= $data['post']->{'post_title'} ?></h3>
-            <?php if($data['post']->author === Session::get('username')) : ?>
+            <?php if(($data['post']->author === Session::get('username')) || Session::get('userrole') == "admin") : ?>
                 <?php echo '<div class="buttons">
                     <a href='. URLROOT. "/community/update_post/" . $data['post']->{'post_id'} .' ><i class="fa-solid fa-pen-to-square" id="update-btn"></i></a>
                     <i class="fa-solid fa-trash" id="delete-btn"></i>

@@ -32,9 +32,19 @@ function getSortedData(data,labelColName,countColName){
   let reg_date = data.map(obj => obj[labelColName]);
   let count = data.map(obj => obj[countColName]);
 
-  // console.log(reg_date)
   let lDate = [];
-  lDate.push(reg_date[reg_date.length -1]);
+  // Create an array with the names of the days
+  const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+  // Create a new Date object
+  const today = new Date();
+
+  // Get the day of the week (0-6)
+  const dayIndex = today.getDay();
+
+  // Get the name of the day
+  const dayName = days[dayIndex];
+  lDate.push(dayName);
 
   //For all the unpresent days with 0 registered users, add them to the data as well
   while(lDate.length < 7){

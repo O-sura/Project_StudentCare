@@ -298,6 +298,23 @@
 
            $this->db->getRes();
         }
+
+        public function sendContactNotification($data){
+            $notificationID = substr(sha1(date(DATE_ATOM)), 0, 8);
+            $this->db->query('INSERT INTO contact_notifications (notificationID, fname, lname, email,message_body, reported_at, admin_seen) VALUES (:notificationID, :fname, :lname, :email, :message_body, NOW(), 0)');
+            $this->db->bind(':notificationID', $notificationID);
+            $this->db->bind(':fname', $data['fname']);
+            $this->db->bind(':lname', $data['lname']);
+            $this->db->bind(':email', $data['email']);
+            $this->db->bind(':message_body', $data['message']);
+            
+            if($this->db->execute()){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
     
     }
 

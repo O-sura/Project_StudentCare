@@ -141,6 +141,15 @@
         }
 
         public function complaints(){
+            // $data = [
+            //     'complaints' => $this->adminModel->getPostReportings(),
+            //     'other' => $this->adminModel->getOtherNotifications()
+            // ];
+
+            // print_r($data);
+            // exit;
+
+            //$this->loadView('admin/complaint-log',$data);
             $this->loadView('admin/complaint-log');
         }
 
@@ -813,12 +822,39 @@
                 $this->loadView('admin/create-admin',$data);
             }
         }
-
-
-        public function test(){
-            $res = $this->adminModel->test();
-            echo $res;
+        
+        public function get_post_reports(){
+            echo $this->adminModel->getPostReportings();
         }
+
+        public function get_contact_notifications(){
+            echo $this->adminModel->getOtherNotifications();
+        }
+
+        public function mark_as_read(){
+            // Get the notification ID from the URL parameter
+            $notificationId = $_GET['id'];
+            $type = $_GET['type'];
+
+
+            // Return a response to indicate success or failure
+            if($this->adminModel->markAsRead($type,$notificationId)) {
+                http_response_code(200); // OK
+            } else {
+                http_response_code(400); // Bad Request
+            }
+        }
+
+        public function mark_all_as_read(){
+            $type = $_GET['type'];
+            // Return a response to indicate success or failure
+            if($this->adminModel->markAllAsRead($type)) {
+                http_response_code(200); // OK
+            } else {
+                http_response_code(400); // Bad Request
+            }
+        }
+
 
     
 
