@@ -33,14 +33,16 @@
             }
         }
 
-        public function deleteUniDistances($listingID){
-            $this->db->query('DELETE FROM uni_distance_listing WHERE listing_id = :listingID');
-            $this->db->bind(':listingID', $listingID);
-
+        public function deleteUniDistances($id){
+            $this->db->query('DELETE FROM uni_distance_listing WHERE listing_id=:id');
+            
+            //bind values
+            $this->db->bind(':id',$id);
+            
+            //execute
             if($this->db->execute()){
                 return true;
-            }
-            else{
+            }else{
                 return false;
             }
         }
@@ -299,7 +301,7 @@
         }
 
         public function propertysearch($keyword){
-            $this->db->query('SELECT * FROM listing WHERE listing.topic LIKE :keyword OR listing.uniName LIKE :keyword');
+            $this->db->query('SELECT * FROM listing WHERE topic LIKE :keyword or location LIKE :keyword');
             $this->db->bind(':keyword', $keyword);
             $result = $this->db->getAllRes();
             return json_encode($result);

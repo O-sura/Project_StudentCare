@@ -40,17 +40,6 @@
             <hr>
 
             <div class="wrapper">
-                <!-- <div class="dropdown-menu">
-                    <div class="select-btn">
-                        <span class="Sbtn-text">All Announcements</span>
-                        <i class="fa-sharp fa-solid fa-chevron-down"></i>
-                    </div>
-                    <ul class="options">
-                        <li class="option">All Announcements</li> 
-                        <li class="option">Your Announcements</li> 
-                        
-                    </ul>
-                </div> -->
 
                 <div class="select-btn">
                     <select class="filter" name="filterItem" id="filterlocation">

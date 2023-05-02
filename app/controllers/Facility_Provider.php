@@ -589,6 +589,15 @@ class Facility_Provider extends Controller{
                 'special_note_err' => '',
                 'category_err' => ''
             ];
+           
+            if($images['name'][0] == '') {
+                echo 'bcdfbudjsbv';
+            }else{
+                echo '1234556';
+            }
+            /* $this->loadView('test',$_POST); */
+
+            exit;
 
             //Check whether all the fields are filled properly
             /* if(!$_POST['topic'] && !$_POST['description'] && !$_POST['rental'] && !$_POST['location'] && !$_POST['address'] && !$_POST['uniName'] && !$_POST ['uniDistance'] && !$_POST['images'] && !$_POST['special_note'] && !$_POST['category']){
@@ -809,14 +818,14 @@ class Facility_Provider extends Controller{
     public function deleteItem($id){
     
         //get existing post from model
-        $item = $this->ListingModel->getItemById($id);
+        /* $item = $this->ListingModel->getItemById($id); */
 
         //check for owner
-        if($item->listing_id != $_SESSION['userID']){
+        /* if($item->listing_id != $_SESSION['userID']){
             Middleware::redirect('./facility_provider/myListing');
-        }
+        } */
 
-        if($this->ListingModel->deleteItem($id)){
+        if($this->ListingModel->deleteItem($id) && $this->ListingModel->deleteUniDistances($id)){
             FlashMessage::flash('item_add_flash', "Item Successfully Deleted!", "success");
             Middleware::redirect('./facility_provider/myListing');
         }

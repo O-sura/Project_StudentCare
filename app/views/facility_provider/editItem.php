@@ -149,7 +149,7 @@
                         </div>
                         <?php if(isset($data['imagelist'])) : ?>
                             <?php foreach($data['imagelist'] as $key => $img) : ?>
-                                <input class="image" name="images[]" id="img_<?php echo $key ?>" type="file" multiple value="<?php echo $img ?>">
+                                <input class="image" name="images[]" id="img_<?php echo $key ?>" type="file" value=IMG-6450989aa9f842.87772264.jpg>
                             <?php endforeach; ?>
                         <?php endif; ?>
                         
@@ -162,7 +162,7 @@
                                         <span class="Sbtn-text"><?php echo $data['viewone']->category; ?></span>
                                         <i class="fa-sharp fa-solid fa-chevron-down"></i>
                                     </div>
-                                    <input type="text" name="category" class="category-dropdown" hidden>
+                                    <input type="text" name="category" class="category-dropdown" value="<?php echo $data['viewone']->category; ?>" hidden>
                                     <ul class="options">
                                         <li class="option">Property</li> 
                                         <li class="option">Food</li> 

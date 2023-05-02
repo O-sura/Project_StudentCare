@@ -23,25 +23,19 @@ const deleteConfirmBtn = document.querySelector('#delete-button');
 if(deleteConfirmBtn){
     //make the request to the backend to delete the listing
     deleteConfirmBtn.addEventListener('click', () => {
-        const url = 'http://localhost/StudentCare/Facility_Provider/deleteItem'; 
-        const options = {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        };
-
-        fetch(url, options)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                console.log('Listing deleted successfully');
-                
+        let listingID = deleteConfirmBtn.getAttribute('class').split(" ")[0];
+        fetch(`http://localhost/StudentCare/facility_provider/deleteItem/${listingID}`, {
+                method: 'POST'
             })
-            .catch(error => {
-                console.error('There was a problem deleting the listing:', error);
-                
-            });
+            .then(response => {
+                if (response.ok) {
+                        // Update the UI to indicate that the notification was marked as read
+                        location.replace("http://localhost/StudentCare/facility_provider/");
+                    } else {
+                        // Handle the error
+                        console.error('Failed to update notification');
+                    }
+            })
+            
     });
 }

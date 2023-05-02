@@ -56,10 +56,10 @@ options.forEach(option => {
 
 
 //edit university names
-let input = document.querySelector('input[name="uniName[]"'); // Get the input element by name
+let input = document.querySelector('select[name="uniName[]"'); // Get the input element by name
     let values = input.value.split(","); // Get the value of the input
     let container = document.querySelector('#another');
-    console.log(values)
+    //console.log(values)
 //add more universities
 var counter = 1;
 var textbox = "";
@@ -92,4 +92,5 @@ inputimg.addEventListener('change', function() {
       previewContainer.appendChild(img);
     }
   }
+  //console.log('hello');
 });
