@@ -33,7 +33,9 @@ function addBtnListeners() {
           filling_0 += `
           <div class="imageSection">
             <div class="img">
-              <img class="dpImg" src="http://localhost/StudentCare/public/img/student/${response.profile_img}" alt=""><br>
+              ${response.profile_img == "" ? 
+              `<img class="dpImg" src="http://localhost/StudentCare/public/img/student/avatar.jpg" alt=""><br>` : 
+              `<img class="dpImg" src="http://localhost/StudentCare/public/img/student/${response.profile_img}" alt=""><br>`}
             </div>
             <div class="btnDiv">
               <form method="post" action="http://localhost/StudentCare/Counsellor/acceptRejectStudent/${response.studentID}">
@@ -62,7 +64,9 @@ function addBtnListeners() {
           filling_1 += `
           <div class="imageSection">
             <div class="img">
-              <img class="dpImg" src="http://localhost/StudentCare/public/img/student/${response.profile_img}" alt=""><br>
+            ${response.profile_img == "" ? 
+            `<img class="dpImg" src="http://localhost/StudentCare/public/img/student/avatar.jpg" alt=""><br>` : 
+            `<img class="dpImg" src="http://localhost/StudentCare/public/img/student/${response.profile_img}" alt=""><br>`}
             </div>
             <div class="btnDiv">
               <form method="post" action="http://localhost/StudentCare/Counsellor/removeStudent/${response.studentID}">
@@ -90,7 +94,9 @@ function addBtnListeners() {
           filling_2 += `
           <div class="imageSection">
             <div class="img">
-              <img class="dpImg" src="http://localhost/StudentCare/public/img/student/${response.profile_img}" alt=""><br>
+            ${response.profile_img == "" ? 
+            `<img class="dpImg" src="http://localhost/StudentCare/public/img/student/avatar.jpg" alt=""><br>` : 
+            `<img class="dpImg" src="http://localhost/StudentCare/public/img/student/${response.profile_img}" alt=""><br>`}
             </div>
           </div>
           <div class="infoSection">

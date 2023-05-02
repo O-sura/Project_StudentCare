@@ -3,6 +3,7 @@
     class Counsellor extends Controller{
         public function __construct(){
             Middleware::authorizeUser(Session::get('userrole'), 'counsellor');
+            $this->postModel = $this->loadModel('Counselor');
         }
         
         public function index(){
@@ -16,7 +17,7 @@
             
             $this->postModel = $this->loadModel('Counselor');
             $userid = Session::get('userID');
-
+            //Counsellor::getAppointmentStats();
             //get the time zone
             date_default_timezone_set('Asia/Kolkata');
 
@@ -118,6 +119,7 @@
                 'specialization' => $row->specialization,
                 'qualifications' => $new,
                 'profile' => $row->profile_img,
+                'description' => $row->counselor_description,
                 'name_err' => '',
                 'username_err' => '',
                 'email_err' => '',
@@ -181,6 +183,7 @@
                 $address = $_POST['address'];
                 $contact = $_POST['contact'];
                 $specialization = $_POST['specialization'];
+                $description = $_POST['bioDesc'];
                 $qualifications = array();
                 //$new = explode(",", $row->qualifications);
 
@@ -211,6 +214,7 @@
                     'specialization' => $specialization,
                     'qualifications' => $qualifications,
                     'profile' => $row->profile_img,
+                    'description' => $description,
                     'name_err' => '',
                     'username_err' => '',
                     'email_err' => '',
@@ -595,6 +599,23 @@
                 }
                
             }
+        }
+
+        public function getAppointmentStats(){
+            $userid = Session::get('userID');
+
+            $res = $this->postModel->getAllAppointments($userid);
+        
+            echo $res;
+        }
+
+        public function getDatailForBarChart(){
+            $userid = Session::get('userID');
+
+            $res = $this->postModel->getAppointmentForWeek($userid);
+        
+            echo $res;
+
         }
 
         // public function showAppointmentTimes(){

@@ -28,6 +28,8 @@
         }
 
         public function home(){
+
+            $userid = Session::get('userID');
             
             $data = [
                 'stuID' => '',
@@ -43,7 +45,7 @@
                 'desc_err' => '',
                 'descC_err' => ''
             ];
-
+           
             $this->loadView('counselor/appointment',$data);
         }
 
@@ -317,7 +319,7 @@
 
             $this->postModel->completeAppointmentUpdate($appdate,$appID);
 
-            // CounselorAppointment::dailyAppointment($appdate);
+            CounselorAppointment::dailyAppointment($appdate);
         
         }
 
@@ -344,6 +346,21 @@
             }
 
         }
+
+        //to color the appointed dates
+        public function makeColoredAppointedDates(){
+            $userid = Session::get('userID');
+            $appDates = $this->postModel->getAppointmentDates($userid);
+            $dates = array();
+            foreach ($appDates as $object) {
+                $dates[] = $object->appointmentDate;
+            }
+
+            echo json_encode($dates);
+        
+        }
+
+        
 
     }
 

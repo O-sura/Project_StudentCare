@@ -60,7 +60,6 @@
 }
 
 
-
 /*Calender*/
 
 .wrapper{
@@ -189,6 +188,11 @@ header .icons i:last-child{
 
 .days li.active::before{
   background: #7893F3;
+}
+
+.days li.special::before{
+  background: rgb(146, 231, 18);
+  color: white;
 }
 
 #date{

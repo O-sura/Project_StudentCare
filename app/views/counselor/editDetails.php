@@ -129,9 +129,13 @@
                     
                         </div>
                     </div>
-                
+                <div>
+                    
+                </div>
                 <div class="qualificationSection">
-                    <div class="qualiD" id="qualiD">
+                    <label for="editBio">Bio</label><br>
+                    <input class="quali" name="bioDesc" value="<?= $data['description'] ;?>"><br><br>
+                    <div class="qualiD" id="qualiD" >
                         <?php 
                             if($data['qualification_err'])
                             echo '<div class="form-field" id="qualifications" data-error=" ' . $data['qualification_err'] . '">';

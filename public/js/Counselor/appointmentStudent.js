@@ -20,7 +20,10 @@ clickDivs.forEach((div) => {
                 filling += `
                     <div class="stu" id="stu">
                         <div class="imagePP">
-                            <img class="imggPPP" src="http://localhost/StudentCare/public/img/avatar.jpg" alt=""> 
+                        ${response.profile_img == "" ? 
+                          `<img class="imggPPP" src="http://localhost/StudentCare/public/img/student/avatar.jpg" alt="">` : 
+                          `<img class="imggPPP" src="http://localhost/StudentCare/public/img/student/${response.profile_img}" alt="">`}
+                           
                         </div>
                         <p class="fname">${response.fullname}</p>
                         <p class="address">${response.home_address}</p>

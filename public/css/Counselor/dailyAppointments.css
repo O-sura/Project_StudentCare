@@ -495,7 +495,7 @@ hr{
 }
 
 #removeBtnC:hover {
-  background: #e1c827;
+  background: 7#e1c82;
   background-image: -webkit-linear-gradient(top, #f2c23d, #f2c23d);
   background-image: -moz-linear-gradient(top, #f2c23d, #f2c23d);
   background-image: -ms-linear-gradient(top, #f2c23d, #f2c23d);

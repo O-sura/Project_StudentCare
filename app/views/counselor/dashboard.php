@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="utf-8">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://kit.fontawesome.com/174ad75841.js" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/feather-icons"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -10,8 +11,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="<?php echo URLROOT . "/public/css/Counselor/dashboard.css"?>">
-  <script src= <?php echo URLROOT . "/public/js/Counselor/barchart.js"?> defer></script>
-  <script src= <?php echo URLROOT . "/public/js/Counselor/piechart.js"?> defer></script>
+  <script src= <?php echo URLROOT . "/public/js/Counselor/dashboardCharts.js"?> defer></script>
+
   <title></title>
 </head>
 
@@ -65,11 +66,6 @@
                         <div class="noappR"><p class="noappP"><?php echo "There is no any appointment yet for today" ?></p></div>
                     <?php endif ;?>
                     
-                    <!-- <div class="row2div1">10:00 <br>A.M</div>
-                    <div class="row2div1">11:30 <br>A.M</div>
-                    <div class="row2div1">01:30 <br>P.M</div>
-                    <div class="row2div1">02:45 <br>P.M</div>
-                    <div class="row2div1">04:15 <br>P.M</div> -->
                 </div>
            
                 <h2 class="subTopic">Daily Notifications</h2><br>
@@ -103,6 +99,7 @@
             
         
     </div>
+
 </body>
 
 </html>

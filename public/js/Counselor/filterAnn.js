@@ -47,10 +47,11 @@ function dropdownFilter(option){
            
             for (var i = 0; i < searchRes.length; i++) {
                 let result = searchRes[i];
-                //console.log(result);
-                //id,title,author,postedTime,category,votes,thumbnail,body
+                ///console.log(result);
+                console.log(result.userID,loggedInUser);
+                //id,description,date,fullname,image,loggeduser,counselor,topic
                 let post = new CounselorAnnouncementPost(result.post_id,result.post_desc,result.posted_date,result.fullname,result.profile_img,loggedInUser,result.userID,result.post_head);
-                
+                // console.log(result.userID,loggedInUser);
                 postList += post.createAnnouncement();
             }
             resultList.innerHTML = postList;

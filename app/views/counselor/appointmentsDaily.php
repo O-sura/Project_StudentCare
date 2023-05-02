@@ -59,7 +59,13 @@
                                                 </div>
                                                 
                                                 <div class="image" >
-                                                    <button class="btnImage" id="stu" value="<?php echo $row->studentID ?>"><img class="imgg" src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFufGVufDB8fDB8fA%3D%3D&w=1000&q=80" alt=""> </button>
+                                                    <button class="btnImage" id="stu" value="<?php echo $row->studentID ?>">
+                                                            <?php if($row->profile_img != "") : ?>
+                                                                <img class="imgg" src="http://localhost/StudentCare/public/img/student/<?php echo $row->profile_img; ?>" alt=""> 
+                                                            <?php else :?>
+                                                                <img class="imgg" src="http://localhost/StudentCare/public/img/student/avatar.jpg" alt=""> 
+                                                            <?php endif ; ?>
+                                                    </button>
                                                     <input type="hidden" id="aPPtime" value="<?php echo $row->appointmentDate ?>">
                                                 </div>
                                                 <div class="name">
@@ -96,7 +102,13 @@
                                                 </div>
                                                 
                                                 <div class="image" >
-                                                    <button class="btnImage" id="stu" value="<?php echo $row->studentID ?>"><img class="imgg" src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFufGVufDB8fDB8fA%3D%3D&w=1000&q=80" alt=""> </button>
+                                                    <button class="btnImage" id="stu" value="<?php echo $row->studentID ?>">
+                                                            <?php if($row->profile_img != "") : ?>
+                                                                <img class="imgg" src="http://localhost/StudentCare/public/img/student/<?php echo $row->profile_img; ?>" alt=""> 
+                                                            <?php else :?>
+                                                                <img class="imgg" src="http://localhost/StudentCare/public/img/student/avatar.jpg" alt=""> 
+                                                            <?php endif ; ?>
+                                                    </button>
                                                     <input type="hidden" id="aPPtime" value="<?php echo $row->appointmentDate ?>">
                                                 </div>
                                                 <div class="name">
@@ -132,7 +144,13 @@
                                                 </div>
                                                 
                                                 <div class="image" >
-                                                    <button class="btnImage" id="stu" value="<?php echo $row->studentID ?>"><img class="imgg" src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFufGVufDB8fDB8fA%3D%3D&w=1000&q=80" alt=""> </button>
+                                                    <button class="btnImage" id="stu" value="<?php echo $row->studentID ?>">
+                                                            <?php if($row->profile_img != "") : ?>
+                                                                <img class="imgg" src="http://localhost/StudentCare/public/img/student/<?php echo $row->profile_img; ?>" alt=""> 
+                                                            <?php else :?>
+                                                                <img class="imgg" src="http://localhost/StudentCare/public/img/student/avatar.jpg" alt=""> 
+                                                            <?php endif ; ?>
+                                                    </button>
                                                     <input type="hidden" id="aPPtime" value="<?php echo $row->appointmentDate ?>">
                                                 </div>
                                                 <div class="name">
