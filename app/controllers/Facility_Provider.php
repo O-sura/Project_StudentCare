@@ -72,6 +72,7 @@ class Facility_Provider extends Controller{
         $this->loadView('facility_provider/editprofile',$data);
     }
 
+
     public function updateProfileDetails($userid){
         $user_id = Session::get('userID');
         $row = $this->ListingModel->editprofile($user_id);
@@ -110,7 +111,8 @@ class Facility_Provider extends Controller{
             $email = $_POST['email'];
             $address = $_POST['address'];
             $contact = $_POST['contact'];
-               
+            
+
             $data = [
                 'profile_img' => $filename,
                 'name' => $name,
@@ -157,10 +159,10 @@ class Facility_Provider extends Controller{
             $user = $this->ListingModel->getUserByUsername($username);
             if($user){
                 if(Session::get('username') == $user->username){
-                    $data['username_err'] = "*This Username is already taken";
+                    $data['username_err'] = "";
                 }
                 else{
-                    $data['username_err'] = "";
+                    $data['username_err'] = "*This Username is already taken";
                 }
             }
 
@@ -224,7 +226,7 @@ class Facility_Provider extends Controller{
             ];
 
                 
-              print_r($data);  
+            print_r($data);  
             //$this->loadView('facility_provider/editprofile',$data);
         }
     }
@@ -590,14 +592,12 @@ class Facility_Provider extends Controller{
                 'category_err' => ''
             ];
            
-            if($images['name'][0] == '') {
+            /* if($images['name'][0] == '') {
                 echo 'bcdfbudjsbv';
             }else{
                 echo '1234556';
-            }
-            /* $this->loadView('test',$_POST); */
-
-            exit;
+            } */
+            
 
             //Check whether all the fields are filled properly
             /* if(!$_POST['topic'] && !$_POST['description'] && !$_POST['rental'] && !$_POST['location'] && !$_POST['address'] && !$_POST['uniName'] && !$_POST ['uniDistance'] && !$_POST['images'] && !$_POST['special_note'] && !$_POST['category']){
@@ -636,10 +636,6 @@ class Facility_Provider extends Controller{
                 $data['uniName_err'] =  "*University field is Required";
             }
 
-            if(empty($data['images'])){
-                $data['images_err'] =  "*Images field is Required";
-            }
-
             if(empty($data['special_note'])){
                 $data['special_note_err'] =  "*Special note field is Required";
             }
@@ -674,7 +670,41 @@ class Facility_Provider extends Controller{
 
             $image_urls = [];
 
-            foreach($uploaded_images as $uploaded_image) {
+            if($images['name'][0] == '') {
+                $data['images_err'] =  "*Image field is Required";
+            }else{
+                foreach($uploaded_images as $uploaded_image) {
+                    //get image extension store it in var
+                    $image_ex = pathinfo($uploaded_image["name"], PATHINFO_EXTENSION);  
+    
+                    //convert the image extension into lower case and store it in var
+                    $image_ex_lc = strtolower($image_ex);
+    
+                    //create array that stores allowed to upload image extensions
+                    $allowed_exs = array('jpg', 'jpeg', 'png');
+    
+                    //check if the image extension is present in $allowed_exs array
+                    if(in_array($image_ex_lc, $allowed_exs)){  
+    
+                        //renaming the image name with random string             
+                        $new_image_name = uniqid('IMG-', true).'.'.$image_ex_lc;   
+    
+                        //creating upload path on root directory
+                        $image_upload_path = PUBLICPATH . "/img/listing/". $new_image_name;
+    
+                        //move uploaded image to 'images' folder
+                        move_uploaded_file($uploaded_image["tmp_name"], $image_upload_path);
+    
+                        $images = json_encode($images);
+                        $image_urls[] = $new_image_name;
+                        // header("Location: propertyView.php");
+                    }else{
+                        echo("You can't upload files of this category");
+                    }
+                }
+            }
+
+            /* foreach($uploaded_images as $uploaded_image) {
                 //get image extension store it in var
                 $image_ex = pathinfo($uploaded_image["name"], PATHINFO_EXTENSION);  
 
@@ -702,7 +732,7 @@ class Facility_Provider extends Controller{
                 }else{
                     echo("You can't upload files of this category");
                 }
-            }
+            } */
                 
             $image_urls = json_encode($image_urls);
      
@@ -808,6 +838,7 @@ class Facility_Provider extends Controller{
                 'viewone' => $editlist
             ]; */
 
+            //print_r($data);
             $this->loadView('facility_provider/editItem', $data);
             //$this->loadView('test', $data);
 
@@ -849,11 +880,20 @@ class Facility_Provider extends Controller{
         }
     }
 
-    public function locationfilter(){
-        if(isset($_GET['filter'])){
-            $location = trim($_GET['filter']);
-            $res =  $this->ListingModel->getlocationfilter($location);
-            echo $res;
+    public function dropdownfilter(){
+        if(isset($_GET['filterItem'])){
+            // Get the selected filter values
+            $location = $_GET['location'];
+            $type = $_GET['type'];
+            $university = $_GET['university'];
+    
+            // Call the model method to get the filtered results
+            $result = $this->ListingModel->getlocationfilter($location);
+            $result = $this->ListingModel->gettypefilter($type);
+            $result = $this->ListingModel->getunifilter($university);
+            
+            // Return the filtered results as JSON
+            echo json_encode($result);
         }
     }
 

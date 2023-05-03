@@ -28,50 +28,62 @@
                 
                 <div class="sub">
                     <div class="sub1">
+                        
+                        <p>Topic:</p>
                         <?php
+                            $topic = '';
                             if (isset($data['viewone']) && $data['viewone'] !== null) {
-                                // Access the topic property of $data['viewone'] only if it exists and is not null
                                 $topic = $data['viewone']->topic;
-                            } else {
-                                // Handle the case where $data['viewone'] is undefined or null
-                                $topic = '';
+                            }else if($data['topic_err']){
+                                echo '<div class="form-field" data-error=" ' . $data['topic_err'] . '">';
+                            }else{
+                                echo '<div class="form-field">';
                             }
                         ?>
-                        <p>Topic:</p>
                         <input class="topic" name="topic" type="text" value="<?php echo $topic; ?>">
+                        
 
-
+                        <p>Description:</p>
                         <?php
+                            $description = '';
                             if (isset($data['viewone']) && $data['viewone'] !== null) {
                                 $description = $data['viewone']->description;
-                            } else {
-                                $description = '';
+                            } else if($data['description_err']){
+                                echo '<div class="form-field" data-error=" ' . $data['description_err'] . '">';
+                            }else{
+                                echo '<div class="form-field">';
                             }
                         ?>
-                        <p>Description:</p>
                         <input class="description" name="description" type="text" value="<?php echo $description; ?>">
+                        
 
-
+                        <p>Price(Rs.):</p>
                         <?php
+                            $rental = '';
                             if (isset($data['viewone']) && $data['viewone'] !== null) {
                                 $rental = $data['viewone']->rental;
-                            } else {
-                                $rental = '';
+                            } else if($data['rental_err']){
+                                echo '<div class="form-field" data-error=" ' . $data['rental_err'] . '">';
+                            }else{
+                                echo '<div class="form-field">';
                             }
                         ?>
-                        <p>Price(Rs.):</p>
                         <input class="price" name="rental" type="text" value="<?php echo $rental; ?>">
+                        
                     
-
+                        <p>Nearest Town:</p>
                         <?php
+                            $location = '';
                             if (isset($data['viewone']) && $data['viewone'] !== null) {
                                 $location = $data['viewone']->location;
-                            } else {
-                                $location = '';
+                            } else if($data['location_err']){
+                                echo '<div class="form-field" data-error=" ' . $data['location_err'] . '">';
+                            }else{
+                                echo '<div class="form-field">';
                             }
                         ?>
-                        <p>Nearest Town:</p>
                         <input class="town" name="location" type="text" value="<?php echo $location; ?>">
+                        
 
 
                         <div class="unisub">                       
@@ -107,26 +119,33 @@
                     </div>        
 
                     <div class="sub2">
+                        <p>Address:</p>
                         <?php
+                            $address = '';
                             if (isset($data['viewone']) && $data['viewone'] !== null) {
                                 $address = $data['viewone']->address;
-                            } else {
-                                $address = '';
+                            } else if($data['address_err']){
+                                echo '<div class="form-field" data-error=" ' . $data['address_err'] . '">';
+                            }else{
+                                echo '<div class="form-field">';
                             }
                         ?>
-                        <p>Address:</p>
                         <input class="address" name="address" type="text" value="<?php echo $address; ?>">
+                        
 
-
+                        <p>Special Notes:</p>
                         <?php
+                            $special_note = '';
                             if (isset($data['viewone']) && $data['viewone'] !== null) {
                                 $special_note = $data['viewone']->special_note;
-                            } else {
-                                $special_note = '';
+                            } else if($data['special_note_err']){
+                                echo '<div class="form-field" data-error=" ' . $data['special_note_err'] . '">';
+                            }else{
+                                echo '<div class="form-field">';
                             }
                         ?>
-                        <p>Special Notes:</p>
                         <input class="note" name="special_note" type="text" value="<?php echo $special_note; ?>">
+                        
                     
                 
                         <p>Images:</p>
@@ -149,7 +168,7 @@
                         </div>
                         <?php if(isset($data['imagelist'])) : ?>
                             <?php foreach($data['imagelist'] as $key => $img) : ?>
-                                <input class="image" name="images[]" id="img_<?php echo $key ?>" type="file" value=IMG-6450989aa9f842.87772264.jpg>
+                                <input class="image" name="images[]" id="img_<?php echo $key ?>" type="file" value=<?php echo $img ?>>
                             <?php endforeach; ?>
                         <?php endif; ?>
                         
@@ -162,7 +181,9 @@
                                         <span class="Sbtn-text"><?php echo $data['viewone']->category; ?></span>
                                         <i class="fa-sharp fa-solid fa-chevron-down"></i>
                                     </div>
-                                    <input type="text" name="category" class="category-dropdown" value="<?php echo $data['viewone']->category; ?>" hidden>
+                                    <?php if (isset($data['viewone']) && $data['viewone'] !== null) : ?>
+                                        <input type="text" name="category" class="category-dropdown" value="<?php echo $data['viewone']->category; ?>" hidden>
+                                    <?php endif; ?>
                                     <ul class="options">
                                         <li class="option">Property</li> 
                                         <li class="option">Food</li> 

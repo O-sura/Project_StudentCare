@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/facility_provider/view.css"?> >
     <script type="javaScript" src=<?php echo URLROOT . "/public/js/facility_provider/View.js"?> defer></script>
+    <script type="javaScript" src=<?php echo URLROOT . "/public/js/facility_provider/dropdown.js"?> defer></script>
     <title>Property View listings</title>
 </head>
 
@@ -42,7 +43,7 @@
             <div class="wrapper">
 
                 <div class="select-btn">
-                    <select class="filter" name="filterItem" id="filterlocation">
+                    <select class="filter" name="filterItem" id="filterItem">
                         <option value="" selected="selected">Location</option>
                         <option value="ampara">Ampara</option>
                         <option value="anuradhapura">Anuradhapura</option>
@@ -77,6 +78,9 @@
             </div>
 
             <main>
+                <div id="item-container">
+                    <!-- Item listings will be dynamically loaded here -->
+                </div>
                 <div id="search-results"></div>
                 <?php foreach($data['view'] as $view) : ?>
 

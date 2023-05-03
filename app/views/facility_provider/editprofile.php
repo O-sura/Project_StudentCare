@@ -63,7 +63,7 @@
                                 else
                                     echo '<div class="form-field">';
                             ?>
-                            <label for="name">Name</label><br>
+                            <label for="name">Name:</label><br>
                             <input type="text" value="<?= $data['name'] ;?>" name="name"  class="form-input">
                             </div>
                             
@@ -73,7 +73,7 @@
                                 else
                                     echo '<div class="form-field">';
                             ?>
-                            <br><label for="email">Email</label><br>
+                            <br><label for="email">Email:</label><br>
                             <input type="email" value="<?= $data['email'] ;?>" name="email"  class="form-input">
                             </div>
 
@@ -83,7 +83,7 @@
                                 else
                                     echo '<div class="form-field">';
                             ?>
-                            <br><label for="contact">Contact Number</label><br>
+                            <br><label for="contact">Contact Number:</label><br>
                             <input type="number" value="<?= $data['contact'] ;?>" name="contact"  class="form-input">
                             </div>
                             
@@ -95,7 +95,7 @@
                                 else
                                     echo '<div class="form-field">';
                             ?>
-                            <label for="uName">Username</label><br>
+                            <label for="uName">Username:</label><br>
                             <input type="text" value="<?= $data['username'] ;?>" name="username"  class="form-input">
                             </div>
                             
@@ -106,7 +106,7 @@
                                 else
                                     echo '<div class="form-field">';
                             ?>
-                            <br><label for="nic">NIC</label><br>
+                            <br><label for="nic">NIC:</label><br>
                             <input type="text" value="<?= $data['nic'] ;?>" name="nic" class="form-input">
                             <!-- disabled="disabled" -->
                             </div>
@@ -117,11 +117,30 @@
                                 else
                                     echo '<div class="form-field">';
                             ?>
-                            <br><label for="address">Address</label><br>
+                            <br><label for="address">Address:</label><br>
                             <input type="text" value="<?= $data['address'] ;?>" name="address"  class="form-input">
                             </div>
 
+                            <br><label for="category">Category:</label><br>
                             
+                            <div class="categoryfilter">
+                                <?php
+                                    $category = array();
+                                ?>
+                                <div class="option">
+                                    <input type="checkbox" name="cat[]" value="Food">
+                                    <label>Facility(Boarding Places, House for Rent, etc.)</label>
+                                    
+                                </div>
+                                <div class="option">
+                                    <input type="checkbox" name="cat[]" value="Food">
+                                    <label>Food</label>
+                                </div>
+                                <div class="option">
+                                    <input type="checkbox" name="cat[]" value="Furniture">
+                                    <label>Furniture and Supplies</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
             
