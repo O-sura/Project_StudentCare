@@ -30,11 +30,18 @@ class Announcements extends Controller{
             'announcementID' => $postId
         ];
 
-        $data = [
+        $data = [   
             'announcement' => $this->announcementModel->viewAnnouncement($init_data)
         ];
         
         $this->loadview('announcements/view',$data);
+    }
+
+    public function announcement_sort_handler(){
+        $sort = trim($_GET['filter']);
+        $usr = Session::get('userID');
+        $res =  json_encode($this->announcementModel->filterAnnouncement($sort, $usr));
+        echo $res;
     }
 
 

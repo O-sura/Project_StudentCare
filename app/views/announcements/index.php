@@ -14,6 +14,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href=<?php echo URLROOT . "/public/css/stu/announcementStyle.css" ?>>
+    <script type="module" src=<?php echo URLROOT . "/public/js/student/loadAnnouncements.js" ?> defer></script>
 </head>
 
 <body>
@@ -87,26 +88,31 @@
 
                 <div class="event1">
 
-                    <select class="select">
-                        <option value="none" selected disabled hidden>Sort by</option>
-                        <option value="Exam">title</option>
-                        <option value="Club">earliest</option>
+                    <select class="select" id="sorter">
+                        <option value="none" selected disabled hidden>Sort by date</option>
+                        <option value="latest">latest</option>
+                        <option value="earliest">earliest</option>
 
                     </select>
 
                 </div>
-                <!-- <div class="event2">
+                <div class="event2">
 
                     <select class="select">
-                        <option value="none" selected disabled hidden>filter by</option>
-                        <option value="Exam">couselor</option>
-
+                        <option value="none" selected disabled hidden>Filter by</option>
+                        <option value="all">All</option>
+                        <option value="Starred">Starred</option>
                     </select>
 
                 </div>
                 <div class="add">
-                    <button class="btn">Mark all as read</a></button>
-                </div> -->
+                    <div class="search-container">
+
+                        <input type="text" placeholder="Search..." id="search-box">
+                        <button id="search-btn">Search</button>
+
+                    </div>
+                </div>
 
             </div>
             <div class="row2">
@@ -121,51 +127,54 @@
                 </div>
             </div>
             <hr>
-            <?php
-            foreach ($data['announcements'] as $rows) :
-            ?>
+            <div class="announcements" id="list">
                 <?php
-                $id = $rows->post_id;
-                $subject = $rows->post_head;
-                $name = $rows->fullname;
-                $timestamp = strtotime($rows->posted_date);
-                $date = date('Y-m-d', $timestamp);
-                
-                if ($rows->profile_img != NULL) {
-                    $image = $rows->profile_img;
-                } else {
-                    $image = "avatar.jpg";
-                }
-               
+                foreach ($data['announcements'] as $rows) :
                 ?>
-                <div class="row3">
+                    <?php
+                    $id = $rows->post_id;
+                    $subject = $rows->post_head;
+                    $name = $rows->fullname;
+                    $timestamp = strtotime($rows->posted_date);
+                    $date = date('Y-m-d', $timestamp);
+
+                    if ($rows->profile_img != NULL) {
+                        $image = $rows->profile_img;
+                    } else {
+                        $image = "avatar.jpg";
+                    }
+
+                    ?>
+                    <div class="row3">
 
 
-                    <div class="topic" data-id="<?php echo $id; ?>">
-                        <i class="icons" data-feather="star"></i>
+                        <div class="topic" data-id="<?php echo $id; ?>">
+                            <i class="icons" data-feather="star"></i>
 
-                        <a href="<?php echo URLROOT; ?>/announcements/show/<?php echo $id; ?>"><?php echo $subject; ?></a>
+                            <a href="<?php echo URLROOT; ?>/announcements/show/<?php echo $id; ?>"><?php echo $subject; ?></a>
 
-                    </div>
-
-
-                    <div class="details">
-                        <div class="image">
-                            <img src="<?php echo URLROOT . "/public/img/counselor/" . $image; ?>" alt="">
                         </div>
-                        <div class="name">
-                            <?php echo $name; ?>
+
+
+                        <div class="details">
+                            <div class="image">
+                                <img src="<?php echo URLROOT . "/public/img/counselor/" . $image; ?>" alt="">
+                            </div>
+                            <div class="name">
+                                <?php echo $name; ?>
+                            </div>
+                        </div>
+
+                        <div class="postedOn">
+                            <?php echo $date; ?>
                         </div>
                     </div>
+                    <hr>
+                <?php
+                endforeach;
+                ?>
+            </div>
 
-                    <div class="postedOn">
-                        <?php echo $date; ?>
-                    </div>
-                </div>
-                <hr>
-            <?php
-            endforeach;
-            ?>
         </div>
     </div>
 

@@ -26,7 +26,7 @@ class Announcement
         users ON users.userID = counselor_alloc.counselor_id
         JOIN
         counsellor ON counsellor.counsellorID = counselor_alloc.counselor_id
-        WHERE counselor_alloc.student_id = :studentID;");
+        WHERE counselor_alloc.student_id = :studentID ORDER BY ann_post.posted_date DESC;");
 
         $this->db->bind(':studentID', $usr);
         $results = $this->db->getAllRes();
@@ -42,6 +42,46 @@ class Announcement
         WHERE ann_post.post_id = :announcementID");
         $this->db->bind(':announcementID', $data['announcementID']);
         $results = $this->db->getRes();
+
+        return $results;
+    }
+
+    public function filterAnnouncement($sort, $usr)
+    {
+        if($sort=='earliest'){
+            $this->db->query("SELECT 
+            ann_post.post_id, 
+            ann_post.post_head, 
+            ann_post.posted_date, 
+            users.fullname,
+            counsellor.profile_img
+            FROM ann_post 
+            JOIN 
+            counselor_alloc ON ann_post.userID = counselor_alloc.counselor_id 
+            JOIN 
+            users ON users.userID = counselor_alloc.counselor_id
+            JOIN
+            counsellor ON counsellor.counsellorID = counselor_alloc.counselor_id
+            WHERE counselor_alloc.student_id = :studentID ORDER BY ann_post.posted_date ASC;");
+        }else{
+            $this->db->query("SELECT 
+            ann_post.post_id, 
+            ann_post.post_head, 
+            ann_post.posted_date, 
+            users.fullname,
+            counsellor.profile_img
+            FROM ann_post 
+            JOIN 
+            counselor_alloc ON ann_post.userID = counselor_alloc.counselor_id 
+            JOIN 
+            users ON users.userID = counselor_alloc.counselor_id
+            JOIN
+            counsellor ON counsellor.counsellorID = counselor_alloc.counselor_id
+            WHERE counselor_alloc.student_id = :studentID ORDER BY ann_post.posted_date DESC;");
+        }
+        
+        $this->db->bind(':studentID', $usr);
+        $results = $this->db->getAllRes();
 
         return $results;
     }

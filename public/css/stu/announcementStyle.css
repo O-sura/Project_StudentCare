@@ -361,24 +361,88 @@ body{
     text-decoration: none;
   }
 
-  .select{
-    padding: 10px 40px;
-    color: white;
-    background-color: #1A285A;
-    cursor: pointer;
+  .select {
+    margin-left: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    padding: 10px;
     border: none;
-    font-size: 1.25rem;
-    border-radius: 20px;
-  
+    background-color: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
     appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    box-shadow: 0 5px 20px 0 #B9B9B9;
-  
-  
-  }
-.select:focus,
-.select:hover{
     outline: none;
-    border: 1px solid #eeee;
+    border-radius: 50px;
+    text-align: center;
+    
+  }
+  
+  /* Add hover and focus effects */
+  .select:hover, .select:focus {
+    background-color: #f7f7f7;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Add dropdown arrow icon */
+  .select-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    fill: #333;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  /* Animate icon on open/close */
+  .select-btn.open .select-icon {
+    transform: translateY(-50%) rotate(180deg);
+  }
+  
+  /* Style dropdown options */
+  .select option {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    background-color: #fff;
+    border: none;
+    outline: none;
+  }
+
+  .select-btn{
+    margin-right: 10px;
+    margin-left: 20px;
+  }
+
+.search-container {
+  display: flex;
+  justify-content: center;
+}
+
+.search-container form {
+  display: flex;
+  align-items: center;
+}
+
+.search-container input[type="text"] {
+  padding: 10px;
+  border-radius: 50px;
+  border: none;
+  margin-right: 10px;
+  font-size: 14px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+}
+
+.search-container button {
+  padding: 10px;
+  border-radius: 50px;
+  border: none;
+  background-color: #1A285A;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
 }
