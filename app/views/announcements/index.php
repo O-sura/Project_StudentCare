@@ -98,10 +98,10 @@
                 </div>
                 <div class="event2">
 
-                    <select class="select">
+                    <select class="select" id="filter">
                         <option value="none" selected disabled hidden>Filter by</option>
                         <option value="all">All</option>
-                        <option value="Starred">Starred</option>
+                        <option value="starred">Starred</option>
                     </select>
 
                 </div>

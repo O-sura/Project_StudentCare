@@ -38,9 +38,18 @@ class Announcements extends Controller{
     }
 
     public function announcement_sort_handler(){
-        $sort = trim($_GET['filter']);
+        $sort = trim($_GET['sort']);
+        $filter = trim($_GET['filter']);
         $usr = Session::get('userID');
-        $res =  json_encode($this->announcementModel->filterAnnouncement($sort, $usr));
+        $res =  json_encode($this->announcementModel->filterAnnouncement($sort,$filter, $usr));
+        echo $res;
+    }
+    
+    public function announcement_filter_handler(){
+        $sort = trim($_GET['sort']);
+        $filter = trim($_GET['filter']);
+        $usr = Session::get('userID');
+        $res =  json_encode($this->announcementModel->filterAnnouncement($sort,$filter,$usr));
         echo $res;
     }
 

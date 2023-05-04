@@ -46,38 +46,77 @@ class Announcement
         return $results;
     }
 
-    public function filterAnnouncement($sort, $usr)
+    public function filterAnnouncement($sort, $filter, $usr)
     {
         if($sort=='earliest'){
-            $this->db->query("SELECT 
-            ann_post.post_id, 
-            ann_post.post_head, 
-            ann_post.posted_date, 
-            users.fullname,
-            counsellor.profile_img
-            FROM ann_post 
-            JOIN 
-            counselor_alloc ON ann_post.userID = counselor_alloc.counselor_id 
-            JOIN 
-            users ON users.userID = counselor_alloc.counselor_id
-            JOIN
-            counsellor ON counsellor.counsellorID = counselor_alloc.counselor_id
-            WHERE counselor_alloc.student_id = :studentID ORDER BY ann_post.posted_date ASC;");
+            if($filter == 'starred'){
+                $this->db->query("SELECT 
+                ann_post.post_id, 
+                ann_post.post_head, 
+                ann_post.posted_date, 
+                users.fullname,
+                counsellor.profile_img
+                FROM ann_post 
+                JOIN 
+                counselor_alloc ON ann_post.userID = counselor_alloc.counselor_id 
+                JOIN 
+                save_announcement ON save_announcement.announcement_id = ann_post.post_id
+                JOIN
+                users ON users.userID = counselor_alloc.counselor_id
+                JOIN
+                counsellor ON counsellor.counsellorID = counselor_alloc.counselor_id
+                WHERE counselor_alloc.student_id = :studentID  ORDER BY ann_post.posted_date ASC;");
+            }else{
+                $this->db->query("SELECT 
+                ann_post.post_id, 
+                ann_post.post_head, 
+                ann_post.posted_date, 
+                users.fullname,
+                counsellor.profile_img
+                FROM ann_post 
+                JOIN 
+                counselor_alloc ON ann_post.userID = counselor_alloc.counselor_id 
+                JOIN 
+                users ON users.userID = counselor_alloc.counselor_id
+                JOIN
+                counsellor ON counsellor.counsellorID = counselor_alloc.counselor_id
+                WHERE counselor_alloc.student_id = :studentID ORDER BY ann_post.posted_date ASC;");
+            }
+
         }else{
-            $this->db->query("SELECT 
-            ann_post.post_id, 
-            ann_post.post_head, 
-            ann_post.posted_date, 
-            users.fullname,
-            counsellor.profile_img
-            FROM ann_post 
-            JOIN 
-            counselor_alloc ON ann_post.userID = counselor_alloc.counselor_id 
-            JOIN 
-            users ON users.userID = counselor_alloc.counselor_id
-            JOIN
-            counsellor ON counsellor.counsellorID = counselor_alloc.counselor_id
-            WHERE counselor_alloc.student_id = :studentID ORDER BY ann_post.posted_date DESC;");
+            if($filter=='starred'){
+                $this->db->query("SELECT 
+                ann_post.post_id, 
+                ann_post.post_head, 
+                ann_post.posted_date, 
+                users.fullname,
+                counsellor.profile_img
+                FROM ann_post 
+                JOIN 
+                counselor_alloc ON ann_post.userID = counselor_alloc.counselor_id 
+                JOIN 
+                save_announcement ON save_announcement.announcement_id = ann_post.post_id
+                JOIN
+                users ON users.userID = counselor_alloc.counselor_id
+                JOIN
+                counsellor ON counsellor.counsellorID = counselor_alloc.counselor_id
+                WHERE counselor_alloc.student_id = :studentID  ORDER BY ann_post.posted_date DESC;");
+            }else{
+                $this->db->query("SELECT 
+                ann_post.post_id, 
+                ann_post.post_head, 
+                ann_post.posted_date, 
+                users.fullname,
+                counsellor.profile_img
+                FROM ann_post 
+                JOIN 
+                counselor_alloc ON ann_post.userID = counselor_alloc.counselor_id 
+                JOIN 
+                users ON users.userID = counselor_alloc.counselor_id
+                JOIN
+                counsellor ON counsellor.counsellorID = counselor_alloc.counselor_id
+                WHERE counselor_alloc.student_id = :studentID ORDER BY ann_post.posted_date DESC;");
+            }
         }
         
         $this->db->bind(':studentID', $usr);
@@ -85,4 +124,6 @@ class Announcement
 
         return $results;
     }
+
+
 }
