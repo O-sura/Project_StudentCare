@@ -171,21 +171,24 @@ function dropdownFilter2(option1, option2) {
 }
 
 const searchBtn = document.getElementById("search-btn");
-searchBtn.addEventListener("click", searchListing);
+searchBtn.addEventListener("click", searchAnnouncement);
 
 //Search listings
-function searchListing() {
+function searchAnnouncement() {
   // Send an AJAX request to the server with the search query
   const searchbox = document.getElementById("search-box");
   const keyword = searchbox.value;
   const filter = document.getElementById("filter").value;
+  const sort = document.getElementById("sorter").value;
   var xhr = new XMLHttpRequest();
   xhr.open(
     "GET",
     "http://localhost/StudentCare/Announcements/announcement_search_handler/?query=" +
       keyword +
       "&filter=" +
-      filter,
+      filter +
+      "&sort=" +
+      sort ,
     true
   );
 
@@ -193,7 +196,7 @@ function searchListing() {
     if (xhr.status === 200) {
       //Parse the JSON response from the server
       var searchRes = JSON.parse(xhr.responseText);
-      //console.log(searchRes)
+
       // Update the contents of the page to display the search results
       clearposts();
       var resultList = document.getElementById("list");
@@ -202,24 +205,50 @@ function searchListing() {
       for (var i = 0; i < searchRes.length; i++) {
         let result = searchRes[i];
         //console.log(result);
-        //id,name,description,img,specialization
-        let post = new CounselorList(
-          result.userID,
+        //id, head, name, date, img
+        let post = new Announcement(
+          result.post_id,
+          result.post_head,
           result.fullname,
-          result.counselor_description,
-          result.profile_img,
-          result.specialization
+          result.posted_date,
+          result.profile_img
         );
 
         postList += post.createDetails();
       }
       resultList.innerHTML = postList;
+      // Iterate through the posts
+      var posts = document.querySelectorAll(".topic");
+      for (var i = 0; i < posts.length; i++) {
+        (function (post) {
+          var postId = post.getAttribute("data-id");
+
+          // Check if the post has already been clicked
+          if (clickedPosts.indexOf(postId) !== -1) {
+            // Fade out the post
+            post.style.opacity = 0.5;
+          }
+
+          // Attach a click event to the post
+          post.addEventListener("click", function () {
+            // Add the post to the list of clicked posts
+            clickedPosts.push(postId);
+            document.cookie =
+              "clickedPosts=" +
+              encodeURIComponent(JSON.stringify(clickedPosts)) +
+              "; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
+
+            // Fade out the post
+            post.style.opacity = 0.5;
+          });
+        })(posts[i]);
+      }
     }
   };
   xhr.send();
 }
 
-feather.replace();
+
 let btn = document.querySelector("#btn");
 let sidebar = document.querySelector(".sidebar");
 

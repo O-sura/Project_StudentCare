@@ -125,12 +125,93 @@ class Announcement
         return $results;
     }
 
-    public function searchAnnouncement($search,$filter,$user){
-        if($filter=='starred'){
-            
+    public function searchAnnouncement($search,$sort,$filter,$user){
+        if($sort=='earliest'){
+            if($filter == 'starred'){
+                $this->db->query("SELECT 
+                ann_post.post_id, 
+                ann_post.post_head, 
+                ann_post.posted_date, 
+                users.fullname,
+                counsellor.profile_img
+                FROM ann_post 
+                JOIN 
+                counselor_alloc ON ann_post.userID = counselor_alloc.counselor_id 
+                JOIN 
+                save_announcement ON save_announcement.announcement_id = ann_post.post_id
+                JOIN
+                users ON users.userID = counselor_alloc.counselor_id
+                JOIN
+                counsellor ON counsellor.counsellorID = counselor_alloc.counselor_id
+                WHERE counselor_alloc.student_id = :studentID AND
+                (LOWER(users.fullname) LIKE LOWER(:search) OR LOWER(ann_post.post_head) LIKE LOWER(:search) 
+                OR LOWER(ann_post.post_desc) LIKE LOWER(:search))
+                ORDER BY ann_post.posted_date ASC;");
+            }else{
+                $this->db->query("SELECT 
+                ann_post.post_id, 
+                ann_post.post_head, 
+                ann_post.posted_date, 
+                users.fullname,
+                counsellor.profile_img
+                FROM ann_post 
+                JOIN 
+                counselor_alloc ON ann_post.userID = counselor_alloc.counselor_id 
+                JOIN
+                users ON users.userID = counselor_alloc.counselor_id
+                JOIN
+                counsellor ON counsellor.counsellorID = counselor_alloc.counselor_id
+                WHERE counselor_alloc.student_id = :studentID AND
+                (LOWER(users.fullname) LIKE LOWER(:search) OR LOWER(ann_post.post_head) LIKE LOWER(:search) 
+                OR LOWER(ann_post.post_desc) LIKE LOWER(:search))
+                ORDER BY ann_post.posted_date ASC;");
+            }
         }else{
-
+            if($filter == 'starred'){
+                $this->db->query("SELECT 
+                ann_post.post_id, 
+                ann_post.post_head, 
+                ann_post.posted_date, 
+                users.fullname,
+                counsellor.profile_img
+                FROM ann_post 
+                JOIN 
+                counselor_alloc ON ann_post.userID = counselor_alloc.counselor_id 
+                JOIN 
+                save_announcement ON save_announcement.announcement_id = ann_post.post_id
+                JOIN
+                users ON users.userID = counselor_alloc.counselor_id
+                JOIN
+                counsellor ON counsellor.counsellorID = counselor_alloc.counselor_id
+                WHERE counselor_alloc.student_id = :studentID AND
+                (LOWER(users.fullname) LIKE LOWER(:search) OR LOWER(ann_post.post_head) LIKE LOWER(:search) 
+                OR LOWER(ann_post.post_desc) LIKE LOWER(:search))
+                ORDER BY ann_post.posted_date DESC;");
+            }else{
+                $this->db->query("SELECT 
+                ann_post.post_id, 
+                ann_post.post_head, 
+                ann_post.posted_date, 
+                users.fullname,
+                counsellor.profile_img
+                FROM ann_post 
+                JOIN 
+                counselor_alloc ON ann_post.userID = counselor_alloc.counselor_id 
+                JOIN
+                users ON users.userID = counselor_alloc.counselor_id
+                JOIN
+                counsellor ON counsellor.counsellorID = counselor_alloc.counselor_id
+                WHERE counselor_alloc.student_id = :studentID AND
+                (LOWER(users.fullname) LIKE LOWER(:search) OR LOWER(ann_post.post_head) LIKE LOWER(:search) 
+                OR LOWER(ann_post.post_desc) LIKE LOWER(:search))
+                ORDER BY ann_post.posted_date DESC;");
+            }
         }
+        $this->db->bind(':studentID', $user);
+        $this->db->bind(':search', '%'.$search.'%');
+        $results = $this->db->getAllRes();
+
+        return $results;
     }
 
 

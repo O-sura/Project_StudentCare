@@ -57,7 +57,8 @@ class Announcements extends Controller{
         $search = trim($_GET['query']);
         $usr = Session::get('userID');
         $filter = trim($_GET['filter']);
-        $res =  json_encode($this->announcementModel->searchAnnouncement($search,$filter,$usr));
+        $sort = trim($_GET['sort']);
+        $res =  json_encode($this->announcementModel->searchAnnouncement($search,$sort,$filter,$usr));
         echo $res;
     }
 
