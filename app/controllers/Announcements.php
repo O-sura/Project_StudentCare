@@ -53,5 +53,13 @@ class Announcements extends Controller{
         echo $res;
     }
 
+    public function announcement_search_handler(){
+        $search = trim($_GET['query']);
+        $usr = Session::get('userID');
+        $filter = trim($_GET['filter']);
+        $res =  json_encode($this->announcementModel->searchAnnouncement($search,$filter,$usr));
+        echo $res;
+    }
+
 
 }

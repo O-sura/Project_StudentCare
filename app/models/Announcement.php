@@ -125,5 +125,13 @@ class Announcement
         return $results;
     }
 
+    public function searchAnnouncement($search,$filter,$user){
+        if($filter=='starred'){
+            
+        }else{
+
+        }
+    }
+
 
 }
