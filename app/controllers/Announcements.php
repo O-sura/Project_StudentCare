@@ -15,7 +15,8 @@ class Announcements extends Controller{
     {
         $usr = Session::get('userID');
         $data = [
-            'announcements' => $this->announcementModel->getAnnouncements($usr)
+            'announcements' => $this->announcementModel->getAnnouncements($usr),
+            'savedAnnouncements' => $this->announcementModel->getSavedAnnouncements($usr)
         ];
 
 
@@ -59,6 +60,17 @@ class Announcements extends Controller{
         $filter = trim($_GET['filter']);
         $sort = trim($_GET['sort']);
         $res =  json_encode($this->announcementModel->searchAnnouncement($search,$sort,$filter,$usr));
+        echo $res;
+    }
+
+    public function save_announcement(){
+        $id = trim($_GET['id']);
+        $usr = Session::get('userID');
+        if($this->announcementModel->checkSaved($id,$usr)){
+            $res =  json_encode($this->announcementModel->deleteSaved($id,$usr));
+        }else{
+            $res =  json_encode($this->announcementModel->saveAnnouncement($id,$usr));
+        }
         echo $res;
     }
 

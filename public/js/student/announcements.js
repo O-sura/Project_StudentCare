@@ -24,7 +24,7 @@ export class Announcement {
 
 
                 <div class="topic" data-id="${this.id}">
-                    <i class="icons" data-feather="star"></i>
+                    <span class="star"><i class="fa-regular fa-star" id='${this.id}'></i></span>
 
                     <a href="http://localhost/StudentCare/Announcements/show/${this.id}">${this.head}</a>
 
@@ -54,3 +54,4 @@ export class Announcement {
         `;
   }
 }
+

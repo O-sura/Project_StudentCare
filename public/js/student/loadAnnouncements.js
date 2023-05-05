@@ -19,18 +19,18 @@ sortFilter.onchange = () => {
   const selectedOption = sortFilter.value;
 
   // Call the dropdownFilter function with the selected option value
-  dropdownFilter(selectedOption,filter);
+  dropdownFilter(selectedOption, filter);
 };
 
 //Function to filter the community posts based on the dropdown value
-function dropdownFilter(optionx,optiony) {
+function dropdownFilter(optionx, optiony) {
   var xhr = new XMLHttpRequest();
   xhr.open(
     "GET",
     "http://localhost/StudentCare/Announcements/announcement_sort_handler/?sort=" +
-    optionx +
-    "&filter=" +
-    optiony,
+      optionx +
+      "&filter=" +
+      optiony,
     true
   );
 
@@ -46,7 +46,6 @@ function dropdownFilter(optionx,optiony) {
 
       for (var i = 0; i < searchRes.length; i++) {
         let result = searchRes[i];
-        //console.log(result);
         //id, head, name, date, img
         let post = new Announcement(
           result.post_id,
@@ -84,6 +83,19 @@ function dropdownFilter(optionx,optiony) {
             post.style.opacity = 0.5;
           });
         })(posts[i]);
+      }
+      // Get all star icon elements by their class
+      var starIcons = document.getElementsByClassName("star");
+
+      // Loop through all star icon elements and add onclick function
+      for (var i = 0; i < starIcons.length; i++) {
+        starIcons[i].onclick = function () {
+          // Get the ID of the star icon
+          var iconId = this.children[0].id;
+
+          // Alert the ID of the star icon
+          saveAnnouncement(iconId);
+        };
       }
     }
   };
@@ -188,7 +200,7 @@ function searchAnnouncement() {
       "&filter=" +
       filter +
       "&sort=" +
-      sort ,
+      sort,
     true
   );
 
@@ -248,7 +260,6 @@ function searchAnnouncement() {
   xhr.send();
 }
 
-
 let btn = document.querySelector("#btn");
 let sidebar = document.querySelector(".sidebar");
 
@@ -261,3 +272,35 @@ var clickedPosts = (function () {
   var cookie = document.cookie.match(/(^|;)\s*clickedPosts\s*=\s*([^;]+)/);
   return cookie ? JSON.parse(decodeURIComponent(cookie[2])) : [];
 })();
+
+// Get all star icon elements by their class
+var starIcons = document.getElementsByClassName("star");
+
+// Loop through all star icon elements and add onclick function
+for (var i = 0; i < starIcons.length; i++) {
+  starIcons[i].onclick = function () {
+    // Get the ID of the star icon
+    var iconId = this.children[0].id;
+
+    // Alert the ID of the star icon
+    saveAnnouncement(iconId);
+  };
+}
+
+//Save announcement
+function saveAnnouncement(ann_id) {
+  var xhr = new XMLHttpRequest();
+  xhr.open(
+    "GET",
+    "http://localhost/StudentCare/Announcements/save_announcement/?id=" +
+      ann_id,
+    true
+  );
+
+  xhr.onload = () => {
+    if (xhr.status === 200) {
+      location.reload();
+    }
+  };
+  xhr.send();
+}

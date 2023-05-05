@@ -214,5 +214,60 @@ class Announcement
         return $results;
     }
 
+    public function saveAnnouncement($id,$user){
+        $this->db->query("INSERT INTO save_announcement (reg_id, announcement_id) VALUES (:userID, :post_id);");
+        $this->db->bind(':post_id', $id);
+        $this->db->bind(':userID', $user);
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function checkSaved($id,$usr){
+        $this->db->query("SELECT * FROM save_announcement WHERE announcement_id = :post_id AND reg_id = :userID;");
+        $this->db->bind(':post_id', $id);
+        $this->db->bind(':userID', $usr);
+        $count = $this->db->rowCount();
+        if($count > 0){
+            return true;
+        }else{
+            return false;
+        }
+        
+    }
+
+    public function deleteSaved($id,$usr){
+        $this->db->query("DELETE FROM save_announcement WHERE announcement_id = :post_id AND reg_id = :userID;");
+        $this->db->bind(':post_id', $id);
+        $this->db->bind(':userID', $usr);
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getSavedAnnouncements($user){
+        $this->db->query("SELECT 
+        ann_post.post_id
+        FROM ann_post 
+        JOIN 
+        counselor_alloc ON ann_post.userID = counselor_alloc.counselor_id 
+        JOIN 
+        save_announcement ON save_announcement.announcement_id = ann_post.post_id
+        JOIN
+        users ON users.userID = counselor_alloc.counselor_id
+        JOIN
+        counsellor ON counsellor.counsellorID = counselor_alloc.counselor_id
+        WHERE save_announcement.reg_id = :studentID ORDER BY ann_post.posted_date DESC;");
+        $this->db->bind(':studentID', $user);
+        $results = $this->db->getAllRes();
+
+        return $results;
+    }
+
+
 
 }

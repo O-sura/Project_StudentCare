@@ -446,3 +446,18 @@ body{
   font-size: 14px;
   cursor: pointer;
 }
+
+.star:hover > .fa-regular{
+  display: none;
+}
+
+.star:hover > .fa-solid{
+  display: none;
+}
+
+.star:hover:before {
+  content: "\f005";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  display: inline-block;
+}

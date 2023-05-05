@@ -116,7 +116,7 @@
 
             </div>
             <div class="row2">
-                <div class="topic">
+                <div class="topic2">
                     <h3>Topic</h3>
                 </div>
                 <div class="postedBy">
@@ -137,7 +137,7 @@
                     $name = $rows->fullname;
                     $timestamp = strtotime($rows->posted_date);
                     $date = date('Y-m-d', $timestamp);
-
+                    $saved = 'regular';
                     if ($rows->profile_img != NULL) {
                         $image = $rows->profile_img;
                     } else {
@@ -149,7 +149,13 @@
 
 
                         <div class="topic" data-id="<?php echo $id; ?>">
-                            <i class="icons" data-feather="star"></i>
+                            <?php foreach ($data['savedAnnouncements'] as $announcement) : ?>
+                                <?php if ($announcement->post_id == $id) {
+                                        $saved = 'solid';
+                                        break;
+                                 }?>
+                            <?php endforeach; ?>
+                            <span class="star"><i class="fa-<?php echo $saved?> fa-star" id='<?php echo $id ?>'></i></span>
 
                             <a href="<?php echo URLROOT; ?>/announcements/show/<?php echo $id; ?>"><?php echo $subject; ?></a>
 
@@ -180,7 +186,6 @@
 
 
     <script>
-        feather.replace();
         let btn = document.querySelector("#btn");
         let sidebar = document.querySelector(".sidebar");
 
