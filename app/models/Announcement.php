@@ -18,6 +18,7 @@ class Announcement
         ann_post.post_head, 
         ann_post.posted_date, 
         users.fullname,
+        users.userID,
         counsellor.profile_img
         FROM ann_post 
         JOIN 

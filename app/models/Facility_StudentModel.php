@@ -490,4 +490,17 @@ class Facility_StudentModel
         return $result;
     }
 
+    public function reportListing($data){
+        $this->db->query("INSERT INTO listing_reported (notificationID ,userID ,listingID ,reason) VALUES (:notificationID, :userID, :listingID, :reason)");
+        $this->db->bind(':notificationID', $data['report_id']);
+        $this->db->bind(':userID', $data['user']);
+        $this->db->bind(':listingID', $data['listing_id']);
+        $this->db->bind(':reason', $data['reason']);
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }

@@ -11,81 +11,48 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href=<?php echo URLROOT . "/public/css/stu/view-one.css" ?>>
     <script type="module" src=<?php echo URLROOT . "/public/js/student/loadComments.js" ?> defer></script>
+    <link rel="stylesheet" href="<?php echo URLROOT . "/public/css/flash.css" ?>">
+    <script src=<?php echo URLROOT . "/public/js/flash.js" ?> defer></script>
     <title>Listing View</title>
 </head>
 
 <body>
     <div class="page">
 
-        <div class="sidebar">
-            <div class="logo_content">
-                <div class="logo">
-                    <div class="logo_name"></div>
-                </div>
-                <i class="fa-solid fa-bars" id="btn"></i>
-            </div>
-            <ul class="nav_list">
-                <li>
-                    <a href='<?php echo URLROOT ?>/student/home'>
-                        <i class="fa-solid fa-gauge"></i>
-                        <span class="links_name">Dashboard</span>
-                    </a>
-                    <span class="tooltip">Dashboard</span>
-                </li>
-                <li>
-                    <a href='<?php echo URLROOT ?>/community/home'>
-                        <i class="fa-solid fa-users"></i>
-                        <span class="links_name">Community</span>
-                    </a>
-                    <span class="tooltip">Community</span>
-                </li>
-                <li>
-                    <a href='<?php echo URLROOT ?>/tasks/'>
-                        <i class="fa-solid fa-calendar-days"></i>
-                        <span class="links_name">Schedule</span>
-                    </a>
-                    <span class="tooltip">Schedule</span>
-                </li>
-                <li>
-                    <a href='<?php echo URLROOT ?>/appointments/'>
-                        <i class="fa-solid fa-calendar-check"></i></i>
-                        <span class="links_name">Appointments</span>
-                    </a>
-                    <span class="tooltip">Appointments</span>
-                </li>
-                <li>
-                    <a href='<?php echo URLROOT ?>/announcements/'>
-                        <i class="fa-solid fa-bullhorn"></i></i>
-                        <span class="links_name">Announcements</span>
-                    </a>
-                    <span class="tooltip">Announcements</span>
-                </li>
-                <li>
-                    <a href="<?php echo URLROOT ?>/Student_facility/">
-                        <i class="fa-solid fa-house-circle-check"></i>
-                        <span class="links_name">Listings</span>
-                    </a>
-                    <span class="tooltip">Listings</span>
-                </li>
-            </ul>
-            <div class="profile_content">
-                <div class="profile">
-                    <div class="profile_details">
-                        <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFufGVufDB8fDB8fA%3D%3D&w=1000&q=80" alt="">
-                        <div class="name">
-                            Oshada
-                        </div>
-                    </div>
-                    <a href='<?php echo URLROOT ?>/users/logout'><i class="fa-solid fa-arrow-right-from-bracket fa-flip-horizontal" id="log_out"></i></a>
-                </div>
-            </div>
-        </div>
+        <?php
+        require_once '../app/views/facility/sidebar.php';
+        ?>
+        <?php FlashMessage::flash('listing_report_flash'); ?>
 
         <div class="home_content">
             <div class="container">
-                    <input type="text" value=<?php echo $data['viewone']->listing_id ?> id='listing_id'>
+                <!-- Popup Form -->
+                <div class="overlay">
+                    <div class="popup">
+                        <form action="<?php echo URLROOT; ?>/student_facility/report_listing/<?php echo $data['viewone']->listing_id; ?> " method="post">
+                            <div class="heading">
+                                Report Listing
+                            </div>
+                            <div class="description">
+                                <div class="desc-name">
+                                    Reason for reporting:
+                                </div>
+                                <div class="text">
+                                    <textarea name="rdesc" cols="30" rows="10">Give us a bit more information about the reason for reporting</textarea>
+                                </div>
+                                <div class="submit">
+                                    <button type="submit" class="btn2">Report</button>
+                                </div>
+                            </div>
+                        </form>
+                        <button class="exit-button">&times;</button>
+                    </div>
+                </div>
+
+                <!-- End Popup Form -->
+                <input type="text" value=<?php echo $data['viewone']->listing_id ?> id='listing_id'>
                 <div class="left_side">
-                    
+
                     <div id="image_container" align="center">
                         <br>
                         <?php
@@ -108,18 +75,18 @@
                         <h2>Contact Info.</h2>
                         <div class="facility-details">
                             <div class="facility-image">
-                            <img id ="facility_img" src="<?php echo URLROOT . "/public/img/facility_provider/" . $data['facilityProviderDetails']->profile_img; ?>" alt="">
+                                <img id="facility_img" src="<?php echo URLROOT . "/public/img/facility_provider/" . $data['facilityProviderDetails']->profile_img; ?>" alt="">
                             </div>
                             <div class="facility-name">
                                 <h4><?php echo $data['facilityProviderDetails']->fullname; ?></h4>
                             </div>
                             <div class="buttons" id="message">
-                                <button class="btn"><i class="fa-solid fa-envelope"></i>  Message</button>
+                                <button class="btn"><i class="fa-solid fa-envelope"></i> Message</button>
                             </div>
                         </div>
                         <p><span>Contact No: </span><?php echo $data['facilityProviderDetails']->contact_no; ?></p>
                         <p><span>Address: </span><?php echo $data['viewone']->address; ?></p>
-
+                        <p><span><button class="btn2" onclick = showPopup()><i class="fa-solid fa-ban"></i> Report listing</button></span></p>
                         <div class="map">
                             <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d270201.1012553059!2d80.57066973934896!3d7.435740318327426!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2slk!4v1668671876514!5m2!1sen!2slk" 
                             width="400" height="250" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" frameborder="0"></iframe> -->
@@ -206,7 +173,7 @@
                                     </div>
 
                                     <div class="helpful">
-                                        <p><?php echo $comment->helpful_count?> people found this review helpful</p>
+                                        <p><?php echo $comment->helpful_count ?> people found this review helpful</p>
                                         <div class="radio-group">
                                             <p> did you find this review helpful?
                                                 <input type="radio" name="helpful" value="yes" id=<?php echo $comment->review_id ?>><label for="yes">Yes</label>
@@ -236,12 +203,6 @@
             /* var day = document.lastModified;
             document.getElementById("date").innerHTML = day; */
 
-            let btn = document.querySelector("#btn");
-            let sidebar = document.querySelector(".sidebar");
-
-            btn.onclick = function() {
-                sidebar.classList.toggle("active");
-            }
 
             let messagebtn = document.querySelector("#message");
 
@@ -251,6 +212,27 @@
             }
 
             
+
+            function showPopup() { //show modal for cancel appointment
+                var popup = document.querySelector(".overlay");
+                popup.style.display = "block";
+            }
+
+            const overlay = document.querySelector('.overlay');
+            const popup = overlay.querySelector('.popup');
+            const exitButton = popup.querySelector('.exit-button');
+
+            function closePopup() {
+                var popup = document.querySelector(".overlay");
+                popup.style.display = "none";
+            }
+
+            exitButton.addEventListener('click', closePopup);
+            overlay.addEventListener('click', (event) => {
+                if (event.target === overlay) {
+                    closePopup();
+                }
+            });
         </script>
 
 </body>

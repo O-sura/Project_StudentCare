@@ -278,4 +278,24 @@ class Student_facility extends Controller
         echo $res;
     }
 
+    public function report_listing($listing_id){
+        $reason = trim($_POST['rdesc']);
+        $report_id = substr(sha1(date(DATE_ATOM)), 0, 8);
+        $user = Session::get('userID');
+        $data = [
+            'report_id' => $report_id,
+            'listing_id' => $listing_id,
+            'user' => $user,
+            'reason' => $reason
+        ];
+        if($this->facility_studentModel->reportListing($data)){
+            FlashMessage::flash('listing_report_flash', "Listing has been reported!", "success");
+            Student_facility::viewOneListing($listing_id);
+        }else{
+            FlashMessage::flash('listing_report_flash', "Reporting failed!", "error");
+            Student_facility::viewOneListing($listing_id);
+        };
+        
+    }
+
 }

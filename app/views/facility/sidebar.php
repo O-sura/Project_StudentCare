@@ -31,7 +31,7 @@
                     <i class="fa-solid fa-gauge"></i>
                     <span class="links_name">Dashboard</span>
                 </a>
-               
+                
             </li>
             <li>
                 <a href='<?php echo URLROOT ?>/community/home'>
@@ -54,19 +54,19 @@
                 </a>
                 
             </li>
-            <li >
-                <a href='<?php echo URLROOT ?>/announcements/' id="chosen">
+            <li>
+                <a href='<?php echo URLROOT ?>/announcements/'>
                     <i class="fa-solid fa-bullhorn"></i></i>
                     <span class="links_name">Announcements</span>
                 </a>
                 
             </li>
             <li>
-                <a href="<?php echo URLROOT ?>/Student_facility/">
+                <a href="<?php echo URLROOT ?>/Student_facility/" id="chosen">
                     <i class="fa-solid fa-house-circle-check"></i>
                     <span class="links_name">Listings</span>
                 </a>
-                
+               
             </li>
         </ul>
         <div class="profile_content">

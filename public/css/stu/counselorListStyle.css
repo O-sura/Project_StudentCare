@@ -105,13 +105,11 @@ input:focus{
 .search-container input[type="text"] {
   padding: 10px;
   border-radius: 50px;
-  border: none;
+  border: solid 1px #9e9e9e;
   margin-right: 10px;
   font-size: 14px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   font-weight: bold;
 }
-
 .search-container button {
   padding: 10px;
   border-radius: 50px;
@@ -303,22 +301,6 @@ input:focus{
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   }
   
-  /* Add dropdown arrow icon */
-  .select-icon {
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    width: 24px;
-    height: 24px;
-    fill: #333;
-    transition: all 0.2s ease-in-out;
-  }
-  
-  /* Animate icon on open/close */
-  .select-btn.open .select-icon {
-    transform: translateY(-50%) rotate(180deg);
-  }
   
   /* Style dropdown options */
   .select option {
@@ -330,8 +312,4 @@ input:focus{
     outline: none;
   }
 
-  .select-btn{
-    margin-right: 10px;
-    margin-left: 20px;
-  }
 

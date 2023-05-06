@@ -23,7 +23,7 @@ class Appointment
 
     public function getProfile($data)
     {
-        $this->db->query("SELECT users.userID, users.fullname, users.home_address, users.contact_no, TIMESTAMPDIFF(YEAR, counsellor.dob, CURDATE()) AS age , counsellor.specialization, counsellor.counselor_description, counsellor.profile_img, counsellor.qualifications
+        $this->db->query("SELECT users.userID, users.fullname, users.home_address, users.contact_no, users.userID, TIMESTAMPDIFF(YEAR, counsellor.dob, CURDATE()) AS age , counsellor.specialization, counsellor.counselor_description, counsellor.profile_img, counsellor.qualifications
         FROM users
         INNER JOIN counsellor
         ON users.userID = counsellor.userID

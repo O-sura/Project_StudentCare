@@ -79,6 +79,7 @@
                 ?>
                     <?php
                     $id = $rows->post_id;
+                    $counselorID = $rows->userID;
                     $subject = $rows->post_head;
                     $name = $rows->fullname;
                     $timestamp = strtotime($rows->posted_date);
@@ -113,7 +114,7 @@
                                 <img src="<?php echo URLROOT . "/public/img/counselor/" . $image; ?>" alt="">
                             </div>
                             <div class="name">
-                                <?php echo $name; ?>
+                                <a href="<?php echo URLROOT; ?>/appointments/profile/<?php echo $counselorID; ?>"><?php echo $name; ?></a>
                             </div>
                         </div>
 
