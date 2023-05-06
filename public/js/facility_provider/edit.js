@@ -1,3 +1,8 @@
+//go back to previous page
+document.getElementById("back-link").addEventListener("click", function() {
+  history.go(-1);
+});
+
 function addAnother() {
   // Get the container element
   var container = document.querySelector('.university-adder');

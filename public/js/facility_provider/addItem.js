@@ -1,3 +1,9 @@
+//go back to previous page
+document.getElementById("back-link").addEventListener("click", function() {
+  history.go(-1);
+});
+
+
 function addAnother() {
   // Get the container element
   var container = document.querySelector('.university-adder');
@@ -66,7 +72,3 @@ input.addEventListener('change', function() {
   }
 });
 
-//line break of text area
-/* var inputt = document.getElementById("my-input");
-var inputValue = input.value.replace(/\n/g, ",");
-input.value = inputValue; */

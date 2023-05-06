@@ -17,16 +17,21 @@ body{
  
  .container{
     width: 70%;
-    margin: 30px 20px 20px 200px;
+    margin: 40px 20px 20px 80px;
     display: flex;
  }
+
+ #back-link{
+  cursor: pointer;
+  white-space:nowrap
+}
  
  .left_side{
-    margin-top: 40px;
+    margin-top: 30px;
+    margin-left: 50px;
  }
- 
+
  .preview img{
-    
     padding: 1px;
     width: 400px;
     height: 250px;
@@ -44,6 +49,7 @@ body{
     margin-top: 40px;
     line-height: 30px;
  }
+
  a { 
   color: inherit;
   text-decoration: inherit; 
@@ -55,14 +61,14 @@ body{
  
  .map{
     margin-top: 20px;
-   
     width: 402px;
     height: 252px;
     object-fit: cover;
  }
  
  .right_side{
-    padding-left: 50px;
+    margin-top: 20px;
+    margin-left: 150px;
  }
  
  .right_side .topic span{

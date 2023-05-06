@@ -20,7 +20,10 @@
         </div>
 
         <div class="container">
-
+            <a id="back-link">
+                <i class="fa-sharp fa-solid fa-left-long"><span>  Go Back</span></i>
+            </a>
+            
             <div class="left_side">
                 <div id="image_container" align="center">
                     <br>
@@ -58,12 +61,12 @@
                 
                 <h1 class="topic"><?php echo $data['viewone']->topic; ?>
                     <span>
-                        
-                        <a href=<?php echo URLROOT. "/facility_provider/editItem/" . $data['viewone']->listing_id?>>
-                            <i class="fa fa-pen"></i>
-                        </a>
-                        
-                        <i class="fa-solid fa-trash" id="deleteBtn"></i>
+                        <?php
+                            if($data['facilityProviderDetails']->userID == $_SESSION['userID']){
+                                echo '<a href="' . URLROOT . '/facility_provider/editItem/' . $data['viewone']->listing_id . '"><i class="fa fa-pen"></i></a>';
+                                echo '<i class="fa-solid fa-trash" id="deleteBtn"></i>';
+                            }
+                        ?>
                         
                     </span>
                 </h1>

@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/facility_provider/item.css"?>>
+    <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/facility_provider/edit.css"?>>
     <script src=<?php echo URLROOT . "/public/js/facility_provider/edit.js"?> defer ></script>
     <title>Edit Item</title>
 
@@ -23,6 +23,10 @@
         </div>
     
         <div class="container">
+            <a id="back-link">
+                <i class="fa-sharp fa-solid fa-left-long"><span>  Go Back</span></i>
+            </a>
+
             <form action=<?php echo URLROOT . "/facility_provider/editItem/" .$data['id']; ?> method="POST" enctype="multipart/form-data">
                 <h1>Tell Us More About Your Listing</h1>
                 
@@ -196,7 +200,7 @@
                 </div>
                 
                 <input type="text" name="id" value=<?php echo $data['id']?> hidden>
-                <button type="submit" class="submitbtn" name="submit">Add Listing</button>
+                <button type="submit" class="submitbtn" name="submit">Save</button>
             </form>  
         </div>
 

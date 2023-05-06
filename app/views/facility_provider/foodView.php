@@ -65,8 +65,10 @@
                 </div>
 
                 <div class="select-btn">
-                    <select class="filter">
-                        <option>Price</option>
+                    <select class="filter" name="filterItem" id="filterItem">
+                        <option value="" selected="selected">University</option>
+                        <option value="house">Colombo</option>
+                        <option value="room">Peradeniya</option>
                     </select>
                 </div>
 

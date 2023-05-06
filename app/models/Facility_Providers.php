@@ -305,7 +305,7 @@
 
         
         public function propertysearch($keyword){
-            $this->db->query('SELECT * FROM listing WHERE topic LIKE :keyword or location LIKE :keyword');
+            $this->db->query('SELECT * FROM listing WHERE topic LIKE :keyword or location LIKE :keyword or rental LIKE :keyword');
             $this->db->bind(':keyword', $keyword);
             $result = $this->db->getAllRes();
             return json_encode($result);
@@ -316,21 +316,21 @@
             $this->db->query("SELECT * FROM listing WHERE location = :location");
             $this->db->bind(':location', $location);
             $result = $this->db->getAllRes();
-            return json_encode($result);
+            return $result;
         }
 
         public function gettypefilter($type){
             $this->db->query("SELECT * FROM listing WHERE topic = :type");
             $this->db->bind(':type', $type);
             $result = $this->db->getAllRes();
-            return json_encode($result);
+            return $result;
         }
 
         public function getunifilter($university){
             $this->db->query("SELECT * FROM uni_distance_listing WHERE uni_name = :university");
             $this->db->bind(':university', $university);
             $result = $this->db->getAllRes();
-            return json_encode($result);
+            return $result;
         }
 
         public function getUniDistances($id){

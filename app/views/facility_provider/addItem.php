@@ -23,6 +23,9 @@
         </div>
     
         <div class="container">
+            <a id="back-link">
+                <i class="fa-sharp fa-solid fa-left-long"><span>  Go Back</span></i>
+            </a>
             <form action="" method="POST" enctype="multipart/form-data">
                 <h1>Tell Us More About Your Listing</h1>
 

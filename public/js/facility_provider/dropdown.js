@@ -1,9 +1,9 @@
 // Wait for the page to load before attaching event listener
-window.addEventListener('select', () => {
+window.addEventListener('load', () => {
     
     // Get the select element and attach an event listener to it
     var filterSelect = document.getElementById('filterItem');
-    filterSelect.addEventListener('select', () => {
+    filterSelect.addEventListener('change', () => {
         
         // Get the selected value
         var selectedValue = filterSelect.value;
