@@ -6,6 +6,7 @@
         private $counselorModel;
         private $fpModel;
         private $userModel;
+        private $reportModel;
         public function __construct(){
             Middleware::authorizeUser(Session::get('userrole'), 'admin');
             $this->adminModel = $this->loadModel('AdminModel');
@@ -13,6 +14,7 @@
             $this->counselorModel = $this->loadmodel('Counselor');
             $this->fpModel = $this->loadmodel('Facility_Providers');
             $this->userModel = $this->loadmodel('User');
+            $this->reportModel = $this->loadModel('ReportModel');
         }
         
         public function index(){
@@ -38,13 +40,97 @@
         }
 
         public function reports(){
+            // $today = new DateTime();
+            // $t = $today->format('Y-m-d');
+            // $seven_days_ago = $today->sub(new DateInterval('P7D'));
+            // $seven_days_ago = $seven_days_ago->format('Y-m-d');
+            // $thirty_days_ago = $today->sub(new DateInterval('P30D'))->format('Y-m-d');
+            // $ninety_days_ago = $today->sub(new DateInterval('P90D'))->format('Y-m-d');
+            // $one_eighty_days_ago = $today->sub(new DateInterval('P180D'))->format('Y-m-d');
+            
+
+            //$data = $this->studentModel->student_listing_engagement($ninety_days_ago,$t);
+            // generatePDF('facility_provider',$data);
+            // exit;
+
+
+
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
-               if(isset($_POST['template'])){
-                //var_dump($_POST['template']);
-                //generateReport($_POST['template']);
+               if(isset($_GET['individual'])){
+                //report which contains only info about a single user
+                echo "Hello";
+               }
+               else{
+                //report which contains overall details about a specific section
+                $duration = $_POST['duration'];
+                $type =  $_POST['type'];
+                $role = $_POST['role'];
+
+                $today = new DateTime();
+                $startDate = $today->format('Y-m-d');
+                
+                if($duration == 'Weekly'){
+                    $endDate = $today->sub(new DateInterval('P7D'))->format('Y-m-d');
+                }
+                else if($duration == 'Monthly'){
+                    $endDate =  $today->sub(new DateInterval('P30D'))->format('Y-m-d');
+                }
+                else if($duration == '3-Months'){
+                    $endDate =  $today->sub(new DateInterval('P90D'))->format('Y-m-d');
+                }
+                else if($duration == '6-Months'){
+                    $endDate =  $today->sub(new DateInterval('P180D'))->format('Y-m-d');
+                }
+
+                //$data = $this->getReportData($role,$type,$startDate,$endDate);
+                //generatePDF($role,$data,$type,$multiFlag);
+            
                }
             }else{
                 $this->loadView('admin/report-generator');
+            }
+        }
+
+        public function getReportData($role,$type,$startdate,$enddate){
+            if($role == 'Admin'){
+                if($type == 'System Overview'){
+                    $data = [
+                        'users_by_role' => $this->reportModel->userCountByRole($startdate,$enddate),
+                        'total_users' => $this->reportModel->totalUserCount($startdate,$enddate),
+                        'total_community_posts' => $this->reportModel->totalUserCount($startdate,$enddate),
+                        'community_engagement' =>$this->reportModel->authorCount($startdate,$enddate),
+                        'comment' => $this->reportModel->commentCount($startdate,$enddate),
+                        'post_reportings' => $this->reportModel->postReportCount($startdate,$enddate),
+                        'total_csessions' => '',
+                        'counselor-stu-engagement' => 76.3,
+                        'counselor-ann-engagement' => 43.2,
+                        'listing_overview' => $this->reportModel->listing_overview($startdate,$enddate),
+                        'stu-listing-engagement' => $this->reportModel->student_listing_engagement($startdate,$enddate),
+                        'listing_by_location' => $this->reportModel->listing_by_location($startdate,$enddate),
+                        'stu_mobile_engagement' => $this->reportModel->task_engagement($startdate,$enddate)
+                    ];
+                    return $data;
+                }
+            }
+            if($role == 'Counselor'){
+                if($type == 'Session Overview'){
+                    $data = [
+                        'total_csessions' => '',
+                        'counselor-stu-engagement' => 76.3,
+                        'counselor-ann-engagement' => 43.2,
+                    ];
+                    return $data;
+                }
+            }
+            if($role == 'Facility Provider'){
+                if($type == 'Listing Overview'){
+                    $data = [
+                        'listing_overview' => '',
+                        'stu-listing-engagement' => 33.1,
+                        'listing_by_location' => '',
+                    ];
+                    return $data;
+                }
             }
         }
 
@@ -141,15 +227,6 @@
         }
 
         public function complaints(){
-            // $data = [
-            //     'complaints' => $this->adminModel->getPostReportings(),
-            //     'other' => $this->adminModel->getOtherNotifications()
-            // ];
-
-            // print_r($data);
-            // exit;
-
-            //$this->loadView('admin/complaint-log',$data);
             $this->loadView('admin/complaint-log');
         }
 
