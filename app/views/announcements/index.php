@@ -18,92 +18,38 @@
 </head>
 
 <body>
-    <div class="sidebar">
-        <div class="logo_content">
-            <div class="logo">
-                <div class="logo_name"></div>
-            </div>
-            <i class="fa-solid fa-bars" id="btn"></i>
-        </div>
-        <ul class="nav_list">
-            <li>
-                <a href='<?php echo URLROOT ?>/student/home'>
-                    <i class="fa-solid fa-gauge"></i>
-                    <span class="links_name">Dashboard</span>
-                </a>
-                <span class="tooltip">Dashboard</span>
-            </li>
-            <li>
-                <a href='<?php echo URLROOT ?>/community/home'>
-                    <i class="fa-solid fa-users"></i>
-                    <span class="links_name">Community</span>
-                </a>
-                <span class="tooltip">Community</span>
-            </li>
-            <li>
-                <a href='<?php echo URLROOT ?>/tasks/'>
-                    <i class="fa-solid fa-calendar-days"></i>
-                    <span class="links_name">Schedule</span>
-                </a>
-                <span class="tooltip">Schedule</span>
-            </li>
-            <li>
-                <a href='<?php echo URLROOT ?>/appointments/'>
-                    <i class="fa-solid fa-calendar-check"></i></i>
-                    <span class="links_name">Appointments</span>
-                </a>
-                <span class="tooltip">Appointments</span>
-            </li>
-            <li>
-                <a href='<?php echo URLROOT ?>/announcements/'>
-                    <i class="fa-solid fa-bullhorn"></i></i>
-                    <span class="links_name">Announcements</span>
-                </a>
-                <span class="tooltip">Announcements</span>
-            </li>
-            <li>
-                <a href="<?php echo URLROOT ?>/Student_facility/">
-                    <i class="fa-solid fa-house-circle-check"></i>
-                    <span class="links_name">Listings</span>
-                </a>
-                <span class="tooltip">Listings</span>
-            </li>
-        </ul>
-        <div class="profile_content">
-            <div class="profile">
-                <div class="profile_details">
-                    <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFufGVufDB8fDB8fA%3D%3D&w=1000&q=80" alt="">
-                    <div class="name">
-                        Oshada
-                    </div>
-                </div>
-                <a href='<?php echo URLROOT ?>/users/logout'><i class="fa-solid fa-arrow-right-from-bracket fa-flip-horizontal" id="log_out"></i></a>
-            </div>
-        </div>
-    </div>
+    <?php
+    require_once '../app/views/announcements/sidebar.php';
+    ?>
     <div class="home_content">
         <div class="container">
             <div class="row1">
                 <h1>Announcements</h1>
 
                 <div class="event1">
+                    <div>
+                        <h3>Sort by : </h3>
+                    </div>
+                    <div>
+                        <select class="select" id="sorter">
+                            <option value="latest" selected>Latest</option>
+                            <option value="earliest">Earliest</option>
 
-                    <select class="select" id="sorter">
-                        <option value="none" selected disabled hidden>Sort by date</option>
-                        <option value="latest">latest</option>
-                        <option value="earliest">earliest</option>
+                        </select>
+                    </div>
 
-                    </select>
 
                 </div>
                 <div class="event2">
-
-                    <select class="select" id="filter">
-                        <option value="none" selected disabled hidden>Filter by</option>
-                        <option value="all">All</option>
-                        <option value="starred">Starred</option>
-                    </select>
-
+                    <div>
+                        <h3>Filter by : </h3>
+                    </div>
+                    <div>
+                        <select class="select" id="filter">
+                            <option value="all" selected>All</option>
+                            <option value="starred">Starred</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="add">
                     <div class="search-container">
@@ -150,12 +96,12 @@
 
                         <div class="topic" data-id="<?php echo $id; ?>">
                             <?php foreach ($data['savedAnnouncements'] as $announcement) : ?>
-                                <?php if ($announcement->post_id == $id) {
-                                        $saved = 'solid';
-                                        break;
-                                 }?>
+                                <?php if ($announcement->announcement_id == $id) {
+                                    $saved = 'solid';
+                                    break;
+                                } ?>
                             <?php endforeach; ?>
-                            <span class="star"><i class="fa-<?php echo $saved?> fa-star" id='<?php echo $id ?>'></i></span>
+                            <span class="star"><i class="fa-<?php echo $saved ?> fa-star" id='<?php echo $id ?>'></i></span>
 
                             <a href="<?php echo URLROOT; ?>/announcements/show/<?php echo $id; ?>"><?php echo $subject; ?></a>
 
@@ -186,13 +132,6 @@
 
 
     <script>
-        let btn = document.querySelector("#btn");
-        let sidebar = document.querySelector(".sidebar");
-
-        btn.onclick = function() {
-            sidebar.classList.toggle("active");
-        }
-
         // Get the list of clicked posts from the cookie
         var clickedPosts = (function() {
             var cookie = document.cookie.match(/(^|;)\s*clickedPosts\s*=\s*([^;]+)/);

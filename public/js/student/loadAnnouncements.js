@@ -1,5 +1,5 @@
 import { Announcement } from "./announcements.js";
-
+import { SavedAnnouncement } from "./saved_announcements.js";
 //Clear all the posts currently showing to the user
 function clearposts() {
   let posts = document.querySelectorAll(".row3");
@@ -38,24 +38,39 @@ function dropdownFilter(optionx, optiony) {
     if (xhr.status === 200) {
       //Parse the JSON response from the server
       var searchRes = JSON.parse(xhr.responseText);
-
+      // Access the announcements and savedAnnouncements arrays
+      var announcements = JSON.parse(searchRes.announcements);
+      var savedAnnouncements = JSON.parse(searchRes.savedAnnouncements);
+      const valuesArray = savedAnnouncements.map((obj) => obj.announcement_id);
       // Update the contents of the page to display the search results
       clearposts();
       var resultList = document.getElementById("list");
       let postList = "";
 
-      for (var i = 0; i < searchRes.length; i++) {
-        let result = searchRes[i];
+      for (var i = 0; i < announcements.length; i++) {
+        let result = announcements[i];
         //id, head, name, date, img
-        let post = new Announcement(
-          result.post_id,
-          result.post_head,
-          result.fullname,
-          result.posted_date,
-          result.profile_img
-        );
-
-        postList += post.createDetails();
+        if (valuesArray.includes(result.post_id)) {
+          let post = new SavedAnnouncement(
+            result.post_id,
+            result.post_head,
+            result.fullname,
+            result.posted_date,
+            result.profile_img
+          );
+          console.log("saved");
+          postList += post.createDetails();
+        } else {
+          let post = new Announcement(
+            result.post_id,
+            result.post_head,
+            result.fullname,
+            result.posted_date,
+            result.profile_img
+          );
+          console.log("not saved");
+          postList += post.createDetails();
+        }
       }
       resultList.innerHTML = postList;
       // Iterate through the posts
@@ -130,25 +145,39 @@ function dropdownFilter2(option1, option2) {
     if (xhr.status === 200) {
       //Parse the JSON response from the server
       var searchRes = JSON.parse(xhr.responseText);
-
+      // Access the announcements and savedAnnouncements arrays
+      var announcements = JSON.parse(searchRes.announcements);
+      var savedAnnouncements = JSON.parse(searchRes.savedAnnouncements);
+      const valuesArray = savedAnnouncements.map((obj) => obj.announcement_id);
       // Update the contents of the page to display the search results
       clearposts();
       var resultList = document.getElementById("list");
       let postList = "";
 
-      for (var i = 0; i < searchRes.length; i++) {
-        let result = searchRes[i];
-        //console.log(result);
+      for (var i = 0; i < announcements.length; i++) {
+        let result = announcements[i];
         //id, head, name, date, img
-        let post = new Announcement(
-          result.post_id,
-          result.post_head,
-          result.fullname,
-          result.posted_date,
-          result.profile_img
-        );
-
-        postList += post.createDetails();
+        if (valuesArray.includes(result.post_id)) {
+          let post = new SavedAnnouncement(
+            result.post_id,
+            result.post_head,
+            result.fullname,
+            result.posted_date,
+            result.profile_img
+          );
+          console.log("saved");
+          postList += post.createDetails();
+        } else {
+          let post = new Announcement(
+            result.post_id,
+            result.post_head,
+            result.fullname,
+            result.posted_date,
+            result.profile_img
+          );
+          console.log("not saved");
+          postList += post.createDetails();
+        }
       }
       resultList.innerHTML = postList;
       // Iterate through the posts
@@ -176,6 +205,19 @@ function dropdownFilter2(option1, option2) {
             post.style.opacity = 0.5;
           });
         })(posts[i]);
+      }
+      // Get all star icon elements by their class
+      var starIcons = document.getElementsByClassName("star");
+
+      // Loop through all star icon elements and add onclick function
+      for (var i = 0; i < starIcons.length; i++) {
+        starIcons[i].onclick = function () {
+          // Get the ID of the star icon
+          var iconId = this.children[0].id;
+
+          // Alert the ID of the star icon
+          saveAnnouncement(iconId);
+        };
       }
     }
   };
@@ -208,25 +250,39 @@ function searchAnnouncement() {
     if (xhr.status === 200) {
       //Parse the JSON response from the server
       var searchRes = JSON.parse(xhr.responseText);
-
+      // Access the announcements and savedAnnouncements arrays
+      var announcements = JSON.parse(searchRes.announcements);
+      var savedAnnouncements = JSON.parse(searchRes.savedAnnouncements);
+      const valuesArray = savedAnnouncements.map((obj) => obj.announcement_id);
       // Update the contents of the page to display the search results
       clearposts();
       var resultList = document.getElementById("list");
       let postList = "";
 
-      for (var i = 0; i < searchRes.length; i++) {
-        let result = searchRes[i];
-        //console.log(result);
+      for (var i = 0; i < announcements.length; i++) {
+        let result = announcements[i];
         //id, head, name, date, img
-        let post = new Announcement(
-          result.post_id,
-          result.post_head,
-          result.fullname,
-          result.posted_date,
-          result.profile_img
-        );
-
-        postList += post.createDetails();
+        if (valuesArray.includes(result.post_id)) {
+          let post = new SavedAnnouncement(
+            result.post_id,
+            result.post_head,
+            result.fullname,
+            result.posted_date,
+            result.profile_img
+          );
+          console.log("saved");
+          postList += post.createDetails();
+        } else {
+          let post = new Announcement(
+            result.post_id,
+            result.post_head,
+            result.fullname,
+            result.posted_date,
+            result.profile_img
+          );
+          console.log("not saved");
+          postList += post.createDetails();
+        }
       }
       resultList.innerHTML = postList;
       // Iterate through the posts
@@ -254,6 +310,19 @@ function searchAnnouncement() {
             post.style.opacity = 0.5;
           });
         })(posts[i]);
+      }
+      // Get all star icon elements by their class
+      var starIcons = document.getElementsByClassName("star");
+
+      // Loop through all star icon elements and add onclick function
+      for (var i = 0; i < starIcons.length; i++) {
+        starIcons[i].onclick = function () {
+          // Get the ID of the star icon
+          var iconId = this.children[0].id;
+
+          // Alert the ID of the star icon
+          saveAnnouncement(iconId);
+        };
       }
     }
   };
@@ -299,8 +368,9 @@ function saveAnnouncement(ann_id) {
 
   xhr.onload = () => {
     if (xhr.status === 200) {
-      location.reload();
+      location.reload(); //reload page after saving
     }
   };
   xhr.send();
 }
+

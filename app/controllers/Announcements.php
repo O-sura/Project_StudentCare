@@ -43,7 +43,13 @@ class Announcements extends Controller{
         $filter = trim($_GET['filter']);
         $usr = Session::get('userID');
         $res =  json_encode($this->announcementModel->filterAnnouncement($sort,$filter, $usr));
-        echo $res;
+        $saved =  json_encode($this->announcementModel->getSavedAnnouncements($usr));
+        $data = [
+            'announcements' => $res,
+            'savedAnnouncements' => $saved
+        ];
+
+        echo json_encode($data);
     }
     
     public function announcement_filter_handler(){
@@ -51,7 +57,12 @@ class Announcements extends Controller{
         $filter = trim($_GET['filter']);
         $usr = Session::get('userID');
         $res =  json_encode($this->announcementModel->filterAnnouncement($sort,$filter,$usr));
-        echo $res;
+        $saved =  json_encode($this->announcementModel->getSavedAnnouncements($usr));
+        $data = [
+            'announcements' => $res,
+            'savedAnnouncements' => $saved
+        ];
+        echo json_encode($data);
     }
 
     public function announcement_search_handler(){
@@ -60,7 +71,12 @@ class Announcements extends Controller{
         $filter = trim($_GET['filter']);
         $sort = trim($_GET['sort']);
         $res =  json_encode($this->announcementModel->searchAnnouncement($search,$sort,$filter,$usr));
-        echo $res;
+        $saved =  json_encode($this->announcementModel->getSavedAnnouncements($usr));
+        $data = [
+            'announcements' => $res,
+            'savedAnnouncements' => $saved
+        ];
+        echo json_encode($data);
     }
 
     public function save_announcement(){

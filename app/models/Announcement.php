@@ -251,17 +251,9 @@ class Announcement
 
     public function getSavedAnnouncements($user){
         $this->db->query("SELECT 
-        ann_post.post_id
-        FROM ann_post 
-        JOIN 
-        counselor_alloc ON ann_post.userID = counselor_alloc.counselor_id 
-        JOIN 
-        save_announcement ON save_announcement.announcement_id = ann_post.post_id
-        JOIN
-        users ON users.userID = counselor_alloc.counselor_id
-        JOIN
-        counsellor ON counsellor.counsellorID = counselor_alloc.counselor_id
-        WHERE save_announcement.reg_id = :studentID ORDER BY ann_post.posted_date DESC;");
+        announcement_id
+        FROM save_announcement 
+        WHERE reg_id = :studentID;");
         $this->db->bind(':studentID', $user);
         $results = $this->db->getAllRes();
 
