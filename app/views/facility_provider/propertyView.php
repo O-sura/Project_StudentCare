@@ -43,7 +43,7 @@
             <div class="wrapper">
 
                 <div class="select-btn">
-                    <select class="filter" name="filterItem" id="filterItem">
+                    <select class="filter" name="filterItem" id="filterItem1">
                         <option value="" selected="selected">Location</option>
                         <option value="ampara">Ampara</option>
                         <option value="anuradhapura">Anuradhapura</option>
@@ -59,7 +59,7 @@
                 </div>
             
                 <div class="select-btn">
-                    <select class="filter" name="filterItem" id="filterItem">
+                    <select class="filter" name="filterItem" id="filterItem2">
                         <option value="" selected="selected">Type</option>
                         <option value="house">House</option>
                         <option value="room">Room</option>
@@ -67,7 +67,7 @@
                 </div>
 
                 <div class="select-btn">
-                    <select class="filter" name="filterItem" id="filterItem">
+                    <select class="filter" name="filterItem" id="filterItem3">
                         <option value="" selected="selected">University</option>
                         <option value="house">Colombo</option>
                         <option value="room">Peradeniya</option>

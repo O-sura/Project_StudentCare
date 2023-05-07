@@ -80,12 +80,31 @@
                             <div class="university-adder">
                                 <div class = "university-field">
                                     <select name="uniName[]" class="select" id="universityFilter_0">
-                                        <option value="University of Ruhuna">University of Ruhuna</option>
+                                        <option value="Eastern University">Eastern University</option>
+                                        <option value="Rajarata University">Rajarata University</option>
+                                        <option value="Sabaragamuwa University">Sabaragamuwa University</option>
+                                        <option value="South Eastern University">South Eastern University</option>
+                                        <option value="The Open University">The Open University</option>
                                         <option value="University of Colombo">University of Colombo</option>
+                                        <option value="University of Jaffna">University of Jaffna</option>
                                         <option value="University of Kelaniya">University of Kelaniya</option>
-                                        <option value="University of Peradeniya">University of Peradeniya</option>
                                         <option value="University of Moratuwa">University of Moratuwa</option>
+                                        <option value="University of Peradeniya">University of Peradeniya</option>
+                                        <option value="University of Ruhuna">University of Ruhuna</option>
+                                        <option value="University of Sri Jayewardenepura">University of Sri Jayewardenepura</option>
+                                        <option value="Uva wellassa University">Uva wellassa University</option>
+                                        <option value="University of Vavuniya">University of Vavuniya</option>
+                                        <option value="University of the Visual & Performing Arts">University of the Visual & Performing Arts</option>
+                                        <option value="Wayamba University">Wayamba University</option>
+                                        <option value="KDU">KDU</option>
+                                        <option value="CINEC">CINEC</option>
+                                        <option value="Esoft Metro Campus">Esoft Metro Campus</option>
+                                        <option value="Horizon Campus">Horizon Campus</option>
+                                        <option value="IIT">IIT</option>
+                                        <option value="NIBM">NIBM</option>
+                                        <option value="NSBM">NSBM</option>
                                         <option value="SLIIT">SLIIT</option>
+                                        <option value="SLTC">SLTC</option>
                                     </select>
                                     <input class="uniName" name="uniDistance[]" id="uniName_0" type="number" min="1" max="10"><p>Km</p>
                                 </div>

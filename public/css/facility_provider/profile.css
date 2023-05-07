@@ -106,51 +106,40 @@ input[type = file]::-webkit-file-upload-button{
     margin-right: 10px;
 }
 
-@media screen and (max-width:1200px) {
-    .div1{
-        background-color: rgb(55, 51, 112);
+@media screen and (max-width: 1200px) {
+    .detail_form {
         margin-top: 0%;
         margin-bottom: 0%;
-        width: 5%;
+        width: 70%;
         justify-content: center;
         align-items: center;
         height: 745px;
     }
     
-      .logoutBtn{
-        display: none;
-      }
-      
-      .div2{
-        width: 95%;
-        height: 745px;
-        background-color:white;
-        justify-content: space-between;
-        display: inline-block;
-      }
+    .profile {
+        margin-top: 40px;
+    }
     
-      .navItem{
-        display: none;
-      }    
+    .contact, .category_details {
+        margin-top: 40px;
+    }
 }
-
-@media screen and (max-width:900px) {
-    .div{
+    
+@media screen and (max-width: 900px) {
+    .detail_form {
         justify-content: space-between;
-      }
+    }
     
+    .personal, .details {
+        width: 100%;
+    }
     
-      .div4{
-        flex-direction: column;
-        align-items: center;
-        position: relative;
-      }
-      
+    .profile {
+        margin-top: 0;
+    }
     
-      h3{
-        color: black;
-        font-size: smaller;
-        text-align: left;
-        margin-left: 2%;
-      }
+    .dp {
+        width: 150px;
+        height: 150px;
+    }
 }

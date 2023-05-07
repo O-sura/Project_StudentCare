@@ -33,6 +33,9 @@
             }
         }
 
+        /* public function isUserRegisteredForCategory($user_id, $category){
+            $this->db->query('SELECT * FROM facility_provider WHERE ');
+        } */
 
         public function addUniDistance($data){
             //$listing_id = substr(sha1(date(DATE_ATOM)), 0, 8);
