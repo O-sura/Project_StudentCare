@@ -39,14 +39,14 @@ class Student extends Controller
             $row = $this->studentModel->getProfile(Session::get('userID'));
             $filename = $_FILES["file"]["name"];
             $tempname = $_FILES["file"]["tmp_name"];
-            $folder =  PUBLICPATH . "img/student/" . $filename;
+            $folder =  PUBLICPATH . "/img/student/" . $filename;
 
 
 
             if (move_uploaded_file($tempname, $folder)) {
             } else if (empty($filename) && empty($tempname)) {
                 $filename = $row->profile_img;
-                $folder = PUBLICPATH . "img/student/" . $filename;
+                $folder = PUBLICPATH . "/img/student/" . $filename;
                 $tempname = tempnam(sys_get_temp_dir(), 'image_');
                 copy($folder, $tempname);
             }
