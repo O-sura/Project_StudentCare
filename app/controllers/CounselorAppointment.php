@@ -1,10 +1,14 @@
 <?php
     Session::init();
     class CounselorAppointment extends Controller{
+
+
+        private $counselorModel;
+        
         public function __construct(){
             Middleware::authorizeUser(Session::get('userrole'), 'counsellor');
 
-            $this->postModel = $this->loadModel('Counselor');
+            $this->counselorModel = $this->loadModel('Counselor');
         }
         
         public function index(){
@@ -60,7 +64,7 @@
                 'taskDate' => $newdate
             ];
 
-            $row = $this->postModel->getAppointmentsDetails($init_data['taskDate'],$userid);
+            $row = $this->counselorModel->getAppointmentsDetails($init_data['taskDate'],$userid);
            
 
             $data = [
@@ -73,9 +77,6 @@
                 'descC_err' => ''
                 
             ];
-
-            // echo $newdate;
-            // exit;
 
             $this->loadView('counselor/appointmentsDaily',$data);
         }
@@ -107,7 +108,7 @@
               
 
                 //to check whether new appointing person already has an appointment on that day
-                $personCheck = $this->postModel->checkForSamePersonApp($data,$userid);
+                $personCheck = $this->counselorModel->checkForSamePersonApp($data,$userid);
                 $personCheckCount = json_decode($personCheck,true);
 
                 if($personCheckCount['COUNT(studentID)'] == 1){
@@ -116,7 +117,7 @@
 
 
                 //Check whether maximum time allocating slots are filled or not
-                $appDayCountObject = $this->postModel->countDayAppointments($data);
+                $appDayCountObject = $this->counselorModel->countDayAppointments($data);
                 $appDayCount = json_decode($appDayCountObject,true);
 
                 if($appDayCount['COUNT(appointmentDate)'] == 5){
@@ -125,7 +126,7 @@
                 
 
                 //have to check whether the student is in counselors' accepted list
-                $inList = $this->postModel->checkStudentForCounselor($userid,$data['stuID']);
+                $inList = $this->counselorModel->checkStudentForCounselor($userid,$data['stuID']);
                 if($inList == false){
                     $data['stuID_err'] = 'This student is not under you';
                     $data['stuName_err'] = 'This student is not under you';
@@ -142,13 +143,8 @@
                 $reducetimes->sub(new DateInterval('PT'.$timediff.'M'));
                 $beforeTime = $reducetimes->format('H:i:s');
 
-                $getdate = $this->postModel->checkTime($data,$afterTime,$beforeTime);
+                $getdate = $this->counselorModel->checkTime($data,$afterTime,$beforeTime);
                 $getdateC = json_decode($getdate,true);
-
-                // echo $getdateC['COUNT(appointmentTime)']."<br>";
-                // echo $getdateC['appointmentID']."<br>";
-                // echo "hello";
-                // exit;
 
                 //check whether requested time can allocate or not
                 if($getdateC['COUNT(appointmentTime)'] == 1){
@@ -170,10 +166,6 @@
                 if($data['appTime'] <= $currtime && $data['appDate'] == $currdate){
                     $data['appTime_err'] = 'Please pick a time after 15 minutes from current time';
                 }
-
-                // echo $currtime;
-                // exit;
-
 
                   //validate studentID
                 if(empty($data['stuID'])){
@@ -202,11 +194,11 @@
 
                 if(empty($data['stuID_err']) && empty($data['stuName_err']) && empty($data['appDate_err']) && empty($data['appTime_err']) && empty($data['desc_err'])){
 
-                    if($this->postModel->addAppointment($data,$userid)){
+                    if($this->counselorModel->addAppointment($data,$userid)){
 
 
-                        $loggedUser = $this->postModel->getCounselorProfile($userid);   //to get the related counselor details
-                        $user = $this->postModel->getstudentforemail($data['stuID']);   //to get the related student detils
+                        $loggedUser = $this->counselorModel->getCounselorProfile($userid);   //to get the related counselor details
+                        $user = $this->counselorModel->getstudentforemail($data['stuID']);   //to get the related student detils
 
                         //to send an email to the related student informing about the session
                         $subject = 'Link for the Counseling Session';
@@ -234,17 +226,10 @@
         //cancel an appointment
         public function cancellationOfAppointment(){
 
-            //$stuID = $_GET['studentID'];
+
             $appdate = $_GET['appdate'];
             
             $appID = $_GET['appID'];
-            //$apptime = $_GET['apptime'];
-        
-            // echo $stuID." ";
-            // echo $appdate." ";
-            // echo $apptime." ";
-            // echo $appID;
-            // exit;
 
             $userid = Session::get('userID');
 
@@ -260,53 +245,24 @@
         
                         ];
         
-                    
-                        // echo $appdate;
-                        // echo $stuID;
-                        // echo $appID;
-                        // exit;
-        
-                        //validate appointment cancellation description
-                        // if(empty($data['descC'])){
-                        //     $data['descC_err'] = 'Appointment cancellation description is required';
-                        // }
-        
                         if(empty($data['descC_err'])){
         
-                            if($this->postModel->cancelAppointment($data['descC'],$appID,$appdate,$userid)){
+                            if($this->counselorModel->cancelAppointment($data['descC'],$appID,$appdate,$userid)){
                                 
                                 
                                 FlashMessage::flash('appointment_cancel_flash', "Appointment Cancelled!", "success");
                                 CounselorAppointment::dailyAppointment($appdate);
                                 
-
-                                
-                                //Middleware::redirect('CounselorAppointment/dailyAppointment/'.$appdate);
-                                //$this->loadView('counselor/appointment',$data);
                                 
                             }
                             else{
                                 die('Something went wong');
-                            }
-        
-                        }
-                        else{
-                            //$this->loadView('counselor/appointment',$data);
-                            // $this->loadView('counselor/appointmentsDaily',$data);
-                            //CounselorAppointment::dailyAppointment($appdate);
-                        }
-        
+                            }     
                     
+                         }
                 }
 
-                    
-
-
-               
-
             }
-
-
         }
 
         public function completeAppointment(){
@@ -315,11 +271,7 @@
             
             $appID = $_GET['appID'];
 
-            // echo $appdate;
-            // echo $appID;
-            // exit;
-
-            $this->postModel->completeAppointmentUpdate($appdate,$appID);
+            $this->counselorModel->completeAppointmentUpdate($appdate,$appID);
 
             CounselorAppointment::dailyAppointment($appdate);
         
@@ -329,20 +281,16 @@
         //load the student profile after clicking the appointment of the student
         public function selectAppointedStudent(){
 
-            $this->postModel = $this->loadModel('Counselor');
+            $this->counselorModel = $this->loadModel('Counselor');
 
             if(isset($_POST['gotStu'])){
                 
 
                 $gotStu = $_POST['gotStu'];
                 $gotDate = $_POST['gotDate'];
-                //$gotTime = $_POST['gotTime'];
+            
 
-                // echo $gotStu;
-                // echo $gotDate;
-                // exit;
-
-                $result = $this->postModel->getAppointedStudent($gotStu,$gotDate);
+                $result = $this->counselorModel->getAppointedStudent($gotStu,$gotDate);
 
                 echo json_encode($result);
             }
@@ -352,7 +300,7 @@
         //to color the appointed dates
         public function makeColoredAppointedDates(){
             $userid = Session::get('userID');
-            $appDates = $this->postModel->getAppointmentDates($userid);
+            $appDates = $this->counselorModel->getAppointmentDates($userid);
             $dates = array();
             foreach ($appDates as $object) {
                 $dates[] = $object->appointmentDate;

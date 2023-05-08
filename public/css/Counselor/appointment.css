@@ -341,6 +341,7 @@ textarea{
     border-radius: 25px;
     margin-left: 55%;
     margin-top: 10%;
+    cursor: pointer;
 }
 
 .postBtn:hover{
