@@ -152,7 +152,7 @@
                 //to upload the profile image
                 $filename = $_FILES["file"]["name"];
                 $tempname = $_FILES["file"]["tmp_name"];
-                $folder =  PUBLICPATH . "img/counselor/".$filename;
+                $folder =  PUBLICPATH . "/img/counselor/".$filename;
 
                 
 
@@ -163,7 +163,7 @@
                 }
                 else if(empty($filename) && empty($tempname)){
                     $filename = $row->profile_img;
-                    $folder = PUBLICPATH . "img/counselor/".$filename;
+                    $folder = PUBLICPATH . "/img/counselor/".$filename;
                     $tempname = tempnam(sys_get_temp_dir(), 'image_');
                     copy($folder,$tempname);
                    // echo 'File successfully uploaded';
