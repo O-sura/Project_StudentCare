@@ -13,28 +13,26 @@
     <?php include 'sidebar.php'?>
 
     <div class="section" id="page-content">
-        <h1>New Requests (3)</h1>
-        <div class="request-box">
-            <img src="<?php echo URLROOT . "/public/img/anon.jpg" ?>" alt="" id="profile-pic">
-            <div class="request-body">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus quia, cum fugiat exercitationem maiores soluta quae deserunt perferendis adipisci consectetur quisquam amet natus incidunt, nesciunt nisi fuga libero, sint rerum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas amet cumque accusamus officia labore pariatur? Distinctio quae suscipit mollitia inventore sit saepe id aliquid quibusdam magni sequi deleniti, ipsa dolor?</p>
-                <button type="submit" value="" id="view-button">View Full Profile</button>
-            </div>
-        </div>
-        <div class="request-box">
-            <img src="<?php echo URLROOT . "/public/img/anon.jpg" ?>" alt="" id="profile-pic">
-            <div class="request-body">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus quia, cum fugiat exercitationem maiores soluta quae deserunt perferendis adipisci consectetur quisquam amet natus incidunt, nesciunt nisi fuga libero, sint rerum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas amet cumque accusamus officia labore pariatur? Distinctio quae suscipit mollitia inventore sit saepe id aliquid quibusdam magni sequi deleniti, ipsa dolor?</p>
-                <button type="submit" value="" id="view-button">View Full Profile</button>
-            </div>
-        </div>
-        <div class="request-box">
-            <img src="<?php echo URLROOT . "/public/img/anon.jpg" ?>" alt="" id="profile-pic">
-            <div class="request-body">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus quia, cum fugiat exercitationem maiores soluta quae deserunt perferendis adipisci consectetur quisquam amet natus incidunt, nesciunt nisi fuga libero, sint rerum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas amet cumque accusamus officia labore pariatur? Distinctio quae suscipit mollitia inventore sit saepe id aliquid quibusdam magni sequi deleniti, ipsa dolor?</p>
-                <button type="submit" value="" id="view-button">View Full Profile</button>
-            </div>
+        <h1>New Requests (<?php echo count($data)?>)</h1>
+        <hr>
+        <?php if(count($data) == 0):?>
+            <center><span class="empty-txt">You're All Set</span></center>
+        <?php endif?>
+        <div class="request-container">
+                <?php foreach ($data as $request): ?>
+                    <div class="container">
+                        <div class="image-container">
+                            <img src="https://images.pexels.com/photos/5215024/pexels-photo-5215024.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" class="profile-image">
+                        </div>
+                        <div class="details">
+                            <p class="name-txt"><?php echo $request->fullname?></p>
+                            <p class="specilization"><?php echo "Specialized in " . $request->specialization ?></p>
+                            <a href=<?php echo URLROOT . "/admin/view_counselor_profile/" . $request->counsellorID ?>><input type="submit" value="View Full Profile" id="view-button"></a>
+                        </div>
+                    </div>
+                <?php endforeach ?>
         </div>
     </div>
+
 </body>
 </html>

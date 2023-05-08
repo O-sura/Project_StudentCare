@@ -35,7 +35,7 @@
                    echo '<div class="form-field">';
             ?>
                 <label for="dob" class="lable">Date of Birth:</label><br>
-                <input type="date" name="dob" id="dob" class="form-input">
+                <input type="date" name="dob" id="dob" class="form-input" max=<?php echo date('Y-m-d');?>>
             </div>
             <?php 
                 if($data['specialization_err'])

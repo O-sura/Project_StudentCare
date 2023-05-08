@@ -243,6 +243,7 @@ body{
 #message{
    width: 830px;
    border-radius: 5px;
+   resize: none;
 }
 
 input, textarea{
@@ -323,6 +324,11 @@ input:focus, textarea:focus{
 .social-icon{
    font-size: 30px;
    margin-right: 20px;
+}
+
+.social-icon a{
+   color: white;
+   text-decoration: none;
 }
 
 .copyrights{

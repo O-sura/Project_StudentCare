@@ -243,3 +243,248 @@ a {
   font-size: 20px;
 }
 
+/* CSS for the sidebar */
+@import "sidebar.css";
+/* The styling for home content */
+*{
+  margin:0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter';
+}
+
+body{
+  display: flex;
+  /* min-height: 100vh; */
+  background: white;
+  color: #1A285A;
+}
+
+hr{
+border: 1px solid #1A285A;
+margin-top: 25px;
+}
+
+
+
+
+#image2{
+width: 250px;
+height: auto;
+border-radius: 50%;
+}
+
+.container{
+display: grid;
+grid-template-rows: auto;
+width: 100%;
+margin-left: 5%;
+height: 80vh;
+}
+
+.row1{
+margin-top: 2%;
+}
+
+.row2{
+display: grid;
+grid-template-columns: 2fr 3fr;
+width: 100%;
+}
+
+.user-details{
+display: grid;
+grid-template-rows: 1fr 4fr;
+grid-gap: 10px;
+margin-top: 20px;
+justify-content: center;
+border-style: solid;
+border-width: 1px;
+border-color: #1A285A;
+border-radius: 20px;
+width: 70%;
+padding-top: 30px;
+padding-bottom: 30px;
+text-align: center;
+}
+
+.chart{
+border-style: solid;
+border-width: 1px;
+border-color: #1A285A;
+border-radius: 10px;
+width: 100%;
+padding: 30px;
+/* justify-content: center; */
+margin-top: 20px;
+display: grid;
+grid-template-rows: 1fr 4fr;
+}
+
+.study-time{
+display: grid;
+grid-template-columns: 1fr 1fr;
+}
+
+.row3{
+display: grid;
+grid-template-rows: 1fr 4fr;
+grid-gap: 10px;
+margin-top: 20px;
+background-color: #1A285A;
+border-radius: 20px;
+width: 80vw;
+padding: 30px;
+justify-content: center;
+height: fit-content;
+}
+
+.boxes{
+display: flex;
+justify-content: space-around;
+box-sizing: border-box;
+width: 80vw;
+flex-wrap: wrap;
+padding-bottom: 10px;
+padding-top: 30px;
+}
+
+.messages{
+border-style: solid;
+border-width: 1px;
+border-color: #1A285A;
+border-radius: 18px;
+width: 180px;
+height: 130px;
+padding: 40px;
+justify-content: center;
+background-color: #fff;
+/* width: 55%; */
+justify-content: center;
+text-align: center;
+display: grid;
+grid-template-rows:1fr 4fr;
+align-items: center;
+}
+
+.messages:hover{
+  cursor: pointer;
+  box-shadow: 0 5px 20px 0 #0e0c1b;
+}
+
+.notifications{
+color: #fff;
+text-align: center;
+font-size: 25px;
+font-weight: 600;
+}
+
+.favcons{
+font-size: 24px;
+}
+
+/* css for buttons */
+
+.btn {
+background: #1A285A;
+background-image: -webkit-linear-gradient(top, #1A285A, #1A285A);
+background-image: -moz-linear-gradient(top, #1A285A, #1A285A);
+background-image: -ms-linear-gradient(top, #1A285A, #1A285A);
+background-image: -o-linear-gradient(top, #1A285A, #1A285A);
+background-image: linear-gradient(to bottom, #1A285A, #1A285A);
+-webkit-border-radius: 11;
+-moz-border-radius: 11;
+border-radius: 13px;
+
+font-family: 'Inter';
+color: #ffffff;
+font-size: 13px;
+padding: 8px 20px 10px 20px;
+text-decoration: none;
+border: none;
+}
+
+.btn:hover {
+background: #3cb0fd;
+background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+text-decoration: none;
+}
+
+
+
+a { 
+  color: inherit;
+  text-decoration: inherit; 
+}
+
+.select{
+  padding: 10px 40px;
+  color: white;
+  background-color: #1A285A;
+  cursor: pointer;
+  border: none;
+  font-size: 1rem;
+  border-radius: 20px;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  /* box-shadow: 0 5px 20px 0 #B9B9B9; */
+
+
+}
+.select:focus,
+.select:hover{
+  outline: none;
+  border: 1px solid #eeee;
+}
+
+.col-2{
+  text-align: right;
+}
+
+.col-1{
+  text-align: left;
+}
+
+.home_content{
+  position: absolute;
+  height: auto;
+  width: calc(100%-78px);
+  left: 78px;
+  transition: all 0.5s ease;
+  width: 70vw;
+  
+}
+
+.sidebar.active ~ .home_content{
+  width: calc(100%-240px);
+  left: 240px;
+}
+
+.messages{
+  position: relative;
+}
+
+.icon_button_badge{
+  position: absolute;
+  top:-10px;
+  right:-10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #FFBF42;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+}
+
+.prof-details{
+  font-size: 20px;
+}
+

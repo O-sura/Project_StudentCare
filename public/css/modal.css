@@ -1,0 +1,212 @@
+*{
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+
+section{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.trigger{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}
+
+section.active .trigger{
+    display: none;
+}
+
+.overlay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    pointer-events: none;
+}
+
+section.active .overlay{
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-box-1{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    background-color: #1A285A;;
+    color: white;
+    border-radius: 10px;
+    max-width: 30rem;
+    padding: 1rem 3rem;
+    opacity: 0;
+    pointer-events: none;
+}
+
+section.active .modal-box-1{
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-title-text{
+    font-size: 1.5rem;
+}
+
+.modal-text{
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+
+.modal-button-section{
+   display: flex;
+   justify-content: space-around;
+   padding-bottom: 0.5rem;
+}
+
+.modal-box-button{
+    border: none;
+    border-radius: 20px;
+    padding: 0.5rem 2.5rem;
+    margin-top: 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#delete-button{
+    background-color: #FF4242;
+    color: white;
+}
+
+#delete-button:hover{
+    background-color: #ff6868;
+    transition-duration: 0.5s;
+}
+
+#cancel-button{
+    background-color: #FFC701;
+    color: black;
+}
+
+#cancel-button:hover{
+    background-color: #fed84c;
+    transition-duration: 0.5s;
+}
+
+/* Styling for model box type-2 */
+/* .modal-box-2{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    background-color: white;
+    border-radius: 10px;
+    max-width: 30rem;
+    padding: 1rem 3rem;
+    opacity: 0;
+    pointer-events: none;
+}
+
+section.active .modal-box-2{
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#join-meeting-button{
+    background-color: #1A285A;
+    color: white;
+}
+
+#join-meeting-button:hover{
+    background-color: #273259;
+    transition-duration: 0.5s;
+}
+
+#cancel-appointment-button{
+    background-color: #FF4242;
+    color: white;
+}
+
+#cancel-appointment-button:hover{
+    background-color: #ff6868;
+    transition-duration: 0.5s;
+}
+
+#close-button{
+    background-color: white;
+    color: black;
+    border: 0.5px solid grey;
+}
+
+#close-button:hover{
+    background-color: whitesmoke;
+    transition-duration: 0.5s;
+    border: 0.5px solid grey;
+} */
+
+/*Modal box 3*/
+.modal-box-3{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    background-color: #1A285A;;
+    color: white;
+    border-radius: 10px;
+    max-width: 30rem;
+    padding: 1rem 3rem;
+    opacity: 0;
+    pointer-events: none;
+}
+
+section.active .modal-box-3{
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.report-form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+}
+
+.report-form h1{
+    margin-bottom: none;
+}
+
+.report-form textarea{
+    width: 100%;
+    resize: none;
+    margin-top: none;
+    margin-bottom: 1rem;
+    border: none;
+    border-radius: 5px;
+    padding: 0.3rem;
+}
+
+.report-form textarea:focus{
+    outline: none;
+}
+
+.continue-button{
+    margin: 0.2rem;
+    padding: 0.5rem;
+    width: 100%;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    border-radius: 5px;
+    background-color: #fed84c;
+}

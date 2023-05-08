@@ -30,6 +30,10 @@ var loadFile = (e) => {
         })
     })
 
+    if(document.querySelector('#category').value !== ''){
+        btnText.innerText = document.getElementById('category').value;
+    }
+
     let btn = document.querySelector("#btn");
     let sidebar = document.querySelector(".sidebar");
 
