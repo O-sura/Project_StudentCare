@@ -1,7 +1,7 @@
 <?php
     Session::init();
     class CounselorAnnouncement extends Controller{
-        
+
         public function __construct(){
 
             Middleware::authorizeUser(Session::get('userrole'), 'counsellor');
@@ -29,8 +29,10 @@
 
         public function home(){
 
+            //$_GET['userid'] = Session::get('userID');
+
             
-            $posts = $this->postModel->getCounselorAnnouncement();
+            $posts = $this->postModel->getCounselorAnnouncement();  
           
             $data = [
                 'posts' => $posts,
@@ -44,6 +46,7 @@
             $this->loadView('Counselor/announcement',$data);
         }
 
+        //add an announcement
         public function add(){
 
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -79,6 +82,7 @@
                      if($this->postModel->addPost($data)){
                         FlashMessage::flash('post_add_flash', "Announcement Successfully Added!", "success");
                         Middleware::redirect('CounselorAnnouncement');
+                       
                     } 
                     else{
                         die('Something went wong');
@@ -103,7 +107,7 @@
             
         }
 
-
+        //delete an announcement
         public function delete($id){
 
             //if($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -123,7 +127,8 @@
  
                 if($this->postModel->deletePost($id)){
                     FlashMessage::flash('post_add_flash', "Announcement Successfully Deleted!", "success");
-                    Middleware::redirect('CounselorAnnouncement');
+                    //Middleware::redirect('CounselorAnnouncement');
+                    counselorAnnouncements::home();
                 }
                 else{
                     die('Something went wrong');
@@ -137,7 +142,7 @@
 
         /////////////////////////
 
-
+        //edit an announcement
         public function edit($id){
 
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -193,7 +198,9 @@
                     'body' => $ann->post_desc,
                     'topic' => $ann->post_head,
                     'posts' => $posts,
-                    'action_url' => URLROOT . '/CounselorAnnouncement/edit/$id'
+                    'action_url' => URLROOT . '/CounselorAnnouncement/edit/$id',
+                    'body_err' => '',
+                    'topic_err' => ''
             
                     
                 ];
@@ -204,8 +211,18 @@
             
         }
 
-
+        //to handle the announcement filter
         public function dropdown_handler(){
+
+            $pet = Session::get('userID');
+            
+            $annCountObject = $this->postModel->countOwnAnnouncements($pet);
+            $annOwnCount = json_decode($annCountObject,true);  
+            //echo "Hi";
+        //     echo $annOwnCount['COUNT(post_id)'];
+        //    // 
+        //     exit;
+            
             if(isset($_GET['filter'])){
                 $_GET['filter'] = trim($_GET['filter']);
                 $_GET['userid'] = Session::get('userID');
@@ -214,8 +231,24 @@
             //    if($_GET['filter'] == 'Saved'){
             //         $res =  $this->CommunityModel->getSavedPosts(Session::get('userID'));
             //    }
+
+                //check whether how many announcements are posted by particular counselor
+               
+        
+                //exit;
+
                if($_GET['filter'] == 'Your Announcements'){
-                    $res =  json_encode($this->postModel->getPostByUser_id($_GET['userid']));
+
+
+                    // if($annOwnCount['COUNT(post_id)'] == 0){
+                    //     echo "You haven't posted announcement yet.";
+                    // }
+                    // else{
+                        $res =  json_encode($this->postModel->getPostByUser_id($_GET['userid']));
+                        // exit;
+                   // }
+
+                    
                }
                else{
                     $res =  json_encode($this->postModel->getCounselorAnnouncement());

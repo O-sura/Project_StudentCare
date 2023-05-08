@@ -19,9 +19,98 @@
     
     <div class="home_content">
 
+        <div class="topicHead">
+            <span><h1 class="headApp">Notifications</h1></span>
+        </div>
+        <hr class="hrbar">
+
            
             <div class="div5">
-                <div  class="noti">
+
+                <?php if($data['rowcount'] != 0 ) : ?>
+                    
+                    <?php foreach ($data['row'] as $row ): ?>
+                        
+                        <?php  if ($row->statusPP == 0 && $row->appointmentStatus == 0): ?>                      
+
+                            <div  class="noti">
+                                <div class="intro"></div>
+                                <div class="dp">
+                                    <?php if(!empty($row->profile_img)) : ?>
+                                            <img class="dpImg" src="http://localhost/StudentCare/public/img/student/<?php echo $row->profile_img; ?>" alt=""> 
+                                    <?php else :?>
+                                            <img class="dpImg" src="http://localhost/StudentCare/public/img/student/avatar.jpg" alt=""> 
+                                    <?php endif ; ?>
+                                </div>
+                                <div class="desc">
+                                    <h4 class="topic">New Student Request</h4>
+                                    <p class="para">Name : <?php echo $row->fullname ;?> &nbsp;&nbsp; </p>
+                                    <p class="time">Date : <?php echo date('Y:m:d',strtotime($row->requested_on)) ;?>&nbsp;&nbsp; <?php echo date('H:i a',strtotime($row->requested_on)) ;?></p>
+                                </div>
+                                <div class="btns">
+                                    <button class="right" name="mark"><i class="fa-regular fa-square-check"></i></button>
+                                    <button class="btnDel"><i class="fa-regular fa-trash-can"></i></button>
+                                </div>
+                            </div>            
+                        
+                        <?php elseif ($row->statusPP == 0 && $row->appointmentStatus == 0 && $row->counselor_seen == 1): ?>                      
+
+                            <div  class="Readnoti">
+                                <div class="intro"></div>
+                                <div class="dp">
+                                    <?php if(!empty($row->profile_img)) : ?>
+                                            <img class="dpImg" src="http://localhost/StudentCare/public/img/student/<?php echo $row->profile_img; ?>" alt=""> 
+                                    <?php else :?>
+                                            <img class="dpImg" src="http://localhost/StudentCare/public/img/student/avatar.jpg" alt=""> 
+                                    <?php endif ; ?>
+                                </div>
+                                <div class="desc">
+                                    <h4 class="topic">New Student Request</h4>
+                                    <p class="para">Name : <?php echo $row->fullname ;?> &nbsp;&nbsp; </p>
+                                    <p class="time">Date : <?php echo date('Y:m:d',strtotime($row->requested_on)) ;?>&nbsp;&nbsp; <?php echo date('H:i a',strtotime($row->requested_on)) ;?></p>
+                                </div>
+                                <div class="btns">
+                                    <button class="right" name="mark"><i class="fa-regular fa-square-check"></i></button>
+                                    <button class="btnDel"><i class="fa-regular fa-trash-can"></i></button>
+                                </div>
+                            </div>           
+                       
+                        <?php else :?>   
+
+                            <div  class="noti">
+                                <div class="intro"></div>
+                                <div class="dp">
+                                    <?php if(!empty($row->profile_img)) : ?>
+                                            <img class="dpImg" src="http://localhost/StudentCare/public/img/student/<?php echo $row->profile_img; ?>" alt=""> 
+                                    <?php else :?>
+                                            <img class="dpImg" src="http://localhost/StudentCare/public/img/student/avatar.jpg" alt=""> 
+                                    <?php endif ; ?>
+                                </div>
+                                <div class="desc">
+                                    <h4 class="topic">Cancellation of an Appointment</h4>
+                                    <div class="para"><div class=paraX>Name : &nbsp;</div><?php echo $row->fullname ;?></div>
+                                    <div class="para"><div class=paraX>Reason : &nbsp;</div><?php echo $row->cancellationReason ;?> </div>
+                                    <div class="para"><div class=paraX>Appointment Date : &nbsp;</div><?php echo $row->appointmentDate ;?> </div>
+                                    <div class="para"><div class=paraX>Appointment Time : &nbsp;</div><?php echo date('H:i a',strtotime($row->appointmentTime)) ;?> </div>
+                                    <p class="time">Date : <?php echo date('Y:m:d',strtotime($row->requested_on)) ;?>&nbsp;&nbsp; <?php echo date('H:i a',strtotime($row->requested_on)) ;?></p>
+                                </div>
+                                <div class="btns">
+                                    <button class="right"><i class="fa-regular fa-square-check"></i></button>
+                                    <button class="btnDel"><i class="fa-regular fa-trash-can"></i></button>
+                                </div>
+                            </div>
+                        
+                        <?php endif ;?>
+                    <?php endforeach  ?>
+                    
+                    
+
+                <?php else : ?>
+
+                    <div class="noNoti"> <p class="noNotiState"><?php echo "There is no any notification yet" ;?></p></div>
+
+                <?php endif ; ?>
+                <!-- <div  class="noti">
                     <div class="intro"></div>
                     <div class="dp"><img class="dpImg" src="<?php echo URLROOT."/public/img/img1.jpg"?>" alt=""></div>
                     <div class="desc">
@@ -60,11 +149,76 @@
                         <button class="right"><i class="fa-regular fa-square-check"></i></button>
                         <button class="btnDel"><i class="fa-regular fa-trash-can"></i></button>
                     </div>
-                </div>
+                </div> -->
             </div>
     
-  </div>
+    </div>
 
 </body>
 
 </html>
+
+
+
+
+
+
+ <!-- <?php foreach ($data['row1'] as $row1 ): ?>
+
+                        <div  class="noti">
+                            <div class="intro"></div>
+                            <div class="dp"><img class="dpImg" src="<?php echo URLROOT."/public/img/img1.jpg"?>" alt=""></div>
+                            <div class="desc">
+                                <h4 class="topic">New Student Request</h4>
+                                <p class="para">Name : <?php echo $row1->fullname ;?> &nbsp;&nbsp; </p>
+                                <p class="time">Date : <?php echo date('Y:m:d',strtotime($row1->requested_on)) ;?>&nbsp;&nbsp; <?php echo date('H:i a',strtotime($row1->requested_on)) ;?></p>
+                            </div>
+                            <div class="btns">
+                                <button class="right"><i class="fa-regular fa-square-check"></i></button>
+                                <button class="btnDel"><i class="fa-regular fa-trash-can"></i></button>
+                            </div>
+                        </div>
+
+                        <?php endforeach  ?>
+
+<?php foreach ($data['row2'] as $row1 ): ?>
+
+    <div  class="noti">
+        <div class="intro"></div>
+        <div class="dp"><img class="dpImg" src="<?php echo URLROOT."/public/img/img1.jpg"?>" alt=""></div>
+        <div class="desc">
+            <h4 class="topic">Cancellation of Request</h4>
+            <div class="para"><div class=paraX>Name : &nbsp;</div><?php echo $row1->fullname ;?></div>
+            <div class="para"><div class=paraX>Reason : &nbsp;</div><?php echo $row1->reason ;?> </div>
+            <p class="time">Date : <?php echo date('Y:m:d',strtotime($row1->requested_on)) ;?>&nbsp;&nbsp; <?php echo date('H:i a',strtotime($row1->requested_on)) ;?></p>
+        </div>
+        <div class="btns">
+            <button class="right"><i class="fa-regular fa-square-check"></i></button>
+            <button class="btnDel"><i class="fa-regular fa-trash-can"></i></button>
+        </div>
+    </div>
+
+<?php endforeach  ?>
+
+
+<?php foreach ($data['row3'] as $row1 ): ?>
+
+    <div  class="noti">
+        <div class="intro"></div>
+        <div class="dp"><img class="dpImg" src="<?php echo URLROOT."/public/img/img1.jpg"?>" alt=""></div>
+        <div class="desc">
+            <h4 class="topic">Cancellation of Request</h4>
+            <div class="para"><div class=paraX>Name : &nbsp;</div><?php echo $row1->fullname ;?></div>
+            <div class="para"><div class=paraX>Reason : &nbsp;</div><?php echo $row1->cancellationReason ;?> </div>
+            <div class="para"><div class=paraX>Appointment Date : &nbsp;</div><?php echo $row1->appointmentDate ;?> </div>
+            <div class="para"><div class=paraX>Appointment Time : &nbsp;</div><?php echo date('H:i a',strtotime($row1->appointmentTime)) ;?> </div>
+            <p class="time">Date : <?php echo date('Y:m:d',strtotime($row1->appointmentDate)) ;?>&nbsp;&nbsp; <?php echo date('H:i a',strtotime($row1->appointmentTime)) ;?></p>
+        </div>
+        <div class="btns">
+            <button class="right"><i class="fa-regular fa-square-check"></i></button>
+            <button class="btnDel"><i class="fa-regular fa-trash-can"></i></button>
+        </div>
+    </div>
+
+<?php endforeach  ?> -->
+

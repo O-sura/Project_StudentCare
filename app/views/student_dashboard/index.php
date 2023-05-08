@@ -16,69 +16,9 @@
 </head>
 
 <body>
-    <div class="sidebar">
-        <div class="logo_content">
-            <div class="logo">
-                <div class="logo_name"></div>
-            </div>
-            <i class="fa-solid fa-bars" id="btn"></i>
-        </div>
-        <ul class="nav_list">
-            <li>
-                <a href='<?php echo URLROOT ?>/student/home'>
-                    <i class="fa-solid fa-gauge"></i>
-                    <span class="links_name">Dashboard</span>
-                </a>
-                <span class="tooltip">Dashboard</span>
-            </li>
-            <li>
-                <a href='<?php echo URLROOT ?>/community/home'>
-                    <i class="fa-solid fa-users"></i>
-                    <span class="links_name">Community</span>
-                </a>
-                <span class="tooltip">Community</span>
-            </li>
-            <li>
-                <a href='<?php echo URLROOT ?>/tasks/'>
-                    <i class="fa-solid fa-calendar-days"></i>
-                    <span class="links_name">Schedule</span>
-                </a>
-                <span class="tooltip">Schedule</span>
-            </li>
-            <li>
-                <a href='<?php echo URLROOT ?>/appointments/'>
-                    <i class="fa-solid fa-calendar-check"></i></i>
-                    <span class="links_name">Appointments</span>
-                </a>
-                <span class="tooltip">Appointments</span>
-            </li>
-            <li>
-                <a href='<?php echo URLROOT ?>/announcements/'>
-                    <i class="fa-solid fa-bullhorn"></i></i>
-                    <span class="links_name">Announcements</span>
-                </a>
-                <span class="tooltip">Announcements</span>
-            </li>
-            <li>
-                <a href="<?php echo URLROOT ?>/Student_facility/">
-                    <i class="fa-solid fa-house-circle-check"></i>
-                    <span class="links_name">Listings</span>
-                </a>
-                <span class="tooltip">Listings</span>
-            </li>
-        </ul>
-        <div class="profile_content">
-            <div class="profile">
-                <div class="profile_details">
-                    <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFufGVufDB8fDB8fA%3D%3D&w=1000&q=80">
-                    <div class="name">
-                        <?php echo $data['username'] ?>
-                    </div>
-                </div>
-                <a href='<?php echo URLROOT ?>/users/logout'><i class="fa-solid fa-arrow-right-from-bracket fa-flip-horizontal" id="log_out"></i></a>
-            </div>
-        </div>
-    </div>
+    <?php
+    require_once '../app/views/student_dashboard/sidebar.php';
+    ?>
     <div class="home_content">
         <div class="container">
             <div class="row1">
@@ -88,7 +28,14 @@
                 <div class="user-details">
                     <h2>Profile</h2>
                     <div class="prof-img">
-                        <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFufGVufDB8fDB8fA%3D%3D&w=1000&q=80" alt="" id="image2">
+                        <?php
+                        if ($data["userDetails"]->profile_img != NULL) {
+                            $image = $data["userDetails"]->profile_img;
+                        } else {
+                            $image = "avatar.jpg";
+                        }
+                        ?>
+                        <img src="<?php echo URLROOT . "/public/img/student/" . $image; ?>" alt="" id="image2">
                     </div>
                     <div class="prof-details">
                         <h3><?php echo $data['username'] ?></h3><br><br>
@@ -123,36 +70,46 @@
                 </div>
                 <div class="boxes">
                     <div class="messages" id="messages">
-                        <div class="topic">
+                        <div class="topic2">
                             <h3>Messages</h3>
                         </div>
                         <div class="favcons">
                             <i class="fa-brands fa-facebook-messenger"></i>
                         </div>
+                        <?php if ($data['new_messages_count'] > 0) : ?>
+                            <span class="icon_button_badge"><?php echo $data['new_messages_count'] ?></span>
+                        <?php endif; ?>
                     </div>
                     <div class="messages" id="tasks">
-                        <div class="topic">
+                        <div class="topic2">
                             <h3>Tasks</h3>
                         </div>
                         <div class="favcons">
                             <i class="fa-solid fa-list-check"></i>
                         </div>
+                        <?php if ($data['task_notification_count'] > 0) : ?>
+                            <span class="icon_button_badge"><?php echo $data['task_notification_count'] ?></span>
+                        <?php endif; ?>
                     </div>
                     <div class="messages" id="announcements">
-                        <div class="topic">
+                        <div class="topic2">
                             <h3>Announcements</h3>
                         </div>
                         <div class="favcons">
                             <i class="fa-solid fa-bullhorn"></i>
                         </div>
+                        <span class="icon_button_badge">2</span>
                     </div>
                     <div class="messages" id="appointments">
-                        <div class="topic">
+                        <div class="topic2">
                             <h3>Appointments</h3>
                         </div>
                         <div class="favcons">
                             <i class="fa-regular fa-calendar-check"></i>
                         </div>
+                        <?php if ($data['new_requests_count'] > 0) : ?>
+                            <span class="icon_button_badge"><?php echo $data['new_requests_count'] ?></span>
+                        <?php endif; ?>
                     </div>
                 </div>
 

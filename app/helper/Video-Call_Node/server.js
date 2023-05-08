@@ -41,11 +41,11 @@ app.use(express.static('public'))
 
 app.get('/:room', (req, res) => {
   roomId = req.params.room;
-  let sql = 'SELECT appointmentID FROM appointments';
+  let sql = 'SELECT meetingID FROM appointments';
   let query = db.query(sql,(err,result) =>{
     if(err) throw err;
     console.log(result); 
-    const appointmentIDs = result.map(obj => obj.appointmentID);
+    const appointmentIDs = result.map(obj => obj.meetingID);
     if(appointmentIDs.includes(roomId)){
       res.render('room', { roomId });
     }else{

@@ -39,7 +39,7 @@ function counselorSelector(counselorID){
             let result = searchRes;
                 //console.log(result);
                 //id,title,author,postedTime,category,votes,thumbnail,body
-            let post = new CounselorDetails(result.userID,result.fullname,result.counselor_description,result.profile_img,result.specialization,result.home_address,result.age);
+            let post = new CounselorDetails(result.userID,result.fullname,result.counselor_description,result.profile_img,result.specialization,result.home_address,result.age,result.qualifications);
                 
             postList = post.createDetails();
             
