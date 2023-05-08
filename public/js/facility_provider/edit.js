@@ -1,18 +1,45 @@
-//add more universities
-var counter = 1;
-var textbox = "";
-var another = document.getElementById("another");
-function addAnother(){
-    var div = document.createElement("div");
-    div.setAttribute("class", "sub22");
-    div.setAttribute("id","");
+//go back to previous page
+document.getElementById("back-link").addEventListener("click", function() {
+  history.go(-1);
+});
 
-    var textbox = "<input class='uniName' name='uniName[]' id='uniName_"+counter+"' type='text'>";
+function addAnother() {
+  // Get the container element
+  var container = document.querySelector('.university-adder');
 
-    div.innerHTML = textbox;
-    another.appendChild(div);
-    counter++;
+  // Get the number of existing university fields
+  var numFields = container.querySelectorAll('.university-field').length;
+
+  // Clone the first university field div
+  var newField = container.querySelector('.university-field').cloneNode(true);
+
+  // Increment the ids of the select and input fields
+  var select = newField.querySelector('.select');
+  select.id = 'universityFilter_' + numFields;
+
+  var input = newField.querySelector('.uniName');
+  input.id = 'uniName_' + numFields;
+
+  // Add a class to the new university field
+  newField.classList.add('added-field');
+
+  // Append the new university field to the container
+  container.appendChild(newField);
 }
+
+function remove() {
+  var addedFields = document.getElementsByClassName("added-field");
+  if (addedFields.length > 0) {
+    addedFields[addedFields.length - 1].remove();
+  } else {
+    var universityAdders = document.getElementsByClassName("university-adder");
+    if (universityAdders.length > 1) {
+      universityAdders[universityAdders.length - 1].remove();
+    }
+  }
+}
+
+
 
 //category select dropdown
 const optionMenu = document.querySelector('.dropdown-menu');
@@ -34,25 +61,13 @@ options.forEach(option => {
 
 
 //edit university names
-let input = document.querySelector('input[name="uniName[]"'); // Get the input element by name
+let input = document.querySelector('select[name="uniName[]"'); // Get the input element by name
     let values = input.value.split(","); // Get the value of the input
     let container = document.querySelector('#another');
-    console.log(values)
+    //console.log(values)
 //add more universities
 var counter = 1;
 var textbox = "";
-var another = document.getElementById("another");
-function addAnother(){
-    var div = document.createElement("div");
-    div.setAttribute("class", "sub22");
-    div.setAttribute("id","");
-
-    var textbox = "<input class='uniName' name='uniName[]' id='uniName_"+counter+"' type='text'>";
-
-    div.innerHTML = textbox;
-    another.appendChild(div);
-    counter++;
-}
 
 
 //image preview
@@ -82,4 +97,5 @@ inputimg.addEventListener('change', function() {
       previewContainer.appendChild(img);
     }
   }
+  //console.log('hello');
 });

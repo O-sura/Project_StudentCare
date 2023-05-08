@@ -6,10 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/facility_provider/view-one.css"?> >
+    <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/facility_provider/delete.css"?> >
     <script src=<?php echo URLROOT . "/public/js/facility_provider/viewOne.js"?> defer></script>
+    <script src=<?php echo URLROOT . "/public/js/facility_provider/delete.js"?> defer></script>
     <title>View One Property</title>
 </head>
 <body>
+    <section>
     <div class="page">
 
         <div class="sidebar">
@@ -17,7 +20,10 @@
         </div>
 
         <div class="container">
-
+            <a id="back-link">
+                <i class="fa-sharp fa-solid fa-left-long"><span>  Go Back</span></i>
+            </a>
+            
             <div class="left_side">
                 <div id="image_container" align="center">
                     <br>
@@ -39,7 +45,7 @@
 
                 <div class="contact">
                     <h2>Contact Info.</h2>
-                    <p><span>Contact No: </span>0777896812</p>
+                    <p><span>Contact No: </span><?php echo $data['facilityProviderDetails']->contact_no; ?></p>
                     <p><span>Address: </span><?php echo $data['viewone']->address; ?></p>
 
                     <div class="map">
@@ -55,11 +61,13 @@
                 
                 <h1 class="topic"><?php echo $data['viewone']->topic; ?>
                     <span>
-                        <a href=<?php echo URLROOT. "/facility_provider/editItem/" . $data['viewone']->listing_id?>>
-                            <i class="fa fa-pen"></i>
-                        </a>
+                        <?php
+                            if($data['facilityProviderDetails']->userID == $_SESSION['userID']){
+                                echo '<a href="' . URLROOT . '/facility_provider/editItem/' . $data['viewone']->listing_id . '"><i class="fa fa-pen"></i></a>';
+                                echo '<i class="fa-solid fa-trash" id="deleteBtn"></i>';
+                            }
+                        ?>
                         
-                        <i class="fa fa-trash"></i>
                     </span>
                 </h1>
 
@@ -67,39 +75,52 @@
 
                 <p class="description"><?php echo $data['viewone']->description; ?><br>
                     <span><?php echo $data['viewone']->special_note; ?></span><br>
-                    <span>Near to <?php 
-                            $uniName = json_decode($data['viewone']->uniName);
-                            echo implode(' , ', $uniName);    
-                    ?></span>
+                    <span><?php foreach ($data['universities'] as $university) :
+                                    echo $university->distance ?> km from <?php echo $university->uni_name; ?> <br>
+
+                            <?php endforeach; ?></span>
                 </p>
                 
                 <p class="price"><span>Price(Rs.): </span><?php echo $data['viewone']->rental; ?></p>
 
                 <div class="review">
                     <p>Reviews</p>
-                    <div class="rating">
-                        <input type="radio" name="star" id="star1"><label for="star1"></label>
-                        <input type="radio" name="star" id="star2"><label for="star2"></label>
-                        <input type="radio" name="star" id="star3"><label for="star3"></label>
-                        <input type="radio" name="star" id="star4"><label for="star4"></label>
-                        <input type="radio" name="star" id="star5"><label for="star5"></label>
-                    </div>
 
-                    <div class="feedback">
-                        <input type="text" value="Highly recommend.">
-                        <input type="text" value="This is situated in safe area.">
-                        <input type="text" value="Highly recommend.">
-                        <input type="text" value="Highly recommend.">
-                        <input type="text" value="Highly recommend.">
-                        <input type="text" value="Highly recommend.">
-                        <input type="text" value="Highly recommend.">
-                        <input type="text" value="Highly recommend.">
-                        <input type="text" value="Highly recommend.">
-                        <input type="text" value="Highly recommend.">
-                        <input type="text" value="Highly recommend.">
-                        <input type="text" value="Highly recommend.">
-                    </div>
-                    
+                    <div class="feedback" id="search-results">
+                            <?php foreach ($data['comments'] as $comment) :
+                                if ($comment->profile_img != NULL) {
+                                    $image = $comment->profile_img;
+                                } else {
+                                    $image = "avatar.jpg";
+                                }
+                            ?>
+                                <div class="other_comment">
+                                    <div class="feedback_details">
+                                        <img src="<?php echo URLROOT . "/public/img/student/" . $image; ?>" id="image3">
+                                        <h6><?php echo $comment->username ?></h6>
+                                    </div>
+                                    <div class="feedback_rating">
+
+                                        <p><?php for ($i = 1; $i < 6; $i++) { ?>
+                                                <?php
+                                                if ($i <= $comment->star_rating) { ?>
+                                                    <i class="fa-solid fa-star fa-xs"></i>
+                                                <?php } else { ?>
+                                                    <i class="fa-regular fa-star fa-xs"></i>
+                                                <?php } ?>
+                                            <?php
+                                            } ?>
+                                            <span class="posted-date">Posted on: <?php echo $comment->date_added ?> </span>
+                                        </p>
+                                    </div>
+                                    <div class="feedback_comment">
+                                        <p><?php echo $comment->feedback ?></p>
+                                    </div>
+                                </div>
+                            <?php
+                            endforeach; ?>
+                        </div>
+                        </div>
                 </div>
             </div>
 
@@ -107,6 +128,14 @@
 
         </div>
     </div>
-    
+    <span class="overlay"></span>
+    <div class="modal-box-1">
+            <center><h2 class="modal-title-text">Are your sure you want to delete this listing?</h2></center>
+            <div class="modal-button-section">
+                <button class="<?php echo $data['viewone']->listing_id?> modal-box-button" id="delete-button">Delete</button>
+                <button class="modal-box-button" id="cancel-button">Cancel</button>
+            </div>
+    </div>
+    </section>
 </body>
 </html>

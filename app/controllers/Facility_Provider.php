@@ -14,70 +14,244 @@ class Facility_Provider extends Controller{
         $myview = $this->ListingModel->myListing();
 
         $data =[
-            'myview' => $myview
+            'myview' => $myview,
+            'universities' => $this->ListingModel->getDistances(),
         ]; 
         
         $this->loadView('facility_provider/myListing',$data);
     }
 
 
-    public function myListing(){
-        $myview = $this->ListingModel->myListing();
+    // public function myListing(){
+    //     $myview = $this->ListingModel->myListing();
 
-        $data =[
-            'myview' => $myview
-        ]; 
+    //     $data =[
+    //         'myview' => $myview
+    //     ]; 
         
-        $this->loadView('facility_provider/myListing',$data);
-        //$this->loadView('test',$data);
-    }
+    //     $this->loadView('facility_provider/myListing',$data);
+    //     //$this->loadView('test',$data);
+    // }
 
 
     public function profile(){
-        $profile = $this->ListingModel->profile();
+        $user_id = Session::get('userID');
+
+        $profile = $this->ListingModel->profile($user_id);
         
         $data =[
             'profile' => $profile
         ]; 
         
         $this->loadView('facility_provider/profile',$data);
-        //$this->loadView('test',$data);
     }
 
 
     public function editprofile(){
-        $profile = $this->ListingModel->editprofile();
-            
-        $data =[
-            'editprofile' => $profile
-        ]; 
+        $user_id = Session::get('userID');
+        $user_name = Session::get('username');
+        $row = $this->ListingModel->editprofile($user_id);
+
+          
+        $data = [
+            'profile_img' => $row->profile_img,
+            'name' => $row->fullname,
+            'username' => $row->username,
+            'email' => $row->email,
+            'nic' => $row->nic,
+            'contact' => $row->contact_no,
+            'address' => $row->home_address,
+            'name_err' => '',
+            'nic_err' => '',
+            'username_err' => '',
+            'email_err' => '',
+            'contact_err' => '',
+            'address_err' => ''
+        ];
         
         $this->loadView('facility_provider/editprofile',$data);
+    }
+
+
+    public function updateProfileDetails($userid){
+        $user_id = Session::get('userID');
+        $row = $this->ListingModel->editprofile($user_id);
+
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            //to upload the profile image
+            $filename = $_FILES["file"]["name"];
+            $tempname = $_FILES["file"]["tmp_name"];
+            $folder =  PUBLICPATH . "img/fprovider/".$filename;
+
+            if (move_uploaded_file($tempname, $folder)) {
+                echo 'File successfully uploaded';
+            }
+            else if(empty($filename) && empty($tempname)){
+                $filename = $row->profile_img;
+                $folder = PUBLICPATH . "img/fprovider/".$filename;
+                $tempname = tempnam(sys_get_temp_dir(), 'image_');
+                copy($folder,$tempname);
+            }
+            else {
+                //Image uploading error notification
+                echo 'Error in uploading the image';
+                die();
+            }
+
+            //Check and validate the data
+            //Set errors if something is wrong
+            $name = $_POST['name'];
+            $username = $_POST['username'];
+            $nic = $_POST['nic'];
+            $email = $_POST['email'];
+            $address = $_POST['address'];
+            $contact = $_POST['contact'];
+            
+
+            $data = [
+                'profile_img' => $filename,
+                'name' => $name,
+                'username' => $username,
+                'email' => $email,
+                'nic' => $nic,
+                'contact' => $contact,
+                'address' => $address,
+                'profile' => $filename,
+                'name_err' => '',
+                'username_err' => '',
+                'nic_err' => '',
+                'email_err' => '',
+                'contact_err' => '',
+                'address_err' => ''
+            ];
+
+            //Check whether all the fields are filled properly
+            if(empty($data['username'])){
+                $data['username_err'] = "*Username field is Required";
+            }
+
+            if(empty($data['name'])){
+                $data['name_err'] =  "*Name field is Required";
+            }
+
+            if(empty($data['email'])){
+                $data['email_err'] = "*Email field is Required";
+            }
+
+            if(empty($data['nic'])){
+                $data['nic_err'] = "*NIC field is Required";
+            }
+
+            if(empty($data['address'])){
+                $data['address_err'] = "*Address field is Required";
+            }
+
+            if( empty($data['contact'])){
+                $data['contact_err'] = "*Contact field is Required";
+            }
+
+            //Check whether an account already exists with the provided username
+            $user = $this->ListingModel->getUserByUsername($username);
+            if($user){
+                if(Session::get('username') == $user->username){
+                    $data['username_err'] = "";
+                }
+                else{
+                    $data['username_err'] = "*This Username is already taken";
+                }
+            }
+
+            //Email is valid or not
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $data['email_err'] = "*Invalid email format";
+            }
+
+            //Check the mobile number
+            if(strlen($contact) != 10){
+                $data['contact_err'] = "*Invalid Contact Number";
+            }
+
+            //check the nic number
+            if(strlen($nic) == 10){
+                if ($nic[9] !== 'v' && $nic[9] !== 'V') {  // Check if the 10th character of $nic is 'v' or 'V'
+                    $data['nic_err'] = "*Invalid NIC Number";
+                }
+            }else if(strlen($nic) != 12) {   // Check if the length of $nic is not equal to 12
+                $data['nic_err'] = "*Invalid NIC Number";
+            }
+
+            //Make sure there are no error flags are set
+            if(empty($data['username_err']) && empty($data['name_err']) && empty($data['nic_err']) && empty($data['email_err']) && empty($data['contact_err']) && empty($data['address_err'])){
+                    
+                $res = $this->ListingModel->updateProfileDetails($data,$user_id);
+
+                if($res){
+                    FlashMessage::flash('update_profile_flash', "Successfully Updated Your Profile Details!", "success");
+                    Middleware::redirect('facility_provider/profile');
+                }else{
+                    //Error Notification
+                    echo 'Error: Something went wrong in adding post to the databse';
+                    Middleware::redirect('facility_provider/editprofile');
+                    die();
+                }
+            }
+            else{
+                $this->loadView('facility_provider/editprofile',$data);
+            }
+        }
+        else{
+            //get the relavent details from the model
+            //$detail = $this->ListingModel->getCounselorEditDetails($user_id);
+            $row = $this->ListingModel->editprofile($user_id);
+
+            $data = [
+                'profile_img' => $row->profile_img,
+                'name' => $row->name,
+                'username' => $row->username,
+                'email' => $row->email,
+                'nic' => $row->nic,
+                'contact' => $row->contact,
+                'address' => $row->address,
+                'name_err' => '',
+                'nic_err' => '',
+                'username_err' => '',
+                'email_err' => '',
+                'contact_err' => '',
+                'address_err' => ''
+            ];
+
+                
+            print_r($data);  
+            //$this->loadView('facility_provider/editprofile',$data);
+        }
     }
 
     
     public function addItem(){
 
         if (isset($_POST['submit'])) {
-
-            //Start the session
-            Session::init();
-
             //Check and validate the data
             //Set errors if something is wrong
+            
             $topic = $_POST['topic'];
             $description = $_POST['description'];
             $rental = $_POST['rental'];
             $location = $_POST['location'];
             $address = $_POST['address'];
             $uniName = $_POST['uniName'];
+            $uniDistance = $_POST['uniDistance'];
             $images = $_FILES['images'];
             $special_note = $_POST['special_note'];
             $category = $_POST['category'];
             
             $uniList = [];
+            $uniDistanceList = [];
             foreach ($uniName as $uni){
                 array_push($uniList, trim($uni));
+            }
+
+            foreach ($uniDistance as $distance){
+                array_push($uniDistanceList, trim($distance));
             }
 
             // $data = [
@@ -104,22 +278,47 @@ class Facility_Provider extends Controller{
                 'location_err' => '',
                 'address_err' => '',
                 'uniName_err' => '',
+                'uniDistance_err' => '',
                 'images_err' => '',
                 'special_note_err' => '',
                 'category_err' => ''
             ];
 
             //Check whether all the fields are filled properly
-            if(!$_POST['topic'] && !$_POST['description'] && !$_POST['rental'] && !$_POST['location'] && !$_POST['address'] && !$_POST['uniName'] && !$_POST['images'] && !$_POST['special_note'] && !$_POST['category']){
-                $data['topic_err'] =  "*This field is Required";
-                $data['description_err'] = "*This field is Required";
-                $data['rental_err'] = "*This field is Required";
-                $data['location_err'] = "*This field is Required";
-                $data['address_err'] = "*This field is Required";
-                $data['uniName_err'] = "*This field is Required";
-                $data['images_err'] = "*This field is Required";
-                $data['special_note_err'] = "*This field is Required";
-                $data['category_err'] = "*You should choose a category";
+            if(empty($data['topic'])){
+                $data['topic_err'] =  "*Topic field is Required";
+            }
+
+            if(empty($data['description'])){
+                $data['description_err'] =  "*Description field is Required";
+            }
+
+            if(empty($data['rental'])){
+                $data['rental_err'] =  "*Price field is Required";
+            }
+
+            if(empty($data['location'])){
+                $data['location_err'] =  "*Nearest Town field is Required";
+            }
+
+            if(empty($data['address'])){
+                $data['address_err'] =  "*Address field is Required";
+            }
+
+            if(empty($data['uniName'])){
+                $data['uniName_err'] =  "*University field is Required";
+            }
+
+            if(empty($data['images'])){
+                $data['images_err'] =  "*Images field is Required";
+            }
+
+            if(empty($data['special_note'])){
+                $data['special_note_err'] =  "*Special note field is Required";
+            }
+
+            if(empty($data['category'])){
+                $data['category_err'] =  "*Category field is Required";
             }
 
             $num_of_images = count($images['name']);    //number of images
@@ -165,24 +364,24 @@ class Facility_Provider extends Controller{
 
                     $images = json_encode($images);
                     $image_urls[] = $new_image_name;
-                    // header("Location: propertyView.php");
                 }else{
                     echo("You can't upload files of this category");
                 }
             }
 
             $image_urls = json_encode($image_urls);
-            
+     
             $uniName = json_encode($uniName);
-            
+            $listing_id = substr(sha1(date(DATE_ATOM)), 0, 8);
             $validatedData = [
+                'listingID' => $listing_id,
                 'topic' => $data['topic'],
                 'fpID' => Session::get('userID'),
                 'description' => $data['description'],
                 'rental' => $data['rental'],
                 'location' => $data['location'],
                 'address' => $data['address'],
-                'uniName' => $uniName,
+                // 'uniName' => $uniName,
                 'image_urls' => $image_urls,
                 'special_note' => $data['special_note'],
                 'category' => $data['category']
@@ -190,11 +389,37 @@ class Facility_Provider extends Controller{
 
             //Make sure there are no error flags are set
             if(empty($data['topic_err']) && empty($data['description_err']) && empty($data['rental_err']) && empty($data['location_err']) && empty($data['address_err']) 
-                && empty($data['uniName_err']) && empty($data['images_err']) && empty($data['special_note_err']) && empty($data['category_err']) ){
+                && empty($data['uniName_err']) && empty($data['images_err']) && empty($data['special_note_err']) && empty($data['category_err']) && empty($data['uniDistance_err'])){
 
-                if($this->ListingModel->addItem($validatedData)){
-                    Middleware::redirect('./facility_provider/addItem');
+                $num = count($uniList);
+
+                if($this->ListingModel->addItem($validatedData)){//add basic listing details to the database
+                    $is_successful = false;
+
+                    for($i=0; $i<$num; $i++){  //add university details to the database
+                        $name = $uniList[$i];
+                        $distance = $uniDistanceList[$i];
+                        $uniData['uniID'] = $listing_id;
+                        $uniData['uniName'] = $name;
+                        $uniData['uniDistance'] = $distance;
+                        if($this->ListingModel->addUniDistance($uniData)){
+                            $is_successful = true;
+                        }else{
+                            $is_successful = false;
+                        }
+                    }
                 }
+                if($is_successful){
+                    FlashMessage::flash('added_flash', "Successfully added Details!", "success");
+                    //redirect to the listing page
+                    Middleware::redirect('./facility_provider/addItem');
+                }else{
+                     //Error Notification
+                    echo 'Error: Something went wrong in adding item to the database';
+                    Middleware::redirect('./facility_provider/addItem');
+                    die();
+                }
+
             }else{
                 //load the same page with erros
                 $this->loadView('facility_provider/addItem', $data);
@@ -218,6 +443,7 @@ class Facility_Provider extends Controller{
                 'location_err' => '',
                 'address_err' => '',
                 'uniName_err' => '',
+                'uniDistance_err' => '',
                 'images_err' => '',
                 'special_note_err' => '',
                 'category_err' => ''
@@ -227,7 +453,7 @@ class Facility_Provider extends Controller{
 
         }
     }
-
+    
 
     //take data relevent to property items
     public function propertyView(){
@@ -235,7 +461,8 @@ class Facility_Provider extends Controller{
 
         //Prepare the data to be passed to the view
         $data =[
-            'view' => $view
+            'view' => $view,
+            'universities' => $this->ListingModel->getDistances()
         ]; 
         
         //Load the view and pass the data to it
@@ -248,7 +475,8 @@ class Facility_Provider extends Controller{
         $view = $this->ListingModel->foodView();
 
         $data =[
-            'view' => $view
+            'view' => $view,
+            'universities' => $this->ListingModel->getDistances()
         ]; 
         
         $this->loadView('facility_provider/foodView',$data);
@@ -260,7 +488,8 @@ class Facility_Provider extends Controller{
         $view = $this->ListingModel->furnitureView();
 
         $data =[
-            'view' => $view
+            'view' => $view,
+            'universities' => $this->ListingModel->getDistances()
         ]; 
         
         $this->loadView('facility_provider/furnitureView',$data);
@@ -272,34 +501,15 @@ class Facility_Provider extends Controller{
         $viewone = $this->ListingModel->viewOneListing($id);
 
         $data =[
-            'viewone' => $viewone
+            'viewone' => $viewone,
+            'universities' => $this->ListingModel->getDistance($id),
+            'facilityProviderDetails'=>$this->ListingModel->getFacilityProviderDetails($id),
+            'comments' => $this->ListingModel->getComments($id)
         ]; 
         
         $this->loadView('facility_provider/viewOne',$data);
     }
 
-    public function propertysearch(){
-        /* $this->ListingModel->propertysearch();
-        if(isset($_POST['search'])){
-            $string = '%' . $_POST['searchbtn'] . '%' ;
-        }
-        $this->loadView('facility_provider/report',$string); */
-        header("Access-Control-Allow-Origin: *");
-        if(isset($_GET['query'])){
-            //Check whether the search query is empty or not
-            if(empty($_GET['query'])){
-                $result =  json_encode($this->ListingModel->propertysearch());
-            }else{
-                $keyword = "%" . trim($_GET['query']) . "%";
-                $result =  $this->ListingModel->propertysearch($keyword);
-            }
-            echo $result;
-        }
-    }
-
-    public function findItemByLocation(){
-        
-    }
 
     public function message(){
         $message = $this->ListingModel->message();
@@ -310,6 +520,7 @@ class Facility_Provider extends Controller{
         
         $this->loadView('facility_provider/message',$data);
     }
+
 
     //take data to generate reports
     public function report(){
@@ -322,12 +533,13 @@ class Facility_Provider extends Controller{
         $this->loadView('facility_provider/report',$data);
     }
 
+
     public function editItem($id){
 
         if (isset($_POST['submit'])) {
 
             //Start the session
-            Session::init();
+            //Session::init();
 
             //Check and validate the data
             //Set errors if something is wrong
@@ -337,13 +549,21 @@ class Facility_Provider extends Controller{
             $location = $_POST['location'];
             $address = $_POST['address'];
             $uniName = $_POST['uniName'];
+            $uniDistance = $_POST['uniDistance'];
             $images = $_FILES['images'];
             $special_note = $_POST['special_note'];
             $category = $_POST['category'];
 
+            
             $uniList = [];
+            $uniDistanceList = [];
+            
             foreach ($uniName as $uni){
                 array_push($uniList, trim($uni));
+            }
+
+            foreach ($uniDistance as $distance){
+                array_push($uniDistanceList, trim($distance));
             }
 
             $data = [
@@ -353,7 +573,7 @@ class Facility_Provider extends Controller{
                 'rental' => trim($rental),
                 'location' => trim($location),
                 'address' => trim($address),
-                'uniName' => json_encode($uniList),
+                // 'uniName' => json_encode($uniList),
                 'images' => $_FILES['images'],
                 'special_note' => trim($special_note),
                 'category' => trim($category),
@@ -367,20 +587,53 @@ class Facility_Provider extends Controller{
                 'special_note_err' => '',
                 'category_err' => ''
             ];
+           
+            /* if($images['name'][0] == '') {
+                echo 'bcdfbudjsbv';
+            }else{
+                echo '1234556';
+            } */
+            
 
-            //Check whether all the fields are filled properly
-            if(!$_POST['topic'] && !$_POST['description'] && !$_POST['rental'] && !$_POST['location'] && !$_POST['address'] && !$_POST['uniName'] && !$_POST['images'] && !$_POST['special_note'] && !$_POST['category']){
-                $data['topic_err'] =  "*This field is Required";
-                $data['description_err'] = "*This field is Required";
-                $data['rental_err'] = "*This field is Required";
-                $data['location_err'] = "*This field is Required";
-                $data['address_err'] = "*This field is Required";
-                $data['uniName_err'] = "*This field is Required";
-                $data['images_err'] = "*This field is Required";
-                $data['special_note_err'] = "*This field is Required";
-                $data['category_err'] = "*You should choose a category";
+            if(empty($data['topic'])){
+                $data['topic_err'] =  "*Topic field is Required";
             }
 
+            if(empty($data['description'])){
+                $data['description_err'] =  "*Description field is Required";
+            }
+
+            if(empty($data['rental'])){
+                $data['rental_err'] =  "*Price field is Required";
+            }
+
+            if(empty($data['location'])){
+                $data['location_err'] =  "*Nearest Town field is Required";
+            }
+
+            if(empty($data['address'])){
+                $data['address_err'] =  "*Address field is Required";
+            }
+
+            if(empty($data['uniName'])){
+                $data['uniName_err'] =  "*University field is Required";
+            }
+
+            if(empty($data['special_note'])){
+                $data['special_note_err'] =  "*Special note field is Required";
+            }
+
+            if(empty($data['category'])){
+                $data['category_err'] =  "*Category field is Required";
+            }
+
+            $unique_array = array_unique($uniList); //check for duplicates
+
+            if(count($uniList) != count($unique_array)){
+                $data['uniName_err'] = 'Duplicate university names are not allowed';
+            }
+
+    
             $num_of_images = count($images['name']);    //number of images
 
             $uploaded_images = [];
@@ -397,52 +650,57 @@ class Facility_Provider extends Controller{
                 ];
             }
 
+            
 
             $image_urls = [];
 
-            foreach($uploaded_images as $uploaded_image) {
-                //get image extension store it in var
-                $image_ex = pathinfo($uploaded_image["name"], PATHINFO_EXTENSION);  
+            if(!$images['name'][0] == '') {
+                array_pop($uploaded_images);  //remove the last unnesessary array element
+                
+                foreach($uploaded_images as $uploaded_image) {
+                    //get image extension store it in var
+                    $image_ex = pathinfo($uploaded_image["name"], PATHINFO_EXTENSION);  
 
-                //convert the image extension into lower case and store it in var
-                $image_ex_lc = strtolower($image_ex);
-
-                //create array that stores allowed to upload image extensions
-                $allowed_exs = array('jpg', 'jpeg', 'png');
-
-                //check if the image extension is present in $allowed_exs array
-                if(in_array($image_ex_lc, $allowed_exs)){  
-
-                    //renaming the image name with random string             
-                    $new_image_name = uniqid('IMG-', true).'.'.$image_ex_lc;   
-
-                    //creating upload path on root directory
-                    $image_upload_path = PUBLICPATH . "/img/listing/". $new_image_name;
-
-                    //move uploaded image to 'images' folder
-                    move_uploaded_file($uploaded_image["tmp_name"], $image_upload_path);
-
-                    $images = json_encode($images);
-                    $image_urls[] = $new_image_name;
-                    // header("Location: propertyView.php");
-                }else{
-                    echo("You can't upload files of this category");
+                    //convert the image extension into lower case and store it in var
+                    $image_ex_lc = strtolower($image_ex);
+    
+                    //create array that stores allowed to upload image extensions
+                    $allowed_exs = array('jpg', 'jpeg', 'png');
+    
+                    //check if the image extension is present in $allowed_exs array
+                    if(in_array($image_ex_lc, $allowed_exs)){  
+                        
+    
+                        //renaming the image name with random string             
+                        $new_image_name = uniqid('IMG-', true).'.'.$image_ex_lc;   
+    
+                        //creating upload path on root directory
+                        $image_upload_path = PUBLICPATH . "/img/listing/". $new_image_name;
+    
+                        //move uploaded image to 'images' folder
+                        move_uploaded_file($uploaded_image["tmp_name"], $image_upload_path);
+    
+                        $images = json_encode($images);
+                        $image_urls[] = $new_image_name;
+                        // header("Location: propertyView.php");
+                    }else{
+                        echo("You can't upload files of this category");
+                    }
                 }
             }
-
+           
             $image_urls = json_encode($image_urls);
-     
+
             $uniName = json_encode($uniName);
-            
-            $validatedData = [
-                'id' => $_POST['id'],
-                'fpID' => Session::get('userID'),
+            $listing_id = $id;
+
+            $data = [
+                'id' => $listing_id,
                 'topic' => $data['topic'],
                 'description' => $data['description'],
                 'rental' => $data['rental'],
                 'location' => $data['location'],
                 'address' => $data['address'],
-                'uniName' => $uniName,
                 'image_urls' => $image_urls,
                 'special_note' => $data['special_note'],
                 'category' => $data['category']
@@ -450,10 +708,39 @@ class Facility_Provider extends Controller{
 
             //Make sure there are no error flags are set
             if(empty($data['topic_err']) && empty($data['description_err']) && empty($data['rental_err']) && empty($data['location_err']) && empty($data['address_err']) 
-                && empty($data['uniName_err']) && empty($data['images_err']) && empty($data['special_note_err']) && empty($data['category_err']) ){
+                && empty($data['uniName_err']) && empty($data['images_err']) && empty($data['special_note_err']) && empty($data['category_err']) && empty($data['uniDistance_err'])){
+                
+                $num = count($uniList);
 
-                if($this->ListingModel->editItem($validatedData)){
-                    Middleware::redirect('./facility_provider/editItem');
+                if($this->ListingModel->editItem($data)){ //edit basic listing details to the database
+                    $is_successful = false;
+                    if($this->ListingModel->deleteUniDistances($listing_id)){ //delete previous entries before entering new ones
+                        $is_successful = true;
+                        for($i=0; $i<$num; $i++){  //add university details to the database
+                            $name = $uniList[$i];
+                            $distance = $uniDistanceList[$i];
+                            $uniData['uniID'] = $listing_id;
+                            $uniData['uniName'] = $name;
+                            $uniData['uniDistance'] = $distance;
+                            if($this->ListingModel->addUniDistance($uniData)){
+                                $is_successful = true;
+                            }else{
+                                $is_successful = false;
+                            }
+                        }
+
+                    }
+                    
+                    if($is_successful){
+                        FlashMessage::flash('added_flash', "Successfully added Details!", "success");
+                        //redirect to the listing page
+                        Middleware::redirect('./facility_provider/viewOne');
+                    }else{
+                         //Error Notification
+                        echo 'Error: Something went wrong in adding item to the databse';
+                        Middleware::redirect('./facility_provider/editItem');
+                        die();
+                    }
                 }
             }else{
                 //load the same page with erros
@@ -461,21 +748,46 @@ class Facility_Provider extends Controller{
             }
                
         }else{
-            //Send the empty detail page
+            //get the relavent details from the model
             $editlist = $this->ListingModel->viewOneListing($id);
             
-            $uniList = $editlist->uniName;  //assigns the value of $editlist->uniName to the variable $uniList
-            $uniList = str_replace(array("[", "]"), "", $uniList);  //remove the square brackets from the string and converting it to a comma-separated list 
-            $array = explode(",", $uniList);  //split the comma-separated list into an array
+            $uniList = $this->ListingModel->getUniDistances($id);
 
             $imageList = $editlist->image;
             $imageList = str_replace(array("[", "]"), "", $imageList);
             $array_2 = explode(",", $imageList);
-
+            $universities = array(
+                "Eastern University",
+                "Rajarata University",
+                "Sabaragamuwa University",
+                "South Eastern University",
+                "The Open University",
+                "University of Colombo",
+                "University of Jaffna",
+                "University of Kelaniya",
+                "University of Moratuwa",
+                "University of Peradeniya",
+                "University of Ruhuna",
+                "University of Sri Jayewardenepura",
+                "Uva wellassa University",
+                "University of Vavuniya",
+                "University of the Visual & Performing Arts",
+                "Wayamba University",
+                "KDU",
+                "CINEC",
+                "Esoft Metro Campus",
+                "Horizon Campus",
+                "IIT",
+                "NIBM",
+                "NSBM",
+                "SLIIT",
+                "SLTC"
+            );
             $data = [
                 'id' => $id,
                 'viewone' => $editlist,
-                'unilist' => $array,
+                'unilist' => $uniList,
+                'universities' => $universities,
                 'imagelist' => $array_2,
                 'topic' => '',
                 'description' => '',
@@ -499,34 +811,92 @@ class Facility_Provider extends Controller{
                 'viewone' => $editlist
             ]; */
 
+            //print_r($data);
             $this->loadView('facility_provider/editItem', $data);
             //$this->loadView('test', $data);
 
         }
     }
 
+
     public function deleteItem($id){
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            //get existing item from model
-            $item = $this->ListingModel->deleteItem($id);
+    
+        //get existing post from model
+        /* $item = $this->ListingModel->getItemById($id); */
 
-            //check for owner
-            if($item->userID != $_SESSION['userID']){
-                Middleware::redirect('./facility_provider/viewOne');
-            }
+        //check for owner
+        /* if($item->listing_id != $_SESSION['userID']){
+            Middleware::redirect('./facility_provider/myListing');
+        } */
+
+        if($this->ListingModel->deleteItem($id) && $this->ListingModel->deleteUniDistances($id)){
+            FlashMessage::flash('item_add_flash', "Item Successfully Deleted!", "success");
+            Middleware::redirect('./facility_provider/myListing');
         }
-
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            if($this->ListingModel->deleteItem($id)){
-                //flash('message', 'Item Removed');
-                Middleware::redirect('./facility_provider/viewOne');
-            }else{
-                die('Something went wrong');
-            }
-        }else{
-            Middleware::redirect('./facility_provider/viewOne');
+        else{
+            die('Something went wrong');
         }
     }
+
+
+    public function propertysearch(){
+        header("Access-Control-Allow-Origin: *");
+        if(isset($_GET['query'])){
+            //Check whether the search query is empty or not
+            if(empty($_GET['query'])){
+                $result =  json_encode($this->ListingModel->getlisting());
+            }else{
+                $keyword = "%" . trim($_GET['query']) . "%";
+                $result =  $this->ListingModel->propertysearch($keyword);
+            }
+            echo $result;
+        }
+    }
+
+
+    public function dropdownfilter(){
+        if(isset($_GET['filterItem1'])){
+            // Get the selected filter values
+            $location = $_GET['location'];
+            /* $type = $_GET['type'];
+            $university = $_GET['university']; */
+    
+            // Call the model method to get the filtered results
+            $result = $this->ListingModel->getlocationfilter($location);
+            /* $result = $this->ListingModel->gettypefilter($type);
+            $result = $this->ListingModel->getunifilter($university); */
+            
+            // Return the filtered results as JSON
+            echo json_encode($result);
+        }
+    }
+
+
+    //university filter
+    /* public function university_filter(){
+        if (isset($_GET['filter'])) {
+            $uni = trim($_GET['filter']);
+            $res =  json_encode($this->ListingModel->university_filter($uni));
+            echo $res;
+        }
+    } */
+
+    
+    //search filter
+    /* public function search_listing(){
+        if (isset($_GET['query'])) {
+            //Check whether the search query is empty or not
+            if (empty($_GET['query'])) {
+                Student_facility::index();
+            } else {
+                $keyword = "%" . trim($_GET['query']) . "%";
+                $uni = trim($_GET['uni']);
+                $res =  json_encode($this->ListingModel->searchListings($keyword,$uni));
+            }
+            echo $res;
+        }
+    } */
+
 }
 
 ?>

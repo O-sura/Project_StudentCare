@@ -37,6 +37,15 @@ h1{
     margin: 35px 300px;
 }
 
+.detail_form{
+    width: 1050px;
+    height: 500px;
+    padding: 10px;
+    position: relative;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
 .container .profile{
     display: flex;
 }
@@ -80,6 +89,7 @@ input[type = file]::-webkit-file-upload-button{
 }
 
 .container .details{
+    margin-left: 30px;
     margin-top: 40px;
     display: flex;
 }
@@ -89,9 +99,103 @@ input[type = file]::-webkit-file-upload-button{
 }
 
 .container .details .category_details{
-    margin-left: 200px;
+    margin-left: 150px;
 }
 
 .container .details .category_details i{
     margin-right: 10px;
 }
+
+
+
+
+@media screen and (max-width: 1200px) {
+    .head{
+        white-space: nowrap;
+    }
+
+    .container{
+        margin-left: 25px;
+    }
+
+    .detail_form {
+        width: 90% ;
+        justify-content: center;
+        align-items: center;
+    }
+
+    h1{
+        margin: 35px 200px;
+        white-space: nowrap;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .head{
+        white-space: nowrap;
+    }
+    
+    .container{
+        margin-left: 25px;
+    }
+
+    .detail_form {
+        width: 70% ;
+        height: 550px;
+    }
+
+    h1{
+        margin: 35px 100px;
+        white-space: nowrap;
+    }
+}
+    
+@media screen and (max-width: 600px) {
+    .head{
+        white-space: nowrap;
+    }
+
+    .detail_form {
+        width: 55%;
+        height: 800px;
+    } 
+
+    .container{
+        margin-left: 30px;
+    }
+
+    h1{
+        font-size: 30px;
+        margin: 55px 0px 5px;
+        white-space: nowrap;
+    }
+
+    .container .profile{
+        display: block;
+    }
+
+    .container .profile .personal{
+        margin: 45px 10px 0 30px;
+    }
+
+    .container .details{
+        display: inline-block;
+        margin-right: 0px;
+        flex-direction: column;
+    }
+
+    .container .details .category_details{
+        margin-left: 5px;
+        margin-top: 30px;
+    }
+}
+
+/* @media screen and (max-width: 900px) and (min-width: 600px){
+    .detail_form{
+        width: 100%;
+    }
+}
+
+@media only screen and (min-width: 1000px){
+    
+} */

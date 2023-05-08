@@ -146,3 +146,48 @@ hr{
     text-shadow: 1px 1px black;
     color: #FFBF42;
 }
+
+
+
+
+@media screen and (max-width: 1200px) {
+    .container{
+        justify-content: center;
+        align-items: center;
+    }
+
+    .count{
+        margin-left: 250px;
+    }
+
+    .container .head .add{
+        width: 100px;
+        font-size: 15px;
+        margin-left: 75%;
+    }
+    
+    .yourprofile{
+        margin-left: 80%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .count{
+        margin: 50px 60px;  
+    }
+
+    .container{
+        margin-left: 25px;
+    }
+
+    .container .head .add{
+        width: 80px;
+        font-size: 15px;
+        margin-left: 100px;
+    }
+    
+    .yourprofile{
+        margin-left: 230px;
+    }
+   
+}
