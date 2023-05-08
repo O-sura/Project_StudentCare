@@ -18,7 +18,7 @@
         <div class="section" id="page-content"><br><br>
             <span class="heading">All Users  <i class="fa-solid fa-users"></i></span>
             <div class="div-3">
-                <input type="search" name="search" id="searchbar" placeholder="Search Here">
+                <input type="search" name="search" id="searchbar" placeholder="Search Users Here">
                 <table class="stat-table">
                         <tr>
                             <th>#UserID</th>

@@ -20,7 +20,7 @@ body{
     padding: 20px;
     /* background-color: aquamarine; */
     text-align: center;
-    border: 1px solid rebeccapurple
+    /* border: 1px solid rebeccapurple */
 }
 
 #page-content{
@@ -180,3 +180,4 @@ table{
 .chart-div h3{
     color: rgba(0, 0, 0, 0.5);
 }
+

@@ -103,7 +103,7 @@ body{
 
 /* Post body*/
 .parent{
-    height: 250px;
+    height: max-content;
     display: flex;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);

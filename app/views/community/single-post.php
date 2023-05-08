@@ -17,8 +17,6 @@
     <?php 
         FlashMessage::flash('comment_added');
         FlashMessage::flash('comment_not_added');
-        FlashMessage::flash('post_deleted');
-        FlashMessage::flash('post_not_deleted');
     ?>
     <div class="section" id="top">
         <div class="back-option">

@@ -15,6 +15,7 @@
     <?php include 'sidebar.php'?>
     
     <div class="section" id="page-content">
+        <span class="heading">Reports</span><hr>
         <div class="report-config-section">
             <div class="dropdown-section">
 

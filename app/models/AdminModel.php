@@ -63,7 +63,7 @@ class AdminModel{
     }
 
     public function deleteUser($userID){
-        $this->db->query("DELETE FROM users WHERE userID  = :userID");
+        $this->db->query("UPDATE users SET isDeleted = 1 WHERE userID  = :userID");
         $this->db->bind(':userID',$userID);
         if($this->db->getRes()){
             $res = 1;

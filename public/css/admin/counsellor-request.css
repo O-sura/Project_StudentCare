@@ -29,6 +29,7 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: start;
+    min-height: 100%;
 }
 
 #page-content h1{
@@ -42,6 +43,13 @@ body{
 .request-container{
    display: grid;
    grid-template-columns: repeat(4, 1fr);
+}
+
+.empty-txt{
+   font-size: 5rem;
+   color: rgba(0, 0, 0, 0.15);
+   font-weight: bold;
+   margin-top: 4rem;
 }
 
 .container{

@@ -26,6 +26,8 @@ use function PHPSTORM_META\type;
         // Has to link the css-not added because some issue
         FlashMessage::flash('post_reported');
         FlashMessage::flash('post_not_reported');
+        FlashMessage::flash('post_deleted');
+        FlashMessage::flash('post_not_deleted');
     ?>
     
     <!-- Below here should be the content for homepage -->

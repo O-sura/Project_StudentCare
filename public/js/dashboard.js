@@ -96,7 +96,15 @@ fetch('http://localhost/StudentCare/admin/get_lastweek_users')
       options: {
         scales: {
           y: {
-            beginAtZero: true
+            suggestedMin: 0,
+            grid: {
+              display: false
+            }
+          },
+          x: {
+            grid: {
+              display: false
+            }
           }
         }
       },
@@ -121,15 +129,24 @@ fetch('http://localhost/StudentCare/admin/get_role_data')
       data: {
         labels: userroles,
         datasets: [{
-          label: '# of Votes',
+          label: '# of Users',
           data: role_count,
-          borderWidth: 1
+          borderWidth: 0.5
         }]
       },
       options: {
         scales: {
           y: {
-            beginAtZero: true
+            display: false,
+            grid: {
+              display: false
+            }
+          },
+          x: {
+            display: false,
+            grid: {
+              display: false
+            }
           }
         }
       }
@@ -175,6 +192,21 @@ fetch('http://localhost/StudentCare/admin/get_role_data')
               },
             ]
           },
+          options: {
+            scales: {
+              y: {
+                suggestedMin: 0,
+                grid: {
+                  display: false
+                }
+              },
+              x: {
+                grid: {
+                  display: false
+                }
+              }
+            }
+          },
         });
             
 
@@ -209,6 +241,21 @@ fetch('http://localhost/StudentCare/admin/get_role_data')
               fill: true
             }
           ]
+        },
+        options: {
+          scales: {
+            y: {
+              suggestedMin: 0,
+              grid: {
+                display: false
+              }
+            },
+            x: {
+              grid: {
+                display: false
+              }
+            }
+          }
         },
       });  
 
