@@ -18,11 +18,11 @@
 
 <body>
     <div class="page">
-
+        <?php FlashMessage::flash('listing_report_flash'); ?>
         <?php
         require_once '../app/views/facility/sidebar.php';
         ?>
-        <?php FlashMessage::flash('listing_report_flash'); ?>
+
 
         <div class="home_content">
             <div class="container">
@@ -86,7 +86,7 @@
                         </div>
                         <p><span>Contact No: </span><?php echo $data['facilityProviderDetails']->contact_no; ?></p>
                         <p><span>Address: </span><?php echo $data['viewone']->address; ?></p>
-                        <p><span><button class="btn2" onclick = showPopup()><i class="fa-solid fa-ban"></i> Report listing</button></span></p>
+                        <p><span><button class="btn2" onclick=showPopup()><i class="fa-solid fa-ban"></i> Report listing</button></span></p>
                         <div class="map">
                             <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d270201.1012553059!2d80.57066973934896!3d7.435740318327426!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2slk!4v1668671876514!5m2!1sen!2slk" 
                             width="400" height="250" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" frameborder="0"></iframe> -->
@@ -211,7 +211,7 @@
                 window.location.href = "<?php echo URLROOT . "/messaging/create_chat/" . $data['facilityProviderDetails']->userID ?>";
             }
 
-            
+
 
             function showPopup() { //show modal for cancel appointment
                 var popup = document.querySelector(".overlay");

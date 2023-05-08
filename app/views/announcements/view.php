@@ -35,7 +35,7 @@
             <div class="row2">
                 <div class="col1">
                     <?php
-
+                   
                     if ($data['announcement']->profile_img != NULL) {
                         $image = $data['announcement']->profile_img;
                     } else {

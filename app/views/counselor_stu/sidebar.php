@@ -21,7 +21,7 @@
     <div class="sidebar">
         <div class="logo_content">
             <div class="logo">
-                <div class="logo_name">StudentCare</div>
+            <div class="logo_name">StudentCare</div>
             </div>
             <i class="fa-solid fa-bars" id="btn"></i>
         </div>
@@ -48,7 +48,7 @@
 
             </li>
             <li>
-                <a href='<?php echo URLROOT ?>/appointments/'>
+                <a href='<?php echo URLROOT ?>/appointments/'  id="chosen">
                     <i class="fa-solid fa-calendar-check"></i></i>
                     <span class="links_name">Appointments</span>
                 </a>
@@ -62,7 +62,7 @@
 
             </li>
             <li>
-                <a href="<?php echo URLROOT ?>/Student_facility/" id="chosen">
+                <a href="<?php echo URLROOT ?>/Student_facility/">
                     <i class="fa-solid fa-house-circle-check"></i>
                     <span class="links_name">Listings</span>
                 </a>

@@ -20,15 +20,15 @@
 
                         //Check whether the user profile is deleted or blocked first
                         $this->blockAndDeletionHandlder($cookieFound);
+                       
                         $profileImage = $this->getProfileImage($cookieFound->userID,$cookieFound->user_role);
-
                         //Else use the cookie to set the session
                         Session::set('userrole', $cookieFound->user_role);
                         Session::set('userID', $cookieFound->userID);
                         Session::set('username', $cookieFound->username);
                         Session::set('lastLogin', $cookieFound->last_login);
                         Session::set('prof_img', $profileImage);
-
+                    
                         $this->userModel->setLastLogin($cookieFound->userID);
                         Middleware::redirect(Session::get('userrole') . '/home');
                         exit();

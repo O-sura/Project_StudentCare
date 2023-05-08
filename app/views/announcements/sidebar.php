@@ -21,7 +21,7 @@
     <div class="sidebar">
         <div class="logo_content">
             <div class="logo">
-                <div class="logo_name"></div>
+            <div class="logo_name">StudentCare</div>
             </div>
             <i class="fa-solid fa-bars" id="btn"></i>
         </div>
@@ -31,50 +31,57 @@
                     <i class="fa-solid fa-gauge"></i>
                     <span class="links_name">Dashboard</span>
                 </a>
-               
+
             </li>
             <li>
                 <a href='<?php echo URLROOT ?>/community/home'>
                     <i class="fa-solid fa-users"></i>
                     <span class="links_name">Community</span>
                 </a>
-                
+
             </li>
             <li>
                 <a href='<?php echo URLROOT ?>/tasks/'>
                     <i class="fa-solid fa-calendar-days"></i>
                     <span class="links_name">Schedule</span>
                 </a>
-                
+
             </li>
             <li>
                 <a href='<?php echo URLROOT ?>/appointments/'>
                     <i class="fa-solid fa-calendar-check"></i></i>
                     <span class="links_name">Appointments</span>
                 </a>
-                
+
             </li>
-            <li >
+            <li>
                 <a href='<?php echo URLROOT ?>/announcements/' id="chosen">
                     <i class="fa-solid fa-bullhorn"></i></i>
                     <span class="links_name">Announcements</span>
                 </a>
-                
+
             </li>
             <li>
                 <a href="<?php echo URLROOT ?>/Student_facility/">
                     <i class="fa-solid fa-house-circle-check"></i>
                     <span class="links_name">Listings</span>
                 </a>
-                
+
             </li>
         </ul>
+        <?php
+        if (Session::get('prof_img')->profile_img != NULL) {
+            $image = Session::get('prof_img')->profile_img;
+        } else {
+            $image = "avatar.jpg";
+        }
+        ?>
         <div class="profile_content">
             <div class="profile">
                 <div class="profile_details">
-                    <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFufGVufDB8fDB8fA%3D%3D&w=1000&q=80" alt="">
+                    <img src="<?php echo URLROOT . "/public/img/student/" . $image; ?>" alt="">
                     <div class="name">
-                        Oshada
+                    <?php echo Session::get('username') ?>
                     </div>
                 </div>
                 <a href='<?php echo URLROOT ?>/users/logout'><i class="fa-solid fa-arrow-right-from-bracket fa-flip-horizontal" id="log_out"></i></a>

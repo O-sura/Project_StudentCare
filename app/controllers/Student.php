@@ -3,10 +3,12 @@ Session::init();
 class Student extends Controller
 {
     private $studentModel;
+    private $userModel;
     public function __construct()
     {
         Middleware::authorizeUser(Session::get('userrole'), 'student');
         $this->studentModel = $this->loadmodel('Student_model');
+        $this->userModel = $this->loadmodel('User');
     }
 
     public function index()
@@ -158,5 +160,31 @@ class Student extends Controller
             ];
             $this->loadview('student_dashboard/profile', $data);
         }
+    }
+
+    public function give_feedback(){
+        $reason = trim($_POST['rdesc']);
+        $feedback_id = substr(sha1(date(DATE_ATOM)), 0, 8);
+        $user = Session::get('userID');
+        $nameObj = $this->userModel->getUserDetails($user);
+        $name = $nameObj->fullname;
+        //split name into fname and lname
+        $fname = explode(" ", $name)[0];
+        $lname = explode(" ", $name)[1];
+        $email = $nameObj->email;
+        $data = [
+            'feedback_id' => $feedback_id,
+            'email' => $email,
+            'reason' => $reason,
+            'fname' => $fname,
+            'lname' => $lname,
+        ];
+        if($this->userModel->addSystemFeedback($data)){
+            FlashMessage::flash('system_feedback_flash', "Thank you for your valuable feedback!", "success");
+            Student::home();
+        }else{
+            FlashMessage::flash('system_feedback_flash', "Sorry, Failed!", "error");
+            Student::home();
+        };
     }
 }
