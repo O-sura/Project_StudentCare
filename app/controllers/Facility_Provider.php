@@ -855,16 +855,16 @@ class Facility_Provider extends Controller{
 
 
     public function dropdownfilter(){
-        if(isset($_GET['filterItem'])){
+        if(isset($_GET['filterItem1'])){
             // Get the selected filter values
             $location = $_GET['location'];
-            $type = $_GET['type'];
-            $university = $_GET['university'];
+            /* $type = $_GET['type'];
+            $university = $_GET['university']; */
     
             // Call the model method to get the filtered results
             $result = $this->ListingModel->getlocationfilter($location);
-            $result = $this->ListingModel->gettypefilter($type);
-            $result = $this->ListingModel->getunifilter($university);
+            /* $result = $this->ListingModel->gettypefilter($type);
+            $result = $this->ListingModel->getunifilter($university); */
             
             // Return the filtered results as JSON
             echo json_encode($result);

@@ -106,40 +106,96 @@ input[type = file]::-webkit-file-upload-button{
     margin-right: 10px;
 }
 
+
+
+
 @media screen and (max-width: 1200px) {
+    .head{
+        white-space: nowrap;
+    }
+
+    .container{
+        margin-left: 25px;
+    }
+
     .detail_form {
-        margin-top: 0%;
-        margin-bottom: 0%;
-        width: 70%;
+        width: 90% ;
         justify-content: center;
         align-items: center;
-        height: 745px;
+    }
+
+    h1{
+        margin: 35px 200px;
+        white-space: nowrap;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .head{
+        white-space: nowrap;
     }
     
-    .profile {
-        margin-top: 40px;
+    .container{
+        margin-left: 25px;
     }
-    
-    .contact, .category_details {
-        margin-top: 40px;
+
+    .detail_form {
+        width: 70% ;
+        height: 550px;
+    }
+
+    h1{
+        margin: 35px 100px;
+        white-space: nowrap;
     }
 }
     
-@media screen and (max-width: 900px) {
-    .detail_form {
-        justify-content: space-between;
+@media screen and (max-width: 600px) {
+    .head{
+        white-space: nowrap;
     }
-    
-    .personal, .details {
+
+    .detail_form {
+        width: 55%;
+        height: 800px;
+    } 
+
+    .container{
+        margin-left: 30px;
+    }
+
+    h1{
+        font-size: 30px;
+        margin: 55px 0px 5px;
+        white-space: nowrap;
+    }
+
+    .container .profile{
+        display: block;
+    }
+
+    .container .profile .personal{
+        margin: 45px 10px 0 30px;
+    }
+
+    .container .details{
+        display: inline-block;
+        margin-right: 0px;
+        flex-direction: column;
+    }
+
+    .container .details .category_details{
+        margin-left: 5px;
+        margin-top: 30px;
+    }
+}
+
+/* @media screen and (max-width: 900px) and (min-width: 600px){
+    .detail_form{
         width: 100%;
     }
-    
-    .profile {
-        margin-top: 0;
-    }
-    
-    .dp {
-        width: 150px;
-        height: 150px;
-    }
 }
+
+@media only screen and (min-width: 1000px){
+    
+} */
