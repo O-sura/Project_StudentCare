@@ -476,4 +476,31 @@ class Facility_StudentModel
         return $result;
     }
 
+    public function incrementCounter($review_id){
+        $this->db->query("UPDATE listing_feedback SET helpful_count=helpful_count+1 WHERE review_id=:review_id");
+        $this->db->bind(':review_id', $review_id);
+        $result = $this->db->execute();
+        return $result;
+    }
+    
+    public function decrementCounter($review_id){
+        $this->db->query("UPDATE listing_feedback SET helpful_count=helpful_count-1 WHERE review_id=:review_id");
+        $this->db->bind(':review_id', $review_id);
+        $result = $this->db->execute();
+        return $result;
+    }
+
+    public function reportListing($data){
+        $this->db->query("INSERT INTO listing_reported (notificationID ,userID ,listingID ,reason) VALUES (:notificationID, :userID, :listingID, :reason)");
+        $this->db->bind(':notificationID', $data['report_id']);
+        $this->db->bind(':userID', $data['user']);
+        $this->db->bind(':listingID', $data['listing_id']);
+        $this->db->bind(':reason', $data['reason']);
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }

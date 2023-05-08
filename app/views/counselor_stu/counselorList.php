@@ -12,6 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script type="module" src=<?php echo URLROOT . "/public/js/student/loadCounselor-list.js" ?> defer></script>
     <link rel="stylesheet" href=<?php echo URLROOT . "/public/css/stu/counselorListStyle.css" ?>>
 </head>
 
@@ -121,23 +122,30 @@
             <div class="row3">
                 <div class="search">
                     <div class="search-bar">
-                        <input type="text" id="search-input" placeholder="Search topic">
-                        <button type="button" id="search-button">
-                            <i class="fas fa-search"></i>
-                        </button>
+                        <div class="search-container">
+
+                            <input type="text" placeholder="Search..." id="search-box">
+                            <button id="search-btn">Search</button>
+
+                        </div>
                     </div>
                     <div class="sort">
-                        <select class="select">
+                        <div>
+                            <h3>Filter by : </h3>
+                        </div>
+                        <div>
+                            <select class="select" id="typeFilter">
+                                <option value="All">All</option>
+                                <option value="Academic">Academic Counselors</option>
+                                <option value="Career">Career Counselors</option>
+                                <option value="Mental Health">Mental Health Counselors</option>
+                                <option value="Financial Aid">Financial Aid Counselors</option>
+                                <option value="Relationship">Relationship Counselors</option>
+                                <option value="Disability Services">Disability Services Counselors</option>
+                                <option value="Residential Life">Residential Life Counselors</option>
+                            </select>
+                        </div>
 
-                            <option value="All">All</option>
-                            <option value="Academic">Academic Counselors</option>
-                            <option value="Career">Career Counselors</option>
-                            <option value="Mental Health">Mental Health Counselors</option>
-                            <option value="Financial Aid">Financial Aid Counselors</option>
-                            <option value="Relationship">Relationship Counselors</option>
-                            <option value="Disability Services">Disability Services Counselors</option>
-                            <option value="Residential Life">Residential Life Counselors</option>
-                        </select>
                     </div>
                 </div>
                 <div class="list" id="list">
@@ -152,11 +160,16 @@
                             $counselorDescription = $counselor->counselor_description;
                             $format_description = nl2br($counselorDescription);
                             $counselorSpecialization = $counselor->specialization;
+                            if ($counselor->profile_img != NULL) {
+                                $image = $counselor->profile_img;
+                            } else {
+                                $image = "avatar.jpg";
+                            }
                             ?>
 
                             <div class="list-item">
                                 <div class="prof-image">
-                                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fGZlbWFsZSUyMGRvY3RvcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" id="image3">
+                                    <img src="<?php echo URLROOT . "/public/img/counselor/" . $image; ?>" id="image3">
                                 </div>
                                 <div class="details">
                                     <div class="name">

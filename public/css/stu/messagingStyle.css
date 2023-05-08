@@ -71,13 +71,13 @@ box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 .chat-container {
-margin: 0 auto;
-padding: 10px;
-background-color: #FFF;
-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-overflow: hidden;
-  flex: 8;
-  background-image: url("https://i.pinimg.com/736x/b9/1d/c2/b91dc2113881469c07ac99ad9a024a01.jpg");
+	margin: 0 auto;
+  padding: 10px;
+	background-color: #FFF;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+	overflow: hidden;
+    flex: 8;
+    background-image: url("http://localhost/StudentCare/public/img/chat-background.png");
 }
 
 .header {

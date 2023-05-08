@@ -6,6 +6,7 @@ class Student_facility extends Controller
 
     public function __construct()
     {
+        Middleware::authorizeUser(Session::get('userrole'), 'student');
         $this->facility_studentModel = $this->loadmodel('Facility_StudentModel');
     }
 
@@ -255,7 +256,9 @@ class Student_facility extends Controller
         if($this->facility_studentModel->checkHelpful($review_id)){
             if($value=='no'){
                 if($this->facility_studentModel->removeHelpful($review_id)){
-                    $res =  json_encode($this->facility_studentModel->getComments($listing_id));
+                    if($this->facility_studentModel->decrementCounter($review_id)){ //decrement review_helpful counter
+                        $res =  json_encode($this->facility_studentModel->getComments($listing_id));
+                    }
                 }
             }else{
                 $res =  json_encode($this->facility_studentModel->getComments($listing_id));
@@ -263,7 +266,9 @@ class Student_facility extends Controller
         }else{
             if($value=='yes'){
                 if($this->facility_studentModel->addHelpful($review_id)){
-                    $res =  json_encode($this->facility_studentModel->getComments($listing_id));
+                    if($this->facility_studentModel->incrementCounter($review_id)){ //increment review_helpful counter
+                        $res =  json_encode($this->facility_studentModel->getComments($listing_id));
+                    }
                 }
             }else{
                 $res =  json_encode($this->facility_studentModel->getComments($listing_id));
@@ -271,6 +276,26 @@ class Student_facility extends Controller
         }
 
         echo $res;
+    }
+
+    public function report_listing($listing_id){
+        $reason = trim($_POST['rdesc']);
+        $report_id = substr(sha1(date(DATE_ATOM)), 0, 8);
+        $user = Session::get('userID');
+        $data = [
+            'report_id' => $report_id,
+            'listing_id' => $listing_id,
+            'user' => $user,
+            'reason' => $reason
+        ];
+        if($this->facility_studentModel->reportListing($data)){
+            FlashMessage::flash('listing_report_flash', "Listing has been reported!", "success");
+            Student_facility::viewOneListing($listing_id);
+        }else{
+            FlashMessage::flash('listing_report_flash', "Reporting failed!", "error");
+            Student_facility::viewOneListing($listing_id);
+        };
+        
     }
 
 }

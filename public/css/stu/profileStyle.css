@@ -20,13 +20,12 @@ hr{
 }
 
 #image2{
-  width:100%;
+  width:60%;
   height: auto;
   border-style: solid;
   border-radius: 50%;
   border-color: #fff;
   object-fit: cover;
-  
 }
 
 .container{
@@ -53,6 +52,14 @@ hr{
 
 }
 
+@media screen and (max-width: 1480px) {
+  .row2{
+    display: flex;
+    flex-direction: column;
+    margin-top: 0px;
+    align-items: flex-start;
+  }
+}
 
 .submit-changes{
   text-align: right;
@@ -82,9 +89,9 @@ hr{
   display: grid;
   grid-template-rows: 3fr 1fr;
   border-radius: 50px;
-  padding: 50px;
   height: 70%;
   width:80%;
+  padding: 5%;
   border-width: 1px;
   margin-right: 20%;
   align-items: center;
@@ -108,8 +115,9 @@ hr{
 }
 
 .username{
-  font-size: 35px;
+  font-size: 30px;
   font-weight: 400;
+  margin-bottom: 10px;
 }
 
 input[type=text]{
@@ -428,6 +436,7 @@ textarea{
   .sidebar.active ~ .home_content{
     width: calc(100%-240px);
     left: 240px;
+    width: 80vw;
   }
 
   a { 
@@ -483,9 +492,10 @@ textarea{
     padding: 8px 20px 10px 20px;
     text-decoration: none;
     border: none;
-    width: fit-content;
+    width: 200px;
     align-self: center;
     margin-top: 20px;
+    align-items: center;
   }
   
   .form-field{
@@ -503,4 +513,12 @@ textarea{
     color: #fa3e4d;
     font-size: 12px;
     text-align: center;
+ }
+
+ .prof-image{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
  }

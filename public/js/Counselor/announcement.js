@@ -13,7 +13,7 @@ export class CounselorAnnouncementPost{
     
     createAnnouncement(){
         let controllers = '';
-        if(this.userID === this.loggedUser){
+        if(this.loggedUser == this.userID){
             controllers = `
             <div class="own">
                 <div class="descriptionOwn">
@@ -24,13 +24,15 @@ export class CounselorAnnouncementPost{
                     <div class="buttonU"> 
                         <button class="btnEdit" name="btnEdit" type="submit"><a href="http://localhost/StudentCare/app/CounselorAnnouncement/edit/${this.postID}"><i class="fa-solid fa-pen-to-square"></i></a></button>
                             
-                        <button class="btnDlt" name="btnDlt" type="submit" ><a href="http://localhost/StudentCare/app/CounselorAnnouncement/delete/${this.postID}"><i class="fa-solid fa-trash"></i></a></button>
+                        <button class="btnDlt" name="btnDlt" type="submit" value="${this.postID}"><i class="fa-solid fa-trash"></i></button>
                     </div>
                     
                 </div>
                 <div class="dpOwn">
 
-                    <img class="dpImgOwn" src="http://localhost/StudentCare/public/img/counselor/${this.prof}" alt=""><br>
+                    ${this.prof == "" ? 
+                          `<img class="dpImgOwn" src="http://localhost/StudentCare/public/img/counselor/avatar.jpg" alt=""><br>` : 
+                          `<img class="dpImgOwn" src="http://localhost/StudentCare/public/img/counselor/${this.prof}" alt=""><br>`}
                     
                 </div>
             </div>
@@ -40,7 +42,9 @@ export class CounselorAnnouncementPost{
             controllers = `
             <div class="other">
                 <div class="dp">
-                    <img class="dpImg" src="http://localhost/StudentCare/public/img/counselor/${this.prof}" alt=""><br>
+                    ${this.prof == "" ? 
+                        `<img class="dpImgOwn" src="http://localhost/StudentCare/public/img/counselor/avatar.jpg" alt=""><br>` : 
+                        `<img class="dpImgOwn" src="http://localhost/StudentCare/public/img/counselor/${this.prof}" alt=""><br>`}
                 </div>
 
                 <div class="description">

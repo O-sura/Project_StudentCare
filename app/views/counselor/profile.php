@@ -47,9 +47,17 @@
                       <label for="nic">NIC : <?= $data['row']->{'nic'} ;?></label><br>
                       <label for="dob">DOB : <?= $data['row']->{'dob'} ;?></label><br>
                       <label for="spec">Specialization : <?= $data['row']->{'specialization'} ;?></label></br>
+                      
                   </div>
                   <a class="edit" href="<?php echo URLROOT."/Counsellor/editProfile"?>"><i class="fa-solid fa-pen-to-square"></i> Edit Info</a>
               </div>
+              <div class="divBio">
+                <?php if($data['row']->{'counselor_description'} != "") : ?>
+                        <label for="bio" class="bio"><i class="fa-solid fa-feather-pointed"></i>&nbsp;Bio : <?= $data['row']->{'counselor_description'} ;?></label></br></br>
+                <?php endif ; ?>
+              </div>
+
+
               <div class="bottomSection">
                   <div class="contact">
                       <h2>Contact Info</h2>
@@ -57,6 +65,20 @@
                       <label for="email">Email : <?= $data['row']->{'email'} ;?></label><br>
                       <label for="contact">Contact Number : (+94) <?= $data['row']->{'contact_no'} ;?></label><br>
                       <a class="verify" href="">Download Verification Document</a> 
+
+                      <!-- <?php 
+                                                    // Path to the PDF file
+                            $pdf_file = 'http://localhost/StudentCare/app/uploads/'.$data['row']->{'verification_doc'};
+
+                            // Set headers for file download
+                            header('Content-type: application/pdf');
+                            header('Content-Disposition: attachment; filename="file.pdf"');
+                            header('Content-Length: ' . filesize($pdf_file));
+
+                            // Output download link
+                            echo '<a class="verify" href="' . $pdf_file . '">Download Verification Document</a>';
+
+                      ?> -->
                   </div>
               
 

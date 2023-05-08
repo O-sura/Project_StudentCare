@@ -1,6 +1,81 @@
+
+function getPopupForDecline(){
+
+  var decbtns = document.getElementById("decline");
+  var modalCancel = document.getElementById("myModalCancel");
+  var spanC = document.getElementsByClassName("closeC")[0];
+
+  if(decbtns !== null){
+  
+    decbtns.addEventListener("click", function(){
+
+      modalCancel.style.display = "block";
+   
+      spanC.onclick = function() {
+        modalCancel.style.display = "none";   
+        
+      }
+
+      window.onclick = function(event) {
+        if (event.target == modalCancel) {
+          modalCancel.style.display = "none";
+
+        }
+      }
+
+    
+    })
+  
+  }
+
+}
+
+
+function getPopupForRemove(){
+
+  var rbtns = document.getElementById("remove");
+  var modalCancel = document.getElementById("myModalCancel");
+  var spanC = document.getElementsByClassName("closeC")[0];
+
+  if(rbtns !== null){
+  
+    rbtns.addEventListener("click", function(){
+
+      modalCancel.style.display = "block";
+   
+      spanC.onclick = function() {
+        modalCancel.style.display = "none";   
+        
+      }
+
+      window.onclick = function(event) {
+        if (event.target == modalCancel) {
+          modalCancel.style.display = "none";
+
+        }
+      }
+
+    
+    })
+  
+  }
+
+}
+
+
+
+
+
+
+
+
+
 // select menu and student list container
 let selectMenu = document.querySelector('#selector');
 let container = document.querySelector('.studentList');
+let cancelName = document.querySelector('#cancelName');
+let cancelID = document.querySelector('#cancelID');
+let myForm = document.querySelector('#formID');
 
 // function to add event listeners to student buttons
 function addBtnListeners() {
@@ -29,25 +104,31 @@ function addBtnListeners() {
           let filling_1 = '';
           let filling_2 = '';
 
+          let c1 = `Student Name : ${response.fullname}`;
+          let c2 = `Student ID : ${response.studentID}`;
+          
 
           filling_0 += `
           <div class="imageSection">
             <div class="img">
-              <img class="dpImg" src="http://localhost/StudentCare/public/img/counselor/${response.profile_img}" alt=""><br>
+              ${response.profile_img == "" ? 
+              `<img class="dpImg" src="http://localhost/StudentCare/public/img/student/avatar.jpg" alt=""><br>` : 
+              `<img class="dpImg" src="http://localhost/StudentCare/public/img/student/${response.profile_img}" alt=""><br>`}
             </div>
             <div class="btnDiv">
               <form method="post" action="http://localhost/StudentCare/Counsellor/acceptRejectStudent/${response.studentID}">
                 <button class="accept" name="accept"><i class="fa-solid fa-user-plus"></i>   Accept</button>
-                <button class="decline" name="decline"><i class="fa-solid fa-user-minus"></i>  Decline</button>
+                
               </form>
+              <button class="decline" id="decline" name="decline"><i class="fa-solid fa-user-minus"></i>  Decline</button>
             </div>
           </div>
           <div class="infoSection">
-            <br><label for="name">Name  : </label>${response.studentName}<br>
-            <label for="age">Age    : </label>${response.studentID}<br>
-            <label for="uni">University : </label><br>
-            <label for="address">Address    : </label>${response.location}<br>
-            <label for="email">University email : </label>
+            <br><label for="name">Name  : </label>${response.fullname}<br>
+            <label for="age">DOB    : </label>${response.dob}<br>
+            <label for="uni">University : </label>${response.university}<br>
+            <label for="address">Address    : </label>${response.home_address}<br>
+            <label for="email">University email : </label>${response.unimail}
 
             <span>
               <h3 class="note">  Request Note : </h3>
@@ -62,19 +143,23 @@ function addBtnListeners() {
           filling_1 += `
           <div class="imageSection">
             <div class="img">
-              <img class="dpImg" src="http://localhost/StudentCare/public/img/counselor/${response.profile_img}" alt=""><br>
+            ${response.profile_img == "" ? 
+            `<img class="dpImg" src="http://localhost/StudentCare/public/img/student/avatar.jpg" alt=""><br>` : 
+            `<img class="dpImg" src="http://localhost/StudentCare/public/img/student/${response.profile_img}" alt=""><br>`}
             </div>
             <div class="btnDiv">
-              <button class="remove"><i class="fa-solid fa-user-minus"></i>   Remove</button>
-              
+              <form method="post" action="http://localhost/StudentCare/Counsellor/removeStudent/${response.studentID}">
+                
+              </form>
+              <button class="remove"id="remove" name="remove"><i class="fa-solid fa-user-minus"></i>   Remove</button>
             </div>
           </div>
           <div class="infoSection">
-            <br><label for="name">Name  : </label>${response.studentName}<br>
-            <label for="age">Age    : </label>${response.studentID}<br>
-            <label for="uni">University : </label><br>
-            <label for="address">Address    : </label>${response.location}<br>
-            <label for="email">University email : </label>
+            <br><label for="name">Name  : </label>${response.fullname}<br>
+            <label for="age">DOB    : </label>${response.dob}<br>
+            <label for="uni">University : </label>${response.university}<br>
+            <label for="address">Address    : </label>${response.home_address}<br>
+            <label for="email">University email : </label>${response.unimail}
 
             <span>
               <h3 class="note">  Request Note : </h3>
@@ -89,15 +174,17 @@ function addBtnListeners() {
           filling_2 += `
           <div class="imageSection">
             <div class="img">
-              <img class="dpImg" src="http://localhost/StudentCare/public/img/counselor/${response.profile_img}" alt=""><br>
+            ${response.profile_img == "" ? 
+            `<img class="dpImg" src="http://localhost/StudentCare/public/img/student/avatar.jpg" alt=""><br>` : 
+            `<img class="dpImg" src="http://localhost/StudentCare/public/img/student/${response.profile_img}" alt=""><br>`}
             </div>
           </div>
           <div class="infoSection">
-            <br><label for="name">Name  : </label>${response.studentName}<br>
-            <label for="age">Age    : </label>${response.studentID}<br>
-            <label for="uni">University : </label><br>
-            <label for="address">Address    : </label>${response.location}<br>
-            <label for="email">University email : </label>
+            <br><label for="name">Name  : </label>${response.fullname}<br>
+            <label for="age">DOB    : </label>${response.dob}<br>
+            <label for="uni">University : </label>${response.university}<br>
+            <label for="address">Address    : </label>${response.home_address}<br>
+            <label for="email">University email : </label>${response.unimail}
 
             <span>
               <h3 class="note">  Request Note : </h3>
@@ -113,19 +200,30 @@ function addBtnListeners() {
 
           if(statusOfSelect == 0){
             containerProfile.innerHTML = filling_0;
+            myForm.action = `http://localhost/StudentCare/Counsellor/acceptRejectStudent/${response.studentID}`;
+            cancelName.innerHTML = c1;
+            cancelID.innerHTML = c2;
+            getPopupForDecline();
           }
           else if(statusOfSelect == 1){
             containerProfile.innerHTML = filling_1;
+            myForm.action = `http://localhost/StudentCare/Counsellor/removeStudent/${response.studentID}`;
+            cancelName.innerHTML = c1;
+            cancelID.innerHTML = c2;
+            getPopupForRemove()
           }
           else{
             containerProfile.innerHTML = filling_2;
           }
           
         }
+
       };
 
+      http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
       // send the request
-      http.send(`gotStu=${studentID}`);
+      http.send(`gotStu=` + encodeURIComponent(studentID));
     });
   });
 }
@@ -151,7 +249,7 @@ selectMenu.addEventListener("change", function() {
 
       for(let stu of response) {
         out += `
-        <button class="student" data-student-id="${stu.studentID}">${stu.studentName}</button><br>
+        <button class="student" data-student-id="${stu.studentID}">${stu.fullname}</button><br>
         `;
       }
 
@@ -168,7 +266,6 @@ selectMenu.addEventListener("change", function() {
 
 // add event listeners to student buttons initially
 addBtnListeners();
-
 
 
 

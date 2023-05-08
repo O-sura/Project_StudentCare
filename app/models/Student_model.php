@@ -24,7 +24,7 @@ class Student_model
 
     public function getNewRequestsCount($studentID)
     {
-        $this->db->query("SELECT * FROM request WHERE student_id = :studentID AND student_seen = 0;");
+        $this->db->query("SELECT * FROM requests WHERE studentID = :studentID AND student_seen = 0;");
         $this->db->bind(':studentID', $studentID);
         $count = $this->db->rowCount();
 

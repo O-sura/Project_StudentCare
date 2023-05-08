@@ -1,20 +1,19 @@
-export class ListingDetails{
-    constructor(id,images,topic,uni,distance,rating,rental,location){
-        this.id = id;
-        this.images = images;
-        this.topic = topic;
-        this.uni = uni;
-        this.rating = rating;
-        this.rental = rental;
-        this.location = location;
-        this.distance = distance;
-    }
+export class ListingDetails {
+  constructor(id, images, topic, uni, distance, rating, rental, location) {
+    this.id = id;
+    this.images = images;
+    this.topic = topic;
+    this.uni = uni;
+    this.rating = rating;
+    this.rental = rental;
+    this.location = location;
+    this.distance = distance;
+  }
 
-    
-    createDetails(){
-        let controllers = '';
+  createDetails() {
+    let controllers = "";
 
-            controllers = `
+    controllers = `
            
             <div class="image">
                 <a href="http://localhost/StudentCare/student_facility/viewOneListing/${this.id}"><img src="http://localhost/StudentCare/public/img/listing/${this.images}"></a>
@@ -30,14 +29,12 @@ export class ListingDetails{
                 <p class="location">${this.location}</p>
             </div>
        
-            `
-     
+            `;
 
-        return `
+    return `
         <div class="item">
             ${controllers}
         </div>
-        `
-    }
-
+        `;
+  }
 }

@@ -3,6 +3,8 @@
     class Counsellor extends Controller{
         public function __construct(){
             Middleware::authorizeUser(Session::get('userrole'), 'counsellor');
+            $this->postModel = $this->loadModel('Counselor');
+            $this->userModel = $this->loadModel('User');
         }
         
         public function index(){
@@ -16,7 +18,8 @@
             
             $this->postModel = $this->loadModel('Counselor');
             $userid = Session::get('userID');
-
+            //Counsellor::getAppointmentStats();
+            //get the time zone
             date_default_timezone_set('Asia/Kolkata');
 
             $curdate = date('Y-m-d');
@@ -24,10 +27,12 @@
 
             $row = $this->postModel->getAppointmentTimes($userid,$curdate);
             $rowNext = $this->postModel->nextAppointmentDetails($userid,$curdate,$currtime);
-            
+            $recentNoti = json_decode($this->postModel->getInformationForDashboardNotification($userid));
 
             $getApp = json_decode($row,true);
             $getNextApp = json_decode($rowNext,true);
+
+            
 
             // print_r($getNextApp);
             // exit;
@@ -37,8 +42,12 @@
 
             $data = [
                 'row'=> $getApp,
-                'rowNext' => $getNextApp
+                'rowNext' => $getNextApp,
+                'recentNoti' => $recentNoti,
             ];
+
+            // print_r($recentNoti);
+            // exit;
 
             // print_r ($data[0]['appointmentTime']);
             // exit;
@@ -111,6 +120,7 @@
                 'specialization' => $row->specialization,
                 'qualifications' => $new,
                 'profile' => $row->profile_img,
+                'description' => $row->counselor_description,
                 'name_err' => '',
                 'username_err' => '',
                 'email_err' => '',
@@ -174,6 +184,7 @@
                 $address = $_POST['address'];
                 $contact = $_POST['contact'];
                 $specialization = $_POST['specialization'];
+                $description = $_POST['bioDesc'];
                 $qualifications = array();
                 //$new = explode(",", $row->qualifications);
 
@@ -204,6 +215,7 @@
                     'specialization' => $specialization,
                     'qualifications' => $qualifications,
                     'profile' => $row->profile_img,
+                    'description' => $description,
                     'name_err' => '',
                     'username_err' => '',
                     'email_err' => '',
@@ -386,12 +398,70 @@
             $this->postModel = $this->loadModel('Counselor');
             $userid = Session::get('userID');
 
+            // $res1 = $this->postModel->newRequestStudents($userid);
+
+            // $res2 = $this->postModel->notiCancelReq($userid);
+
+            // $res3 = $this->postModel->notiCancelApp($userid);
+
+            $res = json_decode($this->postModel->getInformationForNotification($userid));
+            $rowcount = count($res);
+            // print_r ($res);
+            // exit;
+
             $data = [
+                // 'row1' => $res1,
+                // 'row2' => $res2,
+                // 'row3' => $res3
+                'row' => $res,
+                'rowcount' =>  $rowcount
+                // 'newReqCount' => "",
+                // 'canAppCount' => ""
                 
             ];
 
+            //to categorize the notifications
+            // $count1 = 0;
+            // $count2 = 0;
+            // foreach ($res as $item) {
+            //     if ($item->statusPP == 0 && $item->appointmentStatus == 0) {
+            //         $count1++;
+            //     }
+            //     elseif($item->appointmentStatus == 2) {
+            //         $count2++;
+            //     }
+            // }
+                    
+
+
+            // if( $count1 > 0){
+            //     $data['newReqCount'] = 'have';
+            // }
+
+            // if( $count2 > 0){
+            //     $data['canAppCount'] = 'have';
+            // }
+
+       
+            // print_r($data);
+            // echo $count1, $count2;
+            // exit();
+
             $this->loadView('Counselor/notification',$data);
         }
+
+
+        //To mark as read the notifications
+        public function markAsReadNotifications(){
+
+            if($SERVER['REQUEST_METHOD'] == 'POST'){
+
+                if(isset($_POST['mark'])){
+                    $this->postModel->markReadAsNotificationModel($id);
+                }
+            }
+        }
+
 
         //load the recieved students' requests section
         public function studentView(){
@@ -431,30 +501,7 @@
            
         }
 
-        // public function dropdown_handler(){
-        //     if(isset($_GET['filter'])){
-        //         $_GET['filter'] = trim($_GET['filter']);
-        //         $_GET['userid'] = Session::get('userID');
-        //         //$_GET['username'] = trim($_GET['username']);
-        //         //If the saved filter is set
-        //     //    if($_GET['filter'] == 'Saved'){
-        //     //         $res =  $this->CommunityModel->getSavedPosts(Session::get('userID'));
-        //     //    }
-        //        if($_GET['filter'] == '0'){
-        //             $res =  json_encode($this->postModel->getStudents($_GET['filter']));
-        //        }
-        //        else if($_GET['filter'] == '1'){
-        //             $res =  json_encode($this->postModel->getStudents($_GET['filter']));
-        //        }
-        //        else if($_GET['filter'] == '2'){
-        //             $res =  json_encode($this->postModel->getStudents($_GET['filter']));
-        //        }
-        //         echo $res;
-        //     }
-
-        // }
-
-        //filter students based on counselor decision(accept, reject)
+        //to filter the students as new, accepted & rejected
         public function filterStatus(){
 
             $this->postModel = $this->loadModel('Counselor');
@@ -488,9 +535,6 @@
 
                 $gotStu = $_POST['gotStu'];
 
-                // echo $gotStu;
-                // exit;
-
                 $result = $this->postModel->getStudentDetails($gotStu);
 
                 echo json_encode($result);
@@ -498,6 +542,7 @@
 
         }
 
+        //To accept or reject student's requests
         public function acceptRejectStudent($id){
 
             $this->postModel = $this->loadModel('Counselor');
@@ -510,39 +555,216 @@
 
                     $newStatus = 1;
 
-                    $result = $this->postModel->updateStudentStatus($newStatus,$userid,$id);
-                }
-                else if(isset($_POST['decline'])){
-                    $newStatus = 2;
+                    $data = [
+                        'newStatus' => $newStatus,
+                        'cID' => $userid,
+                        'stuID' => $id,
+                        'reason' => ""
+                    ];
 
-                    $result = $this->postModel->updateStudentStatus($newStatus,$userid,$id);
+                    $result = $this->postModel->updateStudentStatus($data);
+                    Counsellor::studentView();
+                }
+                else if(isset($_POST['submit'])){
+
+                           if(isset($_POST['descC'])){
+
+                            $newStatus = 2;
+
+                            $reason = $_POST['descC'];
+
+                            $data = [
+                                'newStatus' => $newStatus,
+                                'cID' => $userid,
+                                'stuID' => $id,
+                                'reason' => $reason
+                            ];
+    
+                            $result = $this->postModel->updateStudentStatus($data);
+                            Counsellor::studentView();
+                           }
+                   
                 }
 
                
             }
         }
 
-        // public function showAppointmentTimes(){
-            
-        //     $this->postModel = $this->loadModel('Counselor');
-        //     $userid = Session::get('userID');
+        //To remove accepted student
+        public function removeStudent($id){
 
-        //     $curdate = date('Y-m-d');
-        //     $row = $this->postModel->getAppointmentTimes($userid,$curdate);
+            $this->postModel = $this->loadModel('Counselor');
+            $userid = Session::get('userID');
 
-        //     echo $row;
-        //     exit;
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+              
+                
+                if(isset($_POST['submit'])){
 
-        //     $data = [
-        //         'rowT'=> $row
-        //     ];
+                    $reason = $_POST['descC'];
+                    $newStatus = 2;
 
-           
-        //     $this->loadView('Counselor/dashboard',$data);
-       
+                    
+                    $data = [
+                        'newStatus' => $newStatus,
+                        'cID' => $userid,
+                        'stuID' => $id,
+                        'reason' => $reason
+                    ];
 
 
-        // }
+                    $result = $this->postModel->updateStudentStatus($data);
+                    Counsellor::studentView();
+                }
+               
+            }
+        }
+
+        //to get the statistics of appointments
+        public function getAppointmentStats(){
+            $userid = Session::get('userID');
+
+            $res = $this->postModel->getAllAppointments($userid);
+        
+            echo $res;
+        }
+        
+
+        //to get the details for bar chart
+        public function getDatailForBarChart(){
+            $userid = Session::get('userID');
+
+            $res = $this->postModel->getAppointmentForWeek($userid);
+        
+            echo $res;
+
+        }
+
+
+        //to change the profile password
+        public function changePassword(){
+            $username = Session::get('username');
+
+            $data = [
+                'username' => $username,
+                'currentPW' => '',
+                'password' => '',
+                'confirmPW' => '',
+                'currentPW_err' => '',
+                'password_err' => '',
+                'confirmPW_err' => ''
+            ];
+          
+            $this->loadView('Counselor/changePW',$data);
+        }
+
+        public function changeCurrentPassword(){
+
+            $username = Session::get('username');
+
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                //Log the user in and start the session
+
+                if(isset($_POST['change-password'])){
+
+                    $data = [
+                        'username' => $username,
+                        'currentPW' => trim($_POST['current-password']),
+                        'password' => trim($_POST['password']),
+                        'confirmPW' => trim($_POST['password-confirm']),
+                        'currentPW_err' => '',
+                        'password_err' => '',
+                        'confirmPW_err' => ''
+                    ];
+
+                    $password = $data['password'];
+
+          
+    
+                    if(!$this->userModel->validatePassword($data['username'], $data['currentPW'])){
+                        $data['currentPW_err'] = '*Current Password does not match';
+                    }
+    
+                    //Password and repeated once are matched
+                    if($_POST['password'] !== $_POST['password-confirm']){
+                        //echo("Password mismatch");
+                        $data['confirmPW_err'] = "*Password mismatch";
+                       // die();
+                    }
+    
+                    //password has(Min. 8 len, one character, one letter, one special char)
+                    if(strlen($password)<8){
+                        //echo("Password should have at least 8 characters");
+                        $data['password_err'] = "*Password should have at least 8 characters";
+                        //die();
+                    }
+                    else{
+                        if (!preg_match('/[0-9]/', $password)) {
+                            //echo("Password must contain at least one number");
+                            $data['password_err'] = "*Password must contain at least one number";
+                            //die();
+                        }
+                        else if(!preg_match('/[a-z]/', $password)){
+                            //echo('Password must contain at least one lowercase letter');
+                            $data['password_err'] = "*Password must contain at least one lowercase letter";
+                            //die();
+                        }
+                        else if(!preg_match('/[A-Z]/', $password)){
+                            //echo('Password must contain at least one uppercase letter');
+                            $data['password_err'] = "*Password must contain at least one uppercase letter";
+                            //die();
+                        }
+                        else if(!preg_match("/[\[^\'£$%^&*()}{@:\'#~?><>,;@\|\-=\-_+\-¬\`\]]/", $password)){
+                            //echo('Password must contain at least one special character');
+                            $data['password_err'] = "*Password must contain at least one special character";
+                            //die();
+                        }
+                    }
+
+
+                    // print_r($data);
+                    // exit;
+
+                    if(empty($data['currentPW'])){
+                        $data['currentPW_err'] = "Please enter current password";
+                    }
+
+                    if(empty($data['confirmPW'])){
+                        $data['confirmPW_err'] = "Please enter confirm password";
+                    }
+
+                    if(empty($data['password'])){
+                        $data['password_err'] = "Please enter new password";
+                    }
+
+                    if(empty($data['username_err']) && empty($data['currentPW_err']) && empty($data['password_err']) && empty($data['confirmPW_err'])){
+
+                        $this->userModel->updatePassword($username, $data['password']);
+                        FlashMessage::flash('password_change_flash', "Successfully Updated Your Password!", "success");
+                        Middleware::redirect('Counsellor/EditProfile');
+                    }
+                    else{
+                        $this->loadView('Counselor/changePW',$data);
+                    }
+                }
+
+
+
+            }
+        }
+
+
+        //to delete own profile of counselor
+        public function deleteOwnProfile(){
+
+            $userid = Session::get('userID');
+
+            $this->postModel->updateUserAsDeleted($userid);
+
+            // $data == [];
+
+           $this->loadView('index');
+        }
 
     }
 
