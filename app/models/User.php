@@ -315,6 +315,19 @@
                 return false;
             }
         }
+
+        public function getProfileImage($userID,$userrole){
+            if($userrole == 'student'){
+                $this->db->query('SELECT profile_img from student WHERE userID = :userID');
+            }else if($userrole == 'counsellor'){
+                $this->db->query('SELECT profile_img from counsellor WHERE userID = :userID');
+            }else if($userrole == 'facility_provider'){
+                $this->db->query('SELECT profile_img from facility_provider WHERE userID = :userID');
+            }
+           
+            $this->db->bind(':userID', $userID);
+            return $this->db->getRes();
+        }
     
     }
 

@@ -20,12 +20,14 @@
 
                         //Check whether the user profile is deleted or blocked first
                         $this->blockAndDeletionHandlder($cookieFound);
+                        $profileImage = $this->getProfileImage($cookieFound->userID,$cookieFound->user_role);
 
                         //Else use the cookie to set the session
                         Session::set('userrole', $cookieFound->user_role);
                         Session::set('userID', $cookieFound->userID);
                         Session::set('username', $cookieFound->username);
                         Session::set('lastLogin', $cookieFound->last_login);
+                        Session::set('prof_img', $profileImage);
 
                         $this->userModel->setLastLogin($cookieFound->userID);
                         Middleware::redirect(Session::get('userrole') . '/home');
@@ -95,12 +97,14 @@
                         }
 
                         $this->blockAndDeletionHandlder($userInfo);
+                        $profileImage = $this->getProfileImage($userInfo->userID,$userInfo->user_role);
 
                         //If everything is set then log them in
                         Session::set('userrole', $userInfo->user_role);
                         Session::set('userID', $userInfo->userID);
                         Session::set('username', $userInfo->username);
                         Session::set('lastLogin', $userInfo->last_login);
+                        Session::set('prof_img', $profileImage);
 
                         if ($data['remember-me'] == true) {
                     
@@ -858,6 +862,10 @@
                 $this->loadView('profile-unavailable');
                 die();
             }
+        }
+
+        public function getProfileImage($userID,$userrole){
+            return $this->userModel->getProfileImage($userID,$userrole);
         }
 
         public function index(){
