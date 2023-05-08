@@ -28,7 +28,7 @@
             $formatted_date = date("l, j F Y, g.i A", strtotime($datetime_stamp));
             ?>
             <div class="row1">
-                <h1>Announcements</h1>
+                Announcement
                 <hr>
             </div>
 
@@ -59,7 +59,6 @@
 
             </div>
         </div>
-
 
     </div>
 

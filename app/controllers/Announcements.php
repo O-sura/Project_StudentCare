@@ -26,13 +26,14 @@ class Announcements extends Controller{
 
     public function show($postId)
     {
-       
+        $usr = Session::get('userID');
         $init_data=[
             'announcementID' => $postId
         ];
 
         $data = [   
-            'announcement' => $this->announcementModel->viewAnnouncement($init_data)
+            'announcement' => $this->announcementModel->viewAnnouncement($init_data),
+            'announcements' => $this->announcementModel->getAnnouncements($usr),
         ];
         
         $this->loadview('announcements/view',$data);
