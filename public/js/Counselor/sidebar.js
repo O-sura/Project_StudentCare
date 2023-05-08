@@ -2,34 +2,14 @@
 let btn = document.querySelector("#btn");
 let sidebar = document.querySelector(".sidebar");
 
-btn.onclick = function(){
-    sidebar.classList.toggle("active");
-}
+btn.onclick = function () {
+  sidebar.classList.toggle("active");
+};
 
-
-const navLinks = document.querySelectorAll('.nav_list a');
+const navLinks = document.querySelectorAll(".nav_list a");
 const currentUrl = window.location.href;
-navLinks.forEach(link => {
+navLinks.forEach((link) => {
   if (link.href === currentUrl) {
-    link.closest('li').classList.add('active');
+    link.closest("li").classList.add("active");
   }
 });
-// //Highlight the current page we are in
-// // Get all the sidebar links
-// const navLinks = document.querySelectorAll('.nav_list a');
-// const currentUrl = window.location.href;
-
-// /*
-// Note for me:
-// closest() method searches up the DOM tree for elements which matches a specified CSS selector.
-// It starts at the element itself, then the anchestors (parent, grandparent, ...) until a match is found.
-// returns null() if no match is found.
-// */
-
-// navLinks.forEach(link => {
-//   let windowURL = currentUrl.split('/').slice(2,5).join('/');
-//   let linkURL = link.href.split('/').slice(2,5).join('/');
-//   if (linkURL === windowURL) {
-//     link.closest('li').classList.add('active');
-//   }
-// });

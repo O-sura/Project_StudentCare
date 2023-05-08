@@ -16,141 +16,151 @@
 </head>
 
 <body>
-    <div class="sidebar">
-        <div class="logo_content">
-            <div class="logo">
-                <div class="logo_name"></div>
-            </div>
-            <i class="fa-solid fa-bars" id="btn"></i>
-        </div>
-        <ul class="nav_list">
-            <li>
-                <a href='<?php echo URLROOT ?>/student/home'>
-                    <i class="fa-solid fa-gauge"></i>
-                    <span class="links_name">Dashboard</span>
-                </a>
-                <span class="tooltip">Dashboard</span>
-            </li>
-            <li>
-                <a href='<?php echo URLROOT ?>/community/home'>
-                    <i class="fa-solid fa-users"></i>
-                    <span class="links_name">Community</span>
-                </a>
-                <span class="tooltip">Community</span>
-            </li>
-            <li>
-                <a href='<?php echo URLROOT ?>/tasks/'>
-                    <i class="fa-solid fa-calendar-days"></i>
-                    <span class="links_name">Schedule</span>
-                </a>
-                <span class="tooltip">Schedule</span>
-            </li>
-            <li>
-                <a href='<?php echo URLROOT ?>/appointments/'>
-                    <i class="fa-solid fa-calendar-check"></i></i>
-                    <span class="links_name">Appointments</span>
-                </a>
-                <span class="tooltip">Appointments</span>
-            </li>
-            <li>
-                <a href='<?php echo URLROOT ?>/announcements/'>
-                    <i class="fa-solid fa-bullhorn"></i></i>
-                    <span class="links_name">Announcements</span>
-                </a>
-                <span class="tooltip">Announcements</span>
-            </li>
-            <li>
-                <a href="<?php echo URLROOT ?>/Student_facility/">
-                    <i class="fa-solid fa-house-circle-check"></i>
-                    <span class="links_name">Listings</span>
-                </a>
-                <span class="tooltip">Listings</span>
-            </li>
-        </ul>
-        <div class="profile_content">
-            <div class="profile">
-                <div class="profile_details">
-                    <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFufGVufDB8fDB8fA%3D%3D&w=1000&q=80">
-                    <div class="name">
-                        Oshada
-                    </div>
-                </div>
-                <a href="logout.php"><i class="fa-solid fa-arrow-right-from-bracket fa-flip-horizontal" id="log_out"></i></a>
-            </div>
-        </div>
-    </div>
+    <?php
+    require_once '../app/views/student_dashboard/sidebar.php';
+    ?>
+
     <div class="home_content">
         <div class="container">
+
+
             <div class="row1">
                 <h1>Edit Profile</h1>
-            </div>
-            <div class="row2">
-                <div class="col-1">
-                    <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFufGVufDB8fDB8fA%3D%3D&w=1000&q=80" id="image2">
-                </div>
-                <div class="col-2">
-                    <div class="username">
-                    <?php echo $data["userDetails"]->username?>
-                    </div>
-                    <div class="change_profile">
-                        <button class="btn" id="myBtn"> <i class="fa-solid fa-pen-to-square"></i> Change profile picture</button>
-                    </div>
-                </div>
-            </div>
-            <div class="row3">
-                <div class="details-form">
-                    <div class="labels">
-                        <div class="label1">
-                            <label for="name">Name:</label>
-                        </div>
-                        <div class="label2">
-                            <label for="uname">Username:</label>
-                        </div>
-                        <div class="label3">
-                            <label for="address">Address:</label>
-                        </div>
-                        <div class="label4">
-                            <label for="phone">Phone No:</label>
-                        </div>
-                    </div>
-                    <div class="inputs">
-                        <div class="input1">
-                            <input type="text" name="name" id="name" placeholder ="<?php echo $data["userDetails"]->fullname?>">
-                        </div>
-                        <div class="input2">
-                            <input type="text" name="uname" id="uname" placeholder="<?php echo $data["userDetails"]->username?>">
-                        </div>
-                        <div class="input3">
-                            <textarea name="address" id="address" rows="5" cols="60" placeholder="<?php echo $data["userDetails"]->home_address?>"></textarea>
-                        </div>
-                        <div class="input4">
-                            <input type="text" name="phone" id="phone" placeholder="<?php echo $data["userDetails"]->contact_no?>">
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="submit-changes">
-                    <button class="btn">Submit Changes</button>
-                </div>
-
-            </div>
-        </div>
-        <!-- The Modal -->
-        <div id="myModal" class="modal">
-
-            <!-- Modal content -->
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <p>Choose an option:</p>
-                <button class="btn" id="uploadBtn">Upload Image</button>
-                <button id="removeBtn">Remove Image</button>
+                <hr>
             </div>
 
+            <form class="" action="<?php echo URLROOT; ?>/student/profile " method="post" enctype="multipart/form-data">
+                <div class="row2">
+
+                    <div class="col-1">
+                        <?php
+                        if ($data["userDetails"]->profile_img != NULL) {
+                            $image = $data["userDetails"]->profile_img;
+                        } else {
+                            $image = "avatar.jpg";
+                        }
+                        ?>
+                        <div class="prof-image">
+                            <img src="<?php echo URLROOT . "/public/img/student/" . $image; ?>" id="image2">
+                            <div class="username">
+                                <?php echo $data["userDetails"]->username ?>
+                            </div>
+                            <div class="btn2">
+                                <label for="inputTag" style="cursor:pointer;">
+                                    <h3> <i class="fa-solid fa-image-portrait fa-fade"></i> Change profile pic</h3>
+                                    <input id="inputTag" type="file" name="file" style="display:none;" accept="image/*" onchange="loadFile(event)" />
+                                </label>
+                            </div>
+                            <div class="change_password">
+                                <button class="btn2">
+                                    <h3><i class="fa-solid fa-key"></i> Change password</h3>
+                                </button>
+                            </div>
+                            <div class="feedback">
+                                <button class="btn2">
+                                    <h3><i class="fa-regular fa-comment-dots"></i> Give feedback</h3>
+                                </button>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="col2">
+                        <div class="details-form">
+                            <div class="labels">
+
+                                <div class="label1">
+                                    <label for="name">Name:</label>
+                                </div>
+
+                                <div class="label2">
+                                    <label for="uname">Username:</label>
+                                </div>
+
+                                <div class="label3">
+                                    <label for="address">Address:</label>
+                                </div>
+
+                                <div class="label4">
+                                    <label for="phone">Phone No:</label>
+                                </div>
+                                <div class="label5">
+                                    <label for="nic">NIC:</label>
+                                </div>
+                                <div class="label6">
+                                    <label for="uni">University:</label>
+                                </div>
+                                <div class="label7">
+                                    <label for="dob">DOB:</label>
+                                </div>
+                                <div class="label7">
+                                    <label for="email">E-mail:</label>
+                                </div>
+                            </div>
+                            <div class="inputs">
+                                <?php
+                                if ($data['name_err'])
+                                    echo '<div class="form-field" data-error=" ' . $data['name_err'] . '">';
+                                else
+                                    echo '<div class="input1">';
+                                ?>
+                                <input type="text" name="name" id="name" value="<?php echo $data["userDetails"]->fullname ?>">
+                            </div>
+                            <?php
+                            if ($data['username_err'])
+                                echo '<div class="form-field" data-error=" ' . $data['username_err'] . '">';
+                            else
+                                echo '<div class="input2">';
+                            ?>
+                            <input type="text" name="uname" id="uname" value="<?php echo $data["userDetails"]->username ?>">
+                        </div>
+                        <?php
+                        if ($data['address_err'])
+                            echo '<div class="form-field" data-error=" ' . $data['address_err'] . '">';
+                        else
+                            echo '<div class="input3">';
+                        ?>
+                        <textarea name="address" id="address" rows="5" cols="60"><?php echo $data["userDetails"]->home_address ?></textarea>
+                    </div>
+                    <?php
+                    if ($data['contact_err'])
+                        echo '<div class="form-field" data-error=" ' . $data['contact_err'] . '">';
+                    else
+                        echo '<div class="input4">';
+                    ?>
+                    <input type="text" name="phone" id="phone" value="<?php echo $data["userDetails"]->contact_no ?>">
+                </div>
+
+                <div class="input5">
+                    <input type="text" name="nic" id="nic" value="<?php echo $data["userDetails"]->nic ?>" disabled>
+                </div>
+
+                <div class="input6">
+                    <input type="text" name="uni" id="uni" value="<?php echo $data["userDetails"]->university ?>" disabled>
+                </div>
+
+                <div class="input7">
+                    <input type="text" name="dob" id="dob" value="<?php echo $data["userDetails"]->dob ?>" disabled>
+                </div>
+
+                <div class="input8">
+                    <input type="text" name="email" id="email" value="<?php echo $data["userDetails"]->email ?>" disabled>
+                </div>
         </div>
 
     </div>
 
+    <div class="submit-changes">
+        <button class="btn" type="submit">Submit Changes</button>
+    </div>
+    </div>
+    </div>
+    </form>
+    </div>
+    </div>
+    <!-- </form> -->
 
     <script>
         let btn = document.querySelector("#btn");
@@ -159,31 +169,17 @@
         btn.onclick = function() {
             sidebar.classList.toggle("active");
         }
-        // Get the modal
-        var modal = document.getElementById("myModal");
 
-        // Get the button that opens the modal
-        var btn2 = document.getElementById("myBtn");
+        //To load the profile image as soon as it changed
+        var loadFile = (e) => {
+            var output = document.getElementById('image2');
 
-        // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
+            output.src = URL.createObjectURL(e.target.files[0]);
 
-        // When the user clicks the button, open the modal
-        btn2.onclick = function() {
-            modal.style.display = "block";
-        }
-
-        // When the user clicks on <span> (x), close the modal
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
+            output.onload = () => {
+                URL.revokeObjectURL(output.src) // free memory
             }
-        }
+        };
     </script>
 </body>
 

@@ -6,6 +6,8 @@ class Session {
     //starts session
     public static function init() {
         if(session_status() !== PHP_SESSION_ACTIVE || session_status() === PHP_SESSION_NONE) {
+                // Set the session timeout value to 30 minutes
+                //ini_set('session.gc_maxlifetime', 1800);
                 session_start();
                 //OVERLOAD TEST
                 Session::set("curr_time", time());

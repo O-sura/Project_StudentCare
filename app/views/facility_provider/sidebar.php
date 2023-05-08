@@ -24,7 +24,7 @@
         </div>
         <ul class="nav_list">
             <li>
-                <a href=<?php echo URLROOT. "/facility_provider/myListing"?>>
+                <a href=<?php echo URLROOT. "/facility_provider/"?>>
                     <i class="fa-solid fa-gauge"></i>
                     <span class="links_name">My Listings</span>
                 </a>
@@ -64,7 +64,7 @@
             </li>
 
             <li>
-                <a href=<?php echo URLROOT. "/facility_provider/message"?>>
+                <a href=<?php echo URLROOT. "/messaging_facility/index"?>>
                     <i class="fa-solid fa-message"></i>
                     <span class="links_name">Message</span>
                 </a>

@@ -1,64 +1,161 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <script src="https://kit.fontawesome.com/174ad75841.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/facility_provider/profile.css"?> >
-    <script src=<?php echo URLROOT . "/public/js/facility_provider/profile.js"?> defer></script>
-    <title>Profile</title>
+    <link rel="stylesheet" href="<?php echo URLROOT . "/public/css/facility_provider/editDetails.css"?>">
+    <script src=<?php echo URLROOT . "/public/js/facility_provider/editProfile.js"?> defer></script>
+    <title></title>
 </head>
+
 <body>
-    <div class="page">
+    <div class="sidebar">
+        <?php include "sidebar.php"; ?>
+    </div>
+    
+    <div class="home_content">
+        
+        <div class="div5">
+        
+            <form action=<?php echo URLROOT."/facility_provider/updateProfileDetails/".$_SESSION['userID'] ;?> method="post" enctype="multipart/form-data">  
+            
+            <a id="back-link">
+                <i class="fa-sharp fa-solid fa-left-long"><span>  Go Back</span></i>
+            </a>
 
-        <div class="sidebar">
-            <?php include "sidebar.php"; ?>
-        </div>
+            <div class="firstContainer">
+                <!-- enctype="multipart/form-data" -->
+                    <div class="topSection">
+                        <?php 
+                            if(!empty($data['profile_img'])){
+                                $image = "fprovider/" . $data['profile_img'];
+                            }
+                            else{
+                                $image = "avatar.jpg";
+                            }
+                        ?>
 
-        <div class="container">
-            <div class="head">
-                <a id="back-link">
-                    <i class="fa-sharp fa-solid fa-left-long"><span>  Go Back</span></i>
-                </a>
+                        <div class="dp">
+                            <img  class="dpI" id="output" src="<?php echo URLROOT."/public/img/".$image ;?>" alt="Profile Picture">
+                        </div>
+                        
+                        
+                        <div class="buttonU">
+                            <label for="inputTag" style="cursor:pointer;">
+                                <br/>
+                                <i class="fa fa-2x fa-camera" style="cursor:pointer; margin-left: 28%; margin-top: -20%;"></i>
+                                <input id="inputTag" type="file" name="file" style="display:none;" accept="image/*" onchange="loadFile(event)"/>
+                                <br/>
+                                <span id="imageName"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="middleSection">
+                        <div class="colA">
+                            <?php 
+                                if($data['name_err'])
+                                    echo '<div class="form-field" data-error=" ' . $data['name_err'] . '">';
+                                else
+                                    echo '<div class="form-field">';
+                            ?>
+                            <label for="name">Name:</label><br>
+                            <input type="text" value="<?= $data['name'] ;?>" name="name"  class="form-input">
+                            </div>
+                            
+                            <?php 
+                                if($data['email_err'])
+                                    echo '<div class="form-field" data-error=" ' . $data['email_err'] . '">';
+                                else
+                                    echo '<div class="form-field">';
+                            ?>
+                            <br><label for="email">Email:</label><br>
+                            <input type="email" value="<?= $data['email'] ;?>" name="email"  class="form-input">
+                            </div>
 
-                <h1>My Profile</h1>
-            </div>
+                            <?php 
+                                if($data['contact_err'])
+                                    echo '<div class="form-field" data-error=" ' . $data['contact_err'] . '">';
+                                else
+                                    echo '<div class="form-field">';
+                            ?>
+                            <br><label for="contact">Contact Number:</label><br>
+                            <input type="number" value="<?= $data['contact'] ;?>" name="contact"  class="form-input">
+                            </div>
+                            
+                        </div>
+                        <div class="colB">
+                            <?php 
+                                if($data['username_err'])
+                                    echo '<div class="form-field" data-error=" ' . $data['username_err'] . '">';
+                                else
+                                    echo '<div class="form-field">';
+                            ?>
+                            <label for="uName">Username:</label><br>
+                            <input type="text" value="<?= $data['username'] ;?>" name="username"  class="form-input">
+                            </div>
+                            
 
-            <div class="profile">
-                <div id="prof_img">
-                    <img src="<?php echo URLROOT . "/public/img/avatar.jpg"?>" alt="">
-                    <div class="profile_image">
-                        <input type="file" name="image" id="image">
-                        <i class="fa fa-camera"></i>
+                            <?php 
+                                if($data['nic_err'])
+                                    echo '<div class="form-field" data-error=" ' . $data['nic_err'] . '">';
+                                else
+                                    echo '<div class="form-field">';
+                            ?>
+                            <br><label for="nic">NIC:</label><br>
+                            <input type="text" value="<?= $data['nic'] ;?>" name="nic" class="form-input">
+                            <!-- disabled="disabled" -->
+                            </div>
+
+                            <?php 
+                                if($data['address_err'])
+                                    echo '<div class="form-field" data-error=" ' . $data['address_err'] . '">';
+                                else
+                                    echo '<div class="form-field">';
+                            ?>
+                            <br><label for="address">Address:</label><br>
+                            <input type="text" value="<?= $data['address'] ;?>" name="address"  class="form-input">
+                            </div>
+
+                            <br><label for="category">Category:</label><br>
+                            
+                            <div class="categoryfilter">
+                                <?php
+                                    $category = array();
+                                ?>
+                                <div class="option">
+                                    <input type="checkbox" name="cat[]" value="Food">
+                                    <label>Facility(Boarding Places, House for Rent, etc.)</label>
+                                    
+                                </div>
+                                <div class="option">
+                                    <input type="checkbox" name="cat[]" value="Food">
+                                    <label>Food</label>
+                                </div>
+                                <div class="option">
+                                    <input type="checkbox" name="cat[]" value="Furniture">
+                                    <label>Furniture and Supplies</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            
+                <div class="bottomSection">
+                    <div class="last">
+                        <input type="submit" class="save" value="Save Changes" name="saveChanges">
                     </div>
                 </div>
-                <div class="personal">
-                    <h2>Personal Information</h2>
-                    <p class="info">
-                        <span>Name : <?php echo $data['editprofile']->fullname; ?></span><br>
-                        <span>Username : <?php echo $data['editprofile']->username; ?></span><br>
-                        <span>NIC : <?php echo $data['editprofile']->nic; ?></span>
-                    </p>
-                </div>
+                <!-- <div class="delete">
+                    <input type="submit" class="delete" value="Delete Profile" name="deleteProfile">
+                </div>-->
             </div>
-
-            <div class="details">
-
-                <div class="contact">
-                    <h2>Contact Information</h2>
-                    <span>Address : <?php echo $data['editprofile']->home_address; ?></span><br>
-                    <span>Email : <?php echo $data['editprofile']->email; ?></span><br>
-                    <span>Contact Number : <?php echo $data['editprofile']->contact_no; ?></span>
-                </div>
-
-                <div class="category_details">
-                    <h2>Selected Category</h2>
-                    <i class="fa-sharp fa-solid fa-square"></i><?php echo $data['editprofile']->category; ?>
-                </div>
-            </div>
+            </form>
         </div>
-
     </div>
+
 </body>
 </html>

@@ -7,17 +7,19 @@
   <script src="https://unpkg.com/feather-icons"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="<?php echo URLROOT . "/public/css/Counselor/editDetails.css"?>">
-  <script src=<?php echo URLROOT . "/public/js/Counselor/goback.js"?> defer></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="<?php echo URLROOT . "/public/css/Counselor/editDetails.css"?>">
+  <!-- <link rel="stylesheet" href="<?php echo URLROOT . "/public/css/flash.css"?>"> -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-
-
+  <script src=<?php echo URLROOT . "/public/js/Counselor/goback.js"?> defer></script>
+  <script src=<?php echo URLROOT . "/public/js/Counselor/editDetails.js"?> defer></script>
+  <script src= <?php echo URLROOT . "/public/js/flash.js"?> defer></script>
   <title></title>
 </head>
 
 <body>
+    <?php FlashMessage::flash('password_change_flash') ;?>
     <?php 
       require_once '../app/views/counselor/sidebar.php';
     ?>
@@ -129,9 +131,13 @@
                     
                         </div>
                     </div>
-                
+                <div>
+                    
+                </div>
                 <div class="qualificationSection">
-                    <div class="qualiD" id="qualiD">
+                    <label for="editBio">Bio</label><br>
+                    <input class="quali" name="bioDesc" value="<?= $data['description'] ;?>"><br><br>
+                    <div class="qualiD" id="qualiD" >
                         <?php 
                             if($data['qualification_err'])
                             echo '<div class="form-field" id="qualifications" data-error=" ' . $data['qualification_err'] . '">';
@@ -153,24 +159,10 @@
                     
                 </div>
                 <div class="bottomSection">
-                    <!-- <h2>Change Password</h2>
-                    <div class="changepw">
-                        <div class="colC">
-                            <label for="currentpw">Current Password</label><br>
-                            <input class="pw" type="password" name="Cpw">
-        
-                        </div>
-                        <div class="colD">
-                            <label for="newpw">New Password</label><br>
-                            <input class="pw" type="password" name="Npw"><br><br>
-                            <label for="verlfypw">Confirm Password</label><br>
-                            <input class="pw" type="password" name="CNpw">
-                        </div>
-                    </div> -->
                     <div class="last">
                         <div class="special">
-                            <a class="dlt">Change Password</a><br><br>
-                            <a class="dlt">Delete my Profile</a>
+                            <a class="pwBtn" id="pwBtn" href="http://localhost/StudentCare/Counsellor/changePassword">Change Password</a><br><br>
+                            <a class="dlt" id="dltBtn">Delete my Profile</a>
                         </div>
                         <input type="submit" class="save" value="Save Changes" name="saveChanges">
                     </div>
@@ -179,6 +171,26 @@
             </div>
             </form>
         </div>
+
+        <!-- The Modal for delete the profile -->
+        <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+        
+
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                
+                <p>Are you sure want to delete your profile?</p>
+                <div class="modalBtn">
+                    <button id="removeBtn" class="rbtn" name="removeBtn"><a name="removeLink" id="removeUser" class='remove'  href="http://localhost/StudentCare/Counsellor/deleteOwnProfile">Yes</a></button>
+                    <button class = "btnCan" id="canBtn" >No</button>
+                </div>
+                
+            </div>
+
+        </div>
+
     </div>
 
 </body>

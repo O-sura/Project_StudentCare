@@ -1,0 +1,143 @@
+
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    min-height: 100vh;
+    display: grid;
+    /* background-color: cadetblue; */
+    font-size: 16px;
+    grid-template-columns: 2fr 9fr;
+    overflow-y: auto;
+}
+
+.section{
+    padding: 20px;
+    /* background-color: aquamarine; */
+    text-align: center;
+    /* border: 1px solid rebeccapurple */
+}
+
+#page-content{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* styling for search bar */
+#searchbar {
+    border: none;
+    border-radius: 25px;
+    padding: 15px 15px 12px 40px;
+    font-size: 16px;
+    color: #333;
+    background-color: #f5f5f5;
+    background-image: url('https://cdn-icons-png.flaticon.com/512/622/622669.png');
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    background-size: 20px 20px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  #searchbar:focus {
+    outline: none;
+    box-shadow: 0 0 10px #719ece;
+    background-color: #fff;
+  }
+  
+  
+
+.div-3{
+    width: 100%;
+    padding: 2rem;
+    margin-top: 2rem;
+    border-radius: 10px;
+    height: 90%;
+    overflow: auto;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.div-3::-webkit-scrollbar {
+    width: 0.7rem; /* set the width of the scrollbar */
+  }
+  
+  .div-3::-webkit-scrollbar-thumb {
+    background-color: gray; /* set the color of the thumb */
+    border-radius: 5px; /* round the edges of the thumb */
+    height: 10px;
+  }
+  
+  .div-3::-webkit-scrollbar-track {
+    background-color: lightgray; /* set the color of the track */
+    border-radius: 5px;
+    height: 50px;
+  }
+
+.heading{
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.stat-table{
+    width: 100%;
+    margin-top: 1.5rem;
+}
+
+table{
+    margin: 3rem auto;
+    background-color: white;
+    width: 100%;
+    border-radius: 5px;
+    border-collapse: collapse;
+}
+
+.stat-table th{
+    height: 3rem;
+    padding: 0.5rem;
+    border-bottom: 0.5px solid lightgray;
+    color:  rgba(0, 0, 0, 0.4);
+}
+
+.stat-table tr{
+    height: 3rem;
+    border-bottom: 1pt solid rgba(0, 0, 0, 0.07);
+    font-size: 0.9rem;
+}
+
+.chart-div h3{
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.btn-row{
+    display: flex;
+}
+
+input[type="submit"]{
+    margin: 0.2rem;
+    padding: 0.5rem;
+    width: 100%;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    border-radius: 5px;
+}
+
+#block-btn{
+    background-color: #FFBF42;
+}
+
+.delete-btn{
+    background-color: #C90205;
+    color: white;
+}
+
+#unblock-btn{
+    background-color: #08E152;
+}
+

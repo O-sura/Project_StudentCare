@@ -1,17 +1,28 @@
-//add more universities
-var counter = 1;
-var textbox = "";
-var another = document.getElementById("another");
-function addAnother(){
-    var div = document.createElement("div");
-    div.setAttribute("class", "sub22");
-    div.setAttribute("id","");
+//go back to previous page
+document.getElementById("back-link").addEventListener("click", function() {
+  history.go(-1);
+});
 
-    var textbox = "<input class='uniName' name='uniName[]' id='uniName_"+counter+"' type='text'>";
 
-    div.innerHTML = textbox;
-    another.appendChild(div);
-    counter++;
+function addAnother() {
+  // Get the container element
+  var container = document.querySelector('.university-adder');
+
+  // Get the number of existing university fields
+  var numFields = container.querySelectorAll('.university-field').length;
+
+  // Clone the first university field div
+  var newField = container.querySelector('.university-field').cloneNode(true);
+
+  // Increment the ids of the select and input fields
+  var select = newField.querySelector('.select');
+  select.id = 'universityFilter_' + numFields;
+
+  var input = newField.querySelector('.uniName');
+  input.id = 'uniName_' + numFields;
+
+  // Append the new university field to the container
+  container.appendChild(newField);
 }
 
 //category select dropdown
@@ -61,7 +72,3 @@ input.addEventListener('change', function() {
   }
 });
 
-//line break of text area
-/* var inputt = document.getElementById("my-input");
-var inputValue = input.value.replace(/\n/g, ",");
-input.value = inputValue; */

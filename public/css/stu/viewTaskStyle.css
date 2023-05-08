@@ -175,7 +175,7 @@ body{
     margin-left: 100px;
   }
   .col-17{
-    color:#B3B3B3;
+    color:#1A285A;
   }
   
   .completed{
@@ -203,7 +203,7 @@ body{
     border-radius: 20px;
     align-items: center;
     width: 50vw;
-    border-color: #B3B3B3;
+    border-color: #1A285A;
     
     -webkit-transition: all 500ms ease-in-out;
     -moz-transition: all 500ms ease-in-out;

@@ -1,5 +1,5 @@
 export class CounselorDetails{
-    constructor(id,name,description,img,specialization,address,dob){
+    constructor(id,name,description,img,specialization,address,dob,qualifications){
         this.id = id;
         this.name = name;
         this.description = description;
@@ -7,6 +7,7 @@ export class CounselorDetails{
         this.specialization = specialization;
         this.address = address;
         this.dob = dob;
+        this.qualifications = qualifications;
     }
 
     
@@ -15,7 +16,7 @@ export class CounselorDetails{
        
             controllers = `
             <div class="counselor-pic">
-            <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFufGVufDB8fDB8fA%3D%3D&w=1000&q=80" id="image3">
+            <img src="http://localhost/StudentCare/public/img/counselor/${this.prof}" id="image3">
         </div>
         <div class="counselor-name">
             <h3>Dr.${this.name}</h3>
@@ -52,7 +53,7 @@ export class CounselorDetails{
                     ${this.specialization}
                 </div>
                 <div class="qualification-details">
-                    MBBS, MD, FRCPsych
+                    ${this.qualifications}
                 </div>
                 <div class="description-details">
                     ${this.description}

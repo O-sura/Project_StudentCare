@@ -41,21 +41,31 @@ body{
     font-size: 2.5rem;
 }
 
-#mark-all{
+.mark-all{
     justify-self: end;
-    margin-top: 1rem;
-    padding: 10px 30px;
-    height: 3rem;
+    /* margin-top: 1rem; */
+    padding: .7rem;
+    /* height: 2rem; */
     color: black;
     background-color: #FFBF42;
-    font-size: 18px;
+    font-size: 1rem;
     border: none;
     border-radius: 30px;
-    margin-top: 20px;
-    font-weight: 500;
+    /* margin-top: 20px; */
+    font-weight: bold;
     cursor: pointer;
-    transform: translateY(-25%);
+    /* transform: translateY(-25%); */
     
+}
+
+.complaint-box-1,.complaint-box-2{
+    min-height: 350px;
+}
+
+h4{
+    margin-top: 6rem;
+    font-size: 4rem;
+    color: rgba(0, 0, 0, 0.15)
 }
 
 .complaint{

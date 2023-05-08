@@ -22,6 +22,11 @@
     ?>
     <div class="home_content">
         
+      <div class="topic">
+          <span><h1 class="headApp">Appointments</h1></span>
+      </div>
+      <hr class="hrbar">
+
         <div class="div4">
           <div class="bottomSection">
                       <div class="div5">
@@ -58,7 +63,7 @@
                       <div class="div6">
 
                         <form action="<?php echo URLROOT."/counselorAppointment/createAppointment" ;?>" method="post">
-                          <h3>Create an Appointment</h3><br><br>
+                          <h3>Create an Appointment</h3><br>
 
                           <?php 
                                 if($data['stuID_err'])
@@ -118,6 +123,7 @@
             
         
     </div>
+
 </body>
 
 </html>

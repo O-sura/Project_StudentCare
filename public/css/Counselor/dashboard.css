@@ -1,12 +1,16 @@
 
   
   /* home section */
-  
+  body{
+    height: fit-content;
+    padding-bottom: 20px;
+    margin-bottom: 10px;
+  }
   
   .divSection{
-      
+    
       justify-content: center;
-      margin-left: 5%;
+      margin-left: 4%;
       margin-top: 1%;
       align-items: center;
       position: relative;
@@ -27,11 +31,14 @@
 
   .subb{
     font-size: 20px;
+    margin-bottom: 2%;
   }
   
   .row1div1{
-      width: 350px;
-      height: 220px;
+      text-align: center;
+      justify-content: center;
+      width: 28%;
+      height: 80%;
       background-color: white;
       margin: 3% 3%;
       border-radius: 15px;
@@ -39,22 +46,22 @@
       text-align: center;
   }
 
-  .row1div1:hover {
+  /* .row1div1:hover {
     transform:scale(1.2) ;
     transition-duration: 0.7s;
-  }
+  } */
 
   .pie{
-    margin-left: 15%;
+    margin-left: 16%;
     margin-top: -11%;
   }
 
 
 
   .piechart {
-
+    margin-top: 1%;
     width: 150px;
-    height: 140px;
+    height: 150px;
   }
   
   .barchart {
@@ -64,8 +71,8 @@
   }
   
   .row1div2{
-      width: 350px;
-      height: 220px;
+      width: 28%;
+      height: 80%;
       background-color: #1A285A;;
       margin: 3% 3%;
       border-radius: 15px;
@@ -74,18 +81,19 @@
       text-align: center;
   }
 
-  .row1div2:hover {
+  /* .row1div2:hover {
     transform:scale(1.2) ;
     transition-duration: 0.7s;
-  }
+  } */
 
   .cont{
     font-size: 18px;
+    font-weight: 500;
   }
   
   .row1div3{
-      width: 350px;
-      height: 220px;
+      width: 28%;
+      height: 80%;
       background-color: white;
       margin: 3% 3%;
       border-radius: 15px;
@@ -93,14 +101,15 @@
       text-align: center;
   }
 
-  .row1div3:hover {
+  /* .row1div3:hover {
     transform:scale(1.2) ;
     transition-duration: 0.7s;
-  }
+  } */
   
   .row2{
       height: 210px;
       display: flex;
+      margin-left: -1%;
   }
   
   h2{
@@ -115,30 +124,57 @@
       width: 150px;
       height: 120px;
       background-color:#7381b7;
-      margin: 2.5% 4%;
+      margin: 2% 4%;
       float: left;
       border-radius: 15px;
       color: white;
       font-weight: bolder;
       font-size: 27px;
       text-align: center;
-      padding: 3%;
+      padding: 2%;
+      justify-content: center;
 
   }
 
-  .row2div1:hover {
+  .noappR{
+    height: 60%;
+    width: 40%;
+    background-color:#7381b7;
+    margin: 2.5% 3%;
+    float: left;
+    border-radius: 15px;
+    color: white;
+    text-align: center;
+    
+  }
+
+  .noappP{
+    margin-top: 5%;
+    text-align: center;
+    padding: 3% 3%;
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  /* .noappR:hover {
     transform:scale(1.2) ;
     transition-duration: 0.7s;
-  }
+  } */
+
+  /* .row2div1:hover {
+    transform:scale(1.2) ;
+    transition-duration: 0.7s;
+  } */
   
   
   
   .row3{
       justify-content: space-between;
+      padding-block-end: 3%;
   }
   
   .row3div1{
-      height: 30%px;
+      height: 30%;
       width: 95%;
       margin-left: 3%;
       margin-top: 2%;
@@ -146,6 +182,20 @@
       background-color: #f0f2f7;
   }
   
+.noNotifi{
+  width: 90%;
+  height: 70px;
+  font-size: 20px;
+  font-weight: 500;
+  background-color: white;
+  border-radius: 10px;
+  padding: 0.5% 0.5%;
+  text-align: center;
+  margin: 4% 2%;
+  align-content: space-between;
+  display: flex;
+}
+
   span{
     display: flex;
     padding: 2% 2%;
@@ -153,7 +203,7 @@
   
   
   .row3div2{
-      width: 80%;
+      width: 90%;
       height: 15%;
       margin-top: -0.3%;
       margin-left: 2%;
@@ -164,54 +214,75 @@
       padding: 0.3%;
       
   }
-
+/* 
   .row3div2:hover {
     background-color:#1A285A ;
     color: white;
     transition-duration: 0.7s;
-  }
+  } */
 
+  
+
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #fffdfd; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #1A285A; 
+  border-radius: 10px;
+  width: 8px;
+  height: 8px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #1A285A; 
+}
 
   
   
   
-  @media screen and (max-width:1200px) {
+  @media screen and (max-width:1450px) {
 
         .row1{
           width: 100%;
       
         }
 
-        .row2{
-          height: 200px;
-          margin-bottom: -20px;
-        }
-
         
         .row1div1{
           
-          width: 220px;
-          height: 160px;
+          width: 28%;
+          height: 72%;
           margin: 3% 3%;
           border-radius: 15px;
         }
         .row1div2{
-          width: 220px;
-          height: 160px;
+          width: 28%;
+          height: 72%;
           margin: 3% 3%;
           border-radius: 15px;
         }
         .row1div3{
-          width: 220px;
-          height: 160px;
+          width: 28%;
+          height: 72%;
           margin: 3% 3%;
           border-radius: 15px;
         }
 
         .piechart {
 
-          width: 100px;
-          height: 80px;
+          width: 150px;
+          height: 150px;
         }
     
         .barchart {
@@ -221,8 +292,8 @@
         } 
 
         .row2div1{
-          width: 100px;
-          height: 100px;
+          width: 120px;
+          height: 120px;
           background-color:#1A285A;
           margin-right: 2%;
           float: left;
@@ -232,7 +303,7 @@
       }
 
       .row3div1{
-        height: 200px;
+        height: fit-content;
         width: 70%;
         background-color:#f0f2f7;
         margin-left: 3%;
@@ -241,40 +312,55 @@
     }
 
       
+    .noappP{
+      margin-top: 5%;
+      text-align: center;
+      padding: 3% 3%;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+      
   
   }
   
-  @media screen and (max-width: 900px) {
-    
+
+  @media screen and (max-width:1250px) {
+
     .row1{
       width: 100%;
-      margin-left: 2%;
   
     }
+
+    .subb{
+      font-size: 16px;
+      margin-bottom: 2%;
+    }
+    
     .row1div1{
       
-      width: 150px;
-      height: 160px;
-      margin: 1% 1%;
+      width: 28%;
+      height: 70%;
+      margin: 3% 3%;
       border-radius: 15px;
     }
     .row1div2{
-      width: 150px;
-      height: 160px;
-      margin: 1% 1%;
+      width: 28%;
+      height: 70%;
+      margin: 3% 3%;
       border-radius: 15px;
     }
     .row1div3{
-      width: 150px;
-      height: 160px;
-      margin: 1% 1%;
+      width: 28%;
+      height: 70%;
+      margin: 3% 3%;
       border-radius: 15px;
     }
 
     .piechart {
 
-      width: 100px;
-      height: 80px;
+      width: 150px;
+      height: 150px;
     }
 
     .barchart {
@@ -284,25 +370,176 @@
     } 
 
     .row2div1{
-      width: 65px;
-      height: 65px;
+      width: 120px;
+      height: 120px;
       background-color:#1A285A;
-      margin-right: 0%;
+      margin-right: 2%;
       float: left;
       padding: 1%;
-      font-size: 14px;
+      font-size: 22px;
 
-    }
-
-    .row3div1{
-      height: 200px;
-      width: 45%;
-      background-color:#f0f2f7;
-      margin-left: 3%;
-      margin-top: 2%;
-      overflow-y: scroll;
-    }
-      
-      
   }
+
+  .row3div1{
+    height: fit-content;
+    width: 70%;
+    background-color:#f0f2f7;
+    margin-left: 3%;
+    margin-top: 2%;
+    overflow-y: scroll;
+}
+
+  
+
+}
+
+@media screen and (max-width:1150px) {
+
+  .row1{
+    width: 100%;
+
+  }
+
+  
+  .row1div1{
+    
+    width: 28%;
+    height: 60%;
+    margin: 3% 3%;
+    border-radius: 15px;
+  }
+  .row1div2{
+    width: 28%;
+    height: 60%;
+    margin: 3% 3%;
+    border-radius: 15px;
+  }
+  .row1div3{
+    width: 28%;
+    height: 60%;
+    margin: 3% 3%;
+    border-radius: 15px;
+  }
+
+  .piechart {
+
+    width: 150px;
+    height: 150px;
+  }
+
+  .barchart {
+
+    width: 100px;
+    height: 80px;
+  } 
+
+  .row2div1{
+    width: 120px;
+    height: 120px;
+    background-color:#1A285A;
+    margin-right: 2%;
+    float: left;
+    padding: 1%;
+    font-size: 22px;
+
+}
+
+.row3div1{
+  height: fit-content;
+  width: 70%;
+  background-color:#f0f2f7;
+  margin-left: 3%;
+  margin-top: 2%;
+  overflow-y: scroll;
+}
+
+
+
+}
+  
+
+@media screen and (max-width:900px) {
+
+  .subb{
+    font-size: 15px;
+  }
+
+  .row1{
+    width: 100%;
+
+  }
+
+  i{
+    font: size 2em;;
+  }
+
+  .cont{
+    font-size: 15px;
+    margin-top: -1%;
+  }
+
+  
+  .row1div1{
+    
+    width: 28%;
+    height: 40%;
+    margin: 3% 3%;
+    border-radius: 15px;
+  }
+  .row1div2{
+    width: 28%;
+    height: 40%;
+    margin: 3% 3%;
+    border-radius: 15px;
+  }
+  .row1div3{
+    width: 28%;
+    height: 40%;
+    margin: 3% 3%;
+    border-radius: 15px;
+  }
+
+  .pie{
+    margin-top: -16%;
+  }
+
+  .piechart {
+
+    width: 150px;
+    height: 150px;
+  }
+
+  .fa-regular {
+    font-size: 2em;
+  }
+
+  .barchart {
+
+    width: 100px;
+    height: 80px;
+  } 
+
+  .row2div1{
+    width: 120px;
+    height: 120px;
+    background-color:#1A285A;
+    margin-right: 2%;
+    float: left;
+    padding: 1%;
+    font-size: 22px;
+
+}
+
+.row3div1{
+  height: fit-content;
+  width: 70%;
+  background-color:#f0f2f7;
+  margin-left: 3%;
+  margin-top: 2%;
+  overflow-y: scroll;
+}
+
+
+
+}
   

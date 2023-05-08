@@ -40,7 +40,7 @@
                         <input type="text" name="category" id="category" hidden>
                         <div class="dropdown-menu">
                             <div class="select-btn">
-                                <span class="Sbtn-text">All Posts</span>
+                                <span class="Sbtn-text">Category</span>
                                 <i class="fa-sharp fa-solid fa-chevron-down"></i>
                             </div>
                             <ul class="options">

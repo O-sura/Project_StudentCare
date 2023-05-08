@@ -1,10 +1,5 @@
 <?php
- //print_r($data['viewone']->uniName);
- $uniList = $data['unilist'];
-
- foreach ($uniList as $color) {
-    echo $color . "<br>";
-}
+ 
 
 ?>
 <!DOCTYPE html>
@@ -17,7 +12,9 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <?php
+    print_r($data);
+    ?>
 </body>
 </html>
 

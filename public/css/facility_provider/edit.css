@@ -1,0 +1,291 @@
+*{
+    font-family: 'Poppins', sans-serif;
+    margin:0; 
+    padding:0;
+    box-sizing: border-box;
+    text-decoration: none;
+ }
+ 
+ .page{
+    display: flex;
+    min-height: 120vh;
+ }
+ 
+ /* body{
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    overflow: hidden;
+ } */
+ 
+ /* Listing add form */
+ 
+ .container{
+    /* align-items: center;
+    justify-content: center; */
+    padding: 20px;
+    margin-left: 80px;
+    max-width: 80%;
+ }
+ 
+ .container #back-link{
+    cursor: pointer;
+ }
+ 
+ .container form{
+    width: 85%;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    text-align: center;
+ }
+ 
+ .container form .sub{
+    margin-left: 80px;
+    width: 1000px;
+    display: flex;
+ }
+ 
+ .container form .sub .sub2{
+    margin-left: 80px;
+ }
+ 
+ .container form .sub .sub1 .unisub .uniName{
+    width: 20%;
+ }
+ 
+ .container form .sub .sub1 .unisub .uniName p{
+    padding-left: 0;
+ }
+ 
+ .container form .sub .sub1 .unisub select{
+    width: 70%;
+    margin-left: 20px;
+    height: 45px;
+ }
+ 
+ .container h1{
+    margin-left: 150px;
+    font-size: 30px;
+    margin-bottom: 40px;
+ }
+ 
+ .container form p{
+    text-align: left;
+    margin-left: 30px;
+    margin-top: 5px;
+ }
+ 
+ .container form input{
+    width: 95%;
+    height: 20px;
+    padding:20px;
+    font-size: 12px;
+    margin: 10px 20px;
+    background: #fff;
+    border-radius: 5px;
+    border: 1px solid;
+ }
+ 
+ 
+ .container form i{
+    height: 40px;
+    font-size: 12px;
+    width: 95%;
+    border-radius: 5px;
+    padding:20px 15px;
+    margin: 10px 20px;
+    background: #fff;
+    cursor: pointer;
+    border: 1px solid;
+ }
+ 
+ .container form .image{ 
+    display: none;
+    visibility: none;
+ }
+ 
+ #preview-container{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 60px;
+    padding-right: 20px;
+ }
+ 
+ .preview-image, .thumbnails img{
+    width: 80px;
+    height: 80px;
+    margin: 6px;
+    object-fit: cover;
+    border-radius: 5px;
+ }
+ 
+ 
+ label{
+    font-size: 10px;
+ }
+ 
+ .container form button{
+    width: 120px;
+    height: 35px;
+    background: #FFBF42;
+    border-radius: 50px;
+    font-size: 15px;
+    cursor: pointer;
+    margin-bottom: 20px;
+ }
+ 
+ .container form .submitbtn{
+    margin-left: 180px;
+    margin-top: 100px;
+ }
+ 
+ .dropdown-menu{
+    width: 150px;
+ }
+ 
+ .dropdown-menu .select-btn{
+    display: flex;
+    height: 30px;
+    width: 150px;
+    color: white;
+    background-color: #1A285A;
+    padding: 25px;
+    margin: 5px 0 0 30px;
+    font-size: 16px;
+    border-radius: 20px;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+ }
+ 
+ .dropdown-menu .select-btn i{
+    color: white;
+    background-color: #1A285A;
+    width: 10px;
+    border-color: #1A285A;
+    padding: 10px;
+ }
+ 
+ .dropdown-menu .options{
+    position: relative;
+    padding: 10px;
+    border-radius: 8px;
+    background: white;
+    margin: 10px 0 0 30px;
+    border-radius: 8px;
+    list-style: none;
+    box-shadow: 0 0 3px rgba(0,0,0,0.1);
+    display: none;
+    position: absolute;
+    width: inherit;
+ }
+ 
+ .dropdown-menu.active .options{
+    display: block;
+    transition-duration: 0.4s;
+ }
+ 
+ .dropdown-menu .select-btn i{
+    transition-duration: 0.4s;
+ }
+ 
+ .dropdown-menu.active .select-btn i{
+    transform: rotate(-180deg);
+ }
+ 
+ .options .option{
+    display: flex;
+    height: 40px;
+    cursor: pointer;
+    position: relative;
+    padding: 0px 16px;
+    border-radius: 8px;
+    align-items: center;
+    background-color: white;
+    justify-content: center;
+    z-index: 1000;
+ }
+ 
+ .options .option:hover{
+    background: #1A285A;
+    color: white;
+ }
+ 
+ .option{
+    font-size: 15px;
+    color: black
+ }
+ 
+ .university-adder{
+    display: flex;
+    flex-direction: column;
+ }
+ 
+ .university-field{
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    align-items: center;
+    justify-content: space-between;
+ }
+ 
+ 
+ .select{
+    font-size: small;
+    height: fit-content;
+    padding: 5px;
+    border-radius: 10px;
+ }
+ 
+ .container form .sub .sub1 .unisub .addAnother{
+    background: #1A285A;
+    background-image: -webkit-linear-gradient(top, #1A285A, #1A285A);
+    background-image: -moz-linear-gradient(top, #1A285A, #1A285A);
+    background-image: -ms-linear-gradient(top, #1A285A, #1A285A);
+    background-image: -o-linear-gradient(top, #1A285A, #1A285A);
+    background-image: linear-gradient(to bottom, #1A285A, #1A285A);
+    -webkit-border-radius: 28;
+    -moz-border-radius: 28;
+    border-radius: 28px;
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 20px;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+    float: right;
+    margin-right: 10px;
+    font-size: small;
+    border: none;
+  }
+  
+ /*  .container form .sub2 .sub22 .addAnother:hover {
+    background: #3cb0fd;
+    background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+    text-decoration: none;
+  } */
+  
+  .form-field{
+    width: 100%;
+    margin-top: 0%;
+  }
+   
+  .form-field[data-error] input{
+    border-color: #c92432;
+    color: #c92432;
+    background: #fffafa;
+    
+  }
+   
+  .form-field[data-error]::after{
+    content: attr(data-error);
+    color: #fa3e4d;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 0%;
+    margin-bottom: 15%;
+  }
