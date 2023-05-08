@@ -104,30 +104,7 @@
 
                 ];
 
-                //validate studentID
-                if(empty($data['stuID'])){
-                    $data['stuID_err'] = 'StudentID is required';
-                }
-
-                //validate student nama
-                if(empty($data['stuName'])){
-                    $data['stuName_err'] = 'Student Name is required';
-                }
-
-                //validate appointment date
-                if(empty($data['appDate'])){
-                    $data['appDate_err'] = 'Appointment date is required';
-                }
-
-                //validate appointment time
-                if(empty($data['appTime'])){
-                    $data['appTime_err'] = 'Appointment time is required';
-                }
-
-                //validate appointment description
-                if(empty($data['desc'])){
-                    $data['desc_err'] = 'Appointment description is required';
-                }
+              
 
                 //to check whether new appointing person already has an appointment on that day
                 $personCheck = $this->postModel->checkForSamePersonApp($data,$userid);
@@ -197,6 +174,31 @@
                 // echo $currtime;
                 // exit;
 
+
+                  //validate studentID
+                if(empty($data['stuID'])){
+                    $data['stuID_err'] = 'StudentID is required';
+                }
+
+                //validate student nama
+                if(empty($data['stuName'])){
+                    $data['stuName_err'] = 'Student Name is required';
+                }
+
+                //validate appointment date
+                if(empty($data['appDate'])){
+                    $data['appDate_err'] = 'Appointment date is required';
+                }
+
+                //validate appointment time
+                if(empty($data['appTime'])){
+                    $data['appTime_err'] = 'Appointment time is required';
+                }
+
+                //validate appointment description
+                if(empty($data['desc'])){
+                    $data['desc_err'] = 'Appointment description is required';
+                }
 
                 if(empty($data['stuID_err']) && empty($data['stuName_err']) && empty($data['appDate_err']) && empty($data['appTime_err']) && empty($data['desc_err'])){
 

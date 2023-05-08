@@ -51,7 +51,7 @@
                   </div>
                   <a class="edit" href="<?php echo URLROOT."/Counsellor/editProfile"?>"><i class="fa-solid fa-pen-to-square"></i> Edit Info</a>
               </div>
-              <div>
+              <div class="divBio">
                 <?php if($data['row']->{'counselor_description'} != "") : ?>
                         <label for="bio" class="bio"><i class="fa-solid fa-feather-pointed"></i>&nbsp;Bio : <?= $data['row']->{'counselor_description'} ;?></label></br></br>
                 <?php endif ; ?>

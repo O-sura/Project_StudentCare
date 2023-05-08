@@ -91,7 +91,7 @@
   .div5{
      
       width: 35%;
-      height: 650px;
+      height: 100%;
       border-radius: 10px;
       margin-top: -2%;
       align-items: center;
@@ -110,9 +110,9 @@
   
   .div6{
      
-      width: 65%;
+      width: 60%;
       position: relative;
-      height: 650px;
+      height: 100%;
       margin-right: 2%; 
       margin-left: 2%; 
       margin-top: -2%;  
@@ -286,295 +286,221 @@
 }
 
 
-  @media screen and (max-width:1200px) {
 
-    .div4{
-      display: flex;
-      margin: 2%;
-      border-radius: 5px;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      width: 220%;
-    }
 
-    .div5{
-     
-      width: 35%;
-      height: 700px;
-      border-radius: 10px;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      background-color:#FBFBFA;
-      box-shadow: 3px 3px 3px lightgray;
-      margin-left: 5%;
-      margin-top: 2%;
-      
-    }
-  
-    .studentList{
-        margin-top: 0px;
-        overflow-y: scroll;
-        height: 630px;
-    }
-  
-    .div6{
-      
-        width: 65%;
-        height: 700px;
-        margin-right: 2%; 
-        margin-left: 2%;   
-        justify-content: center;
-        text-align: center;
-        border-radius: 10px;
-        display: flex;
-        background-color:#FBFBFA;
-        box-shadow: 3px 3px 3px lightgray;
-        margin-top: 2%;
-    }
+
+.detCancel{
+  font-weight: 500;
+}
+
+textarea{
+  width: 100%;
+  height: 80%;
+  resize: none;
+  border-radius: 5px;
+  border: 1px solid #878787;
+}
+
+/* The Modal (background) */
+.modalCancel {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modalCancel-content {
+  display: grid;
+  grid-gap: 10px;
+  padding: 20px;
+  background-color: #fefefe;
+  margin-left: 30%;
+  margin-top: 5%;
+  border: 1px solid #888;
+  width: 40%; /* Could be more or less, depending on screen size */
+  border-radius: 20px;
+}
+
+/* The Close Button */
+.closeC {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  width: 5%;
+}
+
+.closeC:hover,
+.closeC:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+#removeBtnC{
+background: #7e2222;
+background-image: -webkit-linear-gradient(top, #7e2222, #7e2222);
+background-image: -moz-linear-gradient(top, #7e2222, #7e2222);
+background-image: -ms-linear-gradient(top, #7e2222, #7e2222);
+background-image: -o-linear-gradient(top, #7e2222, #7e2222);
+background-image: linear-gradient(to bottom, #7e2222, #7e2222);
+-webkit-border-radius: 11;
+-moz-border-radius: 11;
+border-radius: 40px;
+width: 45%;
+height: 40px;
+margin-left: 26%;
+margin-top: -5%;
+padding: 5px;
+font-family: 'Inter';
+color: #ffffff;
+font-size: 17px;
+text-align: center;
+text-decoration: none;
+border: none;
+position: relative;
+cursor: pointer;
+}
+
+#removeBtnC:hover {
+background: #7e1c82;
+background-image: -webkit-linear-gradient(top, #f2c23d, #f2c23d);
+background-image: -moz-linear-gradient(top, #f2c23d, #f2c23d);
+background-image: -ms-linear-gradient(top, #f2c23d, #f2c23d);
+background-image: -o-linear-gradient(top, #f2c23d, #f2c23d);
+background-image: linear-gradient(to bottom, #f2c23d, #f2c23d);
+text-decoration: none;
+color: black;
+}
+
+  @media screen and (max-width:1250px) {
 
     .img{
       width: 200px;
-      height: 250px;
+      height: 200px;
       background-color: rgb(209, 209, 201);
       border-radius: 100%;
       margin-left: 1%;
-      margin-top: 15%;
-    }
+      margin-top: 30%;
+  }
   
-
-    .dpImg{
+  .dpImg{
       width: 200px;
-      height: 250px;
+      height: 200px;
       border-radius: 100%;
-    }
-    .btnDiv{
-      display: flex;
-      width: 100%;
-    }
-
-    .accept{
-        border-radius: 20px; 
-        width: 50%;
-        height: 30px;
-        margin-top: 20%;
-    }
-
-    .decline{
-      border-radius: 20px; 
-      width: 50%;
-      height: 30px;
-      margin-top: 20%;
-      margin-left: 4%;
-    }
+      object-fit: cover;
+  }
     
   }
   
   @media screen and (max-width: 1000px) {
 
-      
-  .selector{
-    width: 50%;
-    padding: 0.5%;
-    border-radius: 10px;
-    background-color:  #1A285A;;
-    color: white;
-    margin-top: 3%;
-    margin-bottom: 2%;
-    margin-left: 20%;
-    height: 10%;
-  }
-    
-    .div4{
-      display: block;
-      margin: 2%;
-      border-radius: 5px;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      width: 220%;
-    }
-
-    .div5{
-     
-      width: 90%;
-      height: 50%;
-      border-radius: 10px;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      background-color:#FBFBFA;
-      box-shadow: 3px 3px 3px lightgray;
-      margin-left: 7%;
-      
-    }
-  
-    .studentList{
-        margin-top: 0px;
-        height: 80%;
-        overflow-y: scroll;
-       
-    }
-  
-    .div6{
-      
-        width: 90%;
-        height: 500px;
-        margin-right: 2%; 
-        margin-left: 7%;   
-        justify-content: center;
-        text-align: center;
-        border-radius: 10px;
-        display: flex;
-        background-color:#FBFBFA;
-        box-shadow: 3px 3px 3px lightgray;
-    }
-
     .img{
-      width: 200px;
-      height: 250px;
+      width: 150px;
+      height: 150px;
       background-color: rgb(209, 209, 201);
       border-radius: 100%;
       margin-left: 1%;
-      margin-top: 15%;
+      margin-top: 30%;
     }
-  
-
+    
     .dpImg{
-      width: 200px;
-      height: 250px;
-      border-radius: 100%;
-    }
-    .btnDiv{
-      display: flex;
-      width: 100%;
+        width: 150px;
+        height:150px;
+        border-radius: 100%;
+        object-fit: cover;
     }
 
     .accept{
-        border-radius: 20px; 
-        width: 50%;
-        height: 30px;
-        margin-top: 20%;
+      border-radius: 20px; 
+      width: 60%;
+      height: 30px;
+      margin-top: 20%;
+      cursor: pointer;
     }
 
     .decline{
       border-radius: 20px; 
-      width: 50%;
+      width: 60%;
       height: 30px;
       margin-top: 20%;
-      margin-left: 4%;
+      cursor: pointer;
+      
     }
       
       
   }
 
-  @media screen and (max-width: 700px) {
-    
+  @media screen and (max-width: 900px) {
+          
     .div4{
-      display: block;
-      margin: 2%;
-      border-radius: 5px;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      width: 160%;
+      display: inline;
     }
 
     .div5{
-     
       width: 80%;
-      height: 50%;
-      border-radius: 10px;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      background-color:#FBFBFA;
-      box-shadow: 3px 3px 3px lightgray;
-      margin-left: 5%;
-      
-    }
-  
-    .studentList{
-        margin-top: 0px;
-        height: 80%;
-        overflow-y: scroll;
-       
-    }
-  
-    .div6{
-      
-        width: 80%;
-        height: 650px;
-        margin-right: 2%; 
-        margin-left: 5%;   
-        justify-content: center;
-        text-align: center;
-        border-radius: 10px;
-        display: block;
-        background-color:#FBFBFA;
-        box-shadow: 3px 3px 3px lightgray;
+      margin-left: 10%;
+      height: 300px;
+      margin-bottom: 1%;
     }
 
-    .imageSection{
-     
-      width: 100%;
-      margin: 1%;
-      justify-content: center;
-      align-items: center;
-      display: flex;
+    .div6{
+      width: 80%;
+      height: 60%;
+      margin-top: 1%;
+      margin-left: 10%;
     }
+
 
     .img{
-      width: 200px;
-      height: 250px;
+      width: 150px;
+      height: 150px;
       background-color: rgb(209, 209, 201);
       border-radius: 100%;
       margin-left: 1%;
-      margin-top: -45%;
+      margin-top: 30%;
     }
-  
-
+    
     .dpImg{
-      width: 200px;
-      height: 250px;
-      border-radius: 100%;
-    }
-    .btnDiv{
-      display: block;
-      margin-left: -10%;
-      margin-top: -70%;
-      
+        width: 150px;
+        height:150px;
+        border-radius: 100%;
+        object-fit: cover;
     }
 
     .accept{
-        border-radius: 20px; 
-        width: 30%;
-        height: 30px;
-        
+      border-radius: 20px; 
+      width: 70%;
+      height: 30px;
+      margin-top: 20%;
+      cursor: pointer;
     }
 
     .decline{
       border-radius: 20px; 
-      width: 30%;
+      width: 70%;
       height: 30px;
-      margin-left: 0%;
       margin-top: 20%;
-    }
-
-    .infoSection{
-      margin-top: -60%;
-      width: 65%;
-      margin-left: 4%;
-      justify-content: left;
-      text-align: left;
-      line-height: 30px;
-    }
-
-    .note{
-      margin-left: 2%;
-      margin-top: 5%;
-    }
+      cursor: pointer;
       
+    }
+
+    select {
+      height: 45px;
+    }
+
+    .hrbar{
+
+      width: 85%;
+      margin-bottom: 1.5%;
+    }
       
   }

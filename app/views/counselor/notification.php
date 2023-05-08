@@ -35,23 +35,57 @@
 
                             <div  class="noti">
                                 <div class="intro"></div>
-                                <div class="dp"><img class="dpImg" src="<?php echo URLROOT."/public/img/img1.jpg"?>" alt=""></div>
+                                <div class="dp">
+                                    <?php if(!empty($row->profile_img)) : ?>
+                                            <img class="dpImg" src="http://localhost/StudentCare/public/img/student/<?php echo $row->profile_img; ?>" alt=""> 
+                                    <?php else :?>
+                                            <img class="dpImg" src="http://localhost/StudentCare/public/img/student/avatar.jpg" alt=""> 
+                                    <?php endif ; ?>
+                                </div>
                                 <div class="desc">
                                     <h4 class="topic">New Student Request</h4>
                                     <p class="para">Name : <?php echo $row->fullname ;?> &nbsp;&nbsp; </p>
                                     <p class="time">Date : <?php echo date('Y:m:d',strtotime($row->requested_on)) ;?>&nbsp;&nbsp; <?php echo date('H:i a',strtotime($row->requested_on)) ;?></p>
                                 </div>
                                 <div class="btns">
-                                    <button class="right"><i class="fa-regular fa-square-check"></i></button>
+                                    <button class="right" name="mark"><i class="fa-regular fa-square-check"></i></button>
                                     <button class="btnDel"><i class="fa-regular fa-trash-can"></i></button>
                                 </div>
-                            </div>               
+                            </div>            
+                        
+                        <?php elseif ($row->statusPP == 0 && $row->appointmentStatus == 0 && $row->counselor_seen == 1): ?>                      
+
+                            <div  class="Readnoti">
+                                <div class="intro"></div>
+                                <div class="dp">
+                                    <?php if(!empty($row->profile_img)) : ?>
+                                            <img class="dpImg" src="http://localhost/StudentCare/public/img/student/<?php echo $row->profile_img; ?>" alt=""> 
+                                    <?php else :?>
+                                            <img class="dpImg" src="http://localhost/StudentCare/public/img/student/avatar.jpg" alt=""> 
+                                    <?php endif ; ?>
+                                </div>
+                                <div class="desc">
+                                    <h4 class="topic">New Student Request</h4>
+                                    <p class="para">Name : <?php echo $row->fullname ;?> &nbsp;&nbsp; </p>
+                                    <p class="time">Date : <?php echo date('Y:m:d',strtotime($row->requested_on)) ;?>&nbsp;&nbsp; <?php echo date('H:i a',strtotime($row->requested_on)) ;?></p>
+                                </div>
+                                <div class="btns">
+                                    <button class="right" name="mark"><i class="fa-regular fa-square-check"></i></button>
+                                    <button class="btnDel"><i class="fa-regular fa-trash-can"></i></button>
+                                </div>
+                            </div>           
                        
                         <?php else :?>   
 
                             <div  class="noti">
                                 <div class="intro"></div>
-                                <div class="dp"><img class="dpImg" src="<?php echo URLROOT."/public/img/img1.jpg"?>" alt=""></div>
+                                <div class="dp">
+                                    <?php if(!empty($row->profile_img)) : ?>
+                                            <img class="dpImg" src="http://localhost/StudentCare/public/img/student/<?php echo $row->profile_img; ?>" alt=""> 
+                                    <?php else :?>
+                                            <img class="dpImg" src="http://localhost/StudentCare/public/img/student/avatar.jpg" alt=""> 
+                                    <?php endif ; ?>
+                                </div>
                                 <div class="desc">
                                     <h4 class="topic">Cancellation of an Appointment</h4>
                                     <div class="para"><div class=paraX>Name : &nbsp;</div><?php echo $row->fullname ;?></div>

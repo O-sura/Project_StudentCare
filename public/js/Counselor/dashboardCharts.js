@@ -37,7 +37,7 @@ fetch('http://localhost/StudentCare/Counsellor/getAppointmentStats')
       let allApp = Number(pending) + Number(completed) + Number(requested) + Number(cancelled);
       //console.log(allApp);
       
-      let labels = ['Pending','Completed','Requested','Cancelled']
+      let labels = ['Pending','Completed','Requested_to_Cancel','Cancelled']
 
       var myPieChart = new Chart(ctx, {
         type: 'doughnut',

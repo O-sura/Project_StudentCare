@@ -37,18 +37,7 @@
                         <option  value="1">Accepted List</option>
                         <option  value="2">Rejected List</option>
                     </select>
-                    <!-- <div class="dropdown-menu">
-                        <div class="select-btn">
-                            <span class="Sbtn-text">New Requests</span>
-                            <i class="fa-sharp fa-solid fa-chevron-down"></i>
-                        </div>
-                        <ul class="options">
-                            <li class="option">New Requests</li> 
-                            <li class="option">Accepted Students</li> 
-                            <li class="option">Rijected Students</li>
-                            
-                        </ul>
-                    </div> -->
+                  
                     <hr>
                     <div class="studentList">
                         <!-- <div id="search-results"></div> -->
@@ -61,41 +50,37 @@
                     </div>
                 </div>
                 <div class="div6">
-                    <!-- <?php foreach ($data['row'] as $row) :?>
-                    <form action="<?php echo URLROOT."Counsellor/acceptRejectStudent" ;?>" method="post">
-                    <div class="imageSection">
-                        <div class="img">
-                            <img class="dpImg" src="<?php echo URLROOT."/public/img/img7.jpg"?>" alt="">
-                        </div>
-                        <div class="btnDiv">
-                            <button class="accept" name="accept" ><i class="fa-solid fa-user-plus"></i> &nbsp;&nbsp; Accept</button><br>
-                            <button class="decline" name="decline"><i class="fa-solid fa-user-minus"></i> &nbsp;&nbsp; Decline</button>
-                        </div>
-
-                    </div>
-                    <div class="infoSection">
-                        
-                        <br><label for="name">Name  : </label><?php echo $row->studentName ?><br>
-                        <label for="age">DOB    : </label>22<br>
-                        <label for="uni">University : </label>University of Kelaniya<br>
-                        <label for="address">Address    : </label>No-24, Colombo 04<br>
-                        <label for="email">University email : </label>uk@pgk2000@gmail.com
-
-                        <span>
-                            <h3 class="note">  Request Note : </h3>
-                            <p class="noted">
-                                Hope to get your valuable service for my life.
-                            </p>
-                        </span>
-                    
-                    
-                    </div>
-                    </form>
-                    <?php  break; endforeach ?>      -->
+                   
                 </div>
 
                                             
             <?php endif;?>
+        </div>
+
+        <!-- The modal for cancellation -->
+
+        <div id="myModalCancel" class="modalCancel">
+
+        <!-- Modal content -->
+            <form  id="formID" action="" method="POST"> 
+                <div class="modalCancel-content">
+
+                    <input type="text" name="studentID" value="" hidden>
+
+                    <span class="closeC">&times;</span>
+                    <h3>Rejection of student Request</h3><br>
+                    <p class="detCancel" id="cancelName"></p>
+                    <p class="detCancel" id="cancelID"></p>
+                    <p class="detCancel">Reason for Rejection :</p>
+                    
+
+                    <p id="error"></p>
+                    <textarea name="descC" id="textDes" placeholder="Description" rows = "15" cols = "5" class="Desc" required></textarea><br>
+                
+                    <button id="removeBtnC" type="submit" name="submit">Decline Request</button>
+                   
+                </div>
+            </form>
         </div>
     
   </div>
