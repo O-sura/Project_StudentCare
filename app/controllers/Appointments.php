@@ -88,7 +88,6 @@ class Appointments extends Controller
         $data = [
             'counselorId' => $counselorId,
             'counselorProfile' => $this->appointmentModel->getProfile($init_data),
-            'qualifications' => $this->appointmentModel->getQualifications($init_data),
             'hasRequested' => $this->appointmentModel->hasRequested($init_data),
             'requestLimit' => $this->appointmentModel->requestLimit($init_data)
         ];
@@ -163,6 +162,44 @@ class Appointments extends Controller
                 'requestDetails' => $this->appointmentModel->getRequestDetails($requestID)
             ];
             $this->loadview('counselor_stu/editRequest', $data);
+        }
+    }
+
+    public function undoCancellation(){
+     
+        $appointmentID = trim($_GET['id']);
+        if($this->appointmentModel->undoCancellation($appointmentID)){
+            Appointments::index();
+        }else{
+            die('Something went wrong');
+        }
+    }
+
+    public function counselor_type_handler()
+    {
+        if (isset($_GET['filter'])) {
+            $specialization = trim($_GET['filter']);
+            if($specialization == 'All'){
+                $res = json_encode($this->appointmentModel->getAllCounselorDetails());
+            }else{
+                $res =  json_encode($this->appointmentModel->getCounselorsByType($specialization));
+            }
+
+
+            echo $res;
+        }
+    }
+
+    public function counselor_search_handler()
+    {
+        if (isset($_GET['query'])) {
+            $search = trim($_GET['query']);
+            $type = trim($_GET['type']);
+           
+            $res =  json_encode($this->appointmentModel->getCounselorsBySearch($search, $type));
+            
+
+            echo $res;
         }
     }
 }

@@ -134,6 +134,11 @@
                         $name = $accepted->fullname;
                         $email = $accepted->email;
                         $requestIds = array_column($data['newRequests'], 'rID');
+                        if ($accepted->profile_img != NULL) {
+                            $image = $accepted->profile_img;
+                        } else {
+                            $image = "avatar.jpg";
+                        }
                 ?>
                         <div class="call" id="accepted">
                             <div class="date">
@@ -143,7 +148,7 @@
                                 <?php echo $specialization ?>
                             </div>
                             <div class="image">
-                                <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" class="image2">
+                                <img src="<?php echo URLROOT . "/public/img/counselor/" . $image; ?>" class="image2">
                             </div>
                             <div class="counselor-name">
                                 <h3>Dr. <?php echo $name ?></h3>
@@ -179,6 +184,11 @@
                         $specialization = $pending->specialization;
                         $name = $pending->fullname;
                         $requestIds = array_column($data['newRequests'], 'rID');
+                        if ($accepted->profile_img != NULL) {
+                            $image = $accepted->profile_img;
+                        } else {
+                            $image = "avatar.jpg";
+                        }
                 ?>
                         <div class="call">
                             <div class="date">
@@ -188,7 +198,7 @@
                                 <?php echo $specialization ?>
                             </div>
                             <div class="image">
-                                <img src="https://images.unsplash.com/photo-1566753323558-f4e0952af115?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1021&q=80" class="image2">
+                                <img src="<?php echo URLROOT . "/public/img/counselor/" . $image; ?>" class="image2">
                             </div>
                             <div class="counselor-name">
                                 <h3>Dr. <?php echo $name ?> </h3>
@@ -231,6 +241,11 @@
                         $reason = $rejected->reason;
                         $name = $rejected->fullname;
                         $requestIds = array_column($data['newRequests'], 'rID');
+                        if ($accepted->profile_img != NULL) {
+                            $image = $accepted->profile_img;
+                        } else {
+                            $image = "avatar.jpg";
+                        }
                 ?>
 
                         <div class="call" id="rejected">
@@ -241,7 +256,7 @@
                                 <?php echo $specialization; ?>
                             </div>
                             <div class="image">
-                                <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" class="image2">
+                                <img src="<?php echo URLROOT . "/public/img/counselor/" . $image; ?>" class="image2">
                             </div>
                             <div class="counselor-name">
                                 <h3>Dr. <?php echo $name; ?></h3>

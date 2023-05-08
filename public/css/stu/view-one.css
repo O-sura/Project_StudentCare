@@ -471,6 +471,38 @@ textarea{
   text-decoration: none;
 }
 
+.btn2 {
+  background: #ffffff;
+  background-image: -webkit-linear-gradient(top, #ffffff, #ffffff);
+  background-image: -moz-linear-gradient(top, #ffffff, #ffffff);
+  background-image: -ms-linear-gradient(top, #ffffff, #ffffff);
+  background-image: -o-linear-gradient(top, #ffffff, #ffffff);
+  background-image: linear-gradient(to bottom, #ffffff, #ffffff);
+  -webkit-border-radius: 60;
+  -moz-border-radius: 60;
+  border-radius: 60px;
+  font-family: Arial;
+  color: #757575;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 7px 15px 7px 0px;
+  text-decoration: none;
+  border-width: 0px;
+}
+
+.btn2:hover {
+  background: #fd4f3c;
+  background-image: -webkit-linear-gradient(top, #fd4f3c, #fd4f3c);
+  background-image: -moz-linear-gradient(top, #fd4f3c, #fd4f3c);
+  background-image: -ms-linear-gradient(top, #fd4f3c, #fd4f3c);
+  background-image: -o-linear-gradient(top, #fd4f3c, #fd4f3c);
+  background-image: linear-gradient(to bottom, #fd4f3c, #fd4f3c);
+  text-decoration: none;
+  padding: 7px 15px 7px 15px;
+  color: #fff;
+}
+
+
 .other_comment{
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
@@ -568,3 +600,71 @@ input[type=radio]{
   align-items: center;
   margin-right: 10px;
 }
+
+/* The Modal (background) */
+  
+  .overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* dark overlay */
+    z-index: 1; /* make the overlay appear above other elements */
+  }
+  
+  .popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 2; /* make the popup appear above the overlay */
+  }
+  
+  .exit-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1;
+    color: black;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 3; /* make the close button appear above the popup */
+  }
+
+  .heading{
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1A285A;
+    margin-bottom: 1rem;
+  }
+  .desc-name{
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1A285A;
+    margin-bottom: 1rem;
+  }
+  .text textarea{
+    width: 100%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 20px;
+    background-color: #f8f8f8;
+    font-size: 13px;
+    resize: none;
+  }
+
+  .submit{
+    padding: 10px 20px;
+    text-align: center;
+  }

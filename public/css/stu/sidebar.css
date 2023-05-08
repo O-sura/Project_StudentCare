@@ -113,6 +113,11 @@
 
 }
 
+#chosen{
+  color: #1A285A;
+  background: #fff;
+}
+
 .sidebar ul li i{
     height: 50px;
     min-width: 50px;

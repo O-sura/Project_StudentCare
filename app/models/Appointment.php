@@ -23,7 +23,7 @@ class Appointment
 
     public function getProfile($data)
     {
-        $this->db->query("SELECT users.userID, users.fullname, users.home_address, users.contact_no, TIMESTAMPDIFF(YEAR, counsellor.dob, CURDATE()) AS age , counsellor.specialization, counsellor.counselor_description, counsellor.profile_img
+        $this->db->query("SELECT users.userID, users.fullname, users.home_address, users.contact_no, users.userID, TIMESTAMPDIFF(YEAR, counsellor.dob, CURDATE()) AS age , counsellor.specialization, counsellor.counselor_description, counsellor.profile_img, counsellor.qualifications
         FROM users
         INNER JOIN counsellor
         ON users.userID = counsellor.userID
@@ -34,16 +34,6 @@ class Appointment
         return $results;
     }
 
-    public function getQualifications($data)
-    {
-        $this->db->query("SELECT qualification_details
-        FROM qualifications
-        WHERE counselor_id = :counselorID;");
-        $this->db->bind(':counselorID', $data['counselorID']);
-        $results = $this->db->getAllRes();
-
-        return $results;
-    }
 
     public function addRequest($data)
     {
@@ -285,6 +275,60 @@ class Appointment
             return false;
         }
     }
+
+    public function undoCancellation($appointmentID){
+        $this->db->query("UPDATE appointments SET appointmentStatus = 0, cancellationReason = NULL, counselor_seen = 0, requested_on = NULL WHERE appointmentID = :appointmentID");
+        $this->db->bind(':appointmentID', $appointmentID);
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getCounselorsByType($specialization){
+        $this->db->query("SELECT users.userID, users.fullname, counsellor.counselor_description, counsellor.specialization, counsellor.profile_img
+        FROM users
+        INNER JOIN counsellor
+        ON users.userID = counsellor.userID
+        WHERE counsellor.specialization = :specialization;");
+        $this->db->bind(':specialization', $specialization);
+        $results = $this->db->getAllRes();
+
+        return $results;
+    }
+
+    public function getCounselorsBySearch($search,$type){
+
+        if($type == 'All'){
+            $this->db->query("SELECT users.userID, users.fullname, counsellor.counselor_description, counsellor.specialization, counsellor.profile_img
+            FROM users
+            INNER JOIN counsellor
+            ON users.userID = counsellor.userID
+            WHERE LOWER(users.fullname) LIKE LOWER(:search) OR LOWER(counsellor.specialization) LIKE LOWER(:search) OR LOWER(counsellor.counselor_description) LIKE LOWER(:search);");
+            $this->db->bind(':search', '%'.$search.'%');
+            $results = $this->db->getAllRes();
+
+            return $results;
+        }else{
+
+            $this->db->query("SELECT users.userID, users.fullname, counsellor.counselor_description, counsellor.specialization, counsellor.profile_img
+            FROM users
+            INNER JOIN counsellor
+            ON users.userID = counsellor.userID
+            WHERE (LOWER(users.fullname) LIKE LOWER(:search) OR LOWER(counsellor.specialization) LIKE LOWER(:search) OR LOWER(counsellor.counselor_description) LIKE LOWER(:search)) AND (counsellor.specialization = :type);");
+            $this->db->bind(':search', '%'.$search.'%');
+            $this->db->bind(':type', $type);
+            $results = $this->db->getAllRes();
+
+            return $results;
+
+
+        }
+
+    }
+
+
 
 
 }
