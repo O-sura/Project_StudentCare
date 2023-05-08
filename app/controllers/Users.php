@@ -1,5 +1,5 @@
 <?php
-
+    Session::init();
     class Users extends Controller{
         private $userModel;
 
@@ -17,9 +17,17 @@
                 
                 $cookieFound = $this->userModel->getCookie($token);
                 if($cookieFound != null){
+
+                        //Check whether the user profile is deleted or blocked first
+                        $this->blockAndDeletionHandlder($cookieFound);
+
+                        //Else use the cookie to set the session
                         Session::set('userrole', $cookieFound->user_role);
                         Session::set('userID', $cookieFound->userID);
                         Session::set('username', $cookieFound->username);
+                        Session::set('lastLogin', $cookieFound->last_login);
+
+                        $this->userModel->setLastLogin($cookieFound->userID);
                         Middleware::redirect(Session::get('userrole') . '/home');
                         exit();
                         
@@ -63,23 +71,44 @@
                     if(!$this->userModel->isVerified($data['username'])){
                         //If the user is not verified then he/she should be redirected to verification page
                         $userInfo = $this->userModel->getUserInfo($data['username']);
+                        if($userInfo->user_role == "student"){
+                            //Then the mail should be sent to the university mail
+                            $_SESSION['info']['unimail'] = $this->userModel->getStudentUnimail($userInfo->userID);
+                        }else{
+                            $_SESSION['info']['email'] = $userInfo->email;
+                        }
                         $_SESSION['info']['username'] = $userInfo->username;
-                        $_SESSION['info']['email'] = $userInfo->email;
+                        
                         Middleware::setFormLevel(4);
                         Middleware::redirect('users/verify');
                     }
                     else{
                         $userInfo = $this->userModel->getUserInfo($data['username']);
+
+                        //If the user is logging in as a counselor, check whether he/she is verified by admin
+                        //If not verified, then redirect to still under review page
+                        if($userInfo->user_role == 'counsellor'){
+                            if(!$this->userModel->isAdminVerified($userInfo->userID)){
+                                $this->loadView('under-verification');
+                                die();
+                            }
+                        }
+
+                        $this->blockAndDeletionHandlder($userInfo);
+
+                        //If everything is set then log them in
                         Session::set('userrole', $userInfo->user_role);
                         Session::set('userID', $userInfo->userID);
                         Session::set('username', $userInfo->username);
+                        Session::set('lastLogin', $userInfo->last_login);
 
                         if ($data['remember-me'] == true) {
                     
                             // store the token in the database, associated with the user's account
                             $this->userModel->setCookie($data['username']);
                         }
-
+                        //Store the new logged in time after picking up the lastly recorded data
+                        $this->userModel->setLastLogin($userInfo->userID);
                         Middleware::redirect(Session::get('userrole') . '/home');
                     }
                 }
@@ -361,9 +390,11 @@
                     'dob' => trim($_POST['dob']),
                     'university' => trim($_POST['university']),
                     'locations' => trim($_POST['locations']),
+                    'unimail' => trim($_POST['unimail']),
                     'terms' => $_POST['terms'],
                     'dob_err' => '',
                     'university_err' => '',
+                    'unimail_err' => '',
                     'terms_err' => ''
                 ];
 
@@ -379,6 +410,29 @@
                     $data['university_err'] = "You must select your university";
                     //die();
                 }
+
+                if(empty($_POST['unimail'])){
+                    $data['unimail_err'] = "You must enter your university mail";
+                    //die();
+                }else{
+                    //Code for checking whether the mail contains the selected domains 
+                    if(!filter_var($_POST['unimail'], FILTER_VALIDATE_EMAIL)) {
+                        //echo("Invalid email format");
+                        $data['unimail_err'] = "*Invalid email format";
+                        //die();
+                    }
+                    else{
+                        $allowed_domains = ['stu.ucsc.cmb.ac.lk', 'my.sliit.lk'];
+
+                        $email_parts = explode('@', $_POST['unimail']);
+                        $domain = $email_parts[1];
+
+                        if(!in_array($domain, $allowed_domains)) {
+                            $data['unimail_err'] = "*Must enter a university mail to proceed";
+                        }
+                          
+                    }
+                }
                 
 
                 //Terms and cond. agreement check
@@ -389,16 +443,17 @@
                 }
 
                 //Check whether all the fields are filled properly
-                if(!($_POST['dob'] && $_POST['university'] && $_POST['terms'])){
+                if(!($_POST['dob'] && $_POST['university'] && $_POST['terms'] && $_POST['unimail'])){
                     //echo("Must fill all the fields in the form!");
                     //die();
                     $data['dob_err'] =  "*This field is Required";
                     $data['university_err'] = "*This field is Required";
+                    $data['unimail_err'] = "*This field is Required";
                     $data['terms_err'] = "*This field is Required";
                 }
 
                 //Make sure there are no error flags are set
-                if(empty($data['dob_err']) && empty($data['university_err']) && empty($data['terms_err'])){
+                if(empty($data['dob_err']) && empty($data['university_err']) && empty($data['terms_err'] && empty($data['unimail_err']))){
                     
                     //Store the data in session and load the next page if no errors
                     foreach ($_POST as $key => $value){
@@ -442,6 +497,7 @@
                 'terms' => '',
                 'dob_err' => '',
                 'university_err' => '',
+                'unimail_err' => '',
                 'terms_err' => ''
                ];
 
@@ -661,26 +717,30 @@
             //Check whether the user is already logged in
             Middleware::isLoggedIn();
             Session::init();
+            //If user skipped the verification first and now continuing from the verification
+            //setting the data for resending the verification mail
             if($_SERVER['REQUEST_METHOD'] == 'POST' &&  isset($_POST['email'])){
                 $user = $this->userModel->getUserInfo($_POST['email']);
+                if($user)
                 $data = [
                     'email' => $_POST['email'],
                     'username' => $user->username
                 ];
             }
             else{
+                //If user is directly comming from the previous registration steps
                 Middleware::checkFormLevel(4);
+                //Check whether a unmail is set or not, is set, then a student else a regular user
                 $data = [
-                    'email' => $_SESSION['info']['email'],
+                    'email' => (isset($_SESSION['info']['unimail']))?$_SESSION['info']['unimail']:$_SESSION['info']['email'],
                     'username' => $_SESSION['info']['username']
                 ];
             }
 
             
-
+            //validating the verification code
             if(isset($_GET['code'])){
                     $verification_code = $_GET['code'];
-                  
                     $result = $this->userModel->verifyEmail($verification_code);
                   
                     if($result == true){
@@ -792,6 +852,14 @@
                 $this->loadView('password-reset',$data);
              }
  
+        }
+
+        public function blockAndDeletionHandlder($userInfo){
+            //If the user is bloked or deleted, redirect to profile unavailable page
+            if($userInfo->isBlocked == 1 || $userInfo->isDeleted == 1){
+                $this->loadView('profile-unavailable');
+                die();
+            }
         }
 
         public function index(){

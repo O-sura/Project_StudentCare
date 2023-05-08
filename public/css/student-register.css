@@ -84,6 +84,8 @@ form{
    border-radius: 5px;
    font-size: 15px;
    margin: 30px auto 30px auto;
+   grid-column: 1 / -1;
+   justify-self: center; 
 }
 
 .form-field{

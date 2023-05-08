@@ -1,6 +1,7 @@
 <?php
     require_once 'config/config.php';
     require_once 'helper/send_mail.php';
+    require_once 'helper/Report.php';
 
     // Include all the core files required to run the application
     // require_once 'core/Core.php';

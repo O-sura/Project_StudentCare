@@ -243,7 +243,6 @@
             return $result;
         }
 
-
         public function message(){
             $this->db->query('SELECT * FROM listing'); 
             

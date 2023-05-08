@@ -100,6 +100,7 @@ searchBar.addEventListener('input', () => {
                 }
                 resultList.innerHTML = postList;
                 votingCountHandler();
+                removePagination();
             }
         };
         xhr.send();
@@ -258,4 +259,25 @@ function savedPostHandler(){
     })
 }
 
-  
+//remove current pagination
+function removePagination(){
+    let pagDiv = document.querySelector('.pagination');
+    pagDiv.remove();
+}
+
+//Community post repoting handler
+const section = document.querySelector('section'),
+overlay = document.querySelector('.overlay');
+
+let reportBtns = document.querySelectorAll('#report-button');
+reportBtns.forEach(btn => btn.addEventListener('click', ()=>{
+    let parentDiv = btn.parentElement.parentElement.parentElement.parentElement;
+    let reportedPostId = parseInt(parentDiv.querySelector("p#post-id").textContent);
+    section.classList.add("active");
+    let reportForm = document.querySelector('.report-form');
+    reportForm.action = "http://localhost/StudentCare/community/report_post/" + reportedPostId;
+}))
+
+overlay.addEventListener('click', () => {
+    section.classList.remove("active");
+})

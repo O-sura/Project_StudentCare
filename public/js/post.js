@@ -13,14 +13,14 @@ export class CommunityPost{
 
     createPost(){
         let controllers = '';
-        if(this.author === this.loggedUser){
-            controllers =  `
-                <div class="buttons">
-                    <i class="fa-solid fa-pen-to-square"></i>
-                    <i class="fa-solid fa-trash"></i>
-                </div>
-            `
-        }
+        // if(this.author === this.loggedUser){
+        //     controllers =  `
+        //         <div class="buttons">
+        //             <i class="fa-solid fa-pen-to-square" id="update-btn"></i>
+        //             <i class="fa-solid fa-trash" id="delete-btn"></i>
+        //         </div>
+        //     `
+        // }
 
         // <div class="icon-text-button">
         //                 <button class="icon-btn" id="up"><i class="fa-solid fa-up-long"></i></button>
@@ -47,7 +47,7 @@ export class CommunityPost{
             </div>
             <div class="meta-data">
                 <h4>By: ${this.author}</h4>
-                <h4>${this.postedTime})</h4>
+                <h4>${this.postedTime}</h4>
                 <h4>Category: ${this.category}</h4>
             </div>
             <div class="content">
