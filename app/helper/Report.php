@@ -155,10 +155,17 @@ function generatePDF($role,$data,$type = null,$multiFlag = 0){
 
     // Output PDF to the browser
     $dompdf->stream('report.pdf', array('Attachment' => false));
+
+    if($multiFlag == 1){
+        $output = $dompdf->output();
+        $today = new DateTime();
+        $date = $today->format('Y-m-d');
+        $filename = $role . "_" .$date . "_" . substr(sha1(date(DATE_ATOM)), 0, 8) . ".pdf";
+        $path_to_store = APPROOT. "/uploads/reports/" . $filename;
+        file_put_contents($path_to_store,$output);
+    }
 }
 
-//generatePDF('admin',$data);
-//generatePDF('facility_provider',$data);
 
 //provides the template for generating report for single counselor
 function conselorReport($data){
@@ -167,7 +174,7 @@ function conselorReport($data){
     <html>
         <head>
             <meta charset="UTF-8">
-            <link rel="stylesheet" href="report-style.css">
+            <link rel="stylesheet" href="http://localhost/StudentCare/public/css/report-style.css">
         </head>
         <body>
             <div class="title-container"><h1>Monthly Report</h1><br></div>
@@ -245,7 +252,7 @@ function fpReport($data){
     <html>
         <head>
             <meta charset="UTF-8">
-            <link rel="stylesheet" href="report-style.css">
+            <link rel="stylesheet" href="http://localhost/StudentCare/public/css/report-style.css">
         </head>
         <body>
             <h1>Monthly Report</h1><br>
@@ -307,7 +314,7 @@ function system_overview($data){
     <html>
         <head>
             <meta charset="UTF-8">
-            <link rel="stylesheet" href="report-style.css">
+            <link rel="stylesheet" href="http://localhost/StudentCare/public/css/report-style.css">
         </head>
         <body>
             <center><h1>Monthly Report</h1><center><br>
@@ -322,7 +329,7 @@ function system_overview($data){
             '. 
                 implode("", 
                     array_map(function($user) {
-                        return "<tr><td>" . $user['role'] . "</td><td>". $user['count'] . "</td></tr>";
+                        return "<tr><td>" . $user['user_role'] . "</td><td>". $user['count'] . "</td></tr>";
                     }, $data['users_by_role'])
                 )
             .'</table
@@ -340,7 +347,7 @@ function system_overview($data){
                         <p><b>Total Community Posts:</b> '. $data['total_community_posts'] .'</p>
                     </td>
                     <td>
-                        <p><b>Community Engagememt:</b> '. $data['community_engagement'] .'</p>
+                        <p><b>Community Engagememt:</b> '. round($data['community_engagement'],2) .'</p>
                     </td>
                 </tr>
                 <tr>
@@ -374,18 +381,18 @@ function system_overview($data){
             <table class="details">
                 <tr>
                     <td>
-                        <p><b>Counselor-Student Engagement:</b> '. $data['counselor-stu-engagement'] .'</p>
+                        <p><b>Counselor-Student Engagement:</b> '. round($data['counselor-stu-engagement'],2) .'</p>
                     </td>
                     <td>
-                        <p><b>Counselor-Announcement Engagement:</b> '. $data['counselor-ann-engagement'] .'</p>
+                        <p><b>Counselor-Announcement Engagement:</b> '. round($data['counselor-ann-engagement'],2) .'</p>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <p><b>Student-MobileApp Engagement:</b> '. $data['stu_mobile_engagement'] .'</p>
+                        <p><b>Student-MobileApp Engagement:</b> '. round($data['stu_mobile_engagement'],2) .'</p>
                     </td>
                     <td>
-                        <p><b>Student-Listing Engagement:</b> '. $data['stu-listing-engagement'] .'</p>
+                        <p><b>Student-Listing Engagement:</b> '. round($data['stu-listing-engagement'],2) .'</p>
                     </td>
                 </tr>
             </table>
@@ -401,7 +408,7 @@ function system_overview($data){
             '. 
                 implode("", 
                     array_map(function($listing) {
-                        return "<tr><td>" . $listing['type'] . "</td><td>". $listing['count'] ."</td><td>". $listing['avg_rating'] . "</td></tr>";
+                        return "<tr><td>" . $listing['category'] . "</td><td>". $listing['listing_count'] ."</td><td>". round($listing['average_rating'],1) . "</td></tr>";
                     }, $data['listing_overview'])
                 )
             .'</table>
@@ -412,11 +419,12 @@ function system_overview($data){
             <tr>
                 <th>Location</th>
                 <th>Count</th>
+                <th>Percentage(%)</th>
             </tr>
             '. 
                 implode("", 
                     array_map(function($list) {
-                        return "<tr><td>" . $list['location'] . "</td><td>". $list['count'] . "</td></tr>";
+                        return "<tr><td>" . $list['location'] . "</td><td>". $list['count'] . "</td><td>". round($list['percentage'],2) . "</td></tr>";
                     }, $data['listing_by_location'])
                 )
             .'</table>

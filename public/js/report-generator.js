@@ -80,5 +80,30 @@ input3.value = dropdown3.value
 
 
 
+//handling the deletions and dowonloading functionalities for already generated reports
+let downloadBtns = document.querySelectorAll('#report-download');
+let deleteBtns = document.querySelectorAll('#report-delete');
+
+//downloading a specific report
+downloadBtns.forEach(btn => btn.addEventListener('click', () => {
+  let classes = Array.from(btn.classList);
+  let filename = classes[classes.length - 1];
+  window.location.href = `http://localhost/StudentCare/admin/downloadReport/${filename}`;
+}));
+
+
+//deleting a specific report
+deleteBtns.forEach(btn => btn.addEventListener('click', () => {
+  let classes = Array.from(btn.classList);
+  let filename = classes[classes.length - 1];
+  fetch(`http://localhost/StudentCare/admin/deleteReport/${filename}`)
+  .then(response => response.json())
+  .then(data => {
+    if(data.status == 1){
+      location.reload();
+    }
+  })
+  .catch(error => console.error(error));
+}));
 
 

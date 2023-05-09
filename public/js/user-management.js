@@ -94,14 +94,21 @@ function deleteUserHandler(){
     })
 }
 
+//function for loading the profile of the corresponding user
 function userProfileHandler(){
     profileBtns.forEach(btn =>{
         btn.addEventListener('click', ()=>{
             let userID = btn.getAttribute('class').split(" ")[0];
-            window.open(`http://localhost/StudentCare/admin/show_user/${userID}`, '_blank');
+            window.location.href = `http://localhost/StudentCare/admin/show_user/${userID}`;
         })
     })
 }
+
+//navigating the user to add new admin
+let newAdminBtn = document.getElementById('new-admin');
+newAdminBtn.addEventListener('click', ()=>{
+    window.location.href = `http://localhost/StudentCare/admin/create_admin`;
+})
 
 
 // Get references to the search input and results div
