@@ -4,7 +4,7 @@ var ctx = document.getElementById("pieChart").getContext("2d");
 fetch("http://localhost/StudentCare/Counsellor/getAppointmentStats")
   .then((response) => response.json())
   .then((data) => {
-    //console.log(data);
+    console.log(data);
     let pending = 0;
     let completed = 0;
     let requested = 0;
