@@ -1,4 +1,22 @@
 //Javascript for chart
+//Function to filter the community posts based on the dropdown value
+function getStudyTimeDetails(){
+  //Your Posts,All Posts,Saved
+  // Send an AJAX request to the server with the search query
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", "http://localhost/StudentCare/Student/get_event_data", true);
+ 
+  xhr.onload = () => {
+      if (xhr.status === 200) {
+          //console.log(xhr.responseText);
+          //Parse the JSON response from the server
+          var searchRes = JSON.parse(xhr.responseText);
+          
+      }
+  };
+  xhr.send();
+}
 var xValues = [
   "Monday",
   "Tuesday",
