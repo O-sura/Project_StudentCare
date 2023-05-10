@@ -81,14 +81,14 @@ class Facility_Provider extends Controller{
             //to upload the profile image
             $filename = $_FILES["file"]["name"];
             $tempname = $_FILES["file"]["tmp_name"];
-            $folder =  PUBLICPATH . "img/fprovider/".$filename;
+            $folder =  PUBLICPATH . "/img/fprovider/".$filename;
 
             if (move_uploaded_file($tempname, $folder)) {
                 echo 'File successfully uploaded';
             }
             else if(empty($filename) && empty($tempname)){
                 $filename = $row->profile_img;
-                $folder = PUBLICPATH . "img/fprovider/".$filename;
+                $folder = PUBLICPATH . "/img/fprovider/".$filename;
                 $tempname = tempnam(sys_get_temp_dir(), 'image_');
                 copy($folder,$tempname);
             }

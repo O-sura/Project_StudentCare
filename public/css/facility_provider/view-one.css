@@ -574,3 +574,17 @@ input[type=radio]{
   align-items: center;
   margin-right: 10px;
 }
+
+
+@media screen and (max-width:900px) and (min-width:200px){
+  .container{
+     margin-left: 5px;
+     flex-wrap: wrap;
+  }
+
+  .container .right_side{
+    margin-top: 200px;
+    margin-left: 50px;
+  }
+
+}

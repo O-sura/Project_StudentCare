@@ -229,6 +229,12 @@
             return $result;
         }
 
+        public function getRatings(){
+            $this->db->query("SELECT star_rating FROM listing_feedback WHERE listing_id= :id");
+            $result = $this->db->getAllRes();
+            return $result;
+        }
+
 
         public function getlisting(){
             $this->db->query('SELECT * FROM listing ORDER BY added_date DESC');
