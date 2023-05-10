@@ -135,6 +135,7 @@ class Student extends Controller
 
                 if ($res) {
                     FlashMessage::flash('update_profile_flash', "Successfully Updated Your Profile Details!", "success");
+                    Session::set('username', $username);
                     Student::home();
                 } else {
                     //Error Notification
