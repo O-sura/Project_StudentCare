@@ -67,47 +67,89 @@
                 $role = $_POST['role'];
 
                 $today = new DateTime();
-                $startDate = $today->format('Y-m-d');
+                $endDate = $today->format('Y-m-d');
                 
                 if($duration == 'Weekly'){
-                    $endDate = $today->sub(new DateInterval('P7D'))->format('Y-m-d');
+                    $startDate = $today->sub(new DateInterval('P7D'))->format('Y-m-d');
                 }
                 else if($duration == 'Monthly'){
-                    $endDate =  $today->sub(new DateInterval('P30D'))->format('Y-m-d');
+                    $startDate =  $today->sub(new DateInterval('P30D'))->format('Y-m-d');
                 }
                 else if($duration == '3-Months'){
-                    $endDate =  $today->sub(new DateInterval('P90D'))->format('Y-m-d');
+                    $startDate =  $today->sub(new DateInterval('P90D'))->format('Y-m-d');
                 }
                 else if($duration == '6-Months'){
-                    $endDate =  $today->sub(new DateInterval('P180D'))->format('Y-m-d');
+                    $startDate =  $today->sub(new DateInterval('P180D'))->format('Y-m-d');
                 }
+                
 
-                //$data = $this->getReportData($role,$type,$startDate,$endDate);
-                //generatePDF($role,$data,$type,$multiFlag);
+                $data = $this->getReportData($role,$type,$startDate,$endDate);
+                //  print_r($data);exit;
+                generatePDF($role,$data,$type,true);
             
                }
             }else{
-                $this->loadView('admin/report-generator');
+                $pdfFolder = APPROOT. "/uploads/reports/";
+                $pdfFiles = glob($pdfFolder . "*.pdf");
+                $data = array();
+                foreach ($pdfFiles as $pdfFile) {
+                    $fileName = basename($pdfFile);
+                    $role = explode("_", $fileName)[0];
+                    $createdDate = date("Y-m-d H:i:s", filectime($pdfFile));
+                    $data[] = array('filename' => $fileName,'role' => $role, 'created_date' => $createdDate);
+                }
+                $this->loadView('admin/report-generator', $data);
             }
         }
+
+        //returns an array which contains the data of an object passed in
+        // public function getDataArray($object){
+        //     $array = array_map(function($item) {
+        //         return array('role' => $item->user_role, 'count' => $item->count);
+        //     },$object);
+        //     return $array;
+        // }
+
+        function getDataArray($objectArray) {
+            $result = array();
+            foreach ($objectArray as $object) {
+              $temp = array();
+              foreach ($object as $key => $value) {
+                $temp[$key] = $value;
+              }
+              array_push($result, $temp);
+            }
+            return $result;
+          }
+          
 
         public function getReportData($role,$type,$startdate,$enddate){
             if($role == 'Admin'){
                 if($type == 'System Overview'){
+
+                    $roles_and_counts = $this->getDataArray($this->reportModel->userCountByRole($startdate,$enddate));
+                    $listings = $this->getDataArray($this->reportModel->listing_overview($startdate,$enddate));
+                    $listing_by_loc = $this->getDataArray($this->reportModel->listing_by_location($startdate,$enddate));
+                    
+                    // print_r($roles_and_counts);
+                    // print_r($listing_by_loc);
+                    // print_r($listings);
+                    // exit;
                     $data = [
-                        'users_by_role' => $this->reportModel->userCountByRole($startdate,$enddate),
+                        'users_by_role' => $roles_and_counts,
                         'total_users' => $this->reportModel->totalUserCount($startdate,$enddate),
                         'total_community_posts' => $this->reportModel->totalUserCount($startdate,$enddate),
                         'community_engagement' =>$this->reportModel->authorCount($startdate,$enddate),
                         'comment' => $this->reportModel->commentCount($startdate,$enddate),
                         'post_reportings' => $this->reportModel->postReportCount($startdate,$enddate),
-                        'total_csessions' => '',
+                        'total_csessions' => array(),
                         'counselor-stu-engagement' => 76.3,
                         'counselor-ann-engagement' => 43.2,
-                        'listing_overview' => $this->reportModel->listing_overview($startdate,$enddate),
+                        'listing_overview' => $listings,
                         'stu-listing-engagement' => $this->reportModel->student_listing_engagement($startdate,$enddate),
-                        'listing_by_location' => $this->reportModel->listing_by_location($startdate,$enddate),
-                        'stu_mobile_engagement' => $this->reportModel->task_engagement($startdate,$enddate)
+                        'listing_by_location' => $listing_by_loc,
+                        'stu_mobile_engagement' => 11.123
+                        // 'stu_mobile_engagement' => $this->reportModel->task_engagement($startdate,$enddate)
                     ];
                     return $data;
                 }
@@ -131,6 +173,32 @@
                     ];
                     return $data;
                 }
+            }
+        }
+
+        //Function for handling the deletion of a report generated by admin
+        public function deleteReport($filename){
+            $filepath = APPROOT. "/uploads/reports/". $filename;
+    
+            if (file_exists($filepath)) {
+                unlink($filepath); // Delete the file
+                echo json_encode(array('status' => 1));
+            } else {
+                echo "File $filename not found.";
+            }
+        }
+
+        //Function for handling the downloading process of an already generated report
+        public function downloadReport($filename){
+            $path = APPROOT. "/uploads/reports/". $filename;
+            if (file_exists($path)) {
+                header('Content-Type: application/octet-stream');
+                header('Content-Disposition: attachment; filename="' . basename($path) . '"');
+                header('Content-Length: ' . filesize($path));
+                readfile($path);
+                exit;
+            } else {
+                echo 'File not found.';
             }
         }
 
@@ -325,6 +393,21 @@
             $this->loadview('admin/admin_fp_edit', $data);
         }
 
+        public function adminProfileHandler($userID){
+            $user = $this->adminModel->getProfile($userID);
+            $data = [
+                'userID' => $userID,
+                'name' => $user->fullname,
+                'username' => $user->username,
+                'contact' => $user->contact_no,
+                'address' => $user->home_address,
+                'nic' => $user->nic,
+                'email' => $user->email,
+            ];
+            
+            $this->loadview('admin/admin_profile_view', $data);
+        }
+
         //function for viewing single user profile
         public function show_user($userID){
             $role = $this->adminModel->getRole($userID);
@@ -338,6 +421,10 @@
             }else if($role == 'facility_provider'){
                 //load facility provider details 
                 $this->fpProfileHandler($userID);
+            }
+            else if($role == 'admin'){
+                //load admin details 
+                $this->adminProfileHandler($userID);
             }
         }
 
@@ -932,6 +1019,69 @@
             }
         }
 
+        public function getSummary($userID){
+            $user = $this->adminModel->getProfile($userID);
+            if($user->user_role == "student"){
+                $data = [
+
+                ];
+                generatePDF('student',$data);
+            }
+            else if($user->user_role == "counsellor"){
+                $data = [
+                        'name' => "Osura Viduranga",
+                        'username' => "OsuraV",
+                        'student_count' => 05,
+                        'sessions' => 10,
+                        'cancelled_count' => 3,
+                        'completed_count' => 10,
+                        'meeting_details' => array(
+                            array(
+                            "userID" => "STU2123",
+                            "name" => "John Doe",
+                            "meeting_date" => "2023-03-12",
+                            "status" => "Completed"
+                            ),
+                            array(
+                                "userID" => "STU2123",
+                                "name" => "John Doe",
+                                "meeting_date" => "2023-03-12",
+                                "status" => "Completed"
+                            ),
+                            array(
+                                "userID" => "STU2123",
+                                "name" => "John Doe",
+                                "meeting_date" => "2023-03-12",
+                                "status" => "Completed"
+                            ),
+                        ),
+                        'student_details' => array(
+                            array("userID" => "STU2123","name"=>"John Doe"),
+                            array("userID" => "STU2123","name"=>"John Doe")
+                        )
+
+                    ];
+                generatePDF('counselor',$data);
+            }
+            else if($user->user_role == "facility_provider"){
+                $data = [
+                    'name' => "Osura Viduranga",
+                    'username' => "OsuraV",
+                    'listing_count' => 05,
+                    'categories' => "Furniture,Food",
+                    'listing_details' => array(
+                        array(
+                                    "listingID" => "",
+                                    "rating" => "",
+                                    "description" => "",
+                                    "category" => "",
+                                    'review_count' => ''
+                            )
+                    )
+                ];
+                generatePDF('facility_provider',$data);
+            }
+        }
 
     
 

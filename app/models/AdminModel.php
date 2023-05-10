@@ -7,6 +7,14 @@ class AdminModel{
         $this->db = new Database;
     }
 
+    //function to get admin details
+    public function getProfile($userID){
+        $this->db->query("SELECT * FROM users WHERE userID = :userID");
+        $this->db->bind(':userID', $userID);
+        $info = $this->db->getRes();
+        return $info;
+    }
+
     //fetch all unverified counselors
     public function getUnverifiedCounselors(){
         $this->db->query("SELECT c.*, u.fullname FROM counsellor c INNER JOIN users u ON c.userID = u.userID WHERE admin_verified = 0");
@@ -289,7 +297,7 @@ class AdminModel{
     }
 
     public function getPostReportings(){
-        $this->db->query('SELECT * from post_reported WHERE admin_seen = 0');
+        $this->db->query('SELECT u.username as username ,u.userID as userID, p.post_id as postID, p.post_title as title,pr.notificationID as notificationID,pr.reason as reason, pr.reported_at as reportedAt, pr.admin_seen as admin_seen FROM users u INNER JOIN post_reported pr on u.userID = pr.userID INNER JOIN posts p on pr.postID = p.post_id order by pr.admin_seen;');
         $notifications = $this->db->getAllRes();
         return json_encode($notifications);
         //return $users;
@@ -327,10 +335,9 @@ class AdminModel{
     }
 
     public function getOtherNotifications(){
-        $this->db->query('SELECT * from contact_notifications WHERE admin_seen = 0');
+        $this->db->query('SELECT * from contact_notifications order by admin_seen');
         $notifications = $this->db->getAllRes();
         return json_encode($notifications);
-        //return $users;
     }
 
     
