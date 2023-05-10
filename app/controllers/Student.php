@@ -3,10 +3,14 @@ Session::init();
 class Student extends Controller
 {
     private $studentModel;
+    private $userModel;
+    private $taskModel;
     public function __construct()
     {
         Middleware::authorizeUser(Session::get('userrole'), 'student');
         $this->studentModel = $this->loadmodel('Student_model');
+        $this->userModel = $this->loadmodel('User');
+        $this->taskModel = $this->loadmodel('Task');
     }
 
     public function index()
@@ -133,6 +137,7 @@ class Student extends Controller
 
                 if ($res) {
                     FlashMessage::flash('update_profile_flash', "Successfully Updated Your Profile Details!", "success");
+                    Session::set('username', $username);
                     Student::home();
                 } else {
                     //Error Notification
@@ -159,4 +164,58 @@ class Student extends Controller
             $this->loadview('student_dashboard/profile', $data);
         }
     }
+
+    public function give_feedback(){
+        $reason = trim($_POST['rdesc']);
+        $feedback_id = substr(sha1(date(DATE_ATOM)), 0, 8);
+        $user = Session::get('userID');
+        $nameObj = $this->userModel->getUserDetails($user);
+        $name = $nameObj->fullname;
+        //split name into fname and lname
+        $fname = explode(" ", $name)[0];
+        $lname = explode(" ", $name)[1];
+        $email = $nameObj->email;
+        $data = [
+            'feedback_id' => $feedback_id,
+            'email' => $email,
+            'reason' => $reason,
+            'fname' => $fname,
+            'lname' => $lname,
+        ];
+        if($this->userModel->addSystemFeedback($data)){
+            FlashMessage::flash('system_feedback_flash', "Thank you for your valuable feedback!", "success");
+            Student::home();
+        }else{
+            FlashMessage::flash('system_feedback_flash', "Sorry, Failed!", "error");
+            Student::home();
+        };
+    }
+
+    public function get_event_data(){
+        $today = date('Y-m-d');
+
+        $init_data = [
+            'monday' => date('Y-m-d', strtotime('monday this week', strtotime($today))),
+            'tuesday' => date('Y-m-d', strtotime('tuesday this week', strtotime($today))),
+            'wednesday' => date('Y-m-d', strtotime('wednesday this week', strtotime($today))),
+            'thursday' => date('Y-m-d', strtotime('thursday this week', strtotime($today))),
+            'friday' => date('Y-m-d', strtotime('friday this week', strtotime($today))),
+            'saturday' => date('Y-m-d', strtotime('saturday this week', strtotime($today))),
+            'sunday' => date('Y-m-d', strtotime('sunday this week', strtotime($today))),
+        ];
+
+        $data = [
+            'mondayStudyTime' => $this->taskModel->getStudyTime($init_data['monday']),
+            'tuesdayStudyTime' => $this->taskModel->getStudyTime($init_data['tuesday']),
+            'wednesdayStudyTime' => $this->taskModel->getStudyTime($init_data['wednesday']),
+            'thursdayStudyTime' => $this->taskModel->getStudyTime($init_data['thursday']),
+            'fridayStudyTime' => $this->taskModel->getStudyTime($init_data['friday']),
+            'saturdayStudyTime' => $this->taskModel->getStudyTime($init_data['saturday']),
+            'sundayStudyTime' => $this->taskModel->getStudyTime($init_data['sunday']),
+        ];  
+        
+        $res = json_encode($data);
+        echo $res;
+    }
+
 }

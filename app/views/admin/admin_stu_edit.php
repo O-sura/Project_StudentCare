@@ -4,13 +4,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/admin/admin_edit.css"?> >
+    <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/admin/admin_edit.css"?>>
+    <script src=<?php echo URLROOT . "/public/js/summary_report.js"?> defer></script>
     <title>StudentCare</title>
 </head>
 <body>
     <?php include 'sidebar.php'?>
     <div class="section" id="page-content">
-        <h1>Edit Profile</h1>
+        <div class="top-section">
+            <div class="section-title">
+                <h1>Customize Profile</h1>
+            </div>
+            <div class="get-summary <?php echo $data['userID']?>" id="get-summary">
+                <i class="fa-solid fa-print"></i>
+                <span class="btn-txt">Generate Summary</span>
+            </div>
+        </div>
         <hr>
         <div class="row-section">
             <?php

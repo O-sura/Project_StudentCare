@@ -20,10 +20,10 @@ class FlashMessage{
         public static function format_flash($flash_message){   
             switch ($flash_message['type']) {
                 case "error":
-                  $messageIcon = '<i class="fa-sharp fa-solid fa-circle-exclamation">';
-                  break;
+                    $messageIcon = '<i class="fa-sharp fa-solid fa-circle-exclamation"></i>';
+                    break;
                 case "warning":
-                    $messageIcon = 'fa-sharp fa-solid fa-circle-exclamation';
+                    $messageIcon = '<i class="fa-sharp fa-solid fa-circle-exclamation"></i>';
                     break;
                 case "info":
                     $messageIcon = '<i class="fa-solid fa-circle-info"></i>';
@@ -33,13 +33,13 @@ class FlashMessage{
                     break;
                 default:
                     //Defautlt will be a warning
-                    $messageIcon = 'fa-sharp fa-solid fa-circle-exclamation';
+                    $messageIcon = '<i class="fa-sharp fa-solid fa-circle-exclamation"></i>';
                     break;
               }
             return sprintf('
                 <div class="alert show %s">
                     <span class="message-icon">%s</span>
-                    <span class="message">%s</span>
+                    <p class="message">%s</p>
                     <span class="close-btn">
                         <span><i class="fa-solid fa-xmark"></i></span>
                     </span>

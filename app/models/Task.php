@@ -143,4 +143,7 @@ class Task
         }
     }
 
+    public function getStudyTime($date){
+        
+    }
 }

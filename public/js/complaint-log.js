@@ -19,13 +19,42 @@ fetch('http://localhost/StudentCare/admin/get_post_reports')
     }
     else{
         data.forEach(complaint => {
-            let div = document.createElement("div");
-            div.classList.add('complaint-body')
-           div.innerHTML = `
-               <p>${complaint.reason}</p>
-               <i class="fa-solid fa-circle-check" id="${complaint.notificationID}"></i>
-           `;
-            complaintBox1.appendChild(div);
+
+            //creating new complaint component and adding the data
+            const complaintBody = document.createElement('div');
+            complaintBody.className = 'complaint-body';
+
+            const leadingIcon = document.createElement('i');
+            leadingIcon.className = 'fa-solid fa-circle';
+            leadingIcon.id = 'leading-icon';
+            complaintBody.appendChild(leadingIcon);
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+            complaintBody.appendChild(messageDiv);
+
+            const messageP = document.createElement('p');
+            messageP.innerHTML = `User <b>"${complaint.username}"</b> reported the post <b>"${complaint.title}"</b> with the reason <b>"${complaint.reason}" (<a href="http://localhost/StudentCare/community/view_post/${complaint.postID}">View Post</a>)</b>`;
+            messageDiv.appendChild(messageP);
+
+            const metaDataSpan = document.createElement('span');
+            metaDataSpan.className = 'meta-data';
+            metaDataSpan.innerHTML = `Reported Date: ${complaint.reportedAt}`;
+            messageDiv.appendChild(metaDataSpan);
+
+            const checkIcon = document.createElement('i');
+            checkIcon.className = 'fa-solid fa-circle-check';
+            checkIcon.id = complaint.notificationID;
+            complaintBody.appendChild(checkIcon);
+
+            if(complaint.admin_seen == 1){
+                checkIcon.parentElement.style.pointerEvents = 'none';
+                checkIcon.parentElement.style.opacity = '0.5';
+                checkIcon.parentElement.style.transition = 'opacity 0.5s ease-in-out';
+            }
+
+            complaintBox1.appendChild(complaintBody);
+
        })
        markReaderHelper(1);
     }
@@ -44,13 +73,40 @@ fetch('http://localhost/StudentCare/admin/get_contact_notifications')
         complaintBox2.appendChild(text);
     }else{
         data.forEach(notification => {
-            let div = document.createElement("div");
-            div.classList.add('complaint-body')
-           div.innerHTML = `
-               <p>${notification.message_body}</p>
-               <i class="fa-solid fa-circle-check" id="${notification.notificationID}"></i>
-           `;
-           complaintBox2.appendChild(div);
+            //creating new complaint component and adding the data
+            const complaintBody = document.createElement('div');
+            complaintBody.className = 'complaint-body';
+
+            const leadingIcon = document.createElement('i');
+            leadingIcon.className = 'fa-solid fa-circle';
+            leadingIcon.id = 'leading-icon';
+            complaintBody.appendChild(leadingIcon);
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+            complaintBody.appendChild(messageDiv);
+
+            const messageP = document.createElement('p');
+            messageP.innerHTML = `${notification.fname} ${notification.lname} via(<b>${notification.email}</b>) have sent a message "<b>${notification.message_body}</b>"`;
+            messageDiv.appendChild(messageP);
+
+            const metaDataSpan = document.createElement('span');
+            metaDataSpan.className = 'meta-data';
+            metaDataSpan.innerHTML = `Received at: ${notification.reported_at}`;
+            messageDiv.appendChild(metaDataSpan);
+
+            const checkIcon = document.createElement('i');
+            checkIcon.className = 'fa-solid fa-circle-check';
+            checkIcon.id = notification.notificationID;
+            complaintBody.appendChild(checkIcon);
+
+            if(notification.admin_seen == 1){
+                checkIcon.parentElement.style.pointerEvents = 'none';
+                checkIcon.parentElement.style.opacity = '0.5';
+                checkIcon.parentElement.style.transition = 'opacity 0.5s ease-in-out';
+            }
+
+            complaintBox2.appendChild(complaintBody);
        })
        markReaderHelper(0);
     }
@@ -104,6 +160,7 @@ MarkAllBtn1.addEventListener('click', () => {
         .then((response) => {
             if (response.ok) {
                console.log('Marked as read')
+               location.reload();
             } else {
                 // Handle the error
                 console.error('Failed to update notification');
@@ -119,6 +176,7 @@ MarkAllBtn2.addEventListener('click', () => {
         .then((response) => {
             if (response.ok) {
                 console.log('Marked as read')
+                location.reload();
             } else {
                 // Handle the error
                 console.error('Failed to update notification');

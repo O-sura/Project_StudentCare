@@ -14,74 +14,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href=<?php echo URLROOT . "/public/css/stu/appointmentStyle.css" ?>>
     <script type="module" src=<?php echo URLROOT . "/public/js/student/loadCounselors.js" ?> defer></script>
-    <script src= <?php echo URLROOT . "/public/js/flash.js"?> defer></script>
+    <script src=<?php echo URLROOT . "/public/js/flash.js" ?> defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" defer></script>
 </head>
 
 <body>
-    <div class="sidebar">
-        <div class="logo_content">
-            <div class="logo">
-                <div class="logo_name"></div>
-            </div>
-            <i class="fa-solid fa-bars" id="btn"></i>
-        </div>
-        <ul class="nav_list">
-            <li>
-                <a href='<?php echo URLROOT ?>/student/home'>
-                    <i class="fa-solid fa-gauge"></i>
-                    <span class="links_name">Dashboard</span>
-                </a>
-                <span class="tooltip">Dashboard</span>
-            </li>
-            <li>
-                <a href='<?php echo URLROOT ?>/community/home'>
-                    <i class="fa-solid fa-users"></i>
-                    <span class="links_name">Community</span>
-                </a>
-                <span class="tooltip">Community</span>
-            </li>
-            <li>
-                <a href='<?php echo URLROOT ?>/tasks/'>
-                    <i class="fa-solid fa-calendar-days"></i>
-                    <span class="links_name">Schedule</span>
-                </a>
-                <span class="tooltip">Schedule</span>
-            </li>
-            <li>
-                <a href='<?php echo URLROOT ?>/appointments/'>
-                    <i class="fa-solid fa-calendar-check"></i></i>
-                    <span class="links_name">Appointments</span>
-                </a>
-                <span class="tooltip">Appointments</span>
-            </li>
-            <li>
-                <a href='<?php echo URLROOT ?>/announcements/'>
-                    <i class="fa-solid fa-bullhorn"></i></i>
-                    <span class="links_name">Announcements</span>
-                </a>
-                <span class="tooltip">Announcements</span>
-            </li>
-            <li>
-                <a href="<?php echo URLROOT ?>/Student_facility/">
-                    <i class="fa-solid fa-house-circle-check"></i>
-                    <span class="links_name">Listings</span>
-                </a>
-                <span class="tooltip">Listings</span>
-            </li>
-        </ul>
-        <div class="profile_content">
-            <div class="profile">
-                <div class="profile_details">
-                    <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFufGVufDB8fDB8fA%3D%3D&w=1000&q=80">
-                    <div class="name">
-                        Oshada
-                    </div>
-                </div>
-                <a href="<?php echo URLROOT . "/users/logout" ?>"><i class="fa-solid fa-arrow-right-from-bracket fa-flip-horizontal" id="log_out"></i></a>
-            </div>
-        </div>
-    </div>
+    <?php
+    require_once '../app/views/counselor_stu/sidebar.php';
+    ?>
     <div class="home_content">
         <div class="container">
             <div class="row1">
@@ -89,7 +29,7 @@
             </div>
             <div class="row2">
                 <div class="col1">
-                    <div class="topic">
+                    <div class="topic1">
                         <h3><a href="<?php echo URLROOT ?>/appointments/">Appointments</a></h3>
                     </div>
                     <div class="slider">
@@ -97,7 +37,7 @@
                     </div>
                 </div>
                 <div class="col2">
-                    <div class="topic">
+                    <div class="topic1">
                         <h3><a href="<?php echo URLROOT ?>/appointments/list">Counselors</a></h3>
                     </div>
                     <div class="slider">
@@ -105,7 +45,7 @@
                     </div>
                 </div>
                 <div class="col3">
-                    <div class="topic">
+                    <div class="topic1">
                         <h3><a href="<?php echo URLROOT ?>/appointments/requests">Requests</a></h3>
                     </div>
                     <div class="slider">
@@ -113,7 +53,7 @@
                     </div>
                 </div>
                 <div class="col4">
-                    <div class="topic">
+                    <div class="topic1">
                         <h3>dff</h3>
                     </div>
                     <div class="slider">
@@ -126,7 +66,7 @@
                     <!-- pending appointments -->
                     <h2>Upcoming appointments</h2>
 
-                    <?php if (empty($data['appointments'])) {?>
+                    <?php if (empty($data['appointments'])) { ?>
                         <div class="call-empty">
                             <h3>No appointments yet</h3>
                         </div>
@@ -257,9 +197,10 @@
 
                     <?php endforeach; ?>
                     <!-- cancelled appointments -->
-                    <br><br><h2>Appointment cancellation requests</h2>
+                    <br><br>
+                    <h2>Appointment cancellation requests</h2>
 
-                    <?php if (empty($data['cancelledAppointments'])) {?>
+                    <?php if (empty($data['cancelledAppointments'])) { ?>
                         <div class="call-empty">
                             <h3>No cancellation requests</h3>
                         </div>
@@ -297,11 +238,11 @@
                                 <div class="counselor-name" id="<?php echo $counselorId ?>">
                                     <h3>Dr.<?php echo $counselor ?></h3>
                                 </div>
-                                    <div class="join">
-                                        <h4><?php echo $cancellationReason ?></h4>
-                                    </div>
-                                    <div class="join2">
-                                        <?php if($appointmentStatus == 2){?>
+                                <div class="join">
+                                    <h4><?php echo $cancellationReason ?></h4>
+                                </div>
+                                <div class="join2">
+                                    <?php if ($appointmentStatus == 2) { ?>
                                         <button class="btn2" id="uploadBtn" onclick="undo('<?php echo $id ?>')">
                                             <div class="btn-class">
                                                 <div class="btnName">
@@ -312,16 +253,16 @@
                                                 </div>
                                             </div>
                                         </button>
-                                        <?php } else { ?>
-                                            <button class="btn3" id="uploadBtn">
+                                    <?php } else { ?>
+                                        <button class="btn3" id="uploadBtn">
                                             <div class="btn-class2">
                                                 <div class="btnName">
                                                     Cancelled
                                                 </div>
                                             </div>
                                         </button>
-                                        <?php } ?>
-                                    </div>
+                                    <?php } ?>
+                                </div>
                             </div>
                         </div>
 
@@ -342,7 +283,7 @@
                     <div class="horizontal">
                         <hr>
                     </div>
-                    <div class="topic">
+                    <div class="topic1">
                         <h3>Counselor Details</h3>
                     </div>
                     <div class="details">
@@ -404,9 +345,9 @@ families.
             popup.style.display = "block";
         }
 
-        function undo(id){
+        function undo(id) {
             //got to a function in the controller to undo the cancellation
-           
+
             let url = `http://localhost/StudentCare/Appointments/undoCancellation?id=${id}`;
             window.location.href = url;
         }

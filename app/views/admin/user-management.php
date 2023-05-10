@@ -16,7 +16,15 @@
         <?php include 'sidebar.php'?>
 
         <div class="section" id="page-content"><br><br>
-            <span class="heading">All Users  <i class="fa-solid fa-users"></i></span>
+            <div class="top-section">
+                <div class="section-title">
+                    <span class="heading">All Users  <i class="fa-solid fa-users"></i></span>
+                </div>
+                <div class="add-new-admin" id="new-admin">
+                    <i class="fa-solid fa-puzzle-piece"></i>
+                    <span class="btn-txt">Add New Admin</span>
+                </div>
+            </div>
             <div class="div-3">
                 <input type="search" name="search" id="searchbar" placeholder="Search Users Here">
                 <table class="stat-table">
@@ -35,22 +43,30 @@
                                         <td>'. $user->userID .'</td>
                                         <td>'. $user->username .'</td>
                                         <td>'. $user->user_role .'</td>';
-                                if($user->isBlocked == 0){
+                                    if($user->user_role == 'admin'){
                                         echo '
-                                            <td class="btn-row">
-                                                <input type="submit" class="'.$user->userID . ' block-unblock-btn"  id="block-btn" value="block">
-                                                <input type="submit" class="'.$user->userID . ' delete-btn" value="delete">
-                                                <input type="submit" class="'.$user->userID . ' profile-btn" value="view profile">
-                                            </td>
-                                        </tr>';
+                                                <td class="btn-row">
+                                                    <input type="submit" class="'.$user->userID . ' profile-btn" value="view profile">
+                                                </td>
+                                            </tr>';
                                     }else{
-                                        echo '
-                                            <td class="btn-row">
-                                                <input type="submit" class="'.$user->userID . ' block-unblock-btn" id="unblock-btn" value="unblock">
-                                                <input type="submit" class="'.$user->userID . ' delete-btn" value="delete">
-                                                <input type="submit" class="'.$user->userID . ' profile-btn" value="view profile">
-                                            </td>
-                                        </tr>';
+                                        if($user->isBlocked == 0){
+                                            echo '
+                                                <td class="btn-row">
+                                                    <input type="submit" class="'.$user->userID . ' block-unblock-btn"  id="block-btn" value="block">
+                                                    <input type="submit" class="'.$user->userID . ' delete-btn" value="delete">
+                                                    <input type="submit" class="'.$user->userID . ' profile-btn" value="view profile">
+                                                </td>
+                                            </tr>';
+                                        }else{
+                                            echo '
+                                                <td class="btn-row">
+                                                    <input type="submit" class="'.$user->userID . ' block-unblock-btn" id="unblock-btn" value="unblock">
+                                                    <input type="submit" class="'.$user->userID . ' delete-btn" value="delete">
+                                                    <input type="submit" class="'.$user->userID . ' profile-btn" value="view profile">
+                                                </td>
+                                            </tr>';
+                                        }
                                     }
                                 }?>
                             <?php endforeach ?>

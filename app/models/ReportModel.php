@@ -9,7 +9,7 @@ class ReportModel{
 
     //total user count within a period
     public function totalUserCount($start_date,$end_date){
-        $this->db->query("SELECT COUNT(*) as count from users WHERE registeredAt BETWEEN :startDate AND :emdDate");
+        $this->db->query("SELECT COUNT(*) as count from users WHERE registeredAt BETWEEN :startDate AND :endDate");
         $this->db->bind(':startDate', $start_date);
         $this->db->bind(':endDate', $end_date);
         $res = $this->db->rowCount();
@@ -18,7 +18,7 @@ class ReportModel{
 
     //function for getting user count by category
     public function userCountByRole($start_date,$end_date){
-        $this->db->query("SELECT user_role, COUNT(*) as count from users WHERE user_role != \"admin\" AND registeredAt BETWEEN :startDate AND :emdDate GROUP BY user_role;");
+        $this->db->query("SELECT user_role, COUNT(*) as count from users WHERE user_role != \"admin\" AND registeredAt BETWEEN :startDate AND :endDate GROUP BY user_role;");
         $this->db->bind(':startDate', $start_date);
         $this->db->bind(':endDate', $end_date);
         $res = $this->db->getAllRes();
@@ -27,7 +27,7 @@ class ReportModel{
 
     //community posts
     public function postCount($start_date,$end_date){
-        $this->db->query("SELECT * from posts WHERE  posted_at BETWEEN :startDate AND :emdDate");
+        $this->db->query("SELECT * from posts WHERE  posted_at BETWEEN :startDate AND :endDate");
         $this->db->bind(':startDate', $start_date);
         $this->db->bind(':endDate', $end_date);
         $res = $this->db->rowCount();
@@ -42,10 +42,14 @@ class ReportModel{
 
     //community engagement
     public function authorCount($start_date,$end_date){
-        $this->db->query("SELECT DISTINCT author FROM posts WHERE posted_at BETWEEN :startDate AND :emdDate");
+        $this->db->query("SELECT DISTINCT author FROM posts WHERE posted_at BETWEEN :startDate AND :endDate");
+        $this->db->bind(':startDate', $start_date);
+        $this->db->bind(':endDate', $end_date);
         $res1 = $this->db->getAllRes();
 
-        $this->db->query("SELECT DISTINCT author FROM comments  WHERE posted_at BETWEEN :startDate AND :emdDate");
+        $this->db->query("SELECT DISTINCT author FROM comments  WHERE added_date BETWEEN :startDate AND :endDate");
+        $this->db->bind(':startDate', $start_date);
+        $this->db->bind(':endDate', $end_date);
         $res2 = $this->db->getAllRes();
 
         
@@ -63,7 +67,7 @@ class ReportModel{
 
     //comment count
     public function commentCount($start_date,$end_date){
-        $this->db->query("SELECT * from comments WHERE  added_date BETWEEN :startDate AND :emdDate");
+        $this->db->query("SELECT * from comments WHERE  added_date BETWEEN :startDate AND :endDate");
         $this->db->bind(':startDate', $start_date);
         $this->db->bind(':endDate', $end_date);
         $res = $this->db->rowCount();
@@ -72,7 +76,7 @@ class ReportModel{
 
     //post reportings
     public function postReportCount($start_date,$end_date){
-        $this->db->query("SELECT * from post_reported WHERE  reported_at BETWEEN :startDate AND :emdDate");
+        $this->db->query("SELECT * from post_reported WHERE  reported_at BETWEEN :startDate AND :endDate");
         $this->db->bind(':startDate', $start_date);
         $this->db->bind(':endDate', $end_date);
         $res = $this->db->rowCount();
@@ -106,7 +110,7 @@ class ReportModel{
 
     // student-mobile app engagement
     public function task_engagement($start_date,$end_date){
-        $this->db->query("SELECT * FROM task WHERE date_added BETWEEN :startDate AND :endDate");
+        $this->db->query("SELECT * FROM task WHERE task_date BETWEEN :startDate AND :endDate");
             $this->db->bind(':startDate', $start_date);
             $this->db->bind(':endDate', $end_date);
             $results = $this->db->rowCount();
