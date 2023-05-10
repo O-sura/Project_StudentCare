@@ -143,7 +143,15 @@ class Task
         }
     }
 
-    public function getStudyTime($date){
-        
+    public function getStudyTime($date,$usr)
+    {
+        $this->db->query("SELECT SUM(studied_time) AS studied_time
+        FROM event
+        WHERE event_date = :eventDate AND user_id = :userID AND event_status = 1 
+        GROUP BY event_date;");
+        $this->db->bind(':eventDate', $date);
+        $this->db->bind(':userID', $usr);
+        $results = $this->db->getRes();
+        return $results;
     }
 }

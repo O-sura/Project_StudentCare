@@ -25,6 +25,7 @@
     require_once '../app/views/student_dashboard/sidebar.php';
     ?>
     <?php FlashMessage::flash('system_feedback_flash'); ?>
+    <?php FlashMessage::flash('password_change_flash'); ?>
     <div class="home_content">
         <div class="container">
             <!-- Popup Form -->
@@ -83,11 +84,10 @@
                             <h3>Study time stats</h3>
                         </div>
                         <div class="col-2">
-                            <select class="select">
-
-                                <option value="Exam">Last 7 days</option>
-                                <option value="Club">Last 14 days</option>
-                                <option value="Gym">Last 30 days</option>
+                            <select class="select" id="filter">
+                                <option value="this">This week</option>
+                                <option value="14">Last 14 days</option>
+                                <option value="30">Last 30 days</option>
                             </select>
                         </div>
 
