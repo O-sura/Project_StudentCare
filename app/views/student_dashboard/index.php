@@ -21,47 +21,49 @@
 </head>
 
 <body>
-    
+
     <?php
     require_once '../app/views/student_dashboard/sidebar.php';
     ?>
     <?php FlashMessage::flash('system_feedback_flash'); ?>
     <?php FlashMessage::flash('password_change_flash'); ?>
     <div class="home_content">
-    <!DOCTYPE html>
 
-            <!-- First popup box -->
-            <div id="myModal" class="modal">
+
+        <!-- First popup box -->
+        <div id="myModal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <h2>Welcome to our site!</h2>
-                <p>This is the first popup box.</p>
+                <img src="<?php echo URLROOT . "/public/img/user_experience/1.png" ?>" class="tip">
                 <button class="next-btn">Next</button>
-                <button id="skipBtn">Skip Tour</button>
+                <button class="skip-btn" id="skipBtn">Skip Tour</button>
             </div>
-            </div>
+        </div>
 
-            <!-- Second popup box -->
-            <div id="myModal2" class="modal">
+        <!-- Second popup box -->
+        <div id="myModal2" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
-                <h2>Second Popup Box</h2>
-                <p>This is the second popup box.</p>
+                <h2>Welcome to our site!</h2>
+                <img src="<?php echo URLROOT . "/public/img/user_experience/2.png" ?>" class="tip">
                 <button class="next-btn">Next</button>
-                <button id="skipBtn">Skip Tour</button>
+                <button class="skip-btn" id="skipBtn">Skip Tour</button>
             </div>
-            </div>
+        </div>
 
-            <!-- Third popup box -->
-            <div id="myModal3" class="modal">
+        <!-- Third popup box -->
+        <div id="myModal3" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
-                <h2>Third Popup Box</h2>
-                <p>This is the third popup box.</p>
+                <h2>Welcome to our site!</h2>
+                <img src="<?php echo URLROOT . "/public/img/user_experience/3.png" ?>" class="tip">
+                <button class="next-btn">Next</button>
+                <button class="skip-btn" id="skipBtn">Skip Tour</button>
             </div>
-            </div>
+        </div>
 
-  
+
         <div class="container">
             <!-- Popup Form -->
             <div class="overlay">
@@ -105,7 +107,7 @@
                     </div>
                     <div class="prof-details">
                         <h3><?php echo $data['username'] ?></h3><br><br>
-                        <button class="btn" id = "edit"> <i class="fa-solid fa-pen-to-square"></i> Edit profile</button>
+                        <button class="btn" id="edit"> <i class="fa-solid fa-pen-to-square"></i> Edit profile</button>
                         <div class="feedback">
                             <button class="btn2" id="feedback">
                                 <h3><i class="fa-regular fa-comment-dots"></i> Give feedback</h3>
