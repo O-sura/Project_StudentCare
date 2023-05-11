@@ -1,12 +1,13 @@
 <?php
 Session::init();
 class Facility_Provider extends Controller{
+    private $userModel;
     private $ListingModel;
     
     public function __construct(){
         Middleware::authorizeUser(Session::get('userrole'), 'facility_provider');
         $this->ListingModel = $this->loadModel('Facility_Providers');
-    
+        $this->userModel = $this->loadModel('User');
     }
 
 
@@ -61,12 +62,14 @@ class Facility_Provider extends Controller{
             'nic' => $row->nic,
             'contact' => $row->contact_no,
             'address' => $row->home_address,
+            'category' => $row->category,
             'name_err' => '',
             'nic_err' => '',
             'username_err' => '',
             'email_err' => '',
             'contact_err' => '',
-            'address_err' => ''
+            'address_err' => '',
+            'category_err' => ''
         ];
         
         $this->loadView('facility_provider/editprofile',$data);
@@ -106,6 +109,7 @@ class Facility_Provider extends Controller{
             $email = $_POST['email'];
             $address = $_POST['address'];
             $contact = $_POST['contact'];
+            $category = $_POST['category'];
             
 
             $data = [
@@ -117,12 +121,14 @@ class Facility_Provider extends Controller{
                 'contact' => $contact,
                 'address' => $address,
                 'profile' => $filename,
+                'category' => $category,
                 'name_err' => '',
                 'username_err' => '',
                 'nic_err' => '',
                 'email_err' => '',
                 'contact_err' => '',
-                'address_err' => ''
+                'address_err' => '',
+                'category_err' => ''
             ];
 
             //Check whether all the fields are filled properly
@@ -148,6 +154,10 @@ class Facility_Provider extends Controller{
 
             if( empty($data['contact'])){
                 $data['contact_err'] = "*Contact field is Required";
+            }
+
+            if( empty($data['category'])){
+                $data['category_err'] = "*At least one category is Required";
             }
 
             //Check whether an account already exists with the provided username
@@ -181,7 +191,7 @@ class Facility_Provider extends Controller{
             }
 
             //Make sure there are no error flags are set
-            if(empty($data['username_err']) && empty($data['name_err']) && empty($data['nic_err']) && empty($data['email_err']) && empty($data['contact_err']) && empty($data['address_err'])){
+            if(empty($data['username_err']) && empty($data['name_err']) && empty($data['nic_err']) && empty($data['email_err']) && empty($data['contact_err']) && empty($data['address_err']) && empty($data['category_err'])){
                     
                 $res = $this->ListingModel->updateProfileDetails($data,$user_id);
 
@@ -212,12 +222,14 @@ class Facility_Provider extends Controller{
                 'nic' => $row->nic,
                 'contact' => $row->contact,
                 'address' => $row->address,
+                'category' => $row->category,
                 'name_err' => '',
                 'nic_err' => '',
                 'username_err' => '',
                 'email_err' => '',
                 'contact_err' => '',
-                'address_err' => ''
+                'address_err' => '',
+                'category_err' => ''
             ];
 
                 
@@ -321,6 +333,10 @@ class Facility_Provider extends Controller{
                 $data['category_err'] =  "*Category field is Required";
             }
 
+            if(!is_numeric($data['rental'])){
+                $data['rental_err'] =  "*This field should be numeric";
+            }
+
             $num_of_images = count($images['name']);    //number of images
 
             $uploaded_images = [];
@@ -340,7 +356,7 @@ class Facility_Provider extends Controller{
 
             $image_urls = [];
 
-            foreach($uploaded_images as $uploaded_image) {
+            /* foreach($uploaded_images as $uploaded_image) {
                 //get image extension store it in var
                 $image_ex = pathinfo($uploaded_image["name"], PATHINFO_EXTENSION);  
 
@@ -366,6 +382,41 @@ class Facility_Provider extends Controller{
                     $image_urls[] = $new_image_name;
                 }else{
                     echo("You can't upload files of this category");
+                }
+            } */
+
+            if(!$images['name'][0] == '') {
+                //array_pop($uploaded_images);  //remove the last unnesessary array element
+                
+                foreach($uploaded_images as $uploaded_image) {
+                    //get image extension store it in var
+                    $image_ex = pathinfo($uploaded_image["name"], PATHINFO_EXTENSION);  
+
+                    //convert the image extension into lower case and store it in var
+                    $image_ex_lc = strtolower($image_ex);
+    
+                    //create array that stores allowed to upload image extensions
+                    $allowed_exs = array('jpg', 'jpeg', 'png');
+    
+                    //check if the image extension is present in $allowed_exs array
+                    if(in_array($image_ex_lc, $allowed_exs)){  
+                        
+    
+                        //renaming the image name with random string             
+                        $new_image_name = uniqid('IMG-', true).'.'.$image_ex_lc;   
+    
+                        //creating upload path on root directory
+                        $image_upload_path = PUBLICPATH . "/img/listing/". $new_image_name;
+    
+                        //move uploaded image to 'images' folder
+                        move_uploaded_file($uploaded_image["tmp_name"], $image_upload_path);
+    
+                        $images = json_encode($images);
+                        $image_urls[] = $new_image_name;
+                        // header("Location: propertyView.php");
+                    }else{
+                        echo("You can't upload files of this category");
+                    }
                 }
             }
 
@@ -627,7 +678,11 @@ class Facility_Provider extends Controller{
                 $data['category_err'] =  "*Category field is Required";
             }
 
-            $unique_array = array_unique($uniList); //check for duplicates
+            if(!is_numeric($data['rental'])){
+                $data['rental_err'] =  "*This field should be numeric";
+            }
+
+            $unique_array = array_unique($uniList); //remove duplicate values from the array $uniList and store the unique values in the array $unique_array.
 
             if(count($uniList) != count($unique_array)){
                 $data['uniName_err'] = 'Duplicate university names are not allowed';
@@ -652,7 +707,7 @@ class Facility_Provider extends Controller{
 
             
 
-            $image_urls = [];
+            $image_urls = [];       //create an array as image_urls
 
             if(!$images['name'][0] == '') {
                 array_pop($uploaded_images);  //remove the last unnesessary array element
@@ -670,9 +725,9 @@ class Facility_Provider extends Controller{
                     //check if the image extension is present in $allowed_exs array
                     if(in_array($image_ex_lc, $allowed_exs)){  
                         
-    
                         //renaming the image name with random string             
-                        $new_image_name = uniqid('IMG-', true).'.'.$image_ex_lc;   
+                        $new_image_name = uniqid('IMG-', true).'.'.$image_ex_lc;   //uniqid('IMG-', true)  generates a unique identifier with a prefix of 'IMG-' and 
+                                                                                   //with extra entropy, resulting in a longer and more unique ID
     
                         //creating upload path on root directory
                         $image_upload_path = PUBLICPATH . "/img/listing/". $new_image_name;
@@ -680,7 +735,7 @@ class Facility_Provider extends Controller{
                         //move uploaded image to 'images' folder
                         move_uploaded_file($uploaded_image["tmp_name"], $image_upload_path);
     
-                        $images = json_encode($images);
+                        $images = json_encode($images);     //convert images php array into a json encoded string images
                         $image_urls[] = $new_image_name;
                         // header("Location: propertyView.php");
                     }else{
@@ -689,9 +744,10 @@ class Facility_Provider extends Controller{
                 }
             }
            
-            $image_urls = json_encode($image_urls);
 
-            $uniName = json_encode($uniName);
+            $image_urls = json_encode($image_urls);     //convert image_urls php array into a json encoded string image_urls
+
+            $uniName = json_encode($uniName);           //convert uniName php array into a json encoded string uniName
             $listing_id = $id;
 
             $data = [
@@ -871,6 +927,119 @@ class Facility_Provider extends Controller{
         }
     }
 
+    //to change the profile password
+    public function changePassword(){
+        $username = Session::get('username');
+
+        $data = [
+            'username' => $username,
+            'currentPW' => '',
+            'password' => '',
+            'confirmPW' => '',
+            'currentPW_err' => '',
+            'password_err' => '',
+            'confirmPW_err' => '',
+        ];
+
+        $this->loadView('facility_provider/changePW',$data);
+    }
+
+    public function changeCurrentPassword(){
+
+        $username = Session::get('username');
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            //Log the user in and start the session
+
+            if (isset($_POST['change-password'])) {
+
+                $data = [
+                    'username' => $username,
+                    'currentPW' => trim($_POST['current-password']),
+                    'password' => trim($_POST['password']),
+                    'confirmPW' => trim($_POST['password-confirm']),
+                    'currentPW_err' => '',
+                    'password_err' => '',
+                    'confirmPW_err' => '',
+                ];
+
+                $password = $data['password'];
+
+                if (!$this->userModel->validatePassword($data['username'], $data['currentPW'])) {
+                    $data['currentPW_err'] = '*Current Password does not match';
+                }
+
+                //Password and repeated once are matched
+                if ($_POST['password'] !== $_POST['password-confirm']) {
+                    //echo("Password mismatch");
+                    $data['confirmPW_err'] = "*Password mismatch";
+                    // die();
+                }
+
+                //password has(Min. 8 len, one character, one letter, one special char)
+                if (strlen($password) < 8) {
+                    //echo("Password should have at least 8 characters");
+                    $data['password_err'] = "*Password should have at least 8 characters";
+                    //die();
+                } else {
+                    if (!preg_match('/[0-9]/', $password)) {
+                        //echo("Password must contain at least one number");
+                        $data['password_err'] = "*Password must contain at least one number";
+                        //die();
+                    } else if (!preg_match('/[a-z]/', $password)) {
+                        //echo('Password must contain at least one lowercase letter');
+                        $data['password_err'] = "*Password must contain at least one lowercase letter";
+                        //die();
+                    } else if (!preg_match('/[A-Z]/', $password)) {
+                        //echo('Password must contain at least one uppercase letter');
+                        $data['password_err'] = "*Password must contain at least one uppercase letter";
+                        //die();
+                    } else if (!preg_match("/[\[^\'£$%^&*()}{@:\'#~?><>,;@\|\-=\-_+\-¬\`\]]/", $password)) {
+                        //echo('Password must contain at least one special character');
+                        $data['password_err'] = "*Password must contain at least one special character";
+                        //die();
+                    }
+                }
+
+                // print_r($data);
+                // exit;
+
+                if (empty($data['currentPW'])) {
+                    $data['currentPW_err'] = "Please enter current password";
+                }
+
+                if (empty($data['confirmPW'])) {
+                    $data['confirmPW_err'] = "Please enter confirm password";
+                }
+
+                if (empty($data['password'])) {
+                    $data['password_err'] = "Please enter new password";
+                }
+
+                if (empty($data['username_err']) && empty($data['currentPW_err']) && empty($data['password_err']) && empty($data['confirmPW_err'])) {
+
+                    $this->userModel->updatePassword($username, $data['password']);
+                    FlashMessage::flash('password_change_flash', "Successfully Updated Your Password!", "success");
+                    Middleware::redirect('facility_provider/editprofile');
+                } else {
+                    $this->loadView('facility_provider/changePW',$data);
+                }
+            }
+
+        }
+    }
+
+    //to delete own profile of counselor
+    public function deleteOwnProfile(){
+
+        $userid = Session::get('userID');
+
+        $this->ListingModel->updateUserAsDeleted($userid);
+
+        // $data == [];
+
+        $this->loadView('index');
+    }
 
     //university filter
     /* public function university_filter(){

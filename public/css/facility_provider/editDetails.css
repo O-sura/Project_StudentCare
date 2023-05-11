@@ -129,6 +129,12 @@ label{
   width: 40%;
 }
 
+.colB p{
+  font-size: 10px;
+  margin-left: 150px;
+  margin-top: 8px;
+}
+
 .bottomSection{
   margin-top: 0%;
   margin-left: 20%;
@@ -159,6 +165,144 @@ label{
   background-color: gold;
   font-weight: 600;
   font-size: 18px;
+}
+
+.special{
+  display:block;
+  margin-top: 50px;
+}
+
+.pwBtn{
+  text-decoration: none;
+}
+
+.dlt{
+  cursor: pointer;
+  text-decoration: none;
+  color:blue;
+  margin-top: 3%;
+}
+
+.remove{
+  text-decoration: none;
+  color: white;
+}
+
+.modalBtn{
+  display: flex;
+  justify-content: space-between;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  display: grid;
+  grid-gap: 15px;
+  padding: 10%;
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 20%; /* Could be more or less, depending on screen size */
+  border-radius: 20px;
+  align-items: center;
+  text-align: center;
+  align-content: center;
+  justify-content: center;
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  width: 5%;
+}
+
+.close:hover, .close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+.btnCan{
+  background: #1A285A;
+  background-image: -webkit-linear-gradient(top, #1A285A, #1A285A);
+  background-image: -moz-linear-gradient(top, #1A285A, #1A285A);
+  background-image: -ms-linear-gradient(top, #1A285A, #1A285A);
+  background-image: -o-linear-gradient(top, #1A285A, #1A285A);
+  background-image: linear-gradient(to bottom, #1A285A, #1A285A);
+  -webkit-border-radius: 40;
+  -moz-border-radius: 40;
+  border-radius: 40px;
+  font-family: 'Inter';
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: 300;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  width: 40%;
+  
+}
+
+.btnCan:hover{
+  background: #3cb0fd;
+  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+  text-decoration: none;
+  border: none;
+}
+
+#removeBtn{
+  background: #7e2222;
+  background-image: -webkit-linear-gradient(top, #7e2222, #7e2222);
+  background-image: -moz-linear-gradient(top, #7e2222, #7e2222);
+  background-image: -ms-linear-gradient(top, #7e2222, #7e2222);
+  background-image: -o-linear-gradient(top, #7e2222, #7e2222);
+  background-image: linear-gradient(to bottom, #7e2222, #7e2222);
+  -webkit-border-radius: 11;
+  -moz-border-radius: 11;
+  border-radius: 40px;
+  width: 40%;
+  font-family: 'Inter';
+  color: #ffffff;
+  font-size: 17px;
+  padding: 8px 20px 10px 20px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+
+}
+
+#removeBtn:hover {
+  background: #e1c827;
+  background-image: -webkit-linear-gradient(top, #f2c23d, #f2c23d);
+  background-image: -moz-linear-gradient(top, #f2c23d, #f2c23d);
+  background-image: -ms-linear-gradient(top, #f2c23d, #f2c23d);
+  background-image: -o-linear-gradient(top, #f2c23d, #f2c23d);
+  background-image: linear-gradient(to bottom, #f2c23d, #f2c23d);
+  text-decoration: none;
+  color: black;
 }
 
 

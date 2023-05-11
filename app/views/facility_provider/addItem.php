@@ -74,7 +74,12 @@
                         <input class="town" name="location" type="text">
                         </div>
 
-
+                        <?php 
+                            if($data['uniName_err'])
+                                echo '<div class="form-field" data-error=" ' . $data['uniName_err'] . '">';
+                            else
+                                echo '<div class="form-field">';
+                        ?>
                         <div class="unisub">
                             <p>Universities/Institutions Nearby:</p>
                             <div class="university-adder">
@@ -111,6 +116,7 @@
                             </div>
 
                             <button type="button" class="addAnother" onclick="addAnother()">+ Add</button>
+                        </div>
                         </div>
                     </div>
                     

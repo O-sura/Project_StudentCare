@@ -348,6 +348,20 @@
             return $result;
         }
 
+        //to delete the own profile
+        public function updateUserAsDeleted($userid){
+
+            $this->db->query('UPDATE users SET isDeleted = 1 WHERE userID = :userid;');
+            $this->db->bind(':userid', $userid);
+
+            if ($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+
+        }
+
     }
 
 ?>
