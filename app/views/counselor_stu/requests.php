@@ -217,9 +217,11 @@
                                     <?php echo $reason; ?>
                                 </div>
                             </div>
+                            <?php
+                            if (in_array($id, $requestIds)) { ?>
+                                <span class="icon_button_badge"><i class="fa-solid fa-circle-exclamation"></i></span>
 
-                            <span class="icon_button_badge"><i class="fa-solid fa-circle-exclamation"></i></span>
-
+                            <?php } ?>
 
 
                         </div>

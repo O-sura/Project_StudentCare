@@ -13,6 +13,7 @@ class Tasks extends Controller
     public function index()
     {
         $id = Session::get('userID');
+        $date = date('Y-m-d');
         $data = [
             'taskDates' => $this->taskModel->getTaskDates($id)
         ];
@@ -28,6 +29,8 @@ class Tasks extends Controller
             'notStarted' => $this->taskModel->getNotStartedToday($id),
             'inProgress' => $this->taskModel->getStartedToday($id),
             'all' => $this->taskModel->getAllToday($id),
+            'tasksCompleted' => $this->taskModel->getNumOfTasksCompleted($id,$date),
+            'tasks' => $this->taskModel->getTotalNumofTasks($id,$date),
         ];
 
         $this->loadview('tasks/index', $data);
@@ -153,4 +156,34 @@ class Tasks extends Controller
             $this->loadview('tasks/addTask');
         }
     }
+
+    public function view_task($date){
+        $init_data = [
+            'userID' => Session::get('userID'),
+            'taskDate' => $date
+        ];
+
+        $data = [
+            'notStarted' => $this->taskModel->getNotStarted($init_data),
+            'started' => $this->taskModel->getStarted($init_data),
+            'completed' => $this->taskModel->getCompleted($init_data),
+            'all' => $this->taskModel->getAll($init_data),
+            'day' => date('l', strtotime($init_data['taskDate'])),
+            'dayNum' => date('d', strtotime($init_data['taskDate'])),
+        ];
+
+        $this->loadview('tasks/viewTask', $data);
+    }
+
+    public function delete(){
+        
+        $taskDate = $_GET['task_date'];
+        $taskId = $_GET['task_id'];
+
+        if($this->taskModel->deleteTask($taskId)){
+            Tasks::view_task($taskDate);
+        };
+
+    }
+
 }

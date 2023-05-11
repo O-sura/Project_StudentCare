@@ -135,6 +135,7 @@ hr{
 .row2{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 7fr;
+  width: 90vw;
 }
 
 .row3{
