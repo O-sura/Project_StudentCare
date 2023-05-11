@@ -13,10 +13,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo URLROOT . "/public/css/flash.css" ?>">
+    <link rel="stylesheet" href="<?php echo URLROOT . "/public/css/tour.css" ?>">
     <link rel="stylesheet" href=<?php echo URLROOT . "/public/css/stu/dashboardStyle.css" ?>>
     <script type="module" src=<?php echo URLROOT . "/public/js/student/dashboard.js" ?> defer></script>
     <script src=<?php echo URLROOT . "/public/js/flash.js" ?> defer></script>
-    
+    <script src=<?php echo URLROOT . "/public/js/tour.js" ?> defer></script>
 </head>
 
 <body>
@@ -27,6 +28,40 @@
     <?php FlashMessage::flash('system_feedback_flash'); ?>
     <?php FlashMessage::flash('password_change_flash'); ?>
     <div class="home_content">
+    <!DOCTYPE html>
+
+            <!-- First popup box -->
+            <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Welcome to our site!</h2>
+                <p>This is the first popup box.</p>
+                <button class="next-btn">Next</button>
+                <button id="skipBtn">Skip Tour</button>
+            </div>
+            </div>
+
+            <!-- Second popup box -->
+            <div id="myModal2" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Second Popup Box</h2>
+                <p>This is the second popup box.</p>
+                <button class="next-btn">Next</button>
+                <button id="skipBtn">Skip Tour</button>
+            </div>
+            </div>
+
+            <!-- Third popup box -->
+            <div id="myModal3" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Third Popup Box</h2>
+                <p>This is the third popup box.</p>
+            </div>
+            </div>
+
+  
         <div class="container">
             <!-- Popup Form -->
             <div class="overlay">

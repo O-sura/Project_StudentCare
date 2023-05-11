@@ -83,17 +83,15 @@
                 $image = "avatar.jpg";
             }
             ?>
-            <div class="profile_content">
                 <div class="profile">
                     <div class="profile_details">
-                        <img src="<?php echo URLROOT . "/public/img/student/" . $image; ?>" alt="">
+                        <img src="<?php echo URLROOT . "/public/img/counselor/" . $image; ?>" alt="">
                         <div class="name">
                             <?php echo Session::get('username') ?>
                         </div>
                     </div>
                     <a href='<?php echo URLROOT ?>/users/logout'><i class="fa-solid fa-arrow-right-from-bracket fa-flip-horizontal" id="log_out"></i></a>
                 </div>
-            </div>
         </div>
 
     </div>

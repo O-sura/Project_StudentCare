@@ -110,16 +110,19 @@ border: none;
 
 .container{
 display: grid;
-grid-template-rows:1fr 1fr 15fr;
+grid-template-rows:40px 40px auto;
 width: 100vw;
 margin-left: 2%;
-margin-top: 2%;
+margin-top: 30px;
 grid-gap: 15px;
 }
-
+.row1{
+  height: 20px;
+}
 .row2{
 display: grid;
 grid-template-columns: 1fr 1fr 1fr 7fr;
+height: 40px;
 }
 
 .row3{

@@ -81,6 +81,9 @@
                         }
                 ?>
                         <div class="call" id="accepted">
+                            <div class="icone">
+                            <i class="fa-solid fa-circle-check fa-xl"></i>
+                            </div>
                             <div class="date">
                                 <?php echo $date ?>
                             </div>
@@ -131,6 +134,9 @@
                         }
                 ?>
                         <div class="call">
+                            <div class="icon">
+                            <i class="fa-solid fa-arrow-rotate-left fa-xl"></i>
+                            </div>
                             <div class="date">
                                 <?php echo $date ?>
                             </div>

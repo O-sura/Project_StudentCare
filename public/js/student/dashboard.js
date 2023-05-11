@@ -82,6 +82,7 @@ function getStudyTimeDetails(){
   xhr.send();
 }
 
+
   const chartFilter = document.getElementById("filter");
   chartFilter.onchange = () =>{
     const filter = chartFilter.value;
@@ -90,6 +91,7 @@ function getStudyTimeDetails(){
     }else if(filter == "14"){
       getDayStudyTimeDetails(14);
     }else{
+      
       getDayStudyTimeDetails(30);
     }
   };

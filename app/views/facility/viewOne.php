@@ -17,7 +17,7 @@
 </head>
 
 <body>
-    <div class="page">
+    
         <?php FlashMessage::flash('listing_report_flash'); ?>
         <?php
         require_once '../app/views/facility/sidebar.php';
@@ -115,7 +115,7 @@
 
                             <?php endforeach; ?></span>
                     </p>
-                    <p class="rating"><i class="fa-solid fa-star fa-xs"></i> <?php echo $data['viewone']->rating ?></p>
+                    <p class="rating">Rating : <?php echo $data['viewone']->rating ?>☆ </p>
                     <p class="price"><span>Price(Rs.): </span><?php echo $data['viewone']->rental; ?></p>
 
                     <div class="review">
@@ -138,16 +138,15 @@
                         </div>
                         <div class="comment">
                             <textarea name="" id="review-content" cols="55" rows="5">Write your review here...</textarea>
+                            <br>
                             <button type="submit" class="btn" id=<?php echo $data["viewone"]->listing_id ?>>Add review</button>
                         </div>
 
                         <div class="feedback" id="search-results">
                             <?php foreach ($data['comments'] as $comment) :
-                                if ($comment->profile_img != NULL) {
-                                    $image = $comment->profile_img;
-                                } else {
+                                
                                     $image = "avatar.jpg";
-                                }
+                                
                             ?>
                                 <div class="other_comment">
                                     <div class="feedback_details">
@@ -187,7 +186,7 @@
                         </div>
 
                     </div>
-                </div>
+                
 
 
 
