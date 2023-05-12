@@ -200,7 +200,7 @@ class CounselorAppointment extends Controller
 
                     //to send an email to the related student informing about the session
                     $subject = 'Link for the Counseling Session';
-                    $body = 'Please click the below link to logging to the session.<br> <a href=http://localhost/3000/' . $data['meetingID'] . '>Join in</a>
+                    $body = 'Please click the below link to logging to the session.<br> <a href=http://localhost:3000/' . $data['meetingID'] . '>Join in</a>
                                 <br> Counselor Name : ' . $loggedUser->fullname . '<br> Date : ' . $data['appDate'] . '<br> Time : ' . $data['appTime'];
                     $altbody = 'Counselor Name : ' . $user->fullname . '<br> Date : ' . $data['appDate'] . '<br> Time : ' . $data['appTime'];
                     $res = sendMail($user->email, $subject, $body, $altbody);
