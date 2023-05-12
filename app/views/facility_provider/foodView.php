@@ -28,10 +28,7 @@
             <div class="head">
                 <h1>Food</h1>
 
-                <form class="box" method="POST" action="propertyView">
-                    <button type="submit" name="search"><i class="fa-solid fa-search" aria-hidden="true"></i></button>
-                    <input type="text" placeholder="Search Here" name="searchbtn" class="searchbtn">
-                </form>
+                <input class="search" type="search" id="searchbar" name="search" placeholder="search">
 
             </div>
 

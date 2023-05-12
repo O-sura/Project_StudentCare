@@ -28,11 +28,12 @@
                 <div id="image_container" align="center">
                     <br>
                     <?php
-                        $images = json_decode($data['viewone']->image); 
+                        $images = json_decode($data['viewone']->image); //convert json string into php data structure
+                        //JSON string stored in array $data['viewone']->image and store the resulting PHP data structure in the variable $images
+
                     ?>
                     <div class="preview" align="center">
-                        <!-- <img name="preview" src=""> -->
-                        <img id="preview" src="<?= URLROOT . "/public/img/listing/" . $images[0] ?>">
+                        <img id="preview" src="<?= URLROOT . "/public/img/listing/" . $images[0] ?>">       <!-- load the first image -->
                     </div>
                     <br>
                     <div class="thumbnails">
@@ -47,10 +48,9 @@
                     <h2>Contact Info.</h2>
                     <p><span>Contact No: </span><?php echo $data['facilityProviderDetails']->contact_no; ?></p>
                     <p><span>Address: </span><?php echo $data['viewone']->address; ?></p>
-
+                    
+                    <!-- google map link -->
                     <div class="map">
-                        <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d270201.1012553059!2d80.57066973934896!3d7.435740318327426!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2slk!4v1668671876514!5m2!1sen!2slk" 
-                            width="400" height="250" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" frameborder="0"></iframe> -->
                         <iframe width="400" height="250" src="https://maps.google.com/maps?q=<?php echo $data['viewone']->address ; ?>&output=embed"></iframe>
                     </div>
                 </div>
@@ -75,52 +75,51 @@
 
                 <p class="description"><?php echo $data['viewone']->description; ?><br>
                     <span><?php echo $data['viewone']->special_note; ?></span><br>
-                    <span><?php foreach ($data['universities'] as $university) :
-                                    echo $university->distance ?> km from <?php echo $university->uni_name; ?> <br>
-
+                    <span><?php foreach ($data['universities'] as $university) :        //load the details of universities
+                                echo $university->distance ?> km from <?php echo $university->uni_name; ?> <br>
                             <?php endforeach; ?></span>
                 </p>
                 
                 <p class="price"><span>Price(Rs.): </span><?php echo $data['viewone']->rental; ?></p>
+                    
 
+                <!-- load the ratings and comments -->
                 <div class="review">
                     <p>Reviews</p>
 
                     <div class="feedback" id="search-results">
-                            <?php foreach ($data['comments'] as $comment) :
+                        <?php foreach ($data['comments'] as $comment) :
                                 if ($comment->profile_img != NULL) {
-                                    $image = $comment->profile_img;
+                                    $image = $comment->profile_img;         
                                 } else {
                                     $image = "avatar.jpg";
                                 }
                             ?>
-                                <div class="other_comment">
-                                    <div class="feedback_details">
-                                        <img src="<?php echo URLROOT . "/public/img/student/" . $image; ?>" id="image3">
-                                        <h6><?php echo $comment->username ?></h6>
-                                    </div>
-                                    <div class="feedback_rating">
-
-                                        <p><?php for ($i = 1; $i < 6; $i++) { ?>
-                                                <?php
-                                                if ($i <= $comment->star_rating) { ?>
-                                                    <i class="fa-solid fa-star fa-xs"></i>
-                                                <?php } else { ?>
-                                                    <i class="fa-regular fa-star fa-xs"></i>
-                                                <?php } ?>
-                                            <?php
-                                            } ?>
-                                            <span class="posted-date">Posted on: <?php echo $comment->date_added ?> </span>
-                                        </p>
-                                    </div>
-                                    <div class="feedback_comment">
-                                        <p><?php echo $comment->feedback ?></p>
-                                    </div>
+                            <div class="other_comment">
+                                <div class="feedback_details">
+                                    <img src="<?php echo URLROOT . "/public/img/student/" . $image; ?>" id="image3">    <!-- display the student image -->
+                                    <h6><?php echo $comment->username ?></h6>           <!-- display the username -->
                                 </div>
-                            <?php
-                            endforeach; ?>
+                                <div class="feedback_rating">                           <!-- display the star ratings -->
+                                    <p><?php for ($i = 1; $i < 6; $i++) { ?>
+                                            <?php
+                                            if ($i <= $comment->star_rating) { ?>
+                                                <i class="fa-solid fa-star fa-xs"></i>
+                                            <?php } else { ?>
+                                                <i class="fa-regular fa-star fa-xs"></i>
+                                            <?php } ?>
+                                        <?php
+                                        } ?>
+                                        <span class="posted-date">Posted on: <?php echo $comment->date_added ?> </span>
+                                    </p>
+                                </div>
+                                <div class="feedback_comment">
+                                    <p><?php echo $comment->feedback ?></p>             <!-- display the comments -->
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
                         </div>
-                        </div>
+                    </div>
                 </div>
             </div>
 

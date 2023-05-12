@@ -292,3 +292,27 @@ label{
    margin-top: 0%;
    margin-bottom: 15%;
  }
+
+@media screen and (max-width:900px) and (min-width:200px){
+   .container{
+      margin-left: 5px;
+   }
+
+   .container form .sub{
+      margin-left: 5px;
+      flex-direction: column;
+   }
+
+   .container form .sub .sub2{
+      margin-left: 2px;
+   }
+
+   .container h1{
+      margin-left: 25px;
+   }
+
+   .container form button{
+      margin-right: 20%;
+   }
+
+}
