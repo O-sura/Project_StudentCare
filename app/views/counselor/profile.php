@@ -23,6 +23,10 @@
     
     <div class="home_content">
 
+        <div class="navtag" id="/Counsellor/profileView" hidden>
+
+        </div>
+
         <div class="topic">
             <span><h1 class="headApp">Profile</h1></span>
         </div>
@@ -64,21 +68,7 @@
                       <label for="address">Address : <?= $data['row']->{'home_address'} ;?></label><br>
                       <label for="email">Email : <?= $data['row']->{'email'} ;?></label><br>
                       <label for="contact">Contact Number : (+94) <?= $data['row']->{'contact_no'} ;?></label><br>
-                      <a class="verify" href="">Download Verification Document</a> 
-
-                      <!-- <?php 
-                                                    // Path to the PDF file
-                            $pdf_file = 'http://localhost/StudentCare/app/uploads/'.$data['row']->{'verification_doc'};
-
-                            // Set headers for file download
-                            header('Content-type: application/pdf');
-                            header('Content-Disposition: attachment; filename="file.pdf"');
-                            header('Content-Length: ' . filesize($pdf_file));
-
-                            // Output download link
-                            echo '<a class="verify" href="' . $pdf_file . '">Download Verification Document</a>';
-
-                      ?> -->
+                      <a class="verify" href="<?php echo URLROOT."/Counsellor/download_verification"?>">Download Verification Document</a> 
                   </div>
               
 

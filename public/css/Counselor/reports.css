@@ -60,6 +60,10 @@ h2{
     font-weight: 600;
 }
 
+.count{
+    font-size: 36px;
+}
+
 .subdiv {
     display: flex;
 }
@@ -119,36 +123,42 @@ h2{
 
 .drop1 {
     width: 80%;
-    padding: 0.5%;
-    border-radius: 15px;
+    padding: 1%;
+    border-radius: 25px;
     background-color:  #1A285A;;
     color: white;
-    height: 5%;
+    height: 6%;
     margin-top: 10%;
+    cursor: pointer;
 }
+  
 
 .drop2 {
     width: 80%;
-    padding: 0.5%;
-    border-radius: 15px;
+    padding: 1%;
+    border-radius: 25px;
     background-color:  #1A285A;;
     color: white;
-    height: 5%;
+    height: 6%;
     margin-top: 15%;
+    cursor: pointer;
 }
 
 .download {
     width: 80%;
     position: relative;
-    padding: 0.2%;
-    border-radius: 15px;
-    height: 5%;
+    padding: 1%;
+    border-radius: 25px;
+    height: 7%;
     margin-top: 300%;
+    border: none;
+    background-color: #1A285A;
+    color: white;
+    cursor: pointer;
 }
 
 .download:hover {
-    background-color: gold;
-    transition-duration: 0.6s;
+    background-color:#3cb0fd;
 }
 
   

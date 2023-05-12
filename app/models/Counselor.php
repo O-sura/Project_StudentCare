@@ -648,8 +648,10 @@ class Counselor
 
     public function getInformationForNotification($userid)
     {
+        date_default_timezone_set('Asia/Kolkata'); // set timezone to Kolkata, India
 
-        $this->db->query('SELECT requests.rID,requests.requested_on,requests.statusPP,requests.reason,requests.student_req_seen,student.studentID,student.profile_img,appointments.appointmentID,appointments.appointmentStatus,appointments.appointmentDate, appointments.appointmentTime, appointments.cancellationReason,appointments.counselor_seen, users.fullname FROM student
+
+        $this->db->query('SELECT requests.rID,requests.requested_on,requests.statusPP,requests.reason,requests.student_req_seen,student.studentID,student.profile_img,appointments.appointmentID,appointments.requested_on,appointments.appointmentStatus,appointments.appointmentDate, appointments.appointmentTime, appointments.cancellationReason,appointments.counselor_seen, users.fullname FROM student
             INNER JOIN users ON users.userID = student.studentID
             LEFT JOIN (
               SELECT requests.studentID, MAX(requested_on) AS latest_request
@@ -665,7 +667,7 @@ class Counselor
               GROUP BY appointments.studentID
             ) latest_appointment ON student.studentID = latest_appointment.studentID
             LEFT JOIN appointments ON appointments.studentID = student.studentID AND appointments.appointmentDate = latest_appointment.latest_appointment_date AND appointments.appointmentTime = latest_appointment.latest_appointment_time
-            WHERE latest_request.latest_request IS NOT NULL OR latest_appointment.latest_appointment_date IS NOT NULL ORDER BY requested_on DESC;');
+            WHERE latest_request.latest_request IS NOT NULL OR latest_appointment.latest_appointment_date IS NOT NULL ORDER BY requests.requested_on DESC;');
         $this->db->bind(':userid', $userid);
 
         $results = json_encode($this->db->getAllRes());
@@ -676,6 +678,8 @@ class Counselor
 
     public function getInformationForDashboardNotification($userid)
     {
+        date_default_timezone_set('Asia/Kolkata'); // set timezone to Kolkata, India
+
 
         $this->db->query('SELECT requests.rID,requests.requested_on,requests.statusPP,student.studentID,appointments.appointmentID,appointments.requested_on,appointments.appointmentStatus,appointments.appointmentDate, appointments.appointmentTime, appointments.cancellationReason, users.fullname FROM student
             INNER JOIN users ON users.userID = student.studentID
@@ -762,6 +766,16 @@ class Counselor
             }
         }
 
+    }
+
+    //to get the verification doc name
+    public function getVerificationDocName($usr){
+        $this->db->query('SELECT verification_doc,userID FROM counsellor WHERE userID = :userid;');
+        $this->db->bind(':userid',$usr);
+
+        $results =json_encode( $this->db->getAllRes());
+        return $results;
+        
     }
 
 }

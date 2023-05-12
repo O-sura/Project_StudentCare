@@ -24,32 +24,28 @@
   }
   
   .row1{
-      height: 320px;
+      height: 38%;
       display: flex;
       
   }
 
   .subb{
-    font-size: 20px;
-    margin-bottom: 2%;
+    font-size: 22px;
+    padding: 1%;
   }
   
   .row1div1{
       text-align: center;
       justify-content: center;
-      width: 28%;
+      width: 26%;
       height: 80%;
       background-color: white;
       margin: 3% 3%;
       border-radius: 15px;
       border: 1px solid black;
       text-align: center;
+      padding: auto;
   }
-
-  /* .row1div1:hover {
-    transform:scale(1.2) ;
-    transition-duration: 0.7s;
-  } */
 
   .pie{
     margin-left: 16%;
@@ -81,11 +77,6 @@
       text-align: center;
   }
 
-  /* .row1div2:hover {
-    transform:scale(1.2) ;
-    transition-duration: 0.7s;
-  } */
-
   .cont{
     font-size: 18px;
     font-weight: 500;
@@ -101,13 +92,8 @@
       text-align: center;
   }
 
-  /* .row1div3:hover {
-    transform:scale(1.2) ;
-    transition-duration: 0.7s;
-  } */
-  
   .row2{
-      height: 210px;
+      height: 20%;
       display: flex;
       margin-left: -1%;
   }
@@ -137,10 +123,10 @@
   }
 
   .noappR{
-    height: 60%;
+    height: 65%;
     width: 40%;
     background-color:#7381b7;
-    margin: 2.5% 3%;
+    margin: 2.5% 4%;
     float: left;
     border-radius: 15px;
     color: white;
@@ -149,25 +135,13 @@
   }
 
   .noappP{
-    margin-top: 5%;
+    margin-top: 1.5%;
     text-align: center;
-    padding: 3% 3%;
+    padding: 2.5% 3%;
     font-size: 20px;
     font-weight: 500;
   }
 
-  /* .noappR:hover {
-    transform:scale(1.2) ;
-    transition-duration: 0.7s;
-  } */
-
-  /* .row2div1:hover {
-    transform:scale(1.2) ;
-    transition-duration: 0.7s;
-  } */
-  
-  
-  
   .row3{
       justify-content: space-between;
       padding-block-end: 3%;
@@ -196,11 +170,17 @@
   display: flex;
 }
 
-  span{
+  .notification{
     display: flex;
     padding: 2% 2%;
   }
+
+  .notiName{
+    font-weight: 600;
+    font-size: 17px;
+  }
   
+
   
   .row3div2{
       width: 90%;
@@ -209,19 +189,18 @@
       margin-left: 2%;
       background-color: #fff;
       border-radius: 10px;
-      font-weight:500;
+      font-weight:400;
       text-align:left;
       padding: 0.3%;
       
   }
-/* 
-  .row3div2:hover {
-    background-color:#1A285A ;
-    color: white;
-    transition-duration: 0.7s;
-  } */
+  .notiDate{
+    font-size: smaller;
+    color: #7381b7;
+    opacity: 0.6;
+    margin-top: 0.5%;
+  }
 
-  
 
 /* width */
 ::-webkit-scrollbar {
@@ -294,17 +273,16 @@
         .row2div1{
           width: 120px;
           height: 120px;
-          background-color:#1A285A;
           margin-right: 2%;
           float: left;
-          padding: 1%;
+          padding: 2.5%;
           font-size: 22px;
     
       }
 
       .row3div1{
         height: fit-content;
-        width: 70%;
+        width: 90%;
         background-color:#f0f2f7;
         margin-left: 3%;
         margin-top: 2%;
@@ -372,17 +350,16 @@
     .row2div1{
       width: 120px;
       height: 120px;
-      background-color:#1A285A;
       margin-right: 2%;
       float: left;
-      padding: 1%;
+      padding: 2%;
       font-size: 22px;
 
   }
 
   .row3div1{
     height: fit-content;
-    width: 70%;
+    width: 90%;
     background-color:#f0f2f7;
     margin-left: 3%;
     margin-top: 2%;
@@ -436,17 +413,16 @@
   .row2div1{
     width: 120px;
     height: 120px;
-    background-color:#1A285A;
     margin-right: 2%;
     float: left;
-    padding: 1%;
+    padding: 3%;
     font-size: 22px;
 
 }
 
 .row3div1{
   height: fit-content;
-  width: 70%;
+  width: 90%;
   background-color:#f0f2f7;
   margin-left: 3%;
   margin-top: 2%;
@@ -461,11 +437,17 @@
 @media screen and (max-width:900px) {
 
   .subb{
-    font-size: 15px;
+    font-size: 18px;
+    padding: 1%;
+    
   }
 
   .row1{
     width: 100%;
+    display: block;
+    text-align: center;
+    justify-content: center;
+    margin-left: 12%;
 
   }
 
@@ -481,26 +463,32 @@
   
   .row1div1{
     
-    width: 28%;
-    height: 40%;
-    margin: 3% 3%;
+    width: 55%;
+    height: 50%;
+    margin-top: 2%;
+    margin-left: 4%;
     border-radius: 15px;
+    padding: 1%;
   }
   .row1div2{
-    width: 28%;
-    height: 40%;
-    margin: 3% 3%;
+    width: 55%;
+    height: 50%;
+    margin-top: 2%;
+    margin-left: 4%;
     border-radius: 15px;
+    padding: 1%;
   }
   .row1div3{
-    width: 28%;
-    height: 40%;
-    margin: 3% 3%;
+    width: 55%;
+    height: 50%;
+    margin-top: 2%;
+    margin-left: 4%;
     border-radius: 15px;
+    padding: 1%;
   }
 
   .pie{
-    margin-top: -16%;
+    margin-top: -10%;
   }
 
   .piechart {
@@ -509,9 +497,7 @@
     height: 150px;
   }
 
-  .fa-regular {
-    font-size: 2em;
-  }
+ 
 
   .barchart {
 
@@ -522,17 +508,16 @@
   .row2div1{
     width: 120px;
     height: 120px;
-    background-color:#1A285A;
     margin-right: 2%;
     float: left;
-    padding: 1%;
+    padding: 3%;
     font-size: 22px;
 
 }
 
 .row3div1{
   height: fit-content;
-  width: 70%;
+  width: 90%;
   background-color:#f0f2f7;
   margin-left: 3%;
   margin-top: 2%;
