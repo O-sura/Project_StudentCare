@@ -8,6 +8,7 @@
         }
 
 
+        //to add the listing data
         public function addItem($data){
             //$listing_id = substr(sha1(date(DATE_ATOM)), 0, 8);
             $this->db->query('INSERT INTO listing(listing_id, fpID, topic, description, rental, location, address, image, special_note, category) VALUES (:listingID ,:fpID, :topic, :description, :rental, :location, :address, :image_urls, :special_note, :category)');
@@ -189,6 +190,7 @@
         }
 
 
+        //to details for one listing item
         public function viewOneListing($id){
             $this->db->query("SELECT * FROM listing WHERE listing_id= :id ");
             $this->db->bind(':id', $id);
@@ -197,7 +199,8 @@
             return $result;
         }
 
-
+        
+        //to viewone listing 
         public function getDistance($id){
             $this->db->query("SELECT * FROM uni_distance_listing WHERE listing_id = :id");
             $this->db->bind(':id', $id);
@@ -206,6 +209,7 @@
         }
     
 
+        //to viewone listing
         public function getFacilityProviderDetails($id){
             $this->db->query("SELECT facility_provider.*,users.* FROM 
             facility_provider 
@@ -218,6 +222,7 @@
         }
 
 
+        //to viewone listing
         public function getComments($id){
             $this->db->query("SELECT listing_feedback.*,users.username,student.profile_img
             FROM listing_feedback
@@ -296,15 +301,8 @@
             return $row;
         }
 
-
-        /* public function university_filter($uni){
-            $this->db->query("SELECT * FROM uni_distance_listing");
-            $this->db->bind(':uni', $uni);
-
-            $result = $this->db->getAllRes();
-            return $result;
-        } */
-        
+    
+        //to mylisting 
         public function getDistances(){
             $this->db->query("SELECT * FROM uni_distance_listing");
             $result = $this->db->getAllRes();

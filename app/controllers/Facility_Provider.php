@@ -11,30 +11,21 @@ class Facility_Provider extends Controller{
     }
 
 
+    //to view mylisting page
     public function index(){
-        $myview = $this->ListingModel->myListing();
+        $myview = $this->ListingModel->myListing();                     //call the relevent model
 
+        //create a data array
         $data =[
-            'myview' => $myview,
-            'universities' => $this->ListingModel->getDistances(),
+            'myview' => $myview,                                        //assigns the value of $myview to the key 'myview'
+            'universities' => $this->ListingModel->getDistances(),      //This assigns the result of a method call $this->ListingModel->getDistances() to the key 'universities'
         ]; 
         
-        $this->loadView('facility_provider/myListing',$data);
+        $this->loadView('facility_provider/myListing',$data);           //load the view file with the necessaty data
     }
 
 
-    // public function myListing(){
-    //     $myview = $this->ListingModel->myListing();
-
-    //     $data =[
-    //         'myview' => $myview
-    //     ]; 
-        
-    //     $this->loadView('facility_provider/myListing',$data);
-    //     //$this->loadView('test',$data);
-    // }
-
-
+    //to view profile details
     public function profile(){
         $user_id = Session::get('userID');
 
@@ -48,6 +39,7 @@ class Facility_Provider extends Controller{
     }
 
 
+    //to edit profile details
     public function editprofile(){
         $user_id = Session::get('userID');
         $user_name = Session::get('username');
@@ -74,7 +66,6 @@ class Facility_Provider extends Controller{
         
         $this->loadView('facility_provider/editprofile',$data);
     }
-
 
     public function updateProfileDetails($userid){
         $user_id = Session::get('userID');
@@ -239,6 +230,7 @@ class Facility_Provider extends Controller{
     }
 
     
+    //to add the item details
     public function addItem(){
 
         if (isset($_POST['submit'])) {
@@ -289,9 +281,6 @@ class Facility_Provider extends Controller{
                 'rental_err' => '',
                 'location_err' => '',
                 'address_err' => '',
-                'uniName_err' => '',
-                'uniDistance_err' => '',
-                'images_err' => '',
                 'special_note_err' => '',
                 'category_err' => ''
             ];
@@ -317,13 +306,13 @@ class Facility_Provider extends Controller{
                 $data['address_err'] =  "*Address field is Required";
             }
 
-            if(empty($data['uniName'])){
-                $data['uniName_err'] =  "*University field is Required";
+            /* if(empty($data['uniName[]'])){
+                $data['uniName[]_err'] =  "*At least one university should be entered";
             }
 
-            if(empty($data['images'])){
-                $data['images_err'] =  "*Images field is Required";
-            }
+            if(empty($data['uniDistance[]'])){
+                $data['uniDistance[]_err'] =  "*You should entered distance";
+            } */
 
             if(empty($data['special_note'])){
                 $data['special_note_err'] =  "*Special note field is Required";
@@ -356,34 +345,6 @@ class Facility_Provider extends Controller{
 
             $image_urls = [];
 
-            /* foreach($uploaded_images as $uploaded_image) {
-                //get image extension store it in var
-                $image_ex = pathinfo($uploaded_image["name"], PATHINFO_EXTENSION);  
-
-                //convert the image extension into lower case and store it in var
-                $image_ex_lc = strtolower($image_ex);
-
-                //create array that stores allowed to upload image extensions
-                $allowed_exs = array('jpg', 'jpeg', 'png');
-
-                //check if the image extension is present in $allowed_exs array
-                if(in_array($image_ex_lc, $allowed_exs)){  
-
-                    //renaming the image name with random string             
-                    $new_image_name = uniqid('IMG-', true).'.'.$image_ex_lc;   
-
-                    //creating upload path on root directory
-                    $image_upload_path = PUBLICPATH . "/img/listing/". $new_image_name;
-
-                    //move uploaded image to 'images' folder
-                    move_uploaded_file($uploaded_image["tmp_name"], $image_upload_path);
-
-                    $images = json_encode($images);
-                    $image_urls[] = $new_image_name;
-                }else{
-                    echo("You can't upload files of this category");
-                }
-            } */
 
             if(!$images['name'][0] == '') {
                 //array_pop($uploaded_images);  //remove the last unnesessary array element
@@ -440,7 +401,7 @@ class Facility_Provider extends Controller{
 
             //Make sure there are no error flags are set
             if(empty($data['topic_err']) && empty($data['description_err']) && empty($data['rental_err']) && empty($data['location_err']) && empty($data['address_err']) 
-                && empty($data['uniName_err']) && empty($data['images_err']) && empty($data['special_note_err']) && empty($data['category_err']) && empty($data['uniDistance_err'])){
+                 && empty($data['special_note_err']) && empty($data['category_err'])){
 
                 $num = count($uniList);
 
@@ -493,9 +454,8 @@ class Facility_Provider extends Controller{
                 'rental_err' => '',
                 'location_err' => '',
                 'address_err' => '',
-                'uniName_err' => '',
-                'uniDistance_err' => '',
-                'images_err' => '',
+                /* 'uniName[]_err' => '',
+                'uniDistance[]_err' => '', */
                 'special_note_err' => '',
                 'category_err' => ''
             ];
@@ -549,16 +509,17 @@ class Facility_Provider extends Controller{
 
     //take data relevent to one listing item
     public function viewOneListing($id){
-        $viewone = $this->ListingModel->viewOneListing($id);
+        $viewone = $this->ListingModel->viewOneListing($id);                //load the relevent model
 
-        $data =[
-            'viewone' => $viewone,
-            'universities' => $this->ListingModel->getDistance($id),
+        //create a data array
+        $data =[  
+            'viewone' => $viewone,                                          //assigns the value of $viewone to the key 'viewone'
+            'universities' => $this->ListingModel->getDistance($id),        //take the data from relevent models and stored in the keys
             'facilityProviderDetails'=>$this->ListingModel->getFacilityProviderDetails($id),
             'comments' => $this->ListingModel->getComments($id)
         ]; 
         
-        $this->loadView('facility_provider/viewOne',$data);
+        $this->loadView('facility_provider/viewOne',$data);                 //load the view file with the necessaty data
     }
 
 
@@ -585,6 +546,7 @@ class Facility_Provider extends Controller{
     }
 
 
+    //to edit listing data
     public function editItem($id){
 
         if (isset($_POST['submit'])) {
@@ -594,7 +556,7 @@ class Facility_Provider extends Controller{
 
             //Check and validate the data
             //Set errors if something is wrong
-            $topic = $_POST['topic'];
+            $topic = $_POST['topic'];           //stored taken topic value in $topic variable
             $description = $_POST['description'];
             $rental = $_POST['rental'];
             $location = $_POST['location'];
@@ -606,7 +568,7 @@ class Facility_Provider extends Controller{
             $category = $_POST['category'];
 
             
-            $uniList = [];
+            $uniList = [];      //define a empty array 
             $uniDistanceList = [];
             
             foreach ($uniName as $uni){
@@ -875,6 +837,7 @@ class Facility_Provider extends Controller{
     }
 
 
+    //to delete a item
     public function deleteItem($id){
     
         //get existing post from model
@@ -1041,30 +1004,6 @@ class Facility_Provider extends Controller{
         $this->loadView('index');
     }
 
-    //university filter
-    /* public function university_filter(){
-        if (isset($_GET['filter'])) {
-            $uni = trim($_GET['filter']);
-            $res =  json_encode($this->ListingModel->university_filter($uni));
-            echo $res;
-        }
-    } */
-
-    
-    //search filter
-    /* public function search_listing(){
-        if (isset($_GET['query'])) {
-            //Check whether the search query is empty or not
-            if (empty($_GET['query'])) {
-                Student_facility::index();
-            } else {
-                $keyword = "%" . trim($_GET['query']) . "%";
-                $uni = trim($_GET['uni']);
-                $res =  json_encode($this->ListingModel->searchListings($keyword,$uni));
-            }
-            echo $res;
-        }
-    } */
 
 }
 

@@ -73,13 +73,7 @@
                         <p>Nearest Town:</p>
                         <input class="town" name="location" type="text">
                         </div>
-
-                        <?php 
-                            if($data['uniName_err'])
-                                echo '<div class="form-field" data-error=" ' . $data['uniName_err'] . '">';
-                            else
-                                echo '<div class="form-field">';
-                        ?>
+                       
                         <div class="unisub">
                             <p>Universities/Institutions Nearby:</p>
                             <div class="university-adder">
@@ -117,7 +111,6 @@
 
                             <button type="button" class="addAnother" onclick="addAnother()">+ Add</button>
                         </div>
-                        </div>
                     </div>
                     
                     <div class="sub2">
@@ -142,19 +135,16 @@
                         <input class="note" name="special_note" type="text">
                         </div>
 
-
-                        <?php 
-                            if($data['images_err'])
-                                echo '<div class="form-field" data-error=" ' . $data['images_err'] . '">';
-                            else
-                                echo '<div class="form-field">';
-                        ?>
                         <p>Images:</p>
                         <label for="img"><i class="fa fa-plus"></i><br>Insert only four images</label>
                         <input type="file" class="image" name="images[]" id="img" multiple>
-                        </div>
 
-
+                        <?php 
+                            if($data['category_err'])
+                                echo '<div class="form-field" data-error=" ' . $data['category_err'] . '">';
+                            else
+                                echo '<div class="form-field">';
+                        ?>
                         <div class="catsub">
                             <div class="sub22">
                                 <p>Category:</p>
@@ -171,6 +161,7 @@
                                     </ul>
                                 </div>
                             </div>
+                        </div>
                         </div>
                     </div>
                 </div>
