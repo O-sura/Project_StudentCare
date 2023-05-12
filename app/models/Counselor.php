@@ -703,12 +703,14 @@ class Counselor
     }
 
     //For the Counselor Report
+
+    //to get the each appointment details for a month
     public function getCounselorAppointments($counselorID, $month)
     {
 
-        $this->db->query('SELECT appointments.studentID,users.fullname,appointments.appointmentDate,appointmentStatus FROM appointments INNER JOIN users ON users.userID = appointments.studentID WHERE appointments.counsellorID = :counselorID AND MONTH(appointmentDate) = MONTH(:given_month) AND MONTH(:given_month) <= MONTH(CURRENT_DATE);');
+        $this->db->query('SELECT appointments.studentID,users.fullname,appointments.appointmentDate,appointmentStatus FROM appointments INNER JOIN users ON users.userID = appointments.studentID WHERE appointments.counsellorID = :counselorID AND MONTH(appointmentDate) = :given_month AND MONTH(CURRENT_DATE) >= :given_month;');
         $this->db->bind(':counselorID', $counselorID);
-        $this->db->bind(';given_month', $month);
+        $this->db->bind(':given_month', $month);
 
         $results = json_encode($this->db->getAllRes());
 
@@ -731,6 +733,7 @@ class Counselor
 
     }
 
+    //to mark the notifications as read
     public function markReadAsNotificationModel($id, $gotStu, $gotID)
     {
 
