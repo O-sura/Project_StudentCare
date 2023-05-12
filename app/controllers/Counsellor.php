@@ -137,7 +137,6 @@ class Counsellor extends Controller
             $email = $_POST['email'];
             $address = $_POST['address'];
             $contact = $_POST['contact'];
-            $specialization = $_POST['specialization'];
             $description = $_POST['bioDesc'];
             $qualifications = array();
             //$new = explode(",", $row->qualifications);
@@ -155,7 +154,7 @@ class Counsellor extends Controller
                 'contact' => $contact,
                 'address' => $address,
                 'dob' => $row->dob,
-                'specialization' => $specialization,
+                'specialization' => $row->specialization,
                 'qualifications' => $qualifications,
                 'profile' => $row->profile_img,
                 'description' => $description,
@@ -164,7 +163,6 @@ class Counsellor extends Controller
                 'email_err' => '',
                 'contact_err' => '',
                 'address_err' => '',
-                'specialization_err' => '',
                 'qualification_err' => '',
 
             ];
@@ -193,11 +191,6 @@ class Counsellor extends Controller
 
             if (empty($data['contact'])) {
                 $data['contact_err'] = "*Contact field is Required";
-
-            }
-
-            if (empty($data['specialization'])) {
-                $data['specialization_err'] = "*Specialization field is Required";
 
             }
 
@@ -232,7 +225,7 @@ class Counsellor extends Controller
             }
 
             //Make sure there are no error flags are set
-            if (empty($data['username_err']) && empty($data['name_err']) && empty($data['email_err']) && empty($data['contact_err']) && empty($data['address_err']) && empty($data['specialization_err']) && empty($data['qualification_err'])) {
+            if (empty($data['username_err']) && empty($data['name_err']) && empty($data['email_err']) && empty($data['contact_err']) && empty($data['address_err']) && empty($data['qualification_err'])) {
 
                 $res = $this->counselorModel->updateProfileDetails($data, $user_id);
 
@@ -285,12 +278,19 @@ class Counsellor extends Controller
     //To mark as read the notifications
     public function markAsReadNotifications()
     {
+        $usr = Session::get('userID');
 
-        if ($SERVER['REQUEST_METHOD'] == 'POST') {
+        if (isset($_GET['stuID']) && isset($_GET['R_A_ID'])) {
 
-            if (isset($_POST['mark'])) {
-                $this->counselorModel->markReadAsNotificationModel($id);
-            }
+            $gotStu = $_GET['stuID'];
+            $gotID = $_GET['R_A_ID'];
+
+            $this->counselorModel->markReadAsNotificationModel($usr, $gotStu, $gotID);
+            Counsellor::notificationView();
+            echo json_encode(['success' => true]); // return success response as JSON
+
+        } else {
+            echo json_encode(['success' => false]); // return error response as JSON
         }
     }
 
@@ -437,8 +437,10 @@ class Counsellor extends Controller
     public function getAppointmentStats()
     {
         $userid = Session::get('userID');
+        $currentMonth = date('n');
+        $currentYear = date('Y');
 
-        $res = $this->counselorModel->getAllAppointments($userid);
+        $res = $this->counselorModel->getAllAppointments($userid, $currentMonth, $currentYear);
 
         echo $res;
     }

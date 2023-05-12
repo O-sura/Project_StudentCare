@@ -6,24 +6,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StudentCare - Community</title>
+    <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/flash.css"?> >
     <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/community/community.css"?> >
     <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/community/dropdown.css"?> >
     <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/modal.css"?> >
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script type="module" src= <?php echo URLROOT . "/public/js/community.js"?> defer></script>
     <script src= <?php echo URLROOT . "/public/js/flash.js"?> defer></script>
 </head>
 <body>
-    <!-- This includes the sidebar and the opening tag to home-content -->
-    <?php include 'sidebar.php'?>
     <?php 
         // Has to link the css-not added because some issue
         FlashMessage::flash('post_reported');
         FlashMessage::flash('post_not_reported');
         FlashMessage::flash('post_deleted');
         FlashMessage::flash('post_not_deleted');
-    ?>
+    ?>  
+    <!-- This includes the sidebar and the opening tag to home-content -->
+    <?php include 'sidebar.php'?>
     
     <!-- Below here should be the content for homepage -->
     <section>

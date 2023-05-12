@@ -26,7 +26,7 @@
         }
 
         public function privacy_policy(){
-            echo 'Privacy Policy';
+            $this->loadView('privacy-policy');
         }
 
         public function rules_and_regulations(){

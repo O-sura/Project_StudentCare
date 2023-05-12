@@ -64,7 +64,7 @@ class Appointments extends Controller
         ];
         //mark all the requests as seen by user
         $this->appointmentModel->updateSeen($user_id);
-
+        
         $data = [
             'pendingRequests' => $this->appointmentModel->getPendingRequests(Session::get('userID')),
             'acceptedRequests' => $this->appointmentModel->getAcceptedRequests(Session::get('userID')),

@@ -12,15 +12,83 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo URLROOT . "/public/css/flash.css" ?>">
+    <link rel="stylesheet" href="<?php echo URLROOT . "/public/css/tour.css" ?>">
     <link rel="stylesheet" href=<?php echo URLROOT . "/public/css/stu/dashboardStyle.css" ?>>
+    <script type="module" src=<?php echo URLROOT . "/public/js/student/dashboard.js" ?> defer></script>
+    <script src=<?php echo URLROOT . "/public/js/flash.js" ?> defer></script>
+    <script src=<?php echo URLROOT . "/public/js/tour.js" ?> defer></script>
 </head>
 
 <body>
+
     <?php
     require_once '../app/views/student_dashboard/sidebar.php';
     ?>
+    <?php FlashMessage::flash('system_feedback_flash'); ?>
+    <?php FlashMessage::flash('password_change_flash'); ?>
     <div class="home_content">
+
+
+        <!-- First popup box -->
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Welcome to our site!</h2>
+                <img src="<?php echo URLROOT . "/public/img/user_experience/1.png" ?>" class="tip">
+                <button class="next-btn">Next</button>
+                <button class="skip-btn" id="skipBtn">Skip Tour</button>
+            </div>
+        </div>
+
+        <!-- Second popup box -->
+        <div id="myModal2" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Welcome to our site!</h2>
+                <img src="<?php echo URLROOT . "/public/img/user_experience/2.png" ?>" class="tip">
+                <button class="next-btn">Next</button>
+                <button class="skip-btn" id="skipBtn">Skip Tour</button>
+            </div>
+        </div>
+
+        <!-- Third popup box -->
+        <div id="myModal3" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Welcome to our site!</h2>
+                <img src="<?php echo URLROOT . "/public/img/user_experience/3.png" ?>" class="tip">
+                <button class="next-btn">Next</button>
+                <button class="skip-btn" id="skipBtn">Skip Tour</button>
+            </div>
+        </div>
+
+
         <div class="container">
+            <!-- Popup Form -->
+            <div class="overlay">
+                <div class="popup">
+                    <form action="<?php echo URLROOT; ?>/student/give_feedback" method="post">
+                        <div class="heading">
+                            Give us your feedback
+                        </div>
+                        <div class="description">
+                            <div class="desc-name">
+                                Description:
+                            </div>
+                            <div class="text">
+                                <textarea name="rdesc" cols="30" rows="10">Your feedback is invaluable to us...</textarea>
+                            </div>
+                            <div class="submit">
+                                <button type="submit" class="btn">Send feedback</button>
+                            </div>
+                        </div>
+                    </form>
+                    <button class="exit-button">&times;</button>
+                </div>
+            </div>
+
+            <!-- End Popup Form -->
             <div class="row1">
                 <h1>Greetings User</h1>
             </div>
@@ -39,7 +107,12 @@
                     </div>
                     <div class="prof-details">
                         <h3><?php echo $data['username'] ?></h3><br><br>
-                        <button class="btn"> <i class="fa-solid fa-pen-to-square"></i> Edit profile</button>
+                        <button class="btn" id="edit"> <i class="fa-solid fa-pen-to-square"></i> Edit profile</button>
+                        <div class="feedback">
+                            <button class="btn2" id="feedback">
+                                <h3><i class="fa-regular fa-comment-dots"></i> Give feedback</h3>
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div class="chart">
@@ -48,11 +121,10 @@
                             <h3>Study time stats</h3>
                         </div>
                         <div class="col-2">
-                            <select class="select">
-
-                                <option value="Exam">Last 7 days</option>
-                                <option value="Club">Last 14 days</option>
-                                <option value="Gym">Last 30 days</option>
+                            <select class="select" id="filter">
+                                <option value="this">This week</option>
+                                <option value="14">Last 14 days</option>
+                                <option value="30">Last 30 days</option>
                             </select>
                         </div>
 
@@ -119,63 +191,8 @@
 
     </div>
 
-
-    <script>
-        let btn = document.querySelector("#btn");
-        let sidebar = document.querySelector(".sidebar");
-
-        btn.onclick = function() {
-            sidebar.classList.toggle("active");
-        }
-
-        //Javascript for chart
-        var xValues = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-        var yValues = [5, 6, 13, 13, 1, 6, 7];
-        var barColors = ["#1A285A", "#1A285A", "#1A285A", "#1A285A", "#1A285A", "#1A285A", "#1A285A"];
-
-        new Chart("myChart", {
-            type: "bar",
-            data: {
-                labels: xValues,
-                datasets: [{
-                    backgroundColor: barColors,
-                    data: yValues
-                }]
-            },
-            options: {
-                legend: {
-                    display: false
-                },
-                title: {
-                    display: true,
-                    text: "Study hours this week"
-                }
-            }
-        });
-
-        var edit = document.querySelector('.btn');
-        var messages = document.querySelector('#messages');
-        var tasks = document.querySelector('#tasks');
-        var announcements = document.querySelector('#announcements');
-        var appointments = document.querySelector('#appointments');
-        messages.addEventListener('click', function() {
-            window.location.href = '<?php echo URLROOT ?>/messaging/';
-        });
-        tasks.addEventListener('click', function() {
-            window.location.href = '<?php echo URLROOT ?>/tasks/';
-        });
-        announcements.addEventListener('click', function() {
-            window.location.href = '<?php echo URLROOT ?>/announcements/';
-        });
-        appointments.addEventListener('click', function() {
-            window.location.href = '<?php echo URLROOT ?>/appointments/';
-        });
-
-        edit.addEventListener('click', function() {
-            window.location.href = '<?php echo URLROOT ?>/student/profile';
-        });
-    </script>
 </body>
 
 </html>
+
 </html>

@@ -21,6 +21,7 @@
     <?php
     require_once '../app/views/announcements/sidebar.php';
     ?>
+    
     <div class="home_content">
         <div class="container">
             <div class="row1">

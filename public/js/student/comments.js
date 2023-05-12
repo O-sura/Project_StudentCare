@@ -21,10 +21,9 @@ export class Comments{
             }
         }
 
-        let image_url = this.image;
-        if(image_url == null){
-            image_url = "avatar.jpg";
-        }
+      
+        let  image_url = "avatar.jpg";
+        
 
             controllers = `
            

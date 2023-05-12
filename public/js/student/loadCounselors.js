@@ -16,8 +16,6 @@ function counselorSelector(counselorID){
     //Your Posts,All Posts,Saved
     // Send an AJAX request to the server with the search query
 
-    //console.log(loggedInUser);
-
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "http://localhost/StudentCare/Appointments/counselor_handler/?counselorID=" + counselorID, true);
    

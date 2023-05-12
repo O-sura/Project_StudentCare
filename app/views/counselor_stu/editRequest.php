@@ -16,69 +16,9 @@
 </head>
 
 <body>
-    <div class="sidebar">
-        <div class="logo_content">
-            <div class="logo">
-                <div class="logo_name"></div>
-            </div>
-            <i class="fa-solid fa-bars" id="btn"></i>
-        </div>
-        <ul class="nav_list">
-            <li>
-                <a href='<?php echo URLROOT ?>/student/home'>
-                    <i class="fa-solid fa-gauge"></i>
-                    <span class="links_name">Dashboard</span>
-                </a>
-                <span class="tooltip">Dashboard</span>
-            </li>
-            <li>
-                <a href='<?php echo URLROOT ?>/community/home'>
-                    <i class="fa-solid fa-users"></i>
-                    <span class="links_name">Community</span>
-                </a>
-                <span class="tooltip">Community</span>
-            </li>
-            <li>
-                <a href='<?php echo URLROOT ?>/tasks/'>
-                    <i class="fa-solid fa-calendar-days"></i>
-                    <span class="links_name">Schedule</span>
-                </a>
-                <span class="tooltip">Schedule</span>
-            </li>
-            <li>
-                <a href='<?php echo URLROOT ?>/appointments/'>
-                    <i class="fa-solid fa-calendar-check"></i></i>
-                    <span class="links_name">Appointments</span>
-                </a>
-                <span class="tooltip">Appointments</span>
-            </li>
-            <li>
-                <a href='<?php echo URLROOT ?>/announcements/'>
-                    <i class="fa-solid fa-bullhorn"></i></i>
-                    <span class="links_name">Announcements</span>
-                </a>
-                <span class="tooltip">Announcements</span>
-            </li>
-            <li>
-                <a href="<?php echo URLROOT ?>/Student_facility/">
-                    <i class="fa-solid fa-house-circle-check"></i>
-                    <span class="links_name">Listings</span>
-                </a>
-                <span class="tooltip">Listings</span>
-            </li>
-        </ul>
-        <div class="profile_content">
-            <div class="profile">
-                <div class="profile_details">
-                    <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFufGVufDB8fDB8fA%3D%3D&w=1000&q=80">
-                    <div class="name">
-                        Oshada
-                    </div>
-                </div>
-                <a href="logout.php"><i class="fa-solid fa-arrow-right-from-bracket fa-flip-horizontal" id="log_out"></i></a>
-            </div>
-        </div>
-    </div>
+    <?php
+    require_once '../app/views/counselor_stu/sidebar.php';
+    ?>
     <div class="home_content">
         <div class="container">
             <?php $requestId = $data['requestDetails']->rID; ?>

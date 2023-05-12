@@ -11,7 +11,15 @@
 <body>
     <?php include 'sidebar.php'?>
     <div class="section" id="page-content">
-    <h1>Edit Profile</h1>
+        <div class="top-section">
+            <div class="section-title">
+                <h1>Customize Profile</h1>
+            </div>
+            <div class="get-summary <?php echo $data['userID']?>" id="get-summary">
+                <i class="fa-solid fa-print"></i>
+                <span class="btn-txt">Generate Summary</span>
+            </div>
+        </div>
         <hr>
         <div class="row-section">
             <?php
@@ -22,7 +30,7 @@
                 }
             ?>
             <!-- need to properly link the folder which the profile images are saved -->
-            <img src="<?php echo URLROOT . "/public/img/student/" . $image; ?>" class="profile-pic">
+            <img src="<?php echo URLROOT . "/public/img/counselor/" . $image; ?>" class="profile-pic">
         </div>
         <form method="post" action=<?php echo URLROOT . "/admin/update_counselor/" . $data['userID']?>>
              <?php 

@@ -13,6 +13,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href=<?php echo URLROOT . "/public/css/stu/profileStyle.css" ?>>
+    <script type="module" src=<?php echo URLROOT . "/public/js/student/profile.js" ?> defer></script>
 </head>
 
 <body>
@@ -40,7 +41,6 @@
                             $image = "avatar.jpg";
                         }
                         ?>
-                        <div class="prof-image">
                             <img src="<?php echo URLROOT . "/public/img/student/" . $image; ?>" id="image2">
                             <div class="username">
                                 <?php echo $data["userDetails"]->username ?>
@@ -48,23 +48,14 @@
                             <div class="btn2">
                                 <label for="inputTag" style="cursor:pointer;">
                                     <h3> <i class="fa-solid fa-image-portrait fa-fade"></i> Change profile pic</h3>
-                                    <input id="inputTag" type="file" name="file" style="display:none;" accept="image/*" onchange="loadFile(event)" />
+                                    <input id="inputTag" type="file" name="file" style="display:none;" accept="image/*" />
                                 </label>
                             </div>
                             <div class="change_password">
-                                <button class="btn2">
+                                <button class="btn2" id = "change_pw">
                                     <h3><i class="fa-solid fa-key"></i> Change password</h3>
                                 </button>
-                            </div>
-                            <div class="feedback">
-                                <button class="btn2">
-                                    <h3><i class="fa-regular fa-comment-dots"></i> Give feedback</h3>
-                                </button>
-                            </div>
-
-                        </div>
-
-
+                            </div>                       
                     </div>
 
                     <div class="col2">
@@ -162,25 +153,6 @@
     </div>
     <!-- </form> -->
 
-    <script>
-        let btn = document.querySelector("#btn");
-        let sidebar = document.querySelector(".sidebar");
-
-        btn.onclick = function() {
-            sidebar.classList.toggle("active");
-        }
-
-        //To load the profile image as soon as it changed
-        var loadFile = (e) => {
-            var output = document.getElementById('image2');
-
-            output.src = URL.createObjectURL(e.target.files[0]);
-
-            output.onload = () => {
-                URL.revokeObjectURL(output.src) // free memory
-            }
-        };
-    </script>
 </body>
 
 </html>
