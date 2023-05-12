@@ -132,7 +132,7 @@
                                 <div class="counselor-name" id="<?php echo $counselorId ?>">
                                     <h3>Dr.<?php echo $counselor ?></h3>
                                 </div>
-                                <?php if ($appointment->appointmentDate == $today && $appointment->appointmentTime <= $currentTime) { ?>
+                                <?php if ($appointment->appointmentDate == $today && $appointment->appointmentTime <= $currentTime && $appointment->is_started == 1) { ?>
                                     <div class="join">
                                         <button class="btn" id="uploadBtn" onclick="meeting(<?php $meetingId ?>)">
                                             <div class="btn-class">
