@@ -77,8 +77,9 @@
                         $date = date('jS \of F', strtotime($appointment->appointmentDate));
                         $time = date('h:i A', strtotime($appointment->appointmentTime));
                         $counselor = $appointment->fullname;
-                        $today = date('Y-m-d');
-                        $currentTime = date('H:i');
+                        $timezone = new DateTimeZone('Asia/Kolkata'); // Set your time zone here
+                        $currentTime = new DateTime('now', $timezone);
+                        $today = $currentTime->format('Y-m-d');
                         $id = $appointment->appointmentID;
                         $meetingId = $appointment->meetingID;
                         $counselorId = $appointment->counsellorID;
@@ -133,13 +134,13 @@
                                 </div>
                                 <?php if ($appointment->appointmentDate == $today && $appointment->appointmentTime <= $currentTime) { ?>
                                     <div class="join">
-                                        <button class="btn" id="uploadBtn">
+                                        <button class="btn" id="uploadBtn" onclick="meeting(<?php $meetingId ?>)">
                                             <div class="btn-class">
                                                 <div class="btnName">
-                                                    <a href="http://localhost:3000/<?php echo $meetingId ?>"> Join </a>
+                                                Started
                                                 </div>
                                                 <div class="btnIcon">
-                                                    <i class="fa-solid fa-play"></i>
+                                                <i class="fa-solid fa-circle fa-fade fa-2xs" style="color: #17e82f;"></i>
                                                 </div>
                                             </div>
 
@@ -163,7 +164,7 @@
                                         <button class="btn3">
                                             <div class="btn-class">
                                                 <div class="btnName">
-                                                    Join
+                                                    Upcoming
                                                 </div>
                                                 <div class="btnIcon">
                                                     <i class="fa-solid fa-play"></i>
@@ -367,6 +368,8 @@ families.
                 closePopup();
             }
         });
+
+
     </script>
 </body>
 
