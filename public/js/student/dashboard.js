@@ -136,13 +136,13 @@ function getDayStudyTimeDetails(num){
             
           });
           new Chart("myChart", {
-            type: "line",  // Changed the chart type to "line"
+            type: "line",
             data: {
               labels: xValues,
               datasets: [
                 {
-                  borderColor: "#1A285A",  // Set the line color
-                  backgroundColor: "rgba(26, 40, 90, 0.4)", // Add a blue shadingine
+                  borderColor: "#1A285A",
+                  backgroundColor: "rgba(26, 40, 90, 0.4)",
                   data: yValues,
                 },
               ],
@@ -162,6 +162,9 @@ function getDayStudyTimeDetails(num){
                     display: true,
                     text: "Days",
                   },
+                  grid: {
+                    display: false, // Removes the grid lines for the x-axis
+                  },
                 },
                 y: {
                   display: true,
@@ -169,10 +172,14 @@ function getDayStudyTimeDetails(num){
                     display: true,
                     text: "Minutes",
                   },
+                  grid: {
+                    display: false, // Removes the grid lines for the y-axis
+                  },
                 },
               },
             },
           });
+          
 
 
        

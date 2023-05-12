@@ -77,7 +77,7 @@ box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 	overflow: hidden;
     flex: 8;
-    background-image: url("http://localhost/StudentCare/public/img/chat-background.png");
+    background-image: url("http://localhost/StudentCare/public/img/chat-background.jpg");
 }
 
 .header {

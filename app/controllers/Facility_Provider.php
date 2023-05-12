@@ -380,7 +380,7 @@ class Facility_Provider extends Controller{
                     }
                 }
             }
-
+            $first_image_url = $image_urls[0];
             $image_urls = json_encode($image_urls);
      
             $uniName = json_encode($uniName);
@@ -395,6 +395,7 @@ class Facility_Provider extends Controller{
                 'address' => $data['address'],
                 // 'uniName' => $uniName,
                 'image_urls' => $image_urls,
+                'first_img_url' => $first_image_url,
                 'special_note' => $data['special_note'],
                 'category' => $data['category']
             ];

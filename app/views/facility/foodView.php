@@ -99,6 +99,7 @@
                                     <?php foreach ($data['universities'] as $university) : ?>
                                         <?php if ($university->listing_id == $view->listing_id) : ?>
                                             <?php echo $university->distance ?> km from <?php echo $university->uni_name; ?> <br>
+                                            <?php break; ?>
                                         <?php endif; ?>
                                     <?php endforeach; ?>
                                 </p>

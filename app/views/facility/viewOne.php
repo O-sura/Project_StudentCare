@@ -115,7 +115,7 @@
 
                             <?php endforeach; ?></span>
                     </p>
-                    <p class="rating">Rating : <?php echo $data['viewone']->rating ?>☆ </p>
+                    <p class="rating">☆ Rating : <?php echo $data['viewone']->rating ?></p>
                     <p class="price"><span>Price(Rs.): </span><?php echo $data['viewone']->rental; ?></p>
 
                     <div class="review">
