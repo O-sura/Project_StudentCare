@@ -8,7 +8,7 @@
 
 body{
   display: flex;
-  min-height: 100vh;
+  min-height: 80vh;
   background: white;
 }
 
@@ -16,11 +16,11 @@ body{
 
 .wrapper{
   width: 800px;
-  background-color: white;
+  background-color: rgb(205, 205, 206);
   border-radius: 30px;
   height:fit-content;
   border-width: 1px;
-  box-shadow: 0 5px 20px 0 #B9B9B9;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   
 }
 
@@ -43,7 +43,7 @@ body{
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  /* box-shadow: 0 5px 20px 0 #B9B9B9; */
+  /* box-shadow: 0 5px 20px 0 #929292; */
 
 
 }
@@ -81,7 +81,7 @@ header .icons i:last-child{
 
 .calendar{
   padding: 40px;
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   
 }
 
@@ -97,7 +97,7 @@ header .icons i:last-child{
 }
 
 .calendar .weeks li{
-  color: #878787;
+  color: #505050;
   font-weight: 500;
 }
 
@@ -114,7 +114,7 @@ header .icons i:last-child{
 }
 
 .days li.inactive{
-  color: #aaa;
+  color: rgb(121, 121, 121);
 }
 
 .days li.active{
@@ -146,12 +146,7 @@ header .icons i:last-child{
   display: none;
 }
 
-.container{
-  display: grid;
-  grid-template-rows: 0.5fr 0.5fr 6fr;
-  width: 80vw;
 
-}
 
 .row1{
   display: grid;
@@ -162,15 +157,17 @@ header .icons i:last-child{
 
 .row2{
   display: grid;
-  width: 100vw;
+  width: 80vw;
   color: #1A285A;
-  
+  margin-top: 20px;
 }
 
 .row2 .flex{
   margin-left: 2%;
   display: flex;
   padding-right: 30px;
+  margin-top: 10px;
+  
 }
 
 .flex >*{
@@ -178,13 +175,17 @@ header .icons i:last-child{
 }
 
 .row3{
-  display: grid;
-  grid-template-columns: 2fr 1fr;
+  display: flex;
+  flex-direction: row;
+  margin-top: 50px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 90vw;
 }
 
 .wrap{
   display: grid;
-  justify-content: center;
+  margin-left: 3%;
   /* align-items: center; */
   height: 80%;
   margin-top: 20px;
@@ -197,13 +198,13 @@ header .icons i:last-child{
 
 .week{
   padding-right: 10px;
-  color: #B9B9B9;
+  color: #929292;
 
 }
 
 .day{
   padding-right: 10px;
-  color: #B9B9B9;
+  color: #929292;
 }
 
 .btn {
@@ -223,7 +224,7 @@ header .icons i:last-child{
   padding: 10px 20px 10px 20px;
   text-decoration: none;
   border: none;
-  /* box-shadow: 0 5px 20px 0 #B9B9B9; */
+  /* box-shadow: 0 5px 20px 0 #929292; */
 }
 
 .btn:hover {
@@ -254,8 +255,8 @@ hr{
 .rest{
   height: 5px;
   margin: 0px;
-  color: #B9B9B9;
-  background: #B9B9B9;
+  color: #929292;
+  background: #929292;
   width: 80vw;
 }
 
@@ -267,11 +268,16 @@ hr{
   width: calc(100%-78px);
   left: 78px;
   transition: all 0.5s ease;
+  width:70vw;
+  display: grid;
+  grid-template-rows:40px 40px auto;
+  margin-top: 30px;
 }
 
 .sidebar.active ~ .home_content{
   width: calc(100%-240px);
   left: 240px;
+  width:60vw;
 }
 
 a { 
@@ -290,18 +296,21 @@ a {
   display: grid;
   grid-template-rows: 1fr 5fr;
   background-color: #1A285A;
-  width: 50%;
+  width: 300px;
   border-radius: 20px;
-  height: 80vh;
+  height: 72vh;
   text-align: center;
   margin-top: 20px;
-  box-shadow: 0 5px 20px 0 #1A285A;
- 
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  
 }
 
-
-.topic{
-  color:white;
+.stats{
+  display: flex;
+  flex-direction: column;
+}
+.topic2{
+  color:#fff;
   font-size: 20px;
   padding-bottom: 5%;
   padding-left: 10px;
@@ -340,4 +349,17 @@ a {
 
 .task{
   overflow-y: auto;
+}
+
+.task-chart{
+  width: fit-content;
+}
+
+.percentage{
+  color: #1A285A;
+  font-size: 70px;
+  padding-bottom: 5%;
+  padding-left: 10px;
+  margin-left: 6%;
+  margin-top:15%;
 }

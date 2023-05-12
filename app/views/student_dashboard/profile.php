@@ -52,7 +52,7 @@
                                 </label>
                             </div>
                             <div class="change_password">
-                                <button class="btn2">
+                                <button class="btn2" id = "change_pw">
                                     <h3><i class="fa-solid fa-key"></i> Change password</h3>
                                 </button>
                             </div>                       

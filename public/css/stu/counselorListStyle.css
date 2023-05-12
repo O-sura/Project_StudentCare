@@ -147,6 +147,10 @@ input:focus{
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
+.list-item:hover{
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
 .prof-image{
   display: grid;
   justify-items: center;
@@ -219,16 +223,21 @@ input:focus{
 
 .container{
   display: grid;
-  grid-template-rows:1fr 1fr 15fr;
+  grid-template-rows:40px 40px auto;
   width: 90vw;
   margin-left: 2%;
-  margin-top: 2%;
+  margin-top: 30px;
   grid-gap: 15px;
+}
+
+.row1{
+  height: 20px;
 }
 
 .row2{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 7fr;
+  height: 40px;
 }
 
 .col1{
@@ -281,10 +290,10 @@ input:focus{
     margin-left: 30px;
     font-size: 16px;
     font-weight: bold;
-    color: #333;
+    color: #fff;
     padding: 10px;
     border: none;
-    background-color: #fff;
+    background-color: #1A285A;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     transition: all 0.2s ease-in-out;
@@ -298,6 +307,7 @@ input:focus{
   /* Add hover and focus effects */
   .select:hover, .select:focus {
     background-color: #f7f7f7;
+    color: #333;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   }
   

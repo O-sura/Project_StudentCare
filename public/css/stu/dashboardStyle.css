@@ -31,13 +31,7 @@ height: auto;
 border-radius: 50%;
 }
 
-.container{
-display: grid;
-grid-template-rows: auto;
-width: 100%;
-margin-left: 5%;
-height: 80vh;
-}
+
 
 .row1{
 margin-top: 2%;
@@ -47,6 +41,7 @@ margin-top: 2%;
 display: grid;
 grid-template-columns: 2fr 3fr;
 width: 100%;
+height: fit-content;
 }
 
 .user-details{
@@ -91,9 +86,10 @@ margin-top: 20px;
 background-color: #1A285A;
 border-radius: 20px;
 width: 80vw;
-padding: 30px;
+padding: 20px;
 justify-content: center;
 height: fit-content;
+margin-bottom: 10px;
 }
 
 .boxes{
@@ -336,7 +332,7 @@ margin-top: 20px;
 background-color: #1A285A;
 border-radius: 20px;
 width: 80vw;
-padding: 30px;
+padding: 20px;
 justify-content: center;
 height: fit-content;
 }
@@ -347,8 +343,8 @@ justify-content: space-around;
 box-sizing: border-box;
 width: 80vw;
 flex-wrap: wrap;
-padding-bottom: 10px;
-padding-top: 30px;
+padding-bottom: 20px;
+padding-top: 20px;
 }
 
 .messages{

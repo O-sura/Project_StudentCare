@@ -81,6 +81,9 @@
                         }
                 ?>
                         <div class="call" id="accepted">
+                            <div class="icone">
+                            <i class="fa-solid fa-circle-check fa-xl"></i>
+                            </div>
                             <div class="date">
                                 <?php echo $date ?>
                             </div>
@@ -131,6 +134,9 @@
                         }
                 ?>
                         <div class="call">
+                            <div class="icon">
+                            <i class="fa-solid fa-arrow-rotate-left fa-xl"></i>
+                            </div>
                             <div class="date">
                                 <?php echo $date ?>
                             </div>
@@ -211,9 +217,11 @@
                                     <?php echo $reason; ?>
                                 </div>
                             </div>
+                            <?php
+                            if (in_array($id, $requestIds)) { ?>
+                                <span class="icon_button_badge"><i class="fa-solid fa-circle-exclamation"></i></span>
 
-                            <span class="icon_button_badge"><i class="fa-solid fa-circle-exclamation"></i></span>
-
+                            <?php } ?>
 
 
                         </div>

@@ -13,69 +13,9 @@
 </head>
 
 <body>
-    <div class="sidebar">
-        <div class="logo_content">
-            <div class="logo">
-                <div class="logo_name"></div>
-            </div>
-            <i class="fa-solid fa-bars" id="btn"></i>
-        </div>
-        <ul class="nav_list">
-            <li>
-                <a href='<?php echo URLROOT ?>/student/home'>
-                    <i class="fa-solid fa-gauge"></i>
-                    <span class="links_name">Dashboard</span>
-                </a>
-                <span class="tooltip">Dashboard</span>
-            </li>
-            <li>
-                <a href='<?php echo URLROOT ?>/community/home'>
-                    <i class="fa-solid fa-users"></i>
-                    <span class="links_name">Community</span>
-                </a>
-                <span class="tooltip">Community</span>
-            </li>
-            <li>
-                <a href='<?php echo URLROOT ?>/tasks/'>
-                    <i class="fa-solid fa-calendar-days"></i>
-                    <span class="links_name">Schedule</span>
-                </a>
-                <span class="tooltip">Schedule</span>
-            </li>
-            <li>
-                <a href='<?php echo URLROOT ?>/appointments/'>
-                    <i class="fa-solid fa-calendar-check"></i></i>
-                    <span class="links_name">Appointments</span>
-                </a>
-                <span class="tooltip">Appointments</span>
-            </li>
-            <li>
-                <a href='<?php echo URLROOT ?>/announcements/'>
-                    <i class="fa-solid fa-bullhorn"></i></i>
-                    <span class="links_name">Announcements</span>
-                </a>
-                <span class="tooltip">Announcements</span>
-            </li>
-            <li>
-                <a href="<?php echo URLROOT ?>/Student_facility/">
-                    <i class="fa-solid fa-house-circle-check"></i>
-                    <span class="links_name">Listings</span>
-                </a>
-                <span class="tooltip">Listings</span>
-            </li>
-        </ul>
-        <div class="profile_content">
-            <div class="profile">
-                <div class="profile_details">
-                    <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFufGVufDB8fDB8fA%3D%3D&w=1000&q=80" alt="">
-                    <div class="name">
-                        Oshada
-                    </div>
-                </div>
-                <a href='<?php echo URLROOT ?>/users/logout'><i class="fa-solid fa-arrow-right-from-bracket fa-flip-horizontal" id="log_out"></i></a>
-            </div>
-        </div>
-    </div>
+    <?php
+    require_once '../app/views/tasks/sidebar.php';
+    ?>
     <div class="home_content">
         <form method="post">
             <div class="container">
@@ -110,7 +50,7 @@
 
                 <div class="row-x">
 
-                    <div class="col-x">
+                    
                         <?php
                         if (count($data['all']) == 0) {
                             echo "No tasks on this day";
@@ -144,6 +84,9 @@
                                                     <option value="started">In progress</option>
                                                     <option value="completed">Completed</option>
                                                 </select>
+                                            </div>
+                                            <div class="remove">
+                                            <a href="<?php echo URLROOT ?>/tasks/delete/?task_id=<?php echo $rows->task_id ?>&task_date=<?php echo $rows->task_date?>"><i class="fa-solid fa-trash"></i></a>
                                             </div>
 
                                         </div>
@@ -192,7 +135,9 @@
                                                 </select>
 
                                             </div>
-
+                                            <div class="remove">
+                                            <a href="<?php echo URLROOT ?>/tasks/delete/?task_id=<?php echo $rows2->task_id ?>&task_date=<?php echo $rows2->task_date?>"><i class="fa-solid fa-trash"></i></a>
+                                            </div>
                                         </div>
                                     <?php
                                     endforeach;
@@ -240,7 +185,9 @@
                                                 </select>
 
                                             </div>
-
+                                            <div class="remove">
+                                            <a href="<?php echo URLROOT ?>/tasks/delete/?task_id=<?php echo $rows3->task_id ?>&task_date=<?php echo $rows3->task_date?>"><i class="fa-solid fa-trash"></i></a>
+                                            </div>
                                         </div>
                                     <?php
                                     endforeach;
@@ -254,12 +201,7 @@
                         <?php
                         }
                         ?>
-                    </div>
-                    <div class="col-y">
-                        <div class="col-2">
-                            <button class="btn" id="btn4"><a href="<?php echo URLROOT; ?>/tasks/add">Add task</a></button>
-                        </div>
-                    </div>
+                    
 
                 </div>
             </div>

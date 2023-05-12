@@ -111,9 +111,9 @@ hr{
 .container{
   position: absolute;
   display: grid;
-  grid-template-rows:5% 5% 1fr;
+  grid-template-rows:40px 40px auto;
   margin-left: 2%;
-  margin-top: 2%;
+  margin-top: 30px;
   grid-gap: 15px;
   height: fit-content;
   width: calc(100%-78px);
@@ -135,11 +135,12 @@ hr{
 .row2{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 7fr;
+  width: 90vw;
 }
 
 .row3{
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-rows: auto;
   grid-gap: 7%;
   margin-top: 2%;
   height: fit-content;
@@ -176,7 +177,7 @@ hr{
   display:flex;
   flex-direction: column;
   height: fit-content;
-  gap: 40px;
+  gap: 20px;
   
 }
 
@@ -197,9 +198,18 @@ hr{
   justify-items: center;
   text-align: center;
   align-items: center;
-  box-shadow: 0 5px 20px 0 #d3d3db; 
- 
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+ font-size: large;
+ transition: 0.3s;
 }
+
+.call:hover{
+  cursor: pointer;
+  background-color: #1a285a3a;
+}
+
+
+
 
 .icon_button_badge{
   position: absolute;
@@ -262,14 +272,21 @@ hr{
   }
 
   #accepted{
-    background-color: #B8FEC7;
-    color: #268234;
+    background-color: rgb(255, 255, 255);
+    color: #1A285A;
+    transition: 0.3s;
   }
-
+  #accepted:hover{
+    background-color: #1a285a3a;
+    
+    cursor: pointer;
+  }
   #rejected{
     background-color: #c7c7c7;
     color: #535754;
   }
+
+  
  
   .btn2 {
     background: #FFBF42;
