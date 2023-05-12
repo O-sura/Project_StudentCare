@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/facility_provider/edit.css"?>>
     <script src=<?php echo URLROOT . "/public/js/facility_provider/edit.js"?> defer ></script>
+    <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/flash.css"?>>
+    <script src=<?php echo URLROOT . "/public/js/flash.js"?> defer ></script>
     <title>Edit Item</title>
 
 </head>
@@ -179,6 +181,16 @@
                         <?php endif; ?>
                         
 
+                        <?php
+                            $category = '';
+                            if (isset($data['viewone']) && $data['viewone'] !== null) {
+                                $category = $data['viewone']->category;
+                            } else if($data['category_err']){
+                                echo '<div class="form-field" data-error=" ' . $data['category_err'] . '">';
+                            }else{
+                                echo '<div class="form-field">';
+                            }
+                        ?>
                         <div class="catsub">
                             <div class="sub22">
                                 <p>Category:</p>

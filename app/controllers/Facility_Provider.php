@@ -704,13 +704,24 @@ class Facility_Provider extends Controller{
                         echo("You can't upload files of this category");
                     }
                 }
+
+                /* $data =[ 
+                    'viewone' => $this->ListingModel->getImage()
+                ]; */
+                $image_urls = json_encode($image_urls); 
+            }else{
+                $listing = $this->ListingModel->viewOneListing($id);
+                $image_urls = $listing->image;
+                // exit;
             }
            
 
-            $image_urls = json_encode($image_urls);     //convert image_urls php array into a json encoded string image_urls
-
+            // $image_urls = json_encode($image_urls);     //convert image_urls php array into a json encoded string image_urls
+            // echo $image_urls;
+            // exit;
             $uniName = json_encode($uniName);           //convert uniName php array into a json encoded string uniName
             $listing_id = $id;
+
 
             $data = [
                 'id' => $listing_id,

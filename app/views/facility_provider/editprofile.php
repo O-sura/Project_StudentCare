@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo URLROOT . "/public/css/facility_provider/editDetails.css"?>">
     <script src=<?php echo URLROOT . "/public/js/facility_provider/editProfile.js"?> defer></script>
+    <link rel="stylesheet" href="<?php echo URLROOT . "/public/css/flash.css"?>">
     <script src= <?php echo URLROOT . "/public/js/flash.js"?> defer></script>
     <title></title>
 </head>

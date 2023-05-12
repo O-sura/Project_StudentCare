@@ -106,6 +106,12 @@
             }
         }
 
+        public function getImage(){
+            $this->db->query('SELECT image FROM listing');
+
+            $result = $this->db->getRes();
+            return $result;
+        }
 
         public function editUniDistance($data){
             //$listing_id = substr(sha1(date(DATE_ATOM)), 0, 8);
