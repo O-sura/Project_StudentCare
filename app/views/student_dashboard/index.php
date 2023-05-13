@@ -30,38 +30,7 @@
     <div class="home_content">
 
 
-        <!-- First popup box -->
-        <div id="myModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2>Welcome to our site!</h2>
-                <img src="<?php echo URLROOT . "/public/img/user_experience/1.png" ?>" class="tip">
-                <button class="next-btn">Next</button>
-                <button class="skip-btn" id="skipBtn">Skip Tour</button>
-            </div>
-        </div>
 
-        <!-- Second popup box -->
-        <div id="myModal2" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2>Welcome to our site!</h2>
-                <img src="<?php echo URLROOT . "/public/img/user_experience/2.png" ?>" class="tip">
-                <button class="next-btn">Next</button>
-                <button class="skip-btn" id="skipBtn">Skip Tour</button>
-            </div>
-        </div>
-
-        <!-- Third popup box -->
-        <div id="myModal3" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2>Welcome to our site!</h2>
-                <img src="<?php echo URLROOT . "/public/img/user_experience/3.png" ?>" class="tip">
-                <button class="next-btn">Next</button>
-                <button class="skip-btn" id="skipBtn">Skip Tour</button>
-            </div>
-        </div>
 
 
         <div class="container">

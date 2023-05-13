@@ -25,6 +25,8 @@ class Counsellor extends Controller
     {
 
         $userid = Session::get('userID');
+        date_default_timezone_set('Asia/Kolkata'); // set timezone to Kolkata, India
+
 
         //get the time zone
         date_default_timezone_set('Asia/Kolkata');
@@ -256,11 +258,36 @@ class Counsellor extends Controller
         }
     }
 
+
+    //download verification doc
+    public function download_verification(){
+
+        $usr = Session::get('userID');
+        $file = $this->counselorModel->getVerificationDocName($usr);
+        $filepathOfDoc = json_decode($file,true);
+        $filepath = $filepathOfDoc[0]['verification_doc'];
+        // echo ($filepath);
+        // exit;
+        
+        $path = APPROOT . '/uploads/' . $filepath;
+        if (file_exists($path)) {
+            header('Content-Type: application/octet-stream');
+            header('Content-Disposition: attachment; filename="' . basename($path) . '"');
+            header('Content-Length: ' . filesize($path));
+            readfile($path);
+            exit;
+        } else {
+            echo 'File not found.';
+        }
+    }
+
     //load the notification section
     public function notificationView()
     {
 
         $userid = Session::get('userID');
+        date_default_timezone_set('Asia/Kolkata'); // set timezone to Kolkata, India
+
 
         $res = json_decode($this->counselorModel->getInformationForNotification($userid));
         $rowcount = count($res);

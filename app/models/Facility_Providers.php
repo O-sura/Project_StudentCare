@@ -11,7 +11,7 @@
         //to add the listing data
         public function addItem($data){
             //$listing_id = substr(sha1(date(DATE_ATOM)), 0, 8);
-            $this->db->query('INSERT INTO listing(listing_id, fpID, topic, description, rental, location, address, image, special_note, category) VALUES (:listingID ,:fpID, :topic, :description, :rental, :location, :address, :image_urls, :special_note, :category)');
+            $this->db->query('INSERT INTO listing(listing_id, fpID, topic, description, rental, location, address,first_image, image, special_note, category) VALUES (:listingID ,:fpID, :topic, :description, :rental, :location, :address,:first_img_url,:image_urls, :special_note, :category)');
             
             $this->db->bind(':listingID', $data['listingID']);
             $this->db->bind(':topic', $data['topic']);
@@ -21,6 +21,7 @@
             $this->db->bind(':address', $data['address']);
             // $this->db->bind(':uniName', $data['uniName']);
             $this->db->bind(':image_urls', $data['image_urls']);
+            $this->db->bind(':first_img_url', $data['first_img_url']);
             $this->db->bind(':special_note', $data['special_note']);
             $this->db->bind(':category', $data['category']);
             $this->db->bind(':fpID', $data['fpID']);

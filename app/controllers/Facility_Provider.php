@@ -409,6 +409,7 @@ class Facility_Provider extends Controller{
                 'address' => $data['address'],
                 // 'uniName' => $uniName,
                 'image_urls' => $image_urls,
+                'first_img_url' => $first_image_url,
                 'special_note' => $data['special_note'],
                 'category' => $data['category']
             ];
