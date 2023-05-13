@@ -19,6 +19,9 @@
     <?php
     require_once '../app/views/counselor_stu/sidebar.php';
     ?>
+    <div class="navtag" id="/Counsellor/notificationView" hidden>
+
+    </div>
 
     <div class="container">
         <div class="row1">

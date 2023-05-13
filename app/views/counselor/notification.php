@@ -20,6 +20,10 @@
     
     <div class="home_content">
 
+        <div class="navtag" id="/Counsellor/notificationView" hidden>
+
+        </div>
+
         <div class="topicHead">
             <span><h1 class="headApp">Notifications</h1></span>
         </div>
@@ -47,7 +51,7 @@
                                 <div class="desc">
                                     <h4 class="topic">New Student Request</h4>
                                     <p class="para">Name : <?php echo $row->fullname ;?> &nbsp;&nbsp; </p>
-                                    <p class="time">Date : <?php echo date('Y:m:d',strtotime($row->requested_on)) ;?>&nbsp;&nbsp; <?php echo date('H:i a',strtotime($row->requested_on)) ;?></p>
+                                    <p class="time">Date : <?php $date = date_create($row->requested_on); echo date_format($date, 'd/m/Y');?>&nbsp;&nbsp;Time : <?php $date = date_create($row->requested_on); echo date_format($date, 'H:i');  ?></p>
                                 </div>
                                 <div class="btns" id="btns" value="<?php echo $row->rID ?>">
                                     
@@ -72,7 +76,7 @@
                                 <div class="desc">
                                     <h4 class="topic">New Student Request</h4>
                                     <p class="para">Name : <?php echo $row->fullname ;?> &nbsp;&nbsp; </p>
-                                    <p class="time">Date : <?php echo date('Y:m:d',strtotime($row->requested_on)) ;?>&nbsp;&nbsp; <?php echo date('H:i a',strtotime($row->requested_on)) ;?></p>
+                                    <p class="time">Date : <?php $date = date_create($row->requested_on); echo date_format($date, 'd/m/Y');?>&nbsp;&nbsp;Time : <?php $date = date_create($row->requested_on); echo date_format($date, 'H:i');  ?></p>
                                 </div>
                                 <div class="btns" id="btns" value="<?php echo $row->studentID ?>">
                                     
@@ -100,7 +104,7 @@
                                     <div class="para"><div class=paraX>Reason : &nbsp;</div><?php echo $row->cancellationReason ;?> </div>
                                     <div class="para"><div class=paraX>Appointment Date : &nbsp;</div><?php echo $row->appointmentDate ;?> </div>
                                     <div class="para"><div class=paraX>Appointment Time : &nbsp;</div><?php echo date('H:i a',strtotime($row->appointmentTime)) ;?> </div>
-                                    <p class="time">Date : <?php echo date('Y:m:d',strtotime($row->requested_on)) ;?>&nbsp;&nbsp; <?php echo date('H:i a',strtotime($row->requested_on)) ;?></p>
+                                    <p class="time">Date : <?php $date = date_create($row->requested_on); echo date_format($date, 'd/m/Y');?>&nbsp;&nbsp;Time : <?php $date = date_create($row->requested_on); echo date_format($date, 'H:i');  ?></p>
                                 </div>
                                 <div class="btns" id="btns" value="<?php echo $row->studentID ?>">
                                     
@@ -128,7 +132,7 @@
                                     <div class="para"><div class=paraX>Reason : &nbsp;</div><?php echo $row->cancellationReason ;?> </div>
                                     <div class="para"><div class=paraX>Appointment Date : &nbsp;</div><?php echo $row->appointmentDate ;?> </div>
                                     <div class="para"><div class=paraX>Appointment Time : &nbsp;</div><?php echo date('H:i a',strtotime($row->appointmentTime)) ;?> </div>
-                                    <p class="time">Date : <?php echo date('Y:m:d',strtotime($row->requested_on)) ;?>&nbsp;&nbsp; <?php echo date('H:i a',strtotime($row->requested_on)) ;?></p>
+                                    <p class="time">Date : <?php $date = date_create($row->requested_on); echo date_format($date, 'd/m/Y');?>&nbsp;&nbsp;Time : <?php $date = date_create($row->requested_on); echo date_format($date, 'H:i');  ?></p>
                                 </div>
                                 <div class="btns" id="btns" value="<?php echo $row->studentID ?>">
                                     

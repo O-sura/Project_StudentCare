@@ -21,6 +21,10 @@
     ?>
     <div class="home_content">
 
+        <div class="navtag" id="/CounselorReport/home" hidden>
+
+        </div>
+
         <div class="topic">
             <span><h1 class="headApp">Reports</h1></span>
         </div>
@@ -32,13 +36,13 @@
                     <h1>Monthly Session Overview</h1><br>
                     <div class="subdiv">
                         <div class="sub1">
-                            <h2>Total Appointments <br><br> <h1 id="total"> </h1></h2>
+                            <h2>Total Appointments <br><br> <h1 class="count" id="total"> </h1></h2>
                         </div>
                         <div class="sub2">
-                            <h2>Completed Appointments <br><br> <h1 id="completed"></h1></h2>
+                            <h2>Completed Appointments <br><br> <h1 class="count" id="completed"></h1></h2>
                         </div>
                         <div class="sub3">
-                            <h2>Cancelled Appointments <br><br> <h1 id="cancelled"></h1></h2>
+                            <h2>Cancelled Appointments <br><br> <h1 class="count" id="cancelled"></h1></h2>
                         </div>
                     </div>
                     <div class="graph">

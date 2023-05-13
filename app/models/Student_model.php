@@ -102,4 +102,24 @@ class Student_model
 
         return $count;
     }
+
+    public function getNewAnnouncementsCount($studentID)
+    {
+
+        $this->db->query("SELECT 
+        ann_post.post_id
+        FROM ann_post 
+        JOIN 
+        counselor_alloc ON ann_post.userID = counselor_alloc.counselor_id 
+        JOIN 
+        users ON users.userID = counselor_alloc.counselor_id
+        JOIN
+        counsellor ON counsellor.counsellorID = counselor_alloc.counselor_id
+        WHERE counselor_alloc.student_id = :studentID AND ann_post.posted_date >= users.last_login;");
+       
+        $this->db->bind(':studentID', $studentID);
+        $count = $this->db->rowCount();
+
+        return $count;
+    }
 }

@@ -223,7 +223,7 @@
             <div class="modal-content">
                 <span class="close">&times;</span>
                 
-                <button class = "btnStart" id="uploadBtn"><a class='start' href="http://localhost:3000/<?php echo $row->meetingID ?>" target="_blank">Start meeting</a></button>
+                <button class = "btnStart" id="uploadBtn"><a class='start' href="http://localhost:3000/<?php echo $row->meetingID ?>" target="_blank" >Start meeting</a></button>
                 <button class = "btnCom" id="comBtn" name="completeBtn"><a name="completeLink" id="completedApp" class='complete'  href=" ">Completed</a></button>
                 <button id="removeBtn" class="rbtn" value="<?php echo $row->studentID ?>">Cancel appointment</button>
                 

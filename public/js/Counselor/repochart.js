@@ -104,7 +104,7 @@ function fetchData(year, month) {
 
       //console.log(appDays);
 
-      var barColors = "#d1e189";
+      var barColors = "#87cefa";
 
       new Chart("myChart", {
         type: "bar",
@@ -137,8 +137,9 @@ function fetchData(year, month) {
                   beginAtZero: true,
                   gridLines: {
                     display: false,
-                  },
+                  }
                 },
+                
               },
             ],
             xAxes: [
@@ -148,6 +149,9 @@ function fetchData(year, month) {
                     display: false,
                   },
                 },
+                gridLines: {
+                  display: false,
+                }
               },
             ],
           },
@@ -156,102 +160,3 @@ function fetchData(year, month) {
     })
     .catch((error) => console.error(error));
 }
-
-// // Get the selected year
-// const yearDropdown = document.querySelector('#year');
-// const monthDropdown = document.querySelector('#month');
-
-// // Add event listener to year dropdown
-// yearDropdown.addEventListener('change', () => {
-//   const selectedYear = yearDropdown.value;
-//   console.log(`Selected year: ${selectedYear}`);
-// });
-
-// // Add event listener to month dropdown
-// monthDropdown.addEventListener('change', () => {
-//   const selectedMonth = monthDropdown.value;
-//   console.log(`Selected month: ${selectedMonth}`);
-// });
-
-// var ctx1 = document.getElementById("myChart").getContext("2d");
-
-// fetch("http://localhost/StudentCare/CounselorReport/appMonthStats")
-//   .then((response) => response.json())
-//   .then((data) => {
-
-//     console.log(data);
-
-//     const now = new Date();
-//     const numberOfDays = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
-
-//     const appDays = new Array(numberOfDays).fill(0);
-
-//     console.log(numberOfDays);
-
-//     const xValues = [];
-
-//     for (let i = 1; i <= numberOfDays; i++) {
-//       xValues.push(i);
-//     }
-
-//     //To assign the number of appointments on corresponding day of each month
-//     for (const obj of data) {
-//       const day = parseInt(obj.dayOfMonth);
-//       const count = parseInt(obj.count);
-//       appDays[day-1] += count;
-//     }
-
-//     console.log(appDays);
-
-//     var barColors = "#d1e189";
-
-//     new Chart("myChart", {
-//       type: "bar",
-//       data: {
-//         labels: xValues,
-//         datasets: [
-//           {
-//             backgroundColor: barColors,
-//             data: appDays,
-//             hoverOffset: 1,
-//           },
-//         ],
-//       },
-
-//       options: {
-//         responsive: true,
-//         legend: {
-//           display: false,
-//         },
-//         title: {
-//           display: true,
-//           text: "",
-//         },
-//         scales: {
-//           yAxes: [
-//             {
-//               ticks: {
-//                 min: 0,
-//                 max: 5,
-//                 beginAtZero: true,
-//                 gridLines: {
-//                   display: false,
-//                 },
-
-//               },
-//             },
-//           ],
-//           xAxes: [
-//             {
-//               ticks: {
-//                 gridLines: {
-//                   display: false,
-//                 },
-//               },
-//             },
-//           ],
-//         },
-//       },
-//     });
-//   })
-//   .catch((error) => console.error(error));
