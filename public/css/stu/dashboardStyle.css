@@ -26,11 +26,13 @@ margin-top: 25px;
 
 
 #image2{
-width: 250px;
-height: auto;
-border-radius: 50%;
+  width:200px;
+  height: 200px;
+  border-style: solid;
+  border-radius: 50%;
+  border-color: #fff;
+  object-fit: cover;
 }
-
 
 
 .row1{
@@ -266,11 +268,7 @@ margin-top: 25px;
 
 
 
-#image2{
-width: 250px;
-height: auto;
-border-radius: 50%;
-}
+
 
 .container{
 display: grid;
