@@ -147,10 +147,10 @@
                                         </button>
                                     </div>
                                     <div class="join2">
-                                        <button id="uploadBtn">
+                                        <button id="emailBtn">
                                             <div class="btn-class">
                                                 <div class="btnName">
-                                                    Please use the link given in the email
+                                                <i class="fa-solid fa-circle-exclamation"></i> Join from the link sent via email
                                                 </div>
                                             </div>
 

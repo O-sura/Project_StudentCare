@@ -122,4 +122,5 @@ class Student_model
 
         return $count;
     }
+
 }

@@ -412,3 +412,14 @@ color: black;
     right:-10px;
     font-size: 130%;
   }
+
+  #emailBtn{
+    background-color: transparent;
+    color: #1A285A;
+    font-weight: bold;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 20px;
+  }
+ 
