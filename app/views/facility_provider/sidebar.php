@@ -73,20 +73,18 @@
             
         </ul>
         <div class="profile_content">
+            <?php
+                if (Session::get('prof_img')->profile_img != NULL) {
+                    $image = Session::get('prof_img')->profile_img;
+                } else {
+                    $image = "avatar.jpg";
+                }
+            ?>
             <div class="profile">
                 <div class="profile_details">
-                    <?php 
-                        if(!empty($data['profile_img'])){
-                            $image = "fprovider/" . $data['profile_img'];
-                        }
-                        else{
-                            $image = "avatar.jpg";
-                        }
-                    ?>
-                    <img src="<?php echo URLROOT."/public/img/".$image ;?>" alt="">
-                    <!-- <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFufGVufDB8fDB8fA%3D%3D&w=1000&q=80" alt=""> -->
+                    <img src="<?php echo URLROOT . "/public/img/fprovider/" . $image; ?>" alt="">
                     <div class="name">
-                        <?php echo $_SESSION['username']?>
+                        <?php echo Session::get('username') ?>
                     </div>
                 </div>
                 <a href= <?php echo URLROOT . "/users/logout"?>><i class="fa-solid fa-arrow-right-from-bracket" id="log_out"></i></a>

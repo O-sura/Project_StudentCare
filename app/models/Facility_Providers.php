@@ -34,9 +34,18 @@
             }
         }
 
-        /* public function isUserRegisteredForCategory($user_id, $category){
-            $this->db->query('SELECT * FROM facility_provider WHERE ');
+       /*  public function checkCategoryRegistration($data){
+            $this->db->query('SELECT * FROM facility_provider WHERE fpID = :fpID AND category = :category');
+            $this->db->bind(':fpID', $data['fpID']);
+            $this->db->bind(':category', $data['category']);
+            
+            if($this->db->execute()){
+                return true;
+            }else{
+                return false;
+            }
         } */
+
 
         public function addUniDistance($data){
             //$listing_id = substr(sha1(date(DATE_ATOM)), 0, 8);
@@ -106,12 +115,6 @@
             }
         }
 
-        public function getImage(){
-            $this->db->query('SELECT image FROM listing');
-
-            $result = $this->db->getRes();
-            return $result;
-        }
 
         public function editUniDistance($data){
             //$listing_id = substr(sha1(date(DATE_ATOM)), 0, 8);
@@ -151,10 +154,10 @@
             
 
             if($this->db->execute()){
-                $this->db->query('UPDATE facility_provider SET profile_img = :pimg/* , category = :category, */ WHERE  userID = :userid;');
+                $this->db->query('UPDATE facility_provider SET profile_img = :pimg , category = :category WHERE  userID = :userid;');
                 $this->db->bind(':userid', $user_id);
                 $this->db->bind(':pimg',$data['profile']);
-                /* $this->db->bind(':category', implode(",", $data['category'])); */
+                $this->db->bind(':category', $data['category']); 
                 if($this->db->execute()){
                     return true;
                 }else{
@@ -268,6 +271,7 @@
         }
 
 
+        //delete item
         public function deleteItem($id){
             $this->db->query('DELETE FROM listing WHERE listing_id=:id');
             
@@ -284,6 +288,7 @@
         }
 
 
+        //delete the universities
         public function deleteUniDistances($id){
             $this->db->query('DELETE FROM uni_distance_listing WHERE listing_id=:id');
             

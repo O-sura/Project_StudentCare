@@ -15,10 +15,9 @@
     <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/flash.css"?>>
     <script src=<?php echo URLROOT . "/public/js/flash.js"?> defer ></script>
     <title>Add Listings</title>
-
-</head>
 </head>
 <body>
+    <?php FlashMessage::flash('added_flash') ;?>
     <div class="page">
         <div class="sidebar">
             <?php include "sidebar.php"; ?>
@@ -107,6 +106,7 @@
                                         <option value="SLIIT">SLIIT</option>
                                         <option value="SLTC">SLTC</option>
                                     </select>
+
                                     <input class="uniName" name="uniDistance[]" id="uniName_0" type="number" min="1" max="10"><p>Km</p>
                                 </div>
                             </div>
@@ -137,9 +137,11 @@
                         <input class="note" name="special_note" type="text">
                         </div>
 
+                    
                         <p>Images:</p>
                         <label for="img"><i class="fa fa-plus"></i><br>Insert only four images</label>
                         <input type="file" class="image" name="images[]" id="img" multiple>
+                       
 
                         <?php 
                             if($data['category_err'])

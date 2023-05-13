@@ -7,9 +7,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/facility_provider/profile.css"?> >
     <script src=<?php echo URLROOT . "/public/js/facility_provider/profile.js"?> defer></script>
+    <link rel="stylesheet" href="<?php echo URLROOT . "/public/css/flash.css"?>">
+    <script src= <?php echo URLROOT . "/public/js/flash.js"?> defer></script>
     <title>Profile</title>
 </head>
 <body>
+    <?php FlashMessage::flash('update_profile_flash') ;?>
     <div class="page">
 
         <div class="sidebar">
