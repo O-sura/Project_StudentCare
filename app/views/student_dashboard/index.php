@@ -139,7 +139,9 @@
                         <div class="favcons">
                             <i class="fa-solid fa-bullhorn"></i>
                         </div>
-                        <span class="icon_button_badge">2</span>
+                        <?php if ($data['new_announcements_count'] > 0) : ?>
+                            <span class="icon_button_badge"><?php echo $data['new_announcements_count'] ?></span>
+                        <?php endif; ?>
                     </div>
                     <div class="messages" id="appointments">
                         <div class="topic2">

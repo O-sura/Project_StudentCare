@@ -23,7 +23,27 @@
 
     <div class="home_content">
         <div class="container">
+            <!-- Popup Form -->
+            <div class="overlay">
+                <div class="popup">
+                    <form action="<?php echo URLROOT; ?>/student/deactivate_profile" method="post">
+                        <div class="heading">
+                            Are you sure ?
+                        </div>
+                        <div class="description">
+                            <div class="submit">
+                                <button type="submit" class="btn">Yes</button>
+                            </div>
+                            <div class="submit">
+                                <button class="btn" id="no">No</button>
+                            </div>
+                        </div>
+                    </form>
+                    <button class="exit-button">&times;</button>
+                </div>
+            </div>
 
+            <!-- End Popup Form -->
 
             <div class="row1">
                 <h1>Edit Profile</h1>
@@ -41,21 +61,26 @@
                             $image = "avatar.jpg";
                         }
                         ?>
-                            <img src="<?php echo URLROOT . "/public/img/student/" . $image; ?>" id="image2">
-                            <div class="username">
-                                <?php echo $data["userDetails"]->username ?>
-                            </div>
-                            <div class="btn2">
-                                <label for="inputTag" style="cursor:pointer;">
-                                    <h3> <i class="fa-solid fa-image-portrait fa-fade"></i> Change profile pic</h3>
-                                    <input id="inputTag" type="file" name="file" style="display:none;" accept="image/*" />
-                                </label>
-                            </div>
-                            <div class="change_password">
-                                <button class="btn2" id = "change_pw">
-                                    <h3><i class="fa-solid fa-key"></i> Change password</h3>
-                                </button>
-                            </div>                       
+                        <img src="<?php echo URLROOT . "/public/img/student/" . $image; ?>" id="image2">
+                        <div class="username">
+                            <?php echo $data["userDetails"]->username ?>
+                        </div>
+                        <div class="btn2">
+                            <label for="inputTag" style="cursor:pointer;">
+                                <h3> <i class="fa-solid fa-image-portrait fa-fade"></i> Change profile pic</h3>
+                                <input id="inputTag" type="file" name="file" style="display:none;" accept="image/*" />
+                            </label>
+                        </div>
+                        <div class="change_password">
+                            <button class="btn2" id="change_pw">
+                                <h3><i class="fa-solid fa-key"></i> Change password</h3>
+                            </button>
+                        </div>
+                        <div class="change_password">
+                            <button class="btn3" id="deactivate">
+                                <h3><i class="fa-solid fa-power-off" style="color: #a43d3d;"></i> Deactivate profile</h3>
+                            </button>
+                        </div>
                     </div>
 
                     <div class="col2">
@@ -150,8 +175,7 @@
     </div>
     </form>
     </div>
-    </div>
-    <!-- </form> -->
+
 
 </body>
 

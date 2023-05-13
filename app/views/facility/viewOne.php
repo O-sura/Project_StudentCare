@@ -18,11 +18,11 @@
 
 <body>
     
-        <?php FlashMessage::flash('listing_report_flash'); ?>
+        
         <?php
         require_once '../app/views/facility/sidebar.php';
         ?>
-
+        <?php FlashMessage::flash('listing_report_flash'); ?>
 
         <div class="home_content">
             <div class="container">
