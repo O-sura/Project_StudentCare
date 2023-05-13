@@ -28,7 +28,11 @@
     <?php 
       require_once '../app/views/counselor/sidebar.php';
     ?>
-    <div class="home_content">  
+    <div class="home_content"> 
+        
+        <div class="navtag" id="/CounselorAnnouncement/home" hidden>
+
+        </div>
 
         <div class="topic">
             <span><h1 class="headApp">Announcements</h1></span>
@@ -120,7 +124,7 @@
                                 else
                                     echo '<div class="form-field">';
                             ?>
-                            <input type="text" name="topic"  class="postHead" placeholder="Head" value="<?php echo  $data['topic']; ?>"><br>
+                            <input type="text" name="topic"  class="postHead" placeholder=" Head" value="<?php echo  $data['topic']; ?>"><br>
                             </div>
                             <input type="text" name="id" value="<?php if(isset($data['id'])) echo $data['id'];?>" hidden>
 
@@ -130,7 +134,7 @@
                                 else
                                     echo '<div class="form-field">';
                             ?>
-                            <textarea name="body" id="" placeholder="Description" rows = "15" cols = "5" class="postDesc <?php echo (!empty($data['body_err'])) ? 'is-invalid' : ''; ?>"><?php echo  $data['body']; ?></textarea><br>
+                            <textarea name="body" id="" placeholder=" Description" rows = "15" cols = "5" class="postDesc <?php echo (!empty($data['body_err'])) ? 'is-invalid' : ''; ?>"><?php echo  $data['body']; ?></textarea><br>
                         	</div>
                             <button class="postBtn" name="submit">Post announcement</button>
                         </form>

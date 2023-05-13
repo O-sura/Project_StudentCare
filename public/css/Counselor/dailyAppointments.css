@@ -101,7 +101,7 @@ hr{
 .appComplete{
   width: 90%;
   height: 70px;
-  background-color: lightgreen;
+  background-color:  rgb(33, 228, 108);
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   border-radius: 10px;
   padding: 0.5% 0.5%;
@@ -530,4 +530,34 @@ hr{
     text-align: center;
     margin-bottom: -5%;
     
+  }
+
+  @media screen and (max-width:1250px) {
+    .main{
+      display: block;
+      padding-block-end: 2%;
+    }
+
+    .app{
+      width: 100%;
+      margin-left: 30%;
+    }
+
+    .appComplete{
+      width: 100%;
+      margin-left: 30%;
+    }
+
+    .appCancel{
+      width: 100%;
+      margin-left: 30%;
+    }
+
+    .right{
+      width: 40%;
+      text-align: center;
+      margin-left: 22%;
+    }
+
+
   }

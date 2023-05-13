@@ -18,6 +18,10 @@
       require_once '../app/views/counselor/sidebar.php';
     ?>
     <div class="home_content">
+
+        <div class="navtag" id="/Counsellor/studentView" hidden>
+
+        </div>
         <div class="topic">
             <span><h1 class="headApp">Students</h1></span>
         </div>

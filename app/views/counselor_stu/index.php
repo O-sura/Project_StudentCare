@@ -163,12 +163,14 @@
                                     <div class="join">
                                         <button class="btn3">
                                             <div class="btn-class">
+                                            <div class="btn-class">
                                                 <div class="btnName">
                                                     Upcoming
                                                 </div>
                                                 <div class="btnIcon">
                                                     <i class="fa-solid fa-play"></i>
                                                 </div>
+                                            </div>
                                             </div>
 
                                         </button>
