@@ -255,6 +255,8 @@
   
   .noted{
     margin-left: 2%;
+    text-align: justify;
+    margin-right: 2%;
   }
 
   label{

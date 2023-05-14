@@ -14,7 +14,8 @@ class Appointment
         $this->db->query("SELECT users.userID, users.fullname, counsellor.counselor_description, counsellor.specialization, counsellor.profile_img
         FROM users
         INNER JOIN counsellor
-        ON users.userID = counsellor.userID;");
+        ON users.userID = counsellor.userID
+        WHERE counsellor.admin_verified = 1;");
 
         $results = $this->db->getAllRes();
 

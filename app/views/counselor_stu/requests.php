@@ -130,8 +130,8 @@
                         $specialization = $pending->specialization;
                         $name = $pending->fullname;
                         $requestIds = array_column($data['newRequests'], 'rID');
-                        if ($accepted->profile_img != NULL) {
-                            $image = $accepted->profile_img;
+                        if ($pending->profile_img != NULL) {
+                            $image = $pending->profile_img;
                         } else {
                             $image = "avatar.jpg";
                         }
@@ -190,8 +190,8 @@
                         $reason = $rejected->reason;
                         $name = $rejected->fullname;
                         $requestIds = array_column($data['newRequests'], 'rID');
-                        if ($accepted->profile_img != NULL) {
-                            $image = $accepted->profile_img;
+                        if ($rejected->profile_img != NULL) {
+                            $image = $rejected->profile_img;
                         } else {
                             $image = "avatar.jpg";
                         }
