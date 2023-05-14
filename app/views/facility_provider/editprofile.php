@@ -111,7 +111,6 @@
                             ?>
                             <br><label for="nic">NIC:</label><br>
                             <input type="text" value="<?= $data['nic'] ;?>" name="nic" class="form-input">
-                            <!-- disabled="disabled" -->
                             </div>
 
                             <?php 
@@ -164,9 +163,6 @@
                         <input type="submit" class="save" value="Save Changes" name="saveChanges">
                     </div>
                 </div>
-                <!-- <div class="delete">
-                    <input type="submit" class="delete" value="Delete Profile" name="deleteProfile">
-                </div>-->
             </div>
             </form>
         </div>

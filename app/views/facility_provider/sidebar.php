@@ -55,13 +55,6 @@
                 <span class="tooltip">Furniture</span>
             </li>
 
-            <li>
-                <a href=<?php echo URLROOT. "/facility_provider/report"?>>
-                    <i class="fa-solid fa-address-card"></i></i>
-                    <span class="links_name">Report</span>
-                </a>
-                <span class="tooltip">Report</span>
-            </li>
 
             <li>
                 <a href=<?php echo URLROOT. "/messaging_facility/index"?>>

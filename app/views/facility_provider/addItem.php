@@ -17,16 +17,24 @@
     <title>Add Listings</title>
 </head>
 <body>
+
     <?php FlashMessage::flash('added_flash') ;?>
+
     <div class="page">
+
+        <!-- sidebar load -->
         <div class="sidebar">
             <?php include "sidebar.php"; ?>
         </div>
     
         <div class="container">
+
+            <!-- pages back link -->
             <a id="back-link">
                 <i class="fa-sharp fa-solid fa-left-long"><span>  Go Back</span></i>
             </a>
+
+            <!-- form data sending as POST method and encrypt the data with files and images-->
             <form action="" method="POST" enctype="multipart/form-data">
                 <h1>Tell Us More About Your Listing</h1>
 
@@ -75,6 +83,13 @@
                         <input class="town" name="location" type="text">
                         </div>
                        
+                    
+                        <?php 
+                            if($data['uniName_err'])
+                                echo '<div class="form-field" data-error=" ' . $data['uniName_err'] . '">';
+                            else
+                                echo '<div class="form-field">';
+                        ?>
                         <div class="unisub">
                             <p>Universities/Institutions Nearby:</p>
                             <div class="university-adder">
@@ -113,6 +128,7 @@
 
                             <button type="button" class="addAnother" onclick="addAnother()">+ Add</button>
                         </div>
+                        </div>
                     </div>
                     
                     <div class="sub2">
@@ -138,10 +154,17 @@
                         </div>
 
                     
+                        <?php 
+                            if($data['images_err'])
+                                echo '<div class="form-field" data-error=" ' . $data['images_err'] . '">';
+                            else
+                                echo '<div class="form-field">';
+                        ?>
                         <p>Images:</p>
                         <label for="img"><i class="fa fa-plus"></i><br>Insert only four images</label>
                         <input type="file" class="image" name="images[]" id="img" multiple>
-                       
+                        </div>
+
 
                         <?php 
                             if($data['category_err'])
@@ -170,10 +193,7 @@
                     </div>
                 </div>
          
-                <!-- onchange = "getImage(this.value);" -->
-                <!-- <div id="display-image"></div> -->
-  
-                <button type="submit" class="submitbtn" name="submit">Add Listing</button>
+               <button type="submit" class="submitbtn" name="submit">Add Listing</button>
                 
             </form>  
         </div>

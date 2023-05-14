@@ -18,6 +18,8 @@
 <body>
     
     <div class="page">
+
+        <!-- load the sidebar -->
         <div class="sidebar">
             <?php include "sidebar.php"; ?>
         </div>
@@ -33,7 +35,7 @@
                 <div class="sub">
                     <div class="sub1">
                         
-                        <p>Topic:</p>
+                        
                         <?php
                             $topic = '';
                             if (isset($data['viewone']) && $data['viewone'] !== null) {
@@ -44,10 +46,11 @@
                                 echo '<div class="form-field">';
                             }
                         ?>
+                        <p>Topic:</p>
                         <input class="topic" name="topic" type="text" value="<?php echo $topic; ?>">
                         
 
-                        <p>Description:</p>
+                        
                         <?php
                             $description = '';
                             if (isset($data['viewone']) && $data['viewone'] !== null) {
@@ -58,10 +61,11 @@
                                 echo '<div class="form-field">';
                             }
                         ?>
+                        <p>Description:</p>
                         <input class="description" name="description" type="text" value="<?php echo $description; ?>">
                         
 
-                        <p>Price(Rs.):</p>
+                        
                         <?php
                             $rental = '';
                             if (isset($data['viewone']) && $data['viewone'] !== null) {
@@ -72,10 +76,11 @@
                                 echo '<div class="form-field">';
                             }
                         ?>
+                        <p>Price(Rs.):</p>
                         <input class="price" name="rental" type="text" value="<?php echo $rental; ?>">
                         
                     
-                        <p>Nearest Town:</p>
+                        
                         <?php
                             $location = '';
                             if (isset($data['viewone']) && $data['viewone'] !== null) {
@@ -86,7 +91,9 @@
                                 echo '<div class="form-field">';
                             }
                         ?>
+                        <p>Nearest Town:</p>
                         <input class="town" name="location" type="text" value="<?php echo $location; ?>">
+                       
                         
  
                         <div class="unisub">                       
@@ -122,7 +129,7 @@
                     </div>        
 
                     <div class="sub2">
-                        <p>Address:</p>
+                        
                         <?php
                             $address = '';
                             if (isset($data['viewone']) && $data['viewone'] !== null) {
@@ -133,10 +140,11 @@
                                 echo '<div class="form-field">';
                             }
                         ?>
+                        <p>Address:</p>
                         <input class="address" name="address" type="text" value="<?php echo $address; ?>">
                         
 
-                        <p>Special Notes:</p>
+                        
                         <?php
                             $special_note = '';
                             if (isset($data['viewone']) && $data['viewone'] !== null) {
@@ -147,10 +155,13 @@
                                 echo '<div class="form-field">';
                             }
                         ?>
+                        <p>Special Notes:</p>
                         <input class="note" name="special_note" type="text" value="<?php echo $special_note; ?>">
+                        
                         
                     
                         <p>Images:</p>
+                        
                         <label for="img"><i class="fa fa-plus"></i><br>Insert only four images</label>
                         <input type="file" class="image" name="images[]" id="img" multiple>   <!-- allow to select and upload multiple files -->
                         <div id="preview-container">
@@ -175,6 +186,7 @@
                                 The value attribute of the input element is set to the current $img value from the loop. -->
                             <?php endforeach; ?>
                         <?php endif; ?>
+                        
                         
 
                         <?php
@@ -211,9 +223,9 @@
                 
                 <input type="text" name="id" value=<?php echo $data['id']?> hidden>
                 <button type="submit" class="submitbtn" name="submit">Save</button>
+                
             </form>  
         </div>
-
     </div>
     
 </body>

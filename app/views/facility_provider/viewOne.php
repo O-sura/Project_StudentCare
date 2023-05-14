@@ -127,6 +127,8 @@
 
         </div>
     </div>
+
+    <!-- delete item modal box -->
     <span class="overlay"></span>
     <div class="modal-box-1">
             <center><h2 class="modal-title-text">Are your sure you want to delete this listing?</h2></center>

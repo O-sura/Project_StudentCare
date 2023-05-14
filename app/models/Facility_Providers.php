@@ -35,18 +35,6 @@
             }
         }
 
-       /*  public function checkCategoryRegistration($data){
-            $this->db->query('SELECT * FROM facility_provider WHERE fpID = :fpID AND category = :category');
-            $this->db->bind(':fpID', $data['fpID']);
-            $this->db->bind(':category', $data['category']);
-            
-            if($this->db->execute()){
-                return true;
-            }else{
-                return false;
-            }
-        } */
-
 
         public function addUniDistance($data){
             //$listing_id = substr(sha1(date(DATE_ATOM)), 0, 8);
@@ -95,8 +83,7 @@
 
 
         public function editItem($data){
-            //$listing_id = substr(sha1(date(DATE_ATOM)), 0, 8);
-            $this->db->query('UPDATE listing SET topic = :topic, description = :description, rental = :rental, location = :location, address = :address,  image = :image_urls, special_note = :special_note, category = :category WHERE listing_id = :id');
+            $this->db->query('UPDATE listing SET first_image = :first_img_url, topic = :topic, description = :description, rental = :rental, location = :location, address = :address,  image = :image_urls, special_note = :special_note, category = :category WHERE listing_id = :id');
             
             $this->db->bind(':id', $data['id']);
             $this->db->bind(':topic', $data['topic']);
@@ -107,7 +94,7 @@
             $this->db->bind(':image_urls', $data['image_urls']);
             $this->db->bind(':special_note', $data['special_note']);
             $this->db->bind(':category', $data['category']);
-
+            $this->db->bind(':first_img_url', $data['first_img_url']);
             if($this->db->execute()){
                 return true;
             }
@@ -257,12 +244,6 @@
             return $results; 
         }
 
-        public function report(){
-            $this->db->query('SELECT * FROM listing'); 
-            
-            $result = $this->db->getAllRes();
-            return $result;
-        }
 
         public function message(){
             $this->db->query('SELECT * FROM listing'); 
@@ -320,36 +301,7 @@
             $result = $this->db->getAllRes();
             return $result;
         }
-
-        
-        public function propertysearch($keyword){
-            $this->db->query('SELECT * FROM listing WHERE topic LIKE :keyword or location LIKE :keyword or rental LIKE :keyword');
-            $this->db->bind(':keyword', $keyword);
-            $result = $this->db->getAllRes();
-            return json_encode($result);
-        }
-
-
-        public function getlocationfilter($location){
-            $this->db->query("SELECT * FROM listing WHERE location = :location");
-            $this->db->bind(':location', $location);
-            $result = $this->db->getAllRes();
-            return $result;
-        }
-
-        public function gettypefilter($type){
-            $this->db->query("SELECT * FROM listing WHERE topic = :type");
-            $this->db->bind(':type', $type);
-            $result = $this->db->getAllRes();
-            return $result;
-        }
-
-        public function getunifilter($university){
-            $this->db->query("SELECT * FROM uni_distance_listing WHERE uni_name = :university");
-            $this->db->bind(':university', $university);
-            $result = $this->db->getAllRes();
-            return $result;
-        }
+         
 
         public function getUniDistances($id){
             $this->db->query("SELECT * FROM uni_distance_listing WHERE listing_id = :id");

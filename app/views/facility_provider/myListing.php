@@ -36,8 +36,9 @@
 
             <div class="count">
                 <label>Total Listings</label>
-                <p><?php echo (count($data['myview']) < 10)? "0" . count($data['myview']) : count($data['myview'])?></p>
                 <!-- count the elements inside the $data['myview'] array. If the count is less than 0 concat with the count, else print the count-->
+                <p><?php echo (count($data['myview']) < 10)? "0" . count($data['myview']) : count($data['myview'])?></p>
+                
             </div>
             
             <div class="head">

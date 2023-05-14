@@ -224,7 +224,7 @@ class Facility_Provider extends Controller{
             ];
 
                 
-            print_r($data);  
+            /* print_r($data); */  
             //$this->loadView('facility_provider/editprofile',$data);
         }
     }
@@ -281,9 +281,8 @@ class Facility_Provider extends Controller{
                 'address_err' => '',
                 'special_note_err' => '',
                 'category_err' => '',
-                /* 'images[]_err' => '' */
-                /* 'uniName_err' => '', */
-                /* 'uniDistance[]_err' => '' */
+                'images_err' => '',
+                'uniName_err' => ''
             ];
 
             //Check whether all the fields are filled properly
@@ -307,17 +306,9 @@ class Facility_Provider extends Controller{
                 $data['address_err'] =  "*Address field is Required";
             }
 
-            /* if(empty($data['images[]'])){
-                $data['images[]_err'] =  "*images[] field is Required";
-            } */
-
-           /*  if(empty($data['uniName'])){
+            if(count($uniList) == 0){
                 $data['uniName_err'] =  "*At least one university should be entered";
-            } */
-
-            /* if(empty($data['uniDistance[]'])){
-                $data['uniDistance[]_err'] =  "*At least one university and distance should be entered";
-            } */
+            }
 
             if(empty($data['special_note'])){
                 $data['special_note_err'] =  "*Special note field is Required";
@@ -389,16 +380,22 @@ class Facility_Provider extends Controller{
                 }
             }
 
-            //converts a PHP $image_urls array into a JSON-encoded string.
-            $image_urls = json_encode($image_urls);
-     
-            //converts a PHP $uniName array into a JSON-encoded string.
+
+            //define a empty variable
+            $first_image_url = '';
+
+            if(!empty($image_urls)){
+                //take the first image from the 
+                $first_image_url = $image_urls[0];
+                //converts a PHP $image_urls array into a JSON-encoded string.
+                $image_urls = json_encode($image_urls);
+            }else{
+                $data['images_err'] =  "*At least one image should be entered";
+            }
+            
+   
             $uniName = json_encode($uniName);
-
-            //generate random id based on current date and time, and take the first 8 characters
             $listing_id = substr(sha1(date(DATE_ATOM)), 0, 8);
-
-            //store the valid data into an array 
             $validatedData = [
                 'listingID' => $listing_id,
                 'topic' => $data['topic'],
@@ -415,15 +412,10 @@ class Facility_Provider extends Controller{
             ];
 
 
-            //check the user entered data for relevent registered categories
-            /* if(!$this->ListingModel->checkCategoryRegistration($validatedData)){
-                echo 'Error: You are not registered to this category';
-            } */
-
 
             //Make sure there are no error flags are set
             if(empty($data['topic_err']) && empty($data['description_err']) && empty($data['rental_err']) && empty($data['location_err']) && empty($data['address_err']) 
-                 && empty($data['special_note_err']) && empty($data['category_err']) /* && empty($data['images[]_err']) *//* && empty($data['uniName_err']) */){
+                 && empty($data['special_note_err']) && empty($data['category_err']) && empty($data['images_err']) && empty($data['uniName_err'])){
                 
                 //count the array elements
                 $num = count($uniList);
@@ -479,11 +471,10 @@ class Facility_Provider extends Controller{
                 'rental_err' => '',
                 'location_err' => '',
                 'address_err' => '',
-                /* 'uniName_err' => '', */
-                /* 'uniDistance[]_err' => '', */
+                'images_err' => '',
+                'uniName_err' => '',
                 'special_note_err' => '',
-                'category_err' => '',
-                /* 'images[]_err' => '' */
+                'category_err' => ''
             ];
 
             $this->loadView('facility_provider/addItem', $data);
@@ -563,18 +554,6 @@ class Facility_Provider extends Controller{
     }
 
 
-    //take data to generate reports
-    public function report(){
-        $report = $this->ListingModel->report();
-
-        $data =[
-            'report' => $report
-        ]; 
-        
-        $this->loadView('facility_provider/report',$data);
-    }
-
-
     //to edit listing data
     public function editItem($id){
 
@@ -631,13 +610,7 @@ class Facility_Provider extends Controller{
                 'category_err' => ''
             ];
            
-            /* if($images['name'][0] == '') {
-                echo 'bcdfbudjsbv';
-            }else{
-                echo '1234556';
-            } */
             
-
             if(empty($data['topic'])){
                 $data['topic_err'] =  "*Topic field is Required";
             }
@@ -658,9 +631,6 @@ class Facility_Provider extends Controller{
                 $data['address_err'] =  "*Address field is Required";
             }
 
-            if(empty($data['uniName'])){
-                $data['uniName_err'] =  "*University field is Required";
-            }
 
             if(empty($data['special_note'])){
                 $data['special_note_err'] =  "*Special note field is Required";
@@ -682,6 +652,7 @@ class Facility_Provider extends Controller{
             if(count($uniList) != count($unique_array)){
                 $data['uniName_err'] = 'Duplicate university names are not allowed';
             }
+
 
     
             //count the images
@@ -750,6 +721,19 @@ class Facility_Provider extends Controller{
             }
            
 
+            //define a empty variable
+            $first_image_url = '';
+
+            if(!empty($image_urls)){
+                //take the first image from the 
+                $decoded_images = json_decode($image_urls);
+                $first_image_url = $decoded_images[0];
+                //converts a PHP $image_urls array into a JSON-encoded string.
+            }else{
+                $data['images_err'] =  "*At least one image should be entered";
+            }
+
+
             //convert uniName php array into a json encoded string uniName
             $uniName = json_encode($uniName);   
             //take the listing id
@@ -757,8 +741,8 @@ class Facility_Provider extends Controller{
 
 
             //take the valid data
-            $data = [
-                'id' => $listing_id,
+            $extdata = [
+                'id' => $id,
                 'topic' => $data['topic'],
                 'description' => $data['description'],
                 'rental' => $data['rental'],
@@ -766,16 +750,19 @@ class Facility_Provider extends Controller{
                 'address' => $data['address'],
                 'image_urls' => $image_urls,
                 'special_note' => $data['special_note'],
+                'first_img_url' => $first_image_url,
                 'category' => $data['category']
             ];
-
+            
+    
             //Make sure there are no error flags are set
             if(empty($data['topic_err']) && empty($data['description_err']) && empty($data['rental_err']) && empty($data['location_err']) && empty($data['address_err']) 
                 && empty($data['uniName_err']) && empty($data['images_err']) && empty($data['special_note_err']) && empty($data['category_err']) && empty($data['uniDistance_err'])){
                 
+
                 $num = count($uniList);
 
-                if($this->ListingModel->editItem($data)){ //edit basic listing details to the database
+                if($this->ListingModel->editItem($extdata)){ //edit basic listing details to the database
                     $is_successful = false;
                     if($this->ListingModel->deleteUniDistances($listing_id)){ //delete previous entries before entering new ones
                         $is_successful = true;
@@ -802,7 +789,7 @@ class Facility_Provider extends Controller{
                          //Error Notification
                         echo 'Error: Something went wrong in adding item to the database';
                         Middleware::redirect('./facility_provider/editItem');
-                        die();
+                        /* die(); */
                     }
                 }
             }else{
@@ -894,38 +881,6 @@ class Facility_Provider extends Controller{
         }
     }
 
-
-    public function propertysearch(){
-        header("Access-Control-Allow-Origin: *");
-        if(isset($_GET['query'])){
-            //Check whether the search query is empty or not
-            if(empty($_GET['query'])){
-                $result =  json_encode($this->ListingModel->getlisting());
-            }else{
-                $keyword = "%" . trim($_GET['query']) . "%";
-                $result =  $this->ListingModel->propertysearch($keyword);
-            }
-            echo $result;
-        }
-    }
-
-
-    public function dropdownfilter(){
-        if(isset($_GET['filterItem1'])){
-            // Get the selected filter values
-            $location = $_GET['location'];
-            /* $type = $_GET['type'];
-            $university = $_GET['university']; */
-    
-            // Call the model method to get the filtered results
-            $result = $this->ListingModel->getlocationfilter($location);
-            /* $result = $this->ListingModel->gettypefilter($type);
-            $result = $this->ListingModel->getunifilter($university); */
-            
-            // Return the filtered results as JSON
-            echo json_encode($result);
-        }
-    }
 
     //to change the profile password
     public function changePassword(){

@@ -1,3 +1,4 @@
+//image preview
 function gallery(smallImg){
     var fullImg = document.getElementById("preview");
     fullImg.src = smallImg.src;
