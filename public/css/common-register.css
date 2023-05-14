@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lily+Script+One&display=swap');
 
 *{
    font-family: 'Poppins', sans-serif;
@@ -19,13 +20,36 @@ body{
    position: relative;
 }
 
+.top-bar {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin-top: 1rem;
+   margin-bottom: 3.5rem;
+   width: 100%;
+ }
+ 
+
+#sitename{
+   font-family: 'Lily Script One', cursive;
+   font-style: italic;
+   letter-spacing: 0.2rem;
+   font-size: 2rem;
+   margin: 0px;
+   padding: auto;
+   color: #1A285A;
+   padding-left: 1.5rem;
+   font-weight: bold;
+}
+
+
 .header{
    align-self: end;
    margin-top: 20px;
    display: flex;
    justify-content: center;
    margin-right: 20px;
-   margin-bottom: 40px;
+   /* margin-bottom: 40px; */
 }
 
 .header a{
@@ -37,10 +61,10 @@ body{
 .login{
    padding: 5px 15px;
    margin-left: 10px;
-   height: 30px;
+   height: 1.8rem;
    background-color:#1A285A;
    color: white;
-   border: none;
+   border: 0.7px solid #1A285A;
    border-radius: 30px;
    font-size: 16px;
    transform: translateY(-30%);
@@ -50,6 +74,13 @@ body{
    display: flex;
    justify-content: center;
    align-items: center;
+}
+
+.login:hover{
+   background-color: white;
+   color:#1A285A;
+   border: 0.7px solid #1A285A;
+   transition-duration: 0.3s;
 }
 
 .form-container{
@@ -62,6 +93,7 @@ body{
    margin: 0px 50px;
    padding: 0px;
    border: none;
+   margin-bottom: 3rem;
 }
 
 form{
@@ -79,8 +111,8 @@ form{
 
 .button{
    display: block;
-   width: 100px;
-   height:40px;
+   width: 10rem;
+   height: 2.8rem;
    background-color: #4277FF;
    color:white;
    outline: none;
@@ -89,7 +121,9 @@ form{
    font-size: 15px;
    margin: 30px auto 30px auto;
    grid-column: 1 / -1;
-   justify-self: center; 
+   justify-self: center;
+   cursor: pointer;
+   text-transform: uppercase;
 }
 
 .form-field{
@@ -111,6 +145,8 @@ form{
 
 .lable{
    color: white;
+   font-size: 0.8rem;
+   opacity: 0.8;
 }
 
 .form-input{
@@ -119,17 +155,32 @@ form{
    border-radius: 5px;
    margin-top: 5px;
    border: 1px solid #878787;
-   padding-left: 5px;
+   padding-left: 0.7rem;
+}
+
+form input:focus {
+   outline: none;
 }
 
 #special{
    transform: translateY(15px);
 }
 
+.special-field{
+   display: flex;
+   flex-direction: column;
+   justify-content: space-evenly;
+}
+
 #address{
-   height: 100px;
+   height: 110px;
    padding-top: 5px;
    resize: none;
+}
+
+#checkbox-container{
+   margin-top: 1rem;
+   margin-left: 1rem;
 }
 
 #terms{
@@ -195,5 +246,17 @@ form{
 
    .bottom{
       position: relative;
+   }
+}
+
+@media(max-width:670px){
+
+   .top-bar{
+      flex-direction: column;
+      align-items: center;
+   }
+
+   .form-container{
+      padding: 2rem;
    }
 }

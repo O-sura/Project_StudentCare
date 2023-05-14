@@ -8,7 +8,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>StudentCare</title>
+    <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/flash.css"?> >
     <link rel="stylesheet" href=<?php echo URLROOT. "/public/css/landing.css"?>>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src= <?php echo URLROOT . "/public/js/flash.js"?> defer></script>
@@ -22,6 +23,9 @@
 
 <div class="navbar">
     <h2 class="identity">StudentCare</h2>
+    <a href="#" class="toggle-btn" id="menu-btn">
+        <i class="fa-solid fa-bars"></i>
+    </a>
     <ul class="navbar-item">
         <li class="navbar-link"><a href="#about">About Us</a></li>
         <li class="navbar-link"><a href="#features">Features</a></li>
@@ -36,11 +40,19 @@
     </div>
     <img src=<?php echo URLROOT. "/public/img/landing-banner.jpg"?> alt="landing-banner"/>
 </div>
+<hr class="divider left">
 <div class="about" id="about">
     <h1>ABOUT US</h1>
-    <p class="about-text">‘Students Care’ is a platform where university students can seek guidance under several different areas via online. Everyone can register and then he/she will be directed to a personalized dashboard where everything is lined up. Starting from the basic facility needs, students can browse through several listed choices and pick the one that fits the best for them. Under the academics, students can maintain a customizable work planner to track their work while managing the time more productively.</p>
-    <p class="about-text">Our platform brings all these activities and organizations to one platform, so that students can find and manage everything in one place without any hustle.</p>
+    <p class="about-text">StudentCare: Your All-in-One Student Support Platform. 
+        Connect, Thrive, Succeed!
+        Join a vibrant student community, share experiences, and receive valuable feedback.</p>
+    <p class="about-text">Boost productivity and stay organized with our intuitive mobile app. Track your progress, manage study time, and set helpful reminders.
+        Prioritize your mental well-being with free counseling sessions by industry professionals via secure video calling.
+        Find nearby food and utility options effortlessly. Discover suitable accommodation and everyday essentials with direct connections to listing owners and student reviews.
+        Experience 24x7 support and access to resources that drive academic and personal success.
+        Join StudentCare today and unlock your full potential!</p>
 </div>
+<hr class="divider right"><br><br>
 <div class="features" id="features">
     <h1 class="features-title">FEATURES</h1>
     <div class="feature-list">
@@ -50,52 +62,52 @@
             </div>
             <div class="feature-desc">
                 <h4>Community Support</h4>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit iste in saepe asperiores eos repellat.</p>
+                <p>Engage with a community of like-minded students, share experiences, post articles, ask questions, and get answers from others.</p>
             </div>
         </div>
         <div class="feature-card">
             <div class="feature-icon">
-                <i class="fa-solid fa-users icon"></i>
+                <i class="fa-brands fa-android icon"></i>
             </div>
             <div class="feature-desc">
-                <h4>Community Support</h4>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit iste in saepe asperiores eos repellat.</p>
+                <h4>Mobile App</h4>
+                <p>Keep track of your study time, analyze your progress, create to-do lists, and set reminders to stay organized and focused.</p>
             </div>
         </div>
         <div class="feature-card">
             <div class="feature-icon">
-                <i class="fa-solid fa-users icon"></i>
+                <i class="fa-solid fa-user-doctor icon"></i>
             </div>
             <div class="feature-desc">
-                <h4>Community Support</h4>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit iste in saepe asperiores eos repellat.</p>
+                <h4>Counseling Sessions</h4>
+                <p>Get access to free counseling sessions from professional counselors in the industry via video calling, available at your convenience.</p>
             </div>
         </div>
         <div class="feature-card">
             <div class="feature-icon">
-                <i class="fa-solid fa-users icon"></i>
+                <i class="fa-solid fa-house icon"></i>
             </div>
             <div class="feature-desc">
-                <h4>Community Support</h4>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit iste in saepe asperiores eos repellat.</p>
+                <h4>Boarding Places and Utilities</h4>
+                <p>Find what matchs your preferences with the ability to browse reviews, ratings, and communicate directly with the listing owners for any additional information.</p>
             </div>
         </div>
         <div class="feature-card">
             <div class="feature-icon">
-                <i class="fa-solid fa-users icon"></i>
+                <i class="fa-solid fa-lock icon"></i>
             </div>
             <div class="feature-desc">
-                <h4>Community Support</h4>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit iste in saepe asperiores eos repellat.</p>
+                <h4>Safe Space</h4>
+                <p>We value your privacy and all your information are kept confidential. Users can feel comfortable knowing that they are in a judgment-free and safe space.</p>
             </div>
         </div>
         <div class="feature-card">
             <div class="feature-icon">
-                <i class="fa-solid fa-users icon"></i>
+                <i class="fa-solid fa-headset icon"></i>
             </div>
             <div class="feature-desc">
-                <h4>Community Support</h4>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit iste in saepe asperiores eos repellat.</p>
+                <h4>24x7 Support</h4>
+                <p>Ensures users receive immediate assistance from a support team whenever they need it, regardless of the time of day or night.</p>
             </div>
         </div>
         
@@ -170,6 +182,16 @@
         </div>
     </div>
     <center><p class="copyrights">StudentCare © 2023 - 2024</p></center>
+
 </div>
+
+<script>
+    let menuBtn = document.getElementById('menu-btn');
+    let navLinks = document.querySelectorAll('.navbar-link');
+
+    menuBtn.addEventListener('click', ()=>{
+        navLinks.forEach(link => link.classList.toggle('active'))
+    })
+</script>
 </body>
 </html>

@@ -1,20 +1,34 @@
 ==== ALL =====
-- Forgot Password/Reset Password - Almost Done
-- Remember me - Almost Done
-- Access Restriction - Partially Done
-- Check Logics
-- Uni mail only for students
-- Break user controller into multiple controllers
-- Make sub folders for each view and stuff
-- Modify the session to set an array inside a session
-- Mail resend functionality
-- Flash Messages
-==== STUDENT =====
-- Community
-- Video Call/Counselling Requests
-- Messaging 
-==== ADMIN =====
-- Counselling Registration Requests
-- Report Generation
-- Chart Analytics
-- Complains Section
+Report Generation
+Site tour model-UI coding and connecting
+
+
+Responsive UI
+
+Report types
+=============
+Facility-provider => listing overview[Name,username,generated date + listing info(same info shown in admin dashboard)]
+Counselor => Name,username,generated date + sessions,associated students
+
+Admin => Single-user info(FP,Counselor),
+    
+Overall Analytics  => Total users count for each type,
+                      New users count in month
+                      
+                      community- Total posts made,engagement,comments
+                      post reportings count
+                      counselling sessions overview by count(cancelled,completed)
+                      counselor-student engagement
+                      counselor-announcement engagement
+                      listing count,average rating for each type
+                      student-listings engagement
+                      listings percentage group by location
+                      student-mobile app engagement
+
+
+
+
+
+
+
+                      
