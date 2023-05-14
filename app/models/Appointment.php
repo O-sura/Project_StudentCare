@@ -180,7 +180,7 @@ class Appointment
 
     public function getAllAppointments($studentID)
     {
-        $this->db->query("SELECT appointments.meetingID,appointments.appointmentID, appointments.appointmentDate, appointments.appointmentTime, users.fullname, counsellor.profile_img, counsellor.specialization, counsellor.counsellorID
+        $this->db->query("SELECT appointments.*, users.fullname, counsellor.profile_img, counsellor.specialization, counsellor.counsellorID
         FROM appointments
         INNER JOIN users
         ON appointments.counsellorID = users.userID
@@ -253,7 +253,7 @@ class Appointment
 
     public function editRequest($data)
     {
-        $this->db->query("UPDATE requests SET rNote = :rNote, counselor_seen = 0 WHERE rID = :rID");
+        $this->db->query("UPDATE requests SET rNote = :rNote, student_req_seen = 0 WHERE rID = :rID");
         $this->db->bind(':rNote', $data['requestDescription']);
         $this->db->bind(':rID', $data['requestID']);
 

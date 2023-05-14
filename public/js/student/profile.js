@@ -29,3 +29,37 @@ password.addEventListener('click', function(event) {
   // You can also submit the form programmatically if needed
   // document.getElementById('myForm').submit();
 });
+
+function showPopup() { //show modal for cancel appointment
+  var popup = document.querySelector(".overlay");
+  popup.style.display = "block";
+}
+
+const overlay = document.querySelector('.overlay');
+const popup = overlay.querySelector('.popup');
+const exitButton = popup.querySelector('.exit-button');
+const noButton = popup.querySelector('#no');
+
+function closePopup() {
+  var popup = document.querySelector(".overlay");
+  popup.style.display = "none";
+}
+noButton.addEventListener('click', closePopup);
+noButton.addEventListener('click', function(event) {
+  event.preventDefault(); // Prevent form submission
+  closePopup();
+});
+exitButton.addEventListener('click', closePopup);
+overlay.addEventListener('click', (event) => {
+  if (event.target === overlay) {
+      closePopup();
+  }
+});
+const deactivateBtn = document.querySelector('#deactivate');
+deactivateBtn.addEventListener('click', function(event) {
+  event.preventDefault(); // Prevent form submission
+  showPopup();
+});
+
+
+

@@ -43,7 +43,7 @@
           <i class="fa-solid fa-user-plus"></i>
           <span class="links_name">Review Requests</span>
         </a>
-        <span class="tooltip">Review Requests</span>
+        <span class="tooltip">Requests</span>
       </li>
       <li>
         <a href="<?php echo URLROOT . "/admin/complaints"?>">

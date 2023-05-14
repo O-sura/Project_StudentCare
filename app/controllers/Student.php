@@ -22,14 +22,22 @@ class Student extends Controller
         $usr =   Session::get('username');
         $new_requests_count = $this->studentModel->getNewRequestsCount(Session::get('userID'));
         $new_appointments_count = $this->studentModel->getNewAppointmentsCount(Session::get('userID'));
+        $new_announcements_count = $this->studentModel->getNewAnnouncementsCount(Session::get('userID'));
         $new_messages_count = $this->studentModel->getNewMessagesCount(Session::get('userID'));
         $task_notification_count = $this->studentModel->getTaskNotificationCount(Session::get('userID'));
+        $is_new_user = 0;
+        if(Session::get('lastLogin')==NULL){
+            $is_new_user = 1;
+            Session::set('lastLogin',date('Y-m-d H:i:s'));
+        }
         $total_count = $new_requests_count + $new_appointments_count;
         $data = [
             'username' => $usr,
             'new_requests_count' => $total_count,
             'new_messages_count' => $new_messages_count,
             'task_notification_count' => $task_notification_count,
+            'new_announcements_count' => $new_announcements_count,
+            'is_new_user' => $is_new_user,
             'userDetails' => $this->studentModel->getProfile(Session::get('userID'))
         ];
         $this->loadview('student_dashboard/index', $data);
@@ -344,5 +352,12 @@ class Student extends Controller
 
         $res = json_encode($data);
         echo $res;
+    }
+
+    public function deactivate_profile(){
+        $id = Session::get('userID');
+        $this->userModel->updateUserAsDeleted($id);
+        Session::destroy();
+        Middleware::redirect('login');
     }
 }

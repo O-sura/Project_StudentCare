@@ -32,7 +32,40 @@
 
 
 
+    <?php
+        if($data['is_new_user'] == 1){?>
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Welcome to our site!</h2>
+                <img src="<?php echo URLROOT . "/public/img/user_experience/1.png" ?>" class="tip">
+                <button class="next-btn">Next</button>
+                <button class="skip-btn" id="skipBtn">Skip Tour</button>
+            </div>
+        </div>
 
+        <div id="myModal2" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Welcome to our site!</h2>
+                <img src="<?php echo URLROOT . "/public/img/user_experience/2.png" ?>" class="tip">
+                <button class="next-btn">Next</button>
+                <button class="skip-btn" id="skipBtn">Skip Tour</button>
+            </div>
+        </div>
+
+        <div id="myModal3" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Welcome to our site!</h2>
+                <img src="<?php echo URLROOT . "/public/img/user_experience/3.png" ?>" class="tip">
+                <button class="next-btn">Next</button>
+                <button class="skip-btn" id="skipBtn">Skip Tour</button>
+            </div>
+        </div>
+            <?php
+        }
+    ?>
         <div class="container">
             <!-- Popup Form -->
             <div class="overlay">
@@ -139,7 +172,9 @@
                         <div class="favcons">
                             <i class="fa-solid fa-bullhorn"></i>
                         </div>
-                        <span class="icon_button_badge">2</span>
+                        <?php if ($data['new_announcements_count'] > 0) : ?>
+                            <span class="icon_button_badge"><?php echo $data['new_announcements_count'] ?></span>
+                        <?php endif; ?>
                     </div>
                     <div class="messages" id="appointments">
                         <div class="topic2">

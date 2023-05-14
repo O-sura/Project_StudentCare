@@ -143,6 +143,7 @@
                 .catch(error => {
                     console.error(error);
                 });
+                
         }
 
         // Function to fetch new messages

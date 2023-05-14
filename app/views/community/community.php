@@ -121,6 +121,6 @@
                 <input type="submit" value="Continue" class="continue-button" name="report">
             </form>
     </div>  
-    </section>                         
+    </section>                       
 </body>
 </html>

@@ -147,13 +147,10 @@
                                         </button>
                                     </div>
                                     <div class="join2">
-                                        <button class="btn2" id="uploadBtn" onclick="showPopup()">
+                                        <button id="emailBtn">
                                             <div class="btn-class">
                                                 <div class="btnName">
-                                                    Cancel
-                                                </div>
-                                                <div class="btnIcon">
-                                                    <i class="fa-solid fa-xmark"></i>
+                                                <i class="fa-solid fa-circle-exclamation"></i> Join from the link sent via email
                                                 </div>
                                             </div>
 

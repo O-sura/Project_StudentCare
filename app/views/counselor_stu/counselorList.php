@@ -76,8 +76,8 @@
                         <div>
                             <select class="select" id="typeFilter">
                                 <option value="All">All</option>
-                                <option value="Academic">Academic Counselors</option>
-                                <option value="Career">Career Counselors</option>
+                                <option value="Academic Support">Academic Counselors</option>
+                                <option value="Career Guidence">Career Guidence</option>
                                 <option value="Mental Health">Mental Health Counselors</option>
                                 <option value="Financial Aid">Financial Aid Counselors</option>
                                 <option value="Relationship">Relationship Counselors</option>

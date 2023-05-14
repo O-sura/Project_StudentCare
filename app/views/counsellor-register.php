@@ -1,12 +1,5 @@
 <?php
-     $data = [
-        'dob_err' => '',
-        'specialization_err' => '',
-        'qualifications_err' => '',
-        'verification_err' => '',
-        'terms_err' => ''
 
-    ];
 ?>
 
 <!DOCTYPE html>
@@ -21,9 +14,12 @@
     <script src=<?php echo URLROOT . "/public/js/counsellor-register.js"?> defer></script>
 </head>
 <body>
-    <div class="header">
-        <a href= "<?php echo URLROOT?>/users/login">Already have an Account?</a>
-        <button class="login">Login Here</button>
+    <div class="top-bar">
+        <a href="http://localhost/StudentCare"><span id="sitename">StudentCare</span></a>
+        <div class="header">
+            <span>Already have an Account? </span>
+            <a href="<?php echo URLROOT ?>/users/login"><div class="login">Login Here</div></a>
+        </div>
     </div>
     <div class="form-container">
         <h1>Registering as a Counsellor</h1>
@@ -39,12 +35,22 @@
             </div>
             <?php 
                 if($data['specialization_err'])
-                   echo '<div class="form-field" data-error=" ' . $data['specialization_err'] . '">';
+                   echo '<div class="form-field" id="specializations" data-error=" ' . $data['specialization_err'] . '">';
                 else
-                   echo '<div class="form-field">';
+                   echo '<div class="form-field" id="specializations">';
             ?>
                 <label for="specialization" class="lable">Specialization:</label><br>
-                <input type="" name="specialization" id="specialization" class="form-input">
+                <input type="" name="specialization" id="specialization" class="form-input" readonly>
+                <select class="select">
+                    <option value="All">All</option>
+                    <option value="Academic Support">Academic Support</option>
+                    <option value="Career Guidence">Career Guidence</option>
+                    <option value="Mental Health">Mental Health</option>
+                    <option value="Financial Aid">Financial Aid</option>
+                    <option value="Relationship">Relationship</option>
+                    <option value="Disability Services">Disability Services</option>
+                    <option value="Residential Life">Residential Life</option>
+                </select>
             </div>
             <?php 
                 if($data['qualifications_err'])
@@ -67,9 +73,9 @@
             </div>
             <?php 
                 if($data['terms_err'])
-                   echo '<div class="form-field" id="terms-cond" data-error=" ' . $data['terms_err'] . '">';
+                   echo '<div class="form-field" id="terms-field" data-error=" ' . $data['terms_err'] . '">';
                 else
-                   echo '<div class="form-field" id="terms-cond">';
+                   echo '<div class="form-field" id="terms-field">';
             ?>
                 <input type="checkbox" name="terms" id="terms" class="form-input">
                 <span class="note">I hereby declare that the information given above is true and accurate to the best of my knowledge</span>

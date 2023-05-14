@@ -75,7 +75,7 @@
         ?>
         <div class="profile_content">
             <div class="profile">
-                <div class="profile_details">
+                <div class="profile_details" id="loggedInUser">
                     <img src="<?php echo URLROOT . "/public/img/student/" . $image; ?>" alt="">
                     <div class="name">
                     <?php echo Session::get('username') ?>
