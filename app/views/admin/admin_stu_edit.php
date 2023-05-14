@@ -15,7 +15,7 @@
             <div class="section-title">
                 <h1>Customize Profile</h1>
             </div>
-            <div class="get-summary <?php echo $data['userID']?>" id="get-summary">
+            <div class="get-summary <?php echo $data['userID']?>" id="get-summary" hidden>
                 <i class="fa-solid fa-print"></i>
                 <span class="btn-txt">Generate Summary</span>
             </div>

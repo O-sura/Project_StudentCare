@@ -126,6 +126,6 @@ use function PHPSTORM_META\type;
                 <input type="submit" value="Continue" class="continue-button" name="report">
             </form>
     </div>  
-    </section>                         
+    </section>                       
 </body>
 </html>

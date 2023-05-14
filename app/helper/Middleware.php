@@ -2,10 +2,12 @@
 
 class Middleware{
 
+    //redirecting a user to a specific page
     public static function redirect($page){
         header('location:' . URLROOT . '/' . $page);
     }
     
+    //check whether a user is authorized for accessing a conteoller
     public static function authorizeUser($current_userrole, $authorized_role){
         if($current_userrole == $authorized_role || $current_userrole == 'admin'){
             return;
@@ -15,6 +17,7 @@ class Middleware{
         }
     }
 
+    //Check whether a user is already logged in
     public static function isLoggedIn(){
         if(Session::isLoggedIn()){
             Middleware::redirect('access/restrict');
@@ -22,6 +25,7 @@ class Middleware{
         }
     }
 
+    //Check whether a user is not logged into the system
     public static function isNotLoggedIn(){
         if(!Session::isLoggedIn()){
             Middleware::redirect('access/unauth');

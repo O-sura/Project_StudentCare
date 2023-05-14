@@ -17,6 +17,7 @@
     <?php 
         FlashMessage::flash('comment_added');
         FlashMessage::flash('comment_not_added');
+        FlashMessage::flash('post_updated');
     ?>
     <div class="section" id="top">
         <div class="back-option">
@@ -43,9 +44,9 @@
         <div class="analytics">
             <div class="option">
                 <i class="fa-solid fa-comment"></i>
-                <span>7 Comments</span>
+                <span><?= count($data['comments']) ?> Comments</span>
             </div>
-            <div class="option">
+            <div class="option" hidden>
                 <i class="fa-solid fa-flag"></i>
                 <span>Report</span>
             </div>

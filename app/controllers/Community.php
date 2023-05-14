@@ -75,6 +75,7 @@
             //return json_encode($posts);
         }
 
+        //adding new community post
         public function new_post(){
             if(isset($_POST['submit'])) {
 
@@ -121,6 +122,7 @@
             }
         }
 
+        //view a specific post
         public function view_post($id){
             //Fetch the post data and comments associated with it and send as data
             $postData = $this->CommunityModel->getSinglePost($id);
@@ -172,11 +174,13 @@
 
                 if($this->CommunityModel->updatePost($id,$data)){
                     //Post Successfully added notification and redirect to community
+                    FlashMessage::flash('post_updated', 'Post updated Successfully', 'success');
                     Middleware::redirect('community/view_post/' . $id);
                 }else{
                     //Error Notification
                     echo 'Error: Something went wrong in updating post in the databse';
-                    die();
+                    FlashMessage::flash('post_updated', 'Could not update post. Try again Later!', 'error');
+                    Middleware::redirect('community/view_post/' . $id);
                 }
             }
             else{
@@ -235,6 +239,7 @@
             echo $res;
         }
 
+        //function handling the dropdown filter functionalities
         public function dropdown_handler(){
             if(isset($_GET['filter'])){
                 $_GET['filter'] = trim($_GET['filter']);
@@ -253,7 +258,7 @@
             }
         }
 
-
+        //Check if a user is already voted for a post
         public function check_vote(){
             if(isset($_POST['post_id'])){
                 $_POST['post_id'] = trim($_POST['post_id']);
@@ -283,6 +288,7 @@
             echo $res;
         }
 
+        //Saving a community post
         public function save_post(){
             if(isset($_POST['post_id'])){
                 $_POST['post_id'] = trim($_POST['post_id']);
@@ -301,6 +307,7 @@
             }
         }
 
+        //Adding a comment to a post
         public function new_comment(){
             if(isset($_POST['comment-submit'])) {
 
@@ -346,16 +353,21 @@
                 }
             }
 
+        //function for handling the community post reporting process
         public function report_post($postID){
             if(($_SERVER['REQUEST_METHOD'] == "POST") && isset($_POST['report'])){
                 $reason = trim($_POST['reason']);
                 $reason = htmlspecialchars($reason, ENT_QUOTES | ENT_HTML5, 'UTF-8');
                 $userID = htmlspecialchars($_POST['userID'], ENT_QUOTES | ENT_HTML5, 'UTF-8');
-                if($this->CommunityModel->reportPost($userID,$postID,$reason) == true){
-                    //post reporting was successesfully added to teh database
-                    FlashMessage::flash('post_reported', 'Post Successfully Reported', 'success');
+                if(empty($reason)){
+                    FlashMessage::flash('post_not_reported', 'Can\'t report a post without any reason.', 'error');
                 }else{
-                    FlashMessage::flash('post_not_reported', 'Something went Wrong!', 'error');
+                    if($this->CommunityModel->reportPost($userID,$postID,$reason) == true){
+                        //post reporting was successesfully added to teh database
+                        FlashMessage::flash('post_reported', 'Post Successfully Reported', 'success');
+                    }else{
+                        FlashMessage::flash('post_not_reported', 'Can\'t report the post! Try again later.', 'error');
+                    }
                 }
                 Middleware::redirect('community/home');
             }
