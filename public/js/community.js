@@ -2,7 +2,7 @@ import { CommunityPost } from "./post.js";
 
 //Calling the voting functionality providing function
 votingCountHandler();
-
+savedPostHandler();
 //JS code navigate into add new post page
 const add_new = document.getElementsByClassName('addNew-button')[0];
 add_new.addEventListener('click', newPage);
@@ -58,6 +58,7 @@ function dropdownFilter(option){
             resultList.innerHTML = postList;
             votingCountHandler();
             savedPostHandler();
+            removePagination();
         }
     };
     xhr.send();
@@ -100,6 +101,7 @@ searchBar.addEventListener('input', () => {
                 }
                 resultList.innerHTML = postList;
                 votingCountHandler();
+                savedPostHandler();
                 removePagination();
             }
         };
@@ -134,6 +136,8 @@ bestIcon.forEach(icon => {
                 }
                 resultList.innerHTML = postList;
                 votingCountHandler();
+                savedPostHandler();
+                removePagination();
             }
         };
         xhr.send();
@@ -168,6 +172,8 @@ latestIcon.forEach(icon => {
                 }
                 resultList.innerHTML = postList;
                 votingCountHandler();
+                savedPostHandler();
+                removePagination();
             }
         };
         xhr.send();
@@ -222,7 +228,7 @@ function vote(postId, action){
             xhr2.send(params);
           } else {
             // If the user has already voted, display an error message
-            alert("You have already voted on this post.");
+            window.alert("You have already voted on this post.");
           }
         };
         xhr.send(params);
@@ -242,16 +248,16 @@ function savedPostHandler(){
             xhr.onload = function() {
             if (xhr.status === 200) {
                 if(xhr.responseText == "Saved"){
-                    alert('Post added to the Saved List');
+                    window.alert('Post added to the Saved List');
                 }
                 if(xhr.responseText == "Unsaved"){
                     //Refresh the saved posts list and load
-                    dropdownFilter("Saved");
-                    alert('Post Successfully Unsaved');
+                    //dropdownFilter("Saved");
+                    window.alert('Post Successfully Unsaved');
                 }
             } else {
                 // If something went wrong, notify users about them
-                alert("Something went wrong when saving the post. Try again later.");
+                window.alert("Something went wrong when saving the post. Try again later.");
             }
             };
             xhr.send("post_id=" + votedPostId);
@@ -262,7 +268,9 @@ function savedPostHandler(){
 //remove current pagination
 function removePagination(){
     let pagDiv = document.querySelector('.pagination');
-    pagDiv.remove();
+    if(pagDiv !== null){
+        pagDiv.remove();
+    }
 }
 
 //Community post repoting handler

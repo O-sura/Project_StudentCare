@@ -27,15 +27,19 @@ class Counsellor extends Controller
         $userid = Session::get('userID');
         date_default_timezone_set('Asia/Kolkata'); // set timezone to Kolkata, India
 
-
         //get the time zone
         date_default_timezone_set('Asia/Kolkata');
 
         $curdate = date('Y-m-d');
         $currtime = date('H:i:s');
 
+        //to get the appointment times for the current date
         $row = $this->counselorModel->getAppointmentTimes($userid, $curdate);
+
+        //to get the next appointment considering current time
         $rowNext = $this->counselorModel->nextAppointmentDetails($userid, $curdate, $currtime);
+
+        //to get the latest 5 notification
         $recentNoti = json_decode($this->counselorModel->getInformationForDashboardNotification($userid));
 
         $getApp = json_decode($row, true);
@@ -258,17 +262,17 @@ class Counsellor extends Controller
         }
     }
 
-
     //download verification doc
-    public function download_verification(){
+    public function download_verification()
+    {
 
         $usr = Session::get('userID');
+
         $file = $this->counselorModel->getVerificationDocName($usr);
-        $filepathOfDoc = json_decode($file,true);
+        $filepathOfDoc = json_decode($file, true);
+        //to get the file name
         $filepath = $filepathOfDoc[0]['verification_doc'];
-        // echo ($filepath);
-        // exit;
-        
+
         $path = APPROOT . '/uploads/' . $filepath;
         if (file_exists($path)) {
             header('Content-Type: application/octet-stream');
@@ -287,7 +291,6 @@ class Counsellor extends Controller
 
         $userid = Session::get('userID');
         date_default_timezone_set('Asia/Kolkata'); // set timezone to Kolkata, India
-
 
         $res = json_decode($this->counselorModel->getInformationForNotification($userid));
         $rowcount = count($res);
@@ -331,6 +334,8 @@ class Counsellor extends Controller
         $statusNew0 = 0;
         $statusNew1 = 1;
         $statusNew2 = 2;
+
+        //to get the student status
 
         $row = $this->counselorModel->getStudents($statusNew, $userid);
         $row0 = $this->counselorModel->getStudents($statusNew0, $userid);
@@ -527,6 +532,11 @@ class Counsellor extends Controller
                     $data['currentPW_err'] = '*Current Password does not match';
                 }
 
+                if ($_POST['current-password'] == $_POST['password']) {
+                    $data['currentPW_err'] = "You cannot use current password as new one";
+                    $data['password_err'] = "You cannot use current password as new one";
+                }
+
                 //Password and repeated once are matched
                 if ($_POST['password'] !== $_POST['password-confirm']) {
                     //echo("Password mismatch");
@@ -594,8 +604,6 @@ class Counsellor extends Controller
         $userid = Session::get('userID');
 
         $this->counselorModel->updateUserAsDeleted($userid);
-
-        // $data == [];
 
         $this->loadView('index');
     }

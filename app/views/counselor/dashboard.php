@@ -33,7 +33,7 @@
                         <div class="pie" style="width:65%; height:65%; padding:1%; ">
                             <canvas id="pieChart" class="piechart"></canvas>
                         </div>
-                        <!-- <img class="piechart" src="<?php echo URLROOT."/public/img/free-pie-chart-icon-683-thumb.png"?>"> -->
+                        
                     </div>
                     <div class="row1div2">
                         <h3 class="subb">Next Appointment</h3><br>
@@ -52,7 +52,7 @@
                         <div class="graph">
                             <canvas id="myChart" style="width:80%; padding:1%;"></canvas>
                         </div>
-                        <!-- <img class="piechart" src="<?php echo URLROOT."/public/img/Blue_bar_graph.png"?>"> -->
+                    
                     </div>
                 </div>
                

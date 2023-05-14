@@ -20,48 +20,6 @@
 
             $usr = Session::get('userID');
 
-            // $res = $this->counselorModel->getAllAppointments($usr);
-            // $arrayResult = json_decode($res,true);
-
-            // $monthRes = $this->counselorModel->getAppointmentForMonth($usr);
-
-            // // CounselorReport::appMonthStats();
-            // // exit;
-
-
-
-            // $pending = 0;
-            // $completed = 0;
-            // $requested = 0;
-            // $cancelled = 0;
-            // $all = 0;
-
-            // for ($i = 0; $i < count($arrayResult); $i++) {
-            //   $appStatus = $arrayResult[$i]['appointmentStatus'];
-            //   $appCount = $arrayResult[$i]['count'];
-            
-            //   if ($appStatus == 0) {
-            //     $pending = $appCount;
-            //   } else if ($appStatus == 1) {
-            //     $completed = $appCount;
-            //   } else if ($appStatus == 2) {
-            //     $requested = $appCount;
-            //   } else if ($appStatus == 3) {
-            //     $cancelled = $appCount;
-            //   }
-            // }
-
-            // $all = $pending+$completed+$requested+$cancelled;
-           
-            
-            // $data = [
-            //     'pending' => $pending,
-            //     'completed' => $completed,
-            //     'requested' => $requested,
-            //     'cancelled' => $cancelled,
-            //     'all' => $all
-            // ];
-
             $data = [];
 
             $this->loadView('counselor/reports',$data);
@@ -90,6 +48,70 @@
 
             echo $monthResChart;
         }
+
+
+        //for the report generation
+        public function generatingReport(){
+
+            $usr = Session::get('userID');
+            //$usrname = Session::get('username');
+
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $year = $_POST['year'];
+                $month = $_POST['month'];
+
+                $usrDetails = $this->counselorModel->getUserDetails($usr);
+                
+
+                $monthAppointmentDetails = $this->counselorModel->getMonthlyAppointmentStats($usr,$year,$month);
+
+                $countApp = $this->counselorModel->getAllAppointments($usr,$month,$year);
+                //$countAppointments = json_decode($countApp,true);
+
+
+                // to get the appointment count based on the status
+                $completedAppointments = $this->counselorModel->getCompletedAppointmentCount($usr,$month,$year);
+                $pendingAppointments = $this->counselorModel->getPendingAppointmentCount($usr,$month,$year);
+                $cancelledAppointments = $this->counselorModel->getCancelledAppointmentCount($usr,$month,$year);
+                $requestedAppointments = $this->counselorModel->getRequestedAppointmentCount($usr,$month,$year);
+
+                //to get total appointments
+                $allAppointmentCount = $completedAppointments->count + $pendingAppointments->count + $cancelledAppointments->count + $requestedAppointments->count;
+                
+                //to get student count
+                $studentCount = $this->counselorModel->getStudentCount($usr);
+
+                // to get the students who had appointments in particular month
+                $appointedStudentsForMonth = $this->counselorModel->getStudentsWhoHadAppointments($usr,$month,$year);
+
+                $data = [
+                    'name' => $usrDetails->fullname,
+                    'username' =>$usrDetails->username,
+                    'student_count' => $studentCount->count,
+                    'sessions' => $allAppointmentCount,
+                    'cancelled_count' => $cancelledAppointments->count,
+                    'completed_count' => $completedAppointments->count,
+                    'meeting_details' => $this->getDataArray($monthAppointmentDetails),
+                    'student_details' => $this->getDataArray($appointedStudentsForMonth)
+                ];
+
+                generatePDF('counselor',$data);
+
+            }
+        }
+
+        //to convert array elements into needed way
+        function getDataArray($objectArray) {
+            $result = array();
+            foreach ($objectArray as $object) {
+              $temp = array();
+              foreach ($object as $key => $value) {
+                $temp[$key] = $value;
+              }
+              array_push($result, $temp);
+            }
+            return $result;
+          }
 
 
     }

@@ -68,6 +68,7 @@ class CounselorAppointment extends Controller
             'taskDate' => $newdate,
         ];
 
+        //to get the appointment details
         $row = $this->counselorModel->getAppointmentsDetails($init_data['taskDate'], $userid);
 
         $data = [
@@ -112,7 +113,11 @@ class CounselorAppointment extends Controller
             $personCheck = $this->counselorModel->checkForSamePersonApp($data, $userid);
             $personCheckCount = json_decode($personCheck, true);
 
-            if ($personCheckCount['COUNT(studentID)'] == 1) {
+            $x = $personCheckCount['appointmentStatus'];
+            // echo $x;
+            // exit;
+
+            if ($personCheckCount['COUNT(studentID)'] == 1 && $x != 3) {
                 $data['stuID_err'] = 'This student already has an appointment on that day';
             }
 

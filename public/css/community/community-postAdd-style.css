@@ -9,7 +9,7 @@ body{
     margin: 0px;
     padding: 0px;
     min-height: 100vh;
-    overflow: scroll;
+    overflow: auto;
     display: flex;
     position: relative;
 }
@@ -22,7 +22,6 @@ body{
     flex-direction: column;
     position: relative;
     right: 0px;
-    overflow-y: scroll;
 }
 
 
@@ -100,6 +99,8 @@ input[type="file"] {
 .back-option{
     display: flex;
     align-items: center;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
 }
 
 .back-arrow{
@@ -117,6 +118,7 @@ input[type="file"] {
     display: flex;
     position: absolute;
     right: 40px;
+    padding-bottom: 5rem;
 }
 
 #category{

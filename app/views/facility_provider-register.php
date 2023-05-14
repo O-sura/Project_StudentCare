@@ -11,9 +11,12 @@
     <script src= <?php echo URLROOT . "/public/js/fp_register.js"?> defer></script>
 </head>
 <body>
-    <div class="header">
-        <a href="#">Already have an Account?</a>
-        <button class="login">Login Here</button>
+    <div class="top-bar">
+        <span id="sitename">StudentCare</span>
+        <div class="header">
+            <span>Already have an Account? </span>
+            <a href="<?php echo URLROOT ?>/users/login"><div class="login">Login Here</div></a>
+        </div>
     </div>
     <div class="form-container">
         <h1>Registering as a Facility Provider</h1>

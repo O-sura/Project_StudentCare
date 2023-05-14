@@ -23,3 +23,10 @@ document.querySelectorAll('input').forEach(e => {
 document.querySelectorAll('textarea').forEach(e => {
     e.addEventListener('input', () => e.parentElement.removeAttribute('data-error'));
 })
+
+let dropdown = document.querySelector('select');
+      let input = document.getElementById('specialization');
+      dropdown.addEventListener('change', () => {
+        console.log(dropdown.value);
+        input.value = dropdown.value;
+})
