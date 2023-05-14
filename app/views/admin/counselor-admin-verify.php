@@ -25,7 +25,7 @@
             </div>
             <div class="mid-section">
                 <div class="image-container">
-                    <img src="https://images.pexels.com/photos/5215024/pexels-photo-5215024.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" class="profile-image">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3774/3774299.png" alt="" class="profile-image">
                 </div>
                 <div class="personal-info">
                     <h1>Personal Information</h2>
