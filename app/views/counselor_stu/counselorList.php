@@ -76,13 +76,13 @@
                         <div>
                             <select class="select" id="typeFilter">
                                 <option value="All">All</option>
-                                <option value="Academic Counselors">Academic Counselors</option>
-                                <option value="Career Counselors">Career Counselors</option>
-                                <option value="Mental Health Counselors">Mental Health Counselors</option>
-                                <option value="Financial Aid Counselors">Financial Aid Counselors</option>
-                                <option value="Relationship Counselors">Relationship Counselors</option>
-                                <option value="Disability Services Counselors">Disability Services Counselors</option>
-                                <option value="Residential Life Counselors">Residential Life Counselors</option>
+                                <option value="Academic Support">Academic Counselors</option>
+                                <option value="Career Guidence">Career Guidence</option>
+                                <option value="Mental Health">Mental Health Counselors</option>
+                                <option value="Financial Aid">Financial Aid Counselors</option>
+                                <option value="Relationship">Relationship Counselors</option>
+                                <option value="Disability Services">Disability Services Counselors</option>
+                                <option value="Residential Life">Residential Life Counselors</option>
                             </select>
                         </div>
 
