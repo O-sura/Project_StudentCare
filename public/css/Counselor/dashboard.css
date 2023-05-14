@@ -30,7 +30,7 @@
   }
 
   .subb{
-    font-size: 22px;
+    font-size: 28px;
     padding: 1%;
   }
   
@@ -38,9 +38,9 @@
       text-align: center;
       justify-content: center;
       width: 26%;
-      height: 80%;
+      height: 83%;
       background-color: white;
-      margin: 3% 3%;
+      margin: 2% 3%;
       border-radius: 15px;
       border: 1px solid black;
       text-align: center;
@@ -191,7 +191,7 @@
       border-radius: 10px;
       font-weight:400;
       text-align:left;
-      padding: 0.3%;
+      padding: 1%;
       
   }
   .notiDate{
@@ -235,6 +235,10 @@
         .row1{
           width: 100%;
       
+        }
+
+        .subb{
+          font-size: 22px;
         }
 
         
@@ -291,7 +295,7 @@
 
       
     .noappP{
-      margin-top: 5%;
+      margin-top: 2%;
       text-align: center;
       padding: 3% 3%;
       font-size: 16px;
@@ -311,7 +315,7 @@
     }
 
     .subb{
-      font-size: 16px;
+      font-size: 20px;
       margin-bottom: 2%;
     }
     

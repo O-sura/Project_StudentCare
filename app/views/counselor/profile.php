@@ -80,7 +80,7 @@
                             
                         <?php endforeach ?>
                       
-                      <!--<label for="q2">Counselling skills including active listening anda non judgemental approach</label><br> -->
+                      
                   </div>
                   
               </div>

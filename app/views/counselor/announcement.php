@@ -53,11 +53,6 @@
                                
                             </ul>
                     </div>
-                    <!-- <input class="search" type="search" placeholder="search">
-                    <select class="selector" id="annFilter" name="annFilter" onchange="filter()"> 
-                        <option value="all">All announcements</option> 
-                        <option value="my">My announcements</option>
-                    </select> -->
                 </div>
                 <div class="bottomSection">
                     <div class="div5">

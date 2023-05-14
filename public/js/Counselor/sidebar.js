@@ -6,6 +6,8 @@ btn.onclick = function () {
   sidebar.classList.toggle("active");
 };
 
+
+//for the sidebar navigation
 let navlink = document.querySelector(".navtag");
 const links = document.querySelectorAll(".nav_list a");
 links.forEach(link => {

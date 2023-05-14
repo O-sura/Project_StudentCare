@@ -123,15 +123,10 @@
                             <input type="text" value="<?= $data['address'] ;?>" name="address"  class="form-input">
                             </div>
 
-                            <?php 
-                                if($data['specialization_err'])
-                                echo '<div class="form-field" data-error=" ' . $data['specialization_err'] . '">';
-                                else
-                                echo '<div class="form-field">';
-                            ?>
+                            
                             <br><label for="spec">Specialization</label><br>
                             <input type="text" value="<?= $data['specialization'] ;?>" disabled="disabled" name="specialization"  class="form-input">
-                            </div>
+                            
                     
                         </div>
                     </div>

@@ -44,7 +44,7 @@ class Counselor
 
         date_default_timezone_set('Asia/Kolkata');
 
-        //bind values
+        
         $this->db->bind(':userID', $user->userID);
         $this->db->bind(':fullname', $user->fullname);
         $this->db->bind(':postID', $data['postID']);
@@ -53,7 +53,7 @@ class Counselor
         $this->db->bind(':topic', $data['topic']);
         $this->db->bind(':posted_date', date('Y-m-d H:i'));
 
-        //execute
+    
         if ($this->db->execute()) {
             return true;
         } else {
@@ -235,7 +235,7 @@ class Counselor
     public function checkForSamePersonApp($data, $userid)
     {
 
-        $this->db->query('SELECT COUNT(studentID), studentID, appointmentTime, counsellorID FROM appointments WHERE studentID = :stuid AND counsellorID = :cID AND appointmentDate = :appDate;');
+        $this->db->query('SELECT COUNT(studentID), studentID, appointmentTime, counsellorID, appointmentStatus FROM appointments WHERE studentID = :stuid AND counsellorID = :cID AND appointmentDate = :appDate;');
         $this->db->bind(':appDate', $data['appDate']);
         $this->db->bind(':stuid', $data['stuID']);
         $this->db->bind(':cID', $userid);
@@ -286,7 +286,6 @@ class Counselor
         $this->db->bind(':appDesc', $data['desc']);
         $this->db->bind(':appID', $appID);
 
-        // date('H : i', strtotime($data['appTime']))
 
         if ($this->db->execute()) {
             return true;
@@ -357,8 +356,6 @@ class Counselor
     //get students ewhen click on student name
     public function getStudentDetails($gotStu)
     {
-
-        //SELECT * FROM requests INNER JOIN student ON student.studentID = requests.studentID INNER JOIN users ON users.userID = requests.studentID WHERE requests.studentID = :gotStu;
 
         $this->db->query('SELECT student.*,requests.rNote,users.fullname,users.home_address FROM requests INNER JOIN student ON student.studentID = requests.studentID INNER JOIN users ON users.userID = requests.studentID WHERE requests.studentID = :gotStu;');
 
@@ -444,8 +441,6 @@ class Counselor
     public function getAppointmentTimes($userid, $curdate)
     {
 
-        //$this->db->query('SELECT * FROM appointments WHERE counsellorID = "ee0a55b1" AND appointmentDate = "2023-03-09"');
-
         $this->db->query('SELECT * FROM appointments WHERE counsellorID = :userid AND appointmentDate = :curdate ORDER BY appointmentTime ASC;');
         $this->db->bind(':curdate', $curdate);
         $this->db->bind(':userid', $userid);
@@ -459,8 +454,6 @@ class Counselor
     //to get next appointment to show on dashboard
     public function nextAppointmentDetails($userid, $curdate, $currtime)
     {
-
-        //$this->db->query('SELECT * FROM appointments WHERE counsellorID = "ee0a55b1" AND appointmentDate = "2023-03-09" AND appointmentTime > :currtime ORDER BY appointmentTime ASC');
 
         $this->db->query('SELECT * FROM appointments WHERE counsellorID = :userid AND appointmentDate = :curdate AND appointmentTime > :currtime;');
         $this->db->bind(':curdate', $curdate);
@@ -645,7 +638,8 @@ class Counselor
             return false;
         }
     }
-
+    
+    //to get notifications for notification section
     public function getInformationForNotification($userid)
     {
         date_default_timezone_set('Asia/Kolkata'); // set timezone to Kolkata, India
@@ -676,6 +670,8 @@ class Counselor
 
     }
 
+
+    //to get notifications for dashboard section
     public function getInformationForDashboardNotification($userid)
     {
         date_default_timezone_set('Asia/Kolkata'); // set timezone to Kolkata, India
@@ -777,5 +773,129 @@ class Counselor
         return $results;
         
     }
+
+
+    //to get the monthly appointment details
+    public function getMonthlyAppointmentStats($usr,$year,$month){
+        $this->db->query('SELECT appointments.studentID,users.fullname,appointments.appointmentDate,appointmentStatus AS status FROM appointments INNER JOIN users ON users.userID = appointments.studentID WHERE appointments.counsellorID = :usr AND MONTH(appointmentDate) = :month AND YEAR(appointmentDate) = :year;');
+        $this->db->bind(':usr',$usr);
+        $this->db->bind(':year',$year);
+        $this->db->bind(':month',$month);
+
+        $results = $this->db->getAllRes();
+        return $results;
+
+    }
+
+
+    //to get user details
+    public function getUserDetails($usr){
+        $this->db->query('SELECT username, fullname FROM users WHERE userID = :usr;');
+        $this->db->bind(':usr',$usr);
+
+        $results = $this->db->getRes();
+        return $results;
+    }
+
+    //get completed appointments
+    //to get the number of completed appointments of the month.
+    public function getCompletedAppointmentCount($userid, $month = "MONTH(CURRENT_DATE)", $year = "YEAR(CURRENT_DATE)")
+    {
+
+        $this->db->query('SELECT appointmentStatus ,COUNT(*) as count
+        FROM appointments
+        WHERE counsellorID = :userid AND appointmentStatus = 1
+        AND MONTH(appointmentDate) = :month
+        AND YEAR(appointmentDate) = :year;');
+        $this->db->bind(':userid', $userid);
+        $this->db->bind(':month', $month);
+        $this->db->bind(':year', $year);
+
+        $results = $this->db->getRes();
+
+        return $results;
+    }
+
+    //to get the number of pending appointments of the month.
+    public function getPendingAppointmentCount($userid, $month = "MONTH(CURRENT_DATE)", $year = "YEAR(CURRENT_DATE)")
+    {
+
+        $this->db->query('SELECT appointmentStatus ,COUNT(*) as count
+        FROM appointments
+        WHERE counsellorID = :userid AND appointmentStatus = 0
+        AND MONTH(appointmentDate) = :month
+        AND YEAR(appointmentDate) = :year;');
+        $this->db->bind(':userid', $userid);
+        $this->db->bind(':month', $month);
+        $this->db->bind(':year', $year);
+
+        $results = $this->db->getRes();
+
+        return $results;
+    }
+
+    //to get the number of cancelled appointments of the month.
+    public function getCancelledAppointmentCount($userid, $month = "MONTH(CURRENT_DATE)", $year = "YEAR(CURRENT_DATE)")
+    {
+
+        $this->db->query('SELECT appointmentStatus ,COUNT(*) as count
+        FROM appointments
+        WHERE counsellorID = :userid AND appointmentStatus = 3
+        AND MONTH(appointmentDate) = :month
+        AND YEAR(appointmentDate) = :year;');
+        $this->db->bind(':userid', $userid);
+        $this->db->bind(':month', $month);
+        $this->db->bind(':year', $year);
+
+        $results = $this->db->getRes();
+
+        return $results;
+    }
+
+    //to get the number of requested appointments to cancel of the month.
+    public function getRequestedAppointmentCount($userid, $month = "MONTH(CURRENT_DATE)", $year = "YEAR(CURRENT_DATE)")
+    {
+
+        $this->db->query('SELECT appointmentStatus ,COUNT(*) as count
+        FROM appointments
+        WHERE counsellorID = :userid AND appointmentStatus = 2
+        AND MONTH(appointmentDate) = :month
+        AND YEAR(appointmentDate) = :year;');
+        $this->db->bind(':userid', $userid);
+        $this->db->bind(':month', $month);
+        $this->db->bind(':year', $year);
+
+        $results = $this->db->getRes();
+
+        return $results;
+    }
+
+    //to get the student count
+    public function getStudentCount($usr){
+        $this->db->query('SELECT COUNT(DISTINCT student_id) AS count FROM counselor_alloc WHERE counselor_id = :counselorID;');
+        $this->db->bind(':counselorID',$usr);
+
+        $results = $this->db->getRes();
+
+        return $results;
+    }
+
+
+    //to get the students who had appointments of the particular month
+    public function getStudentsWhoHadAppointments($usr,$month,$year){
+        $this->db->query('SELECT DISTINCT appointments.studentID, users.fullname
+                        FROM appointments 
+                        INNER JOIN users ON users.userID = appointments.studentID 
+                        WHERE appointments.counsellorID = :usr 
+                        AND MONTH(appointmentDate) = :month 
+                        AND YEAR(appointmentDate) = :year;');
+        $this->db->bind(':usr',$usr);
+        $this->db->bind(':month', $month);
+        $this->db->bind(':year', $year);
+        
+        $results =  $this->db->getAllRes();
+        return $results;
+    }
+
 
 }

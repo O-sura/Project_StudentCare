@@ -88,7 +88,7 @@
                     <div class="profile_details">
             
                         <img src="<?php echo URLROOT . "/public/img/counselor/" . $image; ?>" alt="">
-                        <div class="name">
+                        <div class="name" id="loggedInUser">
                             <?php echo Session::get('username') ?>
                         </div>
                     </div>

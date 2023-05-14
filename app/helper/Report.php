@@ -216,7 +216,7 @@ function conselorReport($data){
             '. 
                 implode("", 
                     array_map(function($student) {
-                        return "<tr><td>" . $student['userID'] . "</td><td>". $student['name'] ."</td></tr>";
+                        return "<tr><td>" . $student['studentID'] . "</td><td>". $student['fullname'] ."</td></tr>";
                     }, $data['student_details'])
                 )
             .'</table>
@@ -233,7 +233,7 @@ function conselorReport($data){
             '. 
                 implode("", 
                     array_map(function($meeting) {
-                        return "<tr><td>" . $meeting['userID'] . "</td><td>". $meeting['name'] ."</td><td>". $meeting['meeting_date'] ."</td><td>". $meeting['status']."</td></tr>";
+                        return "<tr><td>" . $meeting['studentID'] . "</td><td>". $meeting['fullname'] ."</td><td>". $meeting['appointmentDate'] ."</td><td>". $meeting['status']."</td></tr>";
                     }, $data['meeting_details'])
                 )
             .'</table>
