@@ -11,9 +11,12 @@
     <script src= <?php echo URLROOT . "/public/js/common-register.js"?> defer></script>
 </head>
 <body>
-    <div class="header">
-        <span>Already have an Account? </span>
-        <a href="<?php echo URLROOT ?>/users/login"><div class="login">Login Here</div></a>
+    <div class="top-bar">
+        <span id="sitename">StudentCare</span>
+        <div class="header">
+            <span>Already have an Account? </span>
+            <a href="<?php echo URLROOT ?>/users/login"><div class="login">Login Here</div></a>
+        </div>
     </div>
     <div class="form-container">
         <h1>Create an Account</h1>
@@ -94,18 +97,15 @@
             </div>
             <?php 
                     if($data['terms_err'])
-                        echo '<div class="form-field" id="terms-cond" data-error=" ' . $data['terms_err'] . '">';
+                        echo '<div class="form-field" id="checkbox-container" data-error=" ' . $data['terms_err'] . '">';
                     else
-                        echo '<div class="form-field" id="terms-cond">';
+                        echo '<div class="form-field" id="checkbox-container">';
             ?>
                 <input type="checkbox" name="terms" id="terms" class="form-input" <?php if($data['terms']) echo ('checked');  ?>>
                 <span class="note">I agree with all <a href="#">Terms and Conditions</a>, <a href="#">Rules and Regulations</a> and <a href="#">Privacy Policies</a> of StudentCare</span>
             </div>
             <input type="submit" value="Continue" class="button" name="continue">
         </form>
-    </div>
-    <div class="bottom">
-       <a href="#">Continue as a Guest</a>
     </div>
 </body>
 </html>

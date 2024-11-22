@@ -21,6 +21,10 @@
     ?>
     <div class="home_content">
 
+        <div class="navtag" id="/CounselorReport/home" hidden>
+
+        </div>
+
         <div class="topic">
             <span><h1 class="headApp">Reports</h1></span>
         </div>
@@ -32,13 +36,13 @@
                     <h1>Monthly Session Overview</h1><br>
                     <div class="subdiv">
                         <div class="sub1">
-                            <h2>Total <br> Appointments <br><br> <h1>20</h1></h2>
+                            <h2>Total Appointments <br><br> <h1 class="count" id="total"> </h1></h2>
                         </div>
                         <div class="sub2">
-                            <h2>Completed Appointments <br><br> <h1>18</h1></h2>
+                            <h2>Completed Appointments <br><br> <h1 class="count" id="completed"></h1></h2>
                         </div>
                         <div class="sub3">
-                            <h2>Cancelled Appointments <br><br> <h1>2</h1></h2>
+                            <h2>Cancelled Appointments <br><br> <h1 class="count" id="cancelled"></h1></h2>
                         </div>
                     </div>
                     <div class="graph">
@@ -46,30 +50,32 @@
                     </div>
                 </div>
                 <div class="div6">
-                    <select class="drop1" name="year" id="">
-                        <option  value="default">Year</option>
-                        <option value="">2020</option>
-                        <option value="">2021</option>
-                        <option value="">2022</option>
-                        <option value="">2023</option>
-                    </select>
-                    <select class="drop2" name="year" id="">
-                        <option  value="default">Month</option>
-                        <option value="">January</option>
-                        <option value="">February</option>
-                        <option value="">March</option>
-                        <option value="">April</option>
-                        <option value="">May</option>
-                        <option value="">June</option>
-                        <option value="">July</option>
-                        <option value="">August</option>
-                        <option value="">September</option>
-                        <option value="">October</option>
-                        <option value="">November</option>
-                        <option value="">December</option>
-                    </select>
+                    <form action="<?php echo URLROOT."/counselorReport/generatingReport" ;?>" method = "POST" >
+                        <select class="drop1" name="year" id="year">
+                            <option  value="2023">Year</option>
+                            <option value="2020">2020</option>
+                            <option value="2021">2021</option>
+                            <option value="2022">2022</option>
+                            <option value="2023">2023</option>
+                        </select>
+                        <select class="drop2" name="month" id="month">
+                            <option  value="05">Month</option>
+                            <option value="01">January</option>
+                            <option value="02">February</option>
+                            <option value="03">March</option>
+                            <option value="04">April</option>
+                            <option value="05">May</option>
+                            <option value="06">June</option>
+                            <option value="07">July</option>
+                            <option value="08">August</option>
+                            <option value="09">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </select>
 
-                    <button class="download"><i class="fa-solid fa-circle-arrow-down"></i> Download</button>
+                        <button name="downloadSubmit" class="download"><i class="fa-solid fa-circle-arrow-down"></i> Download</button>
+                    </form>
                 </div>
 
             </div>

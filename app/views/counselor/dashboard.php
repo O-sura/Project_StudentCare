@@ -21,15 +21,19 @@
       require_once '../app/views/counselor/sidebar.php';
     ?>
     <div class="home_content">
+
+        <div class="navtag" id="/Counsellor/home" hidden>
+
+        </div>
         
             <div class="divSection" >
                 <div class="row1">
                     <div class="row1div1">
                         <h3 class="subb">Appointment Stats</h3>
-                        <div class="pie" style="width:65%; height:65% ">
+                        <div class="pie" style="width:65%; height:65%; padding:1%; ">
                             <canvas id="pieChart" class="piechart"></canvas>
                         </div>
-                        <!-- <img class="piechart" src="<?php echo URLROOT."/public/img/free-pie-chart-icon-683-thumb.png"?>"> -->
+                        
                     </div>
                     <div class="row1div2">
                         <h3 class="subb">Next Appointment</h3><br>
@@ -46,9 +50,9 @@
                     <div class="row1div3">
                         <h3 class="subb">Students Stats</h3>
                         <div class="graph">
-                            <canvas id="myChart" style="width:80%;"></canvas>
+                            <canvas id="myChart" style="width:80%; padding:1%;"></canvas>
                         </div>
-                        <!-- <img class="piechart" src="<?php echo URLROOT."/public/img/Blue_bar_graph.png"?>"> -->
+                    
                     </div>
                 </div>
                
@@ -76,12 +80,12 @@
                         
                                     <?php  if($recN->statusPP == 0 && $recN->appointmentStatus == 0): ?>                      
 
-                                        <span><i class="fa-regular fa-circle-dot" style="color:grey;"></i><div class="row3div2">You have new student request from <?php echo $recN->fullname ;?></div></span>
+                                        <span class="notification"><i class="fa-regular fa-circle-dot" style="color:grey;"></i><div class="row3div2">You have new student request from <span class="notiName"><?php echo $recN->fullname ;?></span><br><p class="notiDate">Date : <?php $date = date_create($recN->requested_on); echo date_format($date, 'd/m/Y');?>&nbsp;&nbsp;Time : <?php $date = date_create($recN->requested_on); echo date_format($date, 'H:i');  ?></P></div></span>
                                                
                                     
                                     <?php else :?>   
 
-                                        <span><i class="fa-regular fa-circle-dot" style="color:grey;"></i><div class="row3div2"><?php echo $recN->fullname;?> has requested to cancel the appointment on <?php echo $recN->appointmentDate ;?></div></span>
+                                        <span class="notification"><i class="fa-regular fa-circle-dot" style="color:grey;"></i><div class="row3div2"><span class="notiName"><?php echo $recN->fullname;?></span> has requested to cancel the appointment on <span class="notiName"><?php echo $recN->appointmentDate ;?></span><p class="notiDate">Date : <?php $date = date_create($recN->requested_on); echo date_format($date, 'd/m/Y');?>&nbsp;&nbsp;Time : <?php $date = date_create($recN->requested_on); echo date_format($date, 'H:i');  ?></p></span>
                                         
                                     <?php endif ;?>
                                 <?php endforeach  ?>

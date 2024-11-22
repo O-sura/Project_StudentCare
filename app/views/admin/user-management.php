@@ -5,18 +5,34 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StudentCare</title>
+    <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/flash.css"?> >
     <link rel="stylesheet" href=<?php echo URLROOT . "/public/css/admin/user-management.css"?>>
     <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script type="module" src= <?php echo URLROOT . "/public/js/user-management.js"?> defer></script>
+    <script src= <?php echo URLROOT . "/public/js/flash.js"?> defer></script>
 </head>
 <body>
+    <?php 
+        // Has to link the css-not added because some issue
+        FlashMessage::flash('admin_profile_flash');
+        FlashMessage::flash('update_profile_flash');
+    ?>
+
     <section>
         <!-- <div class="section" id="sidebar">1</div> -->
         <?php include 'sidebar.php'?>
 
         <div class="section" id="page-content"><br><br>
-            <span class="heading">All Users  <i class="fa-solid fa-users"></i></span>
+            <div class="top-section">
+                <div class="section-title">
+                    <span class="heading">All Users  <i class="fa-solid fa-users"></i></span>
+                </div>
+                <div class="add-new-admin" id="new-admin">
+                    <i class="fa-solid fa-puzzle-piece"></i>
+                    <span class="btn-txt">Add New Admin</span>
+                </div>
+            </div>
             <div class="div-3">
                 <input type="search" name="search" id="searchbar" placeholder="Search Users Here">
                 <table class="stat-table">
@@ -35,22 +51,30 @@
                                         <td>'. $user->userID .'</td>
                                         <td>'. $user->username .'</td>
                                         <td>'. $user->user_role .'</td>';
-                                if($user->isBlocked == 0){
+                                    if($user->user_role == 'admin'){
                                         echo '
-                                            <td class="btn-row">
-                                                <input type="submit" class="'.$user->userID . ' block-unblock-btn"  id="block-btn" value="block">
-                                                <input type="submit" class="'.$user->userID . ' delete-btn" value="delete">
-                                                <input type="submit" class="'.$user->userID . ' profile-btn" value="view profile">
-                                            </td>
-                                        </tr>';
+                                                <td class="btn-row">
+                                                    <input type="submit" class="'.$user->userID . ' profile-btn" value="view profile">
+                                                </td>
+                                            </tr>';
                                     }else{
-                                        echo '
-                                            <td class="btn-row">
-                                                <input type="submit" class="'.$user->userID . ' block-unblock-btn" id="unblock-btn" value="unblock">
-                                                <input type="submit" class="'.$user->userID . ' delete-btn" value="delete">
-                                                <input type="submit" class="'.$user->userID . ' profile-btn" value="view profile">
-                                            </td>
-                                        </tr>';
+                                        if($user->isBlocked == 0){
+                                            echo '
+                                                <td class="btn-row">
+                                                    <input type="submit" class="'.$user->userID . ' block-unblock-btn"  id="block-btn" value="block">
+                                                    <input type="submit" class="'.$user->userID . ' delete-btn" value="delete">
+                                                    <input type="submit" class="'.$user->userID . ' profile-btn" value="view profile">
+                                                </td>
+                                            </tr>';
+                                        }else{
+                                            echo '
+                                                <td class="btn-row">
+                                                    <input type="submit" class="'.$user->userID . ' block-unblock-btn" id="unblock-btn" value="unblock">
+                                                    <input type="submit" class="'.$user->userID . ' delete-btn" value="delete">
+                                                    <input type="submit" class="'.$user->userID . ' profile-btn" value="view profile">
+                                                </td>
+                                            </tr>';
+                                        }
                                     }
                                 }?>
                             <?php endforeach ?>

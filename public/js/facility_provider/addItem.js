@@ -4,6 +4,7 @@ document.getElementById("back-link").addEventListener("click", function() {
 });
 
 
+//add more universities
 function addAnother() {
   // Get the container element
   var container = document.querySelector('.university-adder');

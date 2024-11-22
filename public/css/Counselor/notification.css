@@ -48,7 +48,8 @@ h3{
     margin-left: 5%;
     border-radius: 15px;
     display: flex;
-    border: 1px solid;
+  
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
     
 }
 
@@ -56,13 +57,16 @@ h3{
 
     width: 90%;
     max-height: fit-content;
-    background-color: lightgreen;;
+    background-color:#ccc;
     margin-top: 4%;
     margin-left: 5%;
     border-radius: 15px;
     display: flex;
-    border: 1px solid;
-    opacity: 0.6;
+  
+    opacity: 0.7;
+    z-index: 1;
+    pointer-events: none;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
 .noti:hover{
@@ -103,6 +107,7 @@ h3{
 
 .topic{
   margin-bottom: 1%;
+  
 }
 
 .para{
@@ -115,12 +120,13 @@ h3{
 }
 
 .desc{
-  width: 78%;
+  width: 84%;
   height: 80%;
   margin: 1%;
   text-align: justify;
   background-color: #FBFBFA;
   padding: 1%;
+  border-radius: 10px;
 }
 
 .time{
@@ -153,8 +159,8 @@ h3{
 
 .btns{
   margin-left: 1%;
-  margin-top: 5%;
-  display: flex;
+  padding: 1%;
+  text-align: center;
 }
 
 .right{
@@ -164,34 +170,17 @@ h3{
   background-color:#1A285A;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 15px;
   cursor: pointer;
+  position: relative;
+  margin-top: 50%;
 }
 
 .right:hover{
-  background-color: gold ;
+  background-color: #3cb0fd ;
   opacity: 0.8;
   transition-duration: 0.6s;
 }
-
-.btnDel{
-    height: 30px;
-    width: 30px;
-    padding: 1px;
-    margin-left: 7%;
-    background-color:#1A285A;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.btnDel:hover{
-    background-color: red ;
-    opacity: 0.8;
-    transition-duration: 0.6s;
-}
-
 
 
 /* width */
@@ -224,16 +213,16 @@ h3{
 @media screen and (max-width:1000px) {
     
   .btns{
-    margin-left: -1%;
-    margin-top: 1.5%;
-    display: inline;
-    justify-content: space-between;
+    margin-left: 0%;
+    margin-top: 3%;
   }
 
-  .btnDel{
-    margin-top: 2%;
-    margin-left: 0%;
+  .desc{
+    font-size: 16px;
+    width: 80%;
   }
+
+
   
 }
 
@@ -272,13 +261,6 @@ h3{
     border-radius: 100%;
   }
 
-  .btnDel{
-    width: 20px;
-    height: 20px;
-    margin-top: 5%;
-    margin-left: 0%;
-  }
-
   .right{
     width: 20px;
     height: 20px;
@@ -286,6 +268,7 @@ h3{
 
   .desc{
     font-size: 15px;
+    width: 80%;
   }
 
   .para{

@@ -6,6 +6,19 @@ btn.onclick = function () {
   sidebar.classList.toggle("active");
 };
 
+
+//for the sidebar navigation
+let navlink = document.querySelector(".navtag");
+const links = document.querySelectorAll(".nav_list a");
+links.forEach(link => {
+  const words = link.href.split('/');
+  let curr_controller = "/" + words[words.length - 2] + "/" + words[words.length - 1];
+  if(navlink.id === curr_controller){
+    link.id = "chosen";
+    console.log("Match")
+  }
+})
+
 const navLinks = document.querySelectorAll(".nav_list a");
 const currentUrl = window.location.href;
 navLinks.forEach((link) => {

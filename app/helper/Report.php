@@ -4,134 +4,7 @@ require_once 'vendor/autoload.php';
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
-
-//Data format for generating report for counselor
-// $data = [
-//     'name' => "Osura Viduranga",
-//     'username' => "OsuraV",
-//     'student_count' => 05,
-//     'sessions' => 10,
-//     'cancelled_count' => 3,
-//     'completed_count' => 10,
-//     'meeting_details' => array(
-//         array(
-//         "userID" => "STU2123",
-//         "name" => "John Doe",
-//         "meeting_date" => "2023-03-12",
-//         "status" => "Completed"
-//         ),
-//         array(
-//             "userID" => "STU2123",
-//             "name" => "John Doe",
-//             "meeting_date" => "2023-03-12",
-//             "status" => "Completed"
-//         ),
-//         array(
-//             "userID" => "STU2123",
-//             "name" => "John Doe",
-//             "meeting_date" => "2023-03-12",
-//             "status" => "Completed"
-//         ),
-//     ),
-//     'student_details' => array(
-//         array("userID" => "STU2123","name"=>"John Doe"),
-//         array("userID" => "STU2123","name"=>"John Doe")
-//     )
-
-// ];
-
-
-//Data format for generating report for facility provider
-// $data = [
-//     'name' => "Osura Viduranga",
-//     'username' => "OsuraV",
-//     'listing_count' => 05,
-//     'categories' => "Furniture,Food",
-//     'listing_details' => array(
-//         array(
-//                     "listingID" => "",
-//                     "rating" => "",
-//                     "description" => "",
-//                     "category" => "",
-//                     'review_count' => ''
-//             )
-//     )
-// ];
-
-$data = [
-    'total_users' => 120,
-    'users_by_category' => array(
-        array(
-            'role' => 'Counselor',
-            'count' => 16
-        ),
-        array(
-            'role' => 'Student',
-            'count' => 21
-        ),
-        array(
-            'role' => 'Facility Provider',
-            'count' => 7
-        )
-    ),
-    'total_community_posts' => 32,
-    'community_engagement' => 66.23,
-    'comment' => 70,
-    'post_reportings' => 3,
-    'total_csessions' => array(
-        array(
-            "status" => "Completed",
-            'count' => 16
-        ),
-        array(
-            'status' => 'Cancelled',
-            'count' => 21
-        ),
-        array(
-            'status' => 'Scheduled',
-            'count' => 7
-        )
-    ),
-    'counselor-stu-engagement' => 76.3,
-    'counselor-ann-engagement' => 43.2,
-    'listing_overview' => array(
-        array(
-            'type' => 'food',
-            'count' => 11,
-            'avg_rating' => 3.5
-        ),
-        array(
-            'type' => 'property',
-            'count' => 21,
-            'avg_rating' => 3.9
-        ),
-        array(
-            'type' => 'furniture',
-            'count' => 7,
-            'avg_rating' => 2.7
-        )
-        ),
-    'stu-listing-engagement' => 33.1,
-    'listing_by_location' => array(
-        array(
-            'location' => 'Colombo',
-            'count' => 16
-        ),
-        array(
-            'location' => 'Peradeniya',
-            'count' => 21
-        ),
-        array(
-            'location' => 'Jaffna',
-            'count' => 7
-        )
-    ),
-    'stu_mobile_engagement' => 22.4
-
-];
-
-
-
+//main function wich handles the report generation based on the provided configurations and settings
 function generatePDF($role,$data,$type = null,$multiFlag = 0){
     $options = new Options;
     $options->setChroot(__DIR__); //For marking the file root
@@ -155,10 +28,17 @@ function generatePDF($role,$data,$type = null,$multiFlag = 0){
 
     // Output PDF to the browser
     $dompdf->stream('report.pdf', array('Attachment' => false));
+
+    if($multiFlag == 1){
+        $output = $dompdf->output();
+        $today = new DateTime();
+        $date = $today->format('Y-m-d');
+        $filename = $role . "_" .$date . "_" . substr(sha1(date(DATE_ATOM)), 0, 8) . ".pdf";
+        $path_to_store = APPROOT. "/uploads/reports/" . $filename;
+        file_put_contents($path_to_store,$output);
+    }
 }
 
-//generatePDF('admin',$data);
-//generatePDF('facility_provider',$data);
 
 //provides the template for generating report for single counselor
 function conselorReport($data){
@@ -167,7 +47,7 @@ function conselorReport($data){
     <html>
         <head>
             <meta charset="UTF-8">
-            <link rel="stylesheet" href="report-style.css">
+            <link rel="stylesheet" href="http://localhost/StudentCare/public/css/report-style.css">
         </head>
         <body>
             <div class="title-container"><h1>Monthly Report</h1><br></div>
@@ -209,7 +89,7 @@ function conselorReport($data){
             '. 
                 implode("", 
                     array_map(function($student) {
-                        return "<tr><td>" . $student['userID'] . "</td><td>". $student['name'] ."</td></tr>";
+                        return "<tr><td>" . $student['studentID'] . "</td><td>". $student['fullname'] ."</td></tr>";
                     }, $data['student_details'])
                 )
             .'</table>
@@ -226,7 +106,7 @@ function conselorReport($data){
             '. 
                 implode("", 
                     array_map(function($meeting) {
-                        return "<tr><td>" . $meeting['userID'] . "</td><td>". $meeting['name'] ."</td><td>". $meeting['meeting_date'] ."</td><td>". $meeting['status']."</td></tr>";
+                        return "<tr><td>" . $meeting['studentID'] . "</td><td>". $meeting['fullname'] ."</td><td>". $meeting['appointmentDate'] ."</td><td>". $meeting['status']."</td></tr>";
                     }, $data['meeting_details'])
                 )
             .'</table>
@@ -245,7 +125,7 @@ function fpReport($data){
     <html>
         <head>
             <meta charset="UTF-8">
-            <link rel="stylesheet" href="report-style.css">
+            <link rel="stylesheet" href="http://localhost/StudentCare/public/css/report-style.css">
         </head>
         <body>
             <h1>Monthly Report</h1><br>
@@ -255,15 +135,7 @@ function fpReport($data){
                         <p><b>Name:</b> '. $data['name'] .'</p>
                     </td>
                     <td>
-                        <p><b>Total Listings:</b> '. $data['listing_count'] .'</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
                         <p><b>Username:</b> '. $data['username'] .'</p>
-                    </td>
-                    <td>
-                        <p><b>Associalted Categories:</b> '. $data['categories'] .'</p>
                     </td>
                 </tr>
             </table>
@@ -275,17 +147,19 @@ function fpReport($data){
             <table class="style-table">
             <tr>
                 <th>ListingID</th>
-                <th>Rating</th>
-                <th>Description</th>
+                <th>Topic</th>
                 <th>Category</th>
-                <th>Reviews</th>
+                <th>Rating</th>
+                <th>Address</th>
+                <th>Feedbacks</th>
+                <th>Reviews(P/N)</th>
             </tr>
             '. 
                 implode("", 
                     array_map(function($listing) {
-                        return "<tr><td>" . $listing['listingID'] . "</td><td>". $listing['rating'] ."</td><td>". $listing['description'] ."</td><td>". $listing['category']."</td><td>". $listing['review_count'] ."</td></tr>";
+                        return "<tr><td>" . $listing['listing_id'] . "</td><td>". $listing['topic'] . "</td><td>". $listing['category'] . "</td><td>". $listing['rating'] . "</td><td>". $listing['address'] . "</td><td>". $listing['num_feedbacks'] . "</td><td>". $listing['num_good_reviews'] . "/". $listing['num_bad_reviews'] . "</td></tr>";
                     }, $data['listing_details'])
-                )
+                )   
             .'</table>
             <footer>
                 <p>Copyright © 2023 StudentCare | All rights reserved.</p>
@@ -295,11 +169,6 @@ function fpReport($data){
     ';
 }
 
-//report for student details
-function studentReport($data){
-
-}
-
 //report template for whole system overview details
 function system_overview($data){
     return '
@@ -307,10 +176,10 @@ function system_overview($data){
     <html>
         <head>
             <meta charset="UTF-8">
-            <link rel="stylesheet" href="report-style.css">
+            <link rel="stylesheet" href="http://localhost/StudentCare/public/css/report-style.css">
         </head>
         <body>
-            <center><h1>Monthly Report</h1><center><br>
+            <center><h1>System Overview Report Report</h1><center><br>
 
             <br>
             <h2>Users Overview</h2>
@@ -322,7 +191,7 @@ function system_overview($data){
             '. 
                 implode("", 
                     array_map(function($user) {
-                        return "<tr><td>" . $user['role'] . "</td><td>". $user['count'] . "</td></tr>";
+                        return "<tr><td>" . $user['user_role'] . "</td><td>". $user['count'] . "</td></tr>";
                     }, $data['users_by_role'])
                 )
             .'</table
@@ -340,7 +209,7 @@ function system_overview($data){
                         <p><b>Total Community Posts:</b> '. $data['total_community_posts'] .'</p>
                     </td>
                     <td>
-                        <p><b>Community Engagememt:</b> '. $data['community_engagement'] .'</p>
+                        <p><b>Community Engagememt:</b> '. round($data['community_engagement'],2) .'</p>
                     </td>
                 </tr>
                 <tr>
@@ -374,18 +243,18 @@ function system_overview($data){
             <table class="details">
                 <tr>
                     <td>
-                        <p><b>Counselor-Student Engagement:</b> '. $data['counselor-stu-engagement'] .'</p>
+                        <p><b>Counselor-Student Engagement:</b> '. round($data['counselor-stu-engagement'],2) .'</p>
                     </td>
                     <td>
-                        <p><b>Counselor-Announcement Engagement:</b> '. $data['counselor-ann-engagement'] .'</p>
+                        <p><b>Counselor-Announcement Engagement:</b> '. round($data['counselor-ann-engagement'],2) .'</p>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <p><b>Student-MobileApp Engagement:</b> '. $data['stu_mobile_engagement'] .'</p>
+                        <p><b>Student-MobileApp Engagement:</b> '. round($data['stu_mobile_engagement'],2) .'</p>
                     </td>
                     <td>
-                        <p><b>Student-Listing Engagement:</b> '. $data['stu-listing-engagement'] .'</p>
+                        <p><b>Student-Listing Engagement:</b> '. round($data['stu-listing-engagement'],2) .'</p>
                     </td>
                 </tr>
             </table>
@@ -401,7 +270,7 @@ function system_overview($data){
             '. 
                 implode("", 
                     array_map(function($listing) {
-                        return "<tr><td>" . $listing['type'] . "</td><td>". $listing['count'] ."</td><td>". $listing['avg_rating'] . "</td></tr>";
+                        return "<tr><td>" . $listing['category'] . "</td><td>". $listing['listing_count'] ."</td><td>". round($listing['average_rating'],1) . "</td></tr>";
                     }, $data['listing_overview'])
                 )
             .'</table>
@@ -412,11 +281,12 @@ function system_overview($data){
             <tr>
                 <th>Location</th>
                 <th>Count</th>
+                <th>Percentage(%)</th>
             </tr>
             '. 
                 implode("", 
                     array_map(function($list) {
-                        return "<tr><td>" . $list['location'] . "</td><td>". $list['count'] . "</td></tr>";
+                        return "<tr><td>" . $list['location'] . "</td><td>". $list['count'] . "</td><td>". round($list['percentage'],2) . "</td></tr>";
                     }, $data['listing_by_location'])
                 )
             .'</table>
@@ -431,12 +301,139 @@ function system_overview($data){
 
 //report template for counselling session data
 function counselor_overview($data){
+    return '
+    <!DOCTYPE>
+    <html>
+        <head>
+            <meta charset="UTF-8">
+            <link rel="stylesheet" href="http://localhost/StudentCare/public/css/report-style.css">
+        </head>
+        <body>
+            <h1>Counselling Overview Report</h1><br>
+            <table class="details">
+                <tr>
+                    <td>
+                        <p><b>Counselor-Student Enagement(%):</b> '. round($data['counselor-stu-engagement'],2) .'</p>
+                    </td>
+                    <td>
+                        <p><b>Counselor-Announcement Engagement(%):</b> '. round($data['counselor-ann-engagement'],2) .'</p>
+                    </td>
+                </tr>
+            </table>
 
+            <br>
+            <h2>Counselor Specializations</h2>
+            <table class="style-table">
+            <tr>
+                <th>Specialization</th>
+                <th>Count</th>
+            </tr>
+            '. 
+                implode("", 
+                    array_map(function($category) {
+                        return "<tr><td>" . $category['specialization'] . "</td><td>". $category['count'] ."</td></tr>";
+                    }, $data['counselor_specilaization'])
+                )
+            .'</table>
+
+            <br>
+
+            <br>
+            <h2>Session Details</h2>
+            <table class="style-table">
+            <tr>
+                <th>StudentID</th>
+                <th>Full Name</th>
+                <th>Appointment Date</th>
+                <th>Status</th>
+            </tr>
+            '. 
+                implode("", 
+                    array_map(function($listing) {
+                        return "<tr><td>" . $listing['studentID'] . "</td><td>". $listing['fullname'] ."</td><td>". $listing['appointmentDate'] ."</td><td>". $listing['status']."</td></tr>";
+                    }, $data['total_csessions'])
+                )
+            .'</table>
+            <footer>
+                <p>Copyright © 2023 StudentCare | All rights reserved.</p>
+            </footer>
+        </body>
+    </html>
+    ';
 }
 
 //report template for listing data
-function listing_overview(){
+function listing_overview($data){
+    return '
+    <!DOCTYPE>
+    <html>
+        <head>
+            <meta charset="UTF-8">
+            <link rel="stylesheet" href="http://localhost/StudentCare/public/css/report-style.css">
+        </head>
+        <body>
+            <center><h1>Overall Listing Overview</h1><center><br>
 
+            <br>
+            <h2>Listing Performance</h2>
+            <table class="style-table">
+            <tr>
+                <th>ListingID</th>
+                <th>Topic</th>
+                <th>Category</th>
+                <th>Rating</th>
+                <th>Address</th>
+                <th>#Of Feedbacks</th>
+                <th>Bad Reviews</th>
+                <th>Good Reviews</th>
+            </tr>
+            '. 
+                implode("", 
+                    array_map(function($listing) {
+                        return "<tr><td>" . $listing['listing_id'] . "</td><td>". $listing['topic'] . "</td><td>". $listing['category'] . "</td><td>". $listing['rating'] . "</td><td>". $listing['address'] . "</td><td>". $listing['num_feedbacks'] . "</td><td>". $listing['num_bad_reviews'] . "</td><td>". $listing['num_good_reviews'] . "</td></tr>";
+                    }, $data['listing_performance'])
+                )
+            .'</table
+
+            <br>
+            <h2>User Activity</h2>
+            <table class="style-table">
+            <tr>
+                <th>UserID</th>
+                <th>No. of Messages Sent</th>
+                <th>No. of Listings Added</th>
+            </tr>
+            '. 
+                implode("", 
+                    array_map(function($listing) {
+                        return "<tr><td>" . $listing['userid'] ."</td><td>". $listing['num_listings_added'] . "</td><td>" . $listing['num_messages_sent'] ."</td></tr>";
+                    }, $data['user_activity'])
+                )
+            .'</table
+
+            <br>
+            <h2>Geographic Analysis</h2>
+            <table class="style-table">
+            <tr>
+                <th>Location</th>
+                <th>No. of Listings</th>
+                <th>Avg. Rating</th>
+                <th>Avg. Feedback</th>
+            </tr>
+            '. 
+                implode("", 
+                    array_map(function($listing) {
+                        return "<tr><td>" . $listing['location'] ."</td><td>". $listing['num_listings'] . "</td><td>" . $listing['avg_rating'] ."</td><td>" . $listing['avg_num_feedback'] ."</td></tr>";
+                    }, $data['geographic_analysis'])
+                )
+            .'</table
+
+            <footer>
+                <p>Copyright © 2023 StudentCare | All rights reserved.</p>
+            </footer>
+        </body>
+    </html>
+    ';
 }
 
 //function for handling selecting the proper template for generating the report
@@ -461,11 +458,11 @@ function multiReportHelper($role,$type,$data){
         }
     }
     else if($role == 'Counselor'){
-        if($type == 'Session Overview'){
+        if($type == 'Session Details'){
             return counselor_overview($data);
         }
     }
-    else if($role == 'Facility Provider'){
+    else if($role == 'Facility_Provider'){
         if($type == 'Listing Overview'){
             return listing_overview($data);
         }

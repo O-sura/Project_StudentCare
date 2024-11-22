@@ -25,6 +25,7 @@ class Counsellor extends Controller
     {
 
         $userid = Session::get('userID');
+        date_default_timezone_set('Asia/Kolkata'); // set timezone to Kolkata, India
 
         //get the time zone
         date_default_timezone_set('Asia/Kolkata');
@@ -32,8 +33,13 @@ class Counsellor extends Controller
         $curdate = date('Y-m-d');
         $currtime = date('H:i:s');
 
+        //to get the appointment times for the current date
         $row = $this->counselorModel->getAppointmentTimes($userid, $curdate);
+
+        //to get the next appointment considering current time
         $rowNext = $this->counselorModel->nextAppointmentDetails($userid, $curdate, $currtime);
+
+        //to get the latest 5 notification
         $recentNoti = json_decode($this->counselorModel->getInformationForDashboardNotification($userid));
 
         $getApp = json_decode($row, true);
@@ -137,7 +143,6 @@ class Counsellor extends Controller
             $email = $_POST['email'];
             $address = $_POST['address'];
             $contact = $_POST['contact'];
-            $specialization = $_POST['specialization'];
             $description = $_POST['bioDesc'];
             $qualifications = array();
             //$new = explode(",", $row->qualifications);
@@ -155,7 +160,7 @@ class Counsellor extends Controller
                 'contact' => $contact,
                 'address' => $address,
                 'dob' => $row->dob,
-                'specialization' => $specialization,
+                'specialization' => $row->specialization,
                 'qualifications' => $qualifications,
                 'profile' => $row->profile_img,
                 'description' => $description,
@@ -164,7 +169,6 @@ class Counsellor extends Controller
                 'email_err' => '',
                 'contact_err' => '',
                 'address_err' => '',
-                'specialization_err' => '',
                 'qualification_err' => '',
 
             ];
@@ -193,11 +197,6 @@ class Counsellor extends Controller
 
             if (empty($data['contact'])) {
                 $data['contact_err'] = "*Contact field is Required";
-
-            }
-
-            if (empty($data['specialization'])) {
-                $data['specialization_err'] = "*Specialization field is Required";
 
             }
 
@@ -232,7 +231,7 @@ class Counsellor extends Controller
             }
 
             //Make sure there are no error flags are set
-            if (empty($data['username_err']) && empty($data['name_err']) && empty($data['email_err']) && empty($data['contact_err']) && empty($data['address_err']) && empty($data['specialization_err']) && empty($data['qualification_err'])) {
+            if (empty($data['username_err']) && empty($data['name_err']) && empty($data['email_err']) && empty($data['contact_err']) && empty($data['address_err']) && empty($data['qualification_err'])) {
 
                 $res = $this->counselorModel->updateProfileDetails($data, $user_id);
 
@@ -263,11 +262,35 @@ class Counsellor extends Controller
         }
     }
 
+    //download verification doc
+    public function download_verification()
+    {
+
+        $usr = Session::get('userID');
+
+        $file = $this->counselorModel->getVerificationDocName($usr);
+        $filepathOfDoc = json_decode($file, true);
+        //to get the file name
+        $filepath = $filepathOfDoc[0]['verification_doc'];
+
+        $path = APPROOT . '/uploads/' . $filepath;
+        if (file_exists($path)) {
+            header('Content-Type: application/octet-stream');
+            header('Content-Disposition: attachment; filename="' . basename($path) . '"');
+            header('Content-Length: ' . filesize($path));
+            readfile($path);
+            exit;
+        } else {
+            echo 'File not found.';
+        }
+    }
+
     //load the notification section
     public function notificationView()
     {
 
         $userid = Session::get('userID');
+        date_default_timezone_set('Asia/Kolkata'); // set timezone to Kolkata, India
 
         $res = json_decode($this->counselorModel->getInformationForNotification($userid));
         $rowcount = count($res);
@@ -285,12 +308,19 @@ class Counsellor extends Controller
     //To mark as read the notifications
     public function markAsReadNotifications()
     {
+        $usr = Session::get('userID');
 
-        if ($SERVER['REQUEST_METHOD'] == 'POST') {
+        if (isset($_GET['stuID']) && isset($_GET['R_A_ID'])) {
 
-            if (isset($_POST['mark'])) {
-                $this->counselorModel->markReadAsNotificationModel($id);
-            }
+            $gotStu = $_GET['stuID'];
+            $gotID = $_GET['R_A_ID'];
+
+            $this->counselorModel->markReadAsNotificationModel($usr, $gotStu, $gotID);
+            Counsellor::notificationView();
+            echo json_encode(['success' => true]); // return success response as JSON
+
+        } else {
+            echo json_encode(['success' => false]); // return error response as JSON
         }
     }
 
@@ -304,6 +334,8 @@ class Counsellor extends Controller
         $statusNew0 = 0;
         $statusNew1 = 1;
         $statusNew2 = 2;
+
+        //to get the student status
 
         $row = $this->counselorModel->getStudents($statusNew, $userid);
         $row0 = $this->counselorModel->getStudents($statusNew0, $userid);
@@ -437,8 +469,10 @@ class Counsellor extends Controller
     public function getAppointmentStats()
     {
         $userid = Session::get('userID');
+        $currentMonth = date('n');
+        $currentYear = date('Y');
 
-        $res = $this->counselorModel->getAllAppointments($userid);
+        $res = $this->counselorModel->getAllAppointments($userid, $currentMonth, $currentYear);
 
         echo $res;
     }
@@ -496,6 +530,11 @@ class Counsellor extends Controller
 
                 if (!$this->userModel->validatePassword($data['username'], $data['currentPW'])) {
                     $data['currentPW_err'] = '*Current Password does not match';
+                }
+
+                if ($_POST['current-password'] == $_POST['password']) {
+                    $data['currentPW_err'] = "You cannot use current password as new one";
+                    $data['password_err'] = "You cannot use current password as new one";
                 }
 
                 //Password and repeated once are matched
@@ -565,8 +604,6 @@ class Counsellor extends Controller
         $userid = Session::get('userID');
 
         $this->counselorModel->updateUserAsDeleted($userid);
-
-        // $data == [];
 
         $this->loadView('index');
     }

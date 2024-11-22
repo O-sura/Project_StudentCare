@@ -12,7 +12,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/facility_provider/view.css"?> >
-    <script type="javaScript" src=<?php echo URLROOT . "/public/js/facility_provider/View.js"?> defer></script>
     <script type="javaScript" src=<?php echo URLROOT . "/public/js/facility_provider/dropdown.js"?> defer></script>
     <title>Property View listings</title>
 </head>
@@ -29,53 +28,9 @@
 
             <div class="head">
                 <h1>Property</h1>
-
-                <!-- <form class="box" method="GET" action="propertyView">
-                    <button type="submit" name="search"><i class="fa-solid fa-search" aria-hidden="true"></i></button>
-                    <input type="search" placeholder="Search Here" name="searchbtn" id="searchbar" class="searchbtn">
-                    <div id="search-results"></div>
-                </form> -->
-                <input class="search" type="search" id="searchbar" name="search" placeholder="search">
             </div>
 
             <hr>
-
-            <div class="wrapper">
-
-                <div class="select-btn">
-                    <select class="filter" name="filterItem" id="filterItem1">
-                        <option value="" selected="selected">Location</option>
-                        <option value="ampara">Ampara</option>
-                        <option value="anuradhapura">Anuradhapura</option>
-                        <option value="badulla">Badulla</option>
-                        <option value="batticaloa">Batticaloa</option>
-                        <option value="colombo">Colombo</option>
-                        <option value="galle">Galle</option>
-                        <option value="gampaha">Gampaha</option>
-                        <option value="hambantota">Hambantota</option>
-                        <option value="jaffna">Jaffna</option>
-                        <option value="kalutara">Kalutara</option>
-                    </select>
-                </div>
-            
-                <div class="select-btn">
-                    <select class="filter" name="filterItem" id="filterItem2">
-                        <option value="" selected="selected">Type</option>
-                        <option value="house">House</option>
-                        <option value="room">Room</option>
-                    </select>
-                </div>
-
-                <div class="select-btn">
-                    <select class="filter" name="filterItem" id="filterItem3">
-                        <option value="" selected="selected">University</option>
-                        <option value="house">Colombo</option>
-                        <option value="room">Peradeniya</option>
-                    </select>
-                </div>
-
-
-            </div>
 
             <main>
                 <div id="item-container">

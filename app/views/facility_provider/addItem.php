@@ -12,20 +12,29 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/facility_provider/item.css"?>>
     <script src=<?php echo URLROOT . "/public/js/facility_provider/addItem.js"?> defer ></script>
+    <link rel="stylesheet" href= <?php echo URLROOT . "/public/css/flash.css"?>>
+    <script src=<?php echo URLROOT . "/public/js/flash.js"?> defer ></script>
     <title>Add Listings</title>
-
-</head>
 </head>
 <body>
+
+    <?php FlashMessage::flash('added_flash') ;?>
+
     <div class="page">
+
+        <!-- sidebar load -->
         <div class="sidebar">
             <?php include "sidebar.php"; ?>
         </div>
     
         <div class="container">
+
+            <!-- pages back link -->
             <a id="back-link">
                 <i class="fa-sharp fa-solid fa-left-long"><span>  Go Back</span></i>
             </a>
+
+            <!-- form data sending as POST method and encrypt the data with files and images-->
             <form action="" method="POST" enctype="multipart/form-data">
                 <h1>Tell Us More About Your Listing</h1>
 
@@ -73,8 +82,14 @@
                         <p>Nearest Town:</p>
                         <input class="town" name="location" type="text">
                         </div>
-
-
+                       
+                    
+                        <?php 
+                            if($data['uniName_err'])
+                                echo '<div class="form-field" data-error=" ' . $data['uniName_err'] . '">';
+                            else
+                                echo '<div class="form-field">';
+                        ?>
                         <div class="unisub">
                             <p>Universities/Institutions Nearby:</p>
                             <div class="university-adder">
@@ -106,11 +121,13 @@
                                         <option value="SLIIT">SLIIT</option>
                                         <option value="SLTC">SLTC</option>
                                     </select>
+
                                     <input class="uniName" name="uniDistance[]" id="uniName_0" type="number" min="1" max="10"><p>Km</p>
                                 </div>
                             </div>
 
                             <button type="button" class="addAnother" onclick="addAnother()">+ Add</button>
+                        </div>
                         </div>
                     </div>
                     
@@ -136,7 +153,7 @@
                         <input class="note" name="special_note" type="text">
                         </div>
 
-
+                    
                         <?php 
                             if($data['images_err'])
                                 echo '<div class="form-field" data-error=" ' . $data['images_err'] . '">';
@@ -149,6 +166,12 @@
                         </div>
 
 
+                        <?php 
+                            if($data['category_err'])
+                                echo '<div class="form-field" data-error=" ' . $data['category_err'] . '">';
+                            else
+                                echo '<div class="form-field">';
+                        ?>
                         <div class="catsub">
                             <div class="sub22">
                                 <p>Category:</p>
@@ -166,13 +189,11 @@
                                 </div>
                             </div>
                         </div>
+                        </div>
                     </div>
                 </div>
          
-                <!-- onchange = "getImage(this.value);" -->
-                <!-- <div id="display-image"></div> -->
-  
-                <button type="submit" class="submitbtn" name="submit">Add Listing</button>
+               <button type="submit" class="submitbtn" name="submit">Add Listing</button>
                 
             </form>  
         </div>

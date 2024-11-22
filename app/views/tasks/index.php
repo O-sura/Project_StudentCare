@@ -10,173 +10,123 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href=<?php echo URLROOT . "/public/css/stu/calendar.css" ?>>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 </head>
 
 <body>
-  <div class="sidebar">
-    <div class="logo_content">
-      <div class="logo">
-        <div class="logo_name"></div>
-      </div>
-      <i class="fa-solid fa-bars" id="btn"></i>
-    </div>
-    <ul class="nav_list">
-      <li>
-        <a href='<?php echo URLROOT ?>/student/home'>
-          <i class="fa-solid fa-gauge"></i>
-          <span class="links_name">Dashboard</span>
-        </a>
-        <span class="tooltip">Dashboard</span>
-      </li>
-      <li>
-        <a href='<?php echo URLROOT ?>/community/home'>
-          <i class="fa-solid fa-users"></i>
-          <span class="links_name">Community</span>
-        </a>
-        <span class="tooltip">Community</span>
-      </li>
-      <li>
-        <a href='<?php echo URLROOT ?>/tasks/'>
-          <i class="fa-solid fa-calendar-days"></i>
-          <span class="links_name">Schedule</span>
-        </a>
-        <span class="tooltip">Schedule</span>
-      </li>
-      <li>
-        <a href='<?php echo URLROOT ?>/appointments/'>
-          <i class="fa-solid fa-calendar-check"></i></i>
-          <span class="links_name">Appointments</span>
-        </a>
-        <span class="tooltip">Appointments</span>
-      </li>
-      <li>
-        <a href='<?php echo URLROOT ?>/announcements/'>
-          <i class="fa-solid fa-bullhorn"></i></i>
-          <span class="links_name">Announcements</span>
-        </a>
-        <span class="tooltip">Announcements</span>
-      </li>
-      <li>
-        <a href="<?php echo URLROOT ?>/Student_facility/">
-          <i class="fa-solid fa-house-circle-check"></i>
-          <span class="links_name">Listings</span>
-        </a>
-        <span class="tooltip">Listings</span>
-      </li>
-    </ul>
-    <div class="profile_content">
-      <div class="profile">
-        <div class="profile_details">
-          <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFufGVufDB8fDB8fA%3D%3D&w=1000&q=80" alt="">
-          <div class="name">
-            Oshada
-          </div>
-        </div>
-        <a href='<?php echo URLROOT ?>/users/logout'><i class="fa-solid fa-arrow-right-from-bracket fa-flip-horizontal" id="log_out"></i></a>
-      </div>
-    </div>
-  </div>
+  <?php
+  require_once '../app/views/tasks/sidebar.php';
+  ?>
   <div class="home_content">
-    <div class="container">
-      <div class="row1">
-        <h1>Personal Schedule</h1>
-      </div>
-      <div class="row2">
-        <div class="flex">
-          <div class="month">
-            <h3><a href="<?php echo URLROOT ?>/tasks/">Monthly</a></h3><br>
-            <hr>
-          </div>
-          <div class="week">
-            <h3><a href="<?php echo URLROOT ?>/tasks/weekly">Weekly</a></h3><br>
-            <hr class="rest">
-          </div>
-          <div class="day">
-            <h3><a href="<?php echo URLROOT ?>/tasks/today">Daily</a></h3><br>
-          </div>
-        </div>
 
-      </div>
-      <div class="row3">
-        <div class="wrap">
-          <div class="wrapper">
-            <header>
-              <p class="current-date"></p>
-              <div class="icons">
-                <i id="prev" class="fa-solid fa-chevron-left"></i>
-                <i id="next" class="fa-solid fa-chevron-right"></i>
-              </div>
-            </header>
-            <div class="calendar">
-              <ul class="weeks">
-                <li>Sun</li>
-                <li>Mon</li>
-                <li>Tue</li>
-                <li>Wed</li>
-                <li>Thu</li>
-                <li>Fri</li>
-                <li>Sat</li>
-              </ul>
-              <form id="form" method="post" action="<?php echo URLROOT; ?>/tasks/view">
-                <ul class=" days">
-
-                </ul>
-                <input type="text" id="date" name="date">
-
-              </form>
-            </div>
-          </div>
-        </div>
-        <div class="column">
-          
-            <div class="topic">
-              <h3>Tasks today</h3>
-            </div>
-
-            <div class="task">
-              <?php
-              if (count($data['all']) == 0) { ?>
-
-                <div class="todayTasks" style="color:white">
-                  There are no tasks today
-                </div>
-              <?php }
-              ?>
-              <?php
-              if (count($data['all']) > 0) {
-              ?>
-                <?php foreach ($data['notStarted'] as $task) { ?>
-
-                  <div class="todayTasks" style="background-color:<?php echo $task->task_color; ?>;">
-                    <?php echo $task->task_description; ?>
-                  </div>
-                <?php
-                }
-                ?>
-                <?php foreach ($data['inProgress'] as $task) { ?>
-
-                  <div class="todayTasks" style="background-color:<?php echo $task->task_color; ?>;">
-                    <?php echo $task->task_description; ?>
-                  </div>
-                <?php
-                }
-                ?>
-              <?php } ?>
-
-            </div>
-
-        </div>
-        
-
-      </div>
+    <div class="row1">
+      <h1>Personal Schedule</h1>
     </div>
+    <div class="row2">
+      <div class="flex">
+        <div class="month">
+          <h3><a href="<?php echo URLROOT ?>/tasks/">Monthly</a></h3><br>
+          <hr>
+        </div>
+        <div class="week">
+          <h3><a href="<?php echo URLROOT ?>/tasks/weekly">Weekly</a></h3><br>
+          <hr class="rest">
+        </div>
+        <div class="day">
+          <h3><a href="<?php echo URLROOT ?>/tasks/today">Daily</a></h3><br>
+        </div>
+      </div>
+
+    </div>
+    <div class="row3">
+      <div class="wrap">
+        <div class="wrapper">
+          <header>
+            <p class="current-date"></p>
+            <div class="icons">
+              <i id="prev" class="fa-solid fa-chevron-left"></i>
+              <i id="next" class="fa-solid fa-chevron-right"></i>
+            </div>
+          </header>
+          <div class="calendar">
+            <ul class="weeks">
+              <li>Sun</li>
+              <li>Mon</li>
+              <li>Tue</li>
+              <li>Wed</li>
+              <li>Thu</li>
+              <li>Fri</li>
+              <li>Sat</li>
+            </ul>
+            <form id="form" method="post" action="<?php echo URLROOT; ?>/tasks/view">
+              <ul class=" days">
+
+              </ul>
+              <input type="text" id="date" name="date">
+
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+
+        <div class="topic2">
+          <h3>Tasks left today</h3>
+        </div>
+
+        <div class="task-topic">
+          <?php
+          if (count($data['all']) == 0) { ?>
+
+            <div class="todayTasks">
+              There are no tasks today
+            </div>
+          <?php }
+          ?>
+          <?php
+          if (count($data['all']) > 0) {
+          ?>
+            <?php foreach ($data['notStarted'] as $task) { ?>
+
+              <div class="todayTasks" style="background-color:<?php echo $task->task_color; ?>;">
+                <?php echo $task->task_description; ?>
+              </div>
+            <?php
+            }
+            ?>
+            <?php foreach ($data['inProgress'] as $task) { ?>
+
+              <div class="todayTasks" style="background-color:<?php echo $task->task_color; ?>;">
+                <?php echo $task->task_description; ?>
+              </div>
+            <?php
+            }
+            ?>
+          <?php } ?>
+
+        </div>
+
+
+      </div>
+      <div class="stats">
+        <div class="task-chart">
+          <canvas id="myChart" style="height:40vh; width:20vw"></canvas>
+        </div>
+        <div class="percentage">
+          <h1>60%</h1>
+        </div>
+      </div>
+   
+      
+    </div>
+
   </div>
 
 
 
   <script>
-    let specialDates = <?php echo json_encode($data['taskDates']) ?>;
-
+    const specialDates = <?php echo json_encode($data['taskDates']) ?>;
+            
 
     let btn = document.querySelector("#btn");
     let sidebar = document.querySelector(".sidebar");
@@ -279,6 +229,33 @@
     btn.onclick = function() {
       sidebar.classList.toggle("active");
     }
+    var total_task_count =  <?php echo $data['tasks']?>;
+    var completed_task_count = <?php echo $data['tasksCompleted']?>;
+    var xValues = ["Tasks completed"];
+    var yValues = [completed_task_count, total_task_count - completed_task_count];
+    var percentage = (completed_task_count / total_task_count) * 100;
+    document.querySelector('.percentage h1').innerHTML = percentage.toFixed(0) + "%";
+    var barColors = [
+      "#1A285A",
+      "#f5f5f5"
+    ];
+
+    new Chart("myChart", {
+      type: "doughnut",
+      data: {
+        labels: xValues,
+        datasets: [{
+          backgroundColor: barColors,
+          data: yValues
+        }]
+      },
+      options: {
+        title: {
+          display: true,
+          text: "Percentage of tasks completed"
+        }
+      }
+    });
   </script>
 </body>
 

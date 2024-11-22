@@ -10,10 +10,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo URLROOT . "/public/css/facility_provider/editDetails.css"?>">
     <script src=<?php echo URLROOT . "/public/js/facility_provider/editProfile.js"?> defer></script>
+    <link rel="stylesheet" href="<?php echo URLROOT . "/public/css/flash.css"?>">
+    <script src= <?php echo URLROOT . "/public/js/flash.js"?> defer></script>
     <title></title>
 </head>
 
 <body>
+    <?php FlashMessage::flash('password_change_flash') ;?>
     <div class="sidebar">
         <?php include "sidebar.php"; ?>
     </div>
@@ -108,7 +111,6 @@
                             ?>
                             <br><label for="nic">NIC:</label><br>
                             <input type="text" value="<?= $data['nic'] ;?>" name="nic" class="form-input">
-                            <!-- disabled="disabled" -->
                             </div>
 
                             <?php 
@@ -121,26 +123,38 @@
                             <input type="text" value="<?= $data['address'] ;?>" name="address"  class="form-input">
                             </div>
 
+                            <?php 
+                                if($data['category_err'])
+                                    echo '<div class="form-field" data-error=" ' . $data['category_err'] . '">';
+                                else
+                                    echo '<div class="form-field">';
+                            ?>
                             <br><label for="category">Category:</label><br>
-                            
-                            <div class="categoryfilter">
-                                <?php
-                                    $category = array();
-                                ?>
-                                <div class="option">
-                                    <input type="checkbox" name="cat[]" value="Food">
-                                    <label>Facility(Boarding Places, House for Rent, etc.)</label>
+                            <input type="text" value="<?= $data['category'] ;?>" name="category"  class="form-input">
+                            <p>Enter your category(Property,Food,Furniture)</p>
+                            </div>
+
+                            <div class="special">
+                                <a class="pwBtn" id="pwBtn" href="http://localhost/StudentCare/Facility_Provider/changePassword">Change Password</a><br><br>
+                                <a class="dlt" id="dltBtn">Delete my Profile</a>
+                            </div>
+
+                             <!-- The Modal for delete the profile -->
+                            <div id="myModal" class="modal">
+                                <!-- Modal content -->
+                                <div class="modal-content">
+                                    <span class="close">&times;</span>
+                                    
+                                    <p>Are you sure want to delete your profile?</p>
+                                    <div class="modalBtn">
+                                        <button id="removeBtn" class="rbtn" name="removeBtn"><a name="removeLink" id="removeUser" class='remove'  href="http://localhost/StudentCare/Facility_Provider/deleteOwnProfile">Yes</a></button>
+                                        <button class = "btnCan" id="canBtn" >No</button>
+                                    </div>
                                     
                                 </div>
-                                <div class="option">
-                                    <input type="checkbox" name="cat[]" value="Food">
-                                    <label>Food</label>
-                                </div>
-                                <div class="option">
-                                    <input type="checkbox" name="cat[]" value="Furniture">
-                                    <label>Furniture and Supplies</label>
-                                </div>
+
                             </div>
+                            
                         </div>
                     </div>
             
@@ -149,9 +163,6 @@
                         <input type="submit" class="save" value="Save Changes" name="saveChanges">
                     </div>
                 </div>
-                <!-- <div class="delete">
-                    <input type="submit" class="delete" value="Delete Profile" name="deleteProfile">
-                </div>-->
             </div>
             </form>
         </div>

@@ -134,6 +134,12 @@
     background: #fff;
   
   }
+
+  #chosen{
+    color: #1A285A;
+    background: #fff;
+  }
+
   
   .sidebar ul li i{
       height: 50px;

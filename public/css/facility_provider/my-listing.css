@@ -161,13 +161,34 @@ hr{
     }
 
     .container .head .add{
-        width: 100px;
+        min-width: 100px;
         font-size: 15px;
         margin-left: 75%;
     }
     
     .yourprofile{
         margin-left: 80%;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .container{
+        justify-content: center;
+        align-items: center;
+    }
+
+    .count{
+        margin-left: 200px;
+    }
+
+    .container .head .add{
+        min-width: 100px;
+        font-size: 15px;
+        margin-left: 50%;
+    }
+    
+    .yourprofile{
+        margin-left: 65%;
     }
 }
 

@@ -17,8 +17,8 @@
 </head>
 
 <body>
-    <div class="page">
-
+    
+        
         <?php
         require_once '../app/views/facility/sidebar.php';
         ?>
@@ -86,7 +86,7 @@
                         </div>
                         <p><span>Contact No: </span><?php echo $data['facilityProviderDetails']->contact_no; ?></p>
                         <p><span>Address: </span><?php echo $data['viewone']->address; ?></p>
-                        <p><span><button class="btn2" onclick = showPopup()><i class="fa-solid fa-ban"></i> Report listing</button></span></p>
+                        <p><span><button class="btn2" onclick=showPopup()><i class="fa-solid fa-ban"></i> Report listing</button></span></p>
                         <div class="map">
                             <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d270201.1012553059!2d80.57066973934896!3d7.435740318327426!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2slk!4v1668671876514!5m2!1sen!2slk" 
                             width="400" height="250" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" frameborder="0"></iframe> -->
@@ -115,7 +115,7 @@
 
                             <?php endforeach; ?></span>
                     </p>
-                    <p class="rating"><i class="fa-solid fa-star fa-xs"></i> <?php echo $data['viewone']->rating ?></p>
+                    <p class="rating">☆ Rating : <?php echo $data['viewone']->rating ?></p>
                     <p class="price"><span>Price(Rs.): </span><?php echo $data['viewone']->rental; ?></p>
 
                     <div class="review">
@@ -138,16 +138,15 @@
                         </div>
                         <div class="comment">
                             <textarea name="" id="review-content" cols="55" rows="5">Write your review here...</textarea>
+                            <br>
                             <button type="submit" class="btn" id=<?php echo $data["viewone"]->listing_id ?>>Add review</button>
                         </div>
 
                         <div class="feedback" id="search-results">
                             <?php foreach ($data['comments'] as $comment) :
-                                if ($comment->profile_img != NULL) {
-                                    $image = $comment->profile_img;
-                                } else {
+                                
                                     $image = "avatar.jpg";
-                                }
+                                
                             ?>
                                 <div class="other_comment">
                                     <div class="feedback_details">
@@ -187,7 +186,7 @@
                         </div>
 
                     </div>
-                </div>
+                
 
 
 
@@ -211,7 +210,7 @@
                 window.location.href = "<?php echo URLROOT . "/messaging/create_chat/" . $data['facilityProviderDetails']->userID ?>";
             }
 
-            
+
 
             function showPopup() { //show modal for cancel appointment
                 var popup = document.querySelector(".overlay");

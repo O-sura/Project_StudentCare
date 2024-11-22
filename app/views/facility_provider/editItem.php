@@ -15,9 +15,11 @@
     <title>Edit Item</title>
 
 </head>
-</head>
 <body>
+    
     <div class="page">
+
+        <!-- load the sidebar -->
         <div class="sidebar">
             <?php include "sidebar.php"; ?>
         </div>
@@ -33,7 +35,7 @@
                 <div class="sub">
                     <div class="sub1">
                         
-                        <p>Topic:</p>
+                        
                         <?php
                             $topic = '';
                             if (isset($data['viewone']) && $data['viewone'] !== null) {
@@ -44,10 +46,11 @@
                                 echo '<div class="form-field">';
                             }
                         ?>
+                        <p>Topic:</p>
                         <input class="topic" name="topic" type="text" value="<?php echo $topic; ?>">
                         
 
-                        <p>Description:</p>
+                        
                         <?php
                             $description = '';
                             if (isset($data['viewone']) && $data['viewone'] !== null) {
@@ -58,10 +61,11 @@
                                 echo '<div class="form-field">';
                             }
                         ?>
+                        <p>Description:</p>
                         <input class="description" name="description" type="text" value="<?php echo $description; ?>">
                         
 
-                        <p>Price(Rs.):</p>
+                        
                         <?php
                             $rental = '';
                             if (isset($data['viewone']) && $data['viewone'] !== null) {
@@ -72,10 +76,11 @@
                                 echo '<div class="form-field">';
                             }
                         ?>
+                        <p>Price(Rs.):</p>
                         <input class="price" name="rental" type="text" value="<?php echo $rental; ?>">
                         
                     
-                        <p>Nearest Town:</p>
+                        
                         <?php
                             $location = '';
                             if (isset($data['viewone']) && $data['viewone'] !== null) {
@@ -86,10 +91,11 @@
                                 echo '<div class="form-field">';
                             }
                         ?>
+                        <p>Nearest Town:</p>
                         <input class="town" name="location" type="text" value="<?php echo $location; ?>">
+                       
                         
-
-
+ 
                         <div class="unisub">                       
                             <p>Universities/Institutions Nearby:</p>
                             <?php if (isset($data['unilist']) && (is_array($data['unilist']) || is_object($data['unilist']))) : ?>
@@ -123,7 +129,7 @@
                     </div>        
 
                     <div class="sub2">
-                        <p>Address:</p>
+                        
                         <?php
                             $address = '';
                             if (isset($data['viewone']) && $data['viewone'] !== null) {
@@ -134,10 +140,11 @@
                                 echo '<div class="form-field">';
                             }
                         ?>
+                        <p>Address:</p>
                         <input class="address" name="address" type="text" value="<?php echo $address; ?>">
                         
 
-                        <p>Special Notes:</p>
+                        
                         <?php
                             $special_note = '';
                             if (isset($data['viewone']) && $data['viewone'] !== null) {
@@ -148,18 +155,20 @@
                                 echo '<div class="form-field">';
                             }
                         ?>
+                        <p>Special Notes:</p>
                         <input class="note" name="special_note" type="text" value="<?php echo $special_note; ?>">
                         
+                        
                     
-                
                         <p>Images:</p>
+                        
                         <label for="img"><i class="fa fa-plus"></i><br>Insert only four images</label>
-                        <input type="file" class="image" name="images[]" id="img" multiple>
+                        <input type="file" class="image" name="images[]" id="img" multiple>   <!-- allow to select and upload multiple files -->
                         <div id="preview-container">
                             <?php
-                                $images = [];
-                                if(isset($data['viewone']) && $data['viewone']->image) {
-                                    $images = json_decode($data['viewone']->image);
+                                $images = [];       //define the array of images
+                                if(isset($data['viewone']) && $data['viewone']->image) {    //check if the images are set 
+                                    $images = json_decode($data['viewone']->image);     //then decode the image and save them in the images array
                                 }
                             ?>
                             <br>
@@ -170,13 +179,26 @@
                                 <img name="img4" src="<?= URLROOT . "/public/img/listing/" . $images[3] ?>">
                             </div>
                         </div>
-                        <?php if(isset($data['imagelist'])) : ?>
+                        <?php if(isset($data['imagelist'])) : ?>        <!-- check if the $data['imagelist'] is set -->
                             <?php foreach($data['imagelist'] as $key => $img) : ?>
                                 <input class="image" name="images[]" id="img_<?php echo $key ?>" type="file" value=<?php echo $img ?>>
+                                <!-- a unique ID generated by concatenating "img_" with the current $key value. 
+                                The value attribute of the input element is set to the current $img value from the loop. -->
                             <?php endforeach; ?>
                         <?php endif; ?>
                         
+                        
 
+                        <?php
+                            $category = '';
+                            if (isset($data['viewone']) && $data['viewone'] !== null) {
+                                $category = $data['viewone']->category;
+                            } else if($data['category_err']){
+                                echo '<div class="form-field" data-error=" ' . $data['category_err'] . '">';
+                            }else{
+                                echo '<div class="form-field">';
+                            }
+                        ?>
                         <div class="catsub">
                             <div class="sub22">
                                 <p>Category:</p>
@@ -201,9 +223,9 @@
                 
                 <input type="text" name="id" value=<?php echo $data['id']?> hidden>
                 <button type="submit" class="submitbtn" name="submit">Save</button>
+                
             </form>  
         </div>
-
     </div>
     
 </body>

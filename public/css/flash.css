@@ -1,17 +1,8 @@
-
 *{
-    margin: 0px;
-    padding: 0px;
-    user-select: none;
-    box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-body{
-    overflow: hidden;
-}
-
-.alert{
+.alert {
     background-color: #ffdb9b;
     padding: 20px 40px;
     min-width: 420px;
@@ -22,65 +13,79 @@ body{
     border-radius: 4px;
     border-left: 8px solid #ffa502;
     overflow: hidden;
-}
-
-.alert.show{
+  }
+  
+  .alert.show {
     animation: slide_in 1s;
     top: -100px;
     animation-fill-mode: forwards;
-}
-
-.alert.hide{
+  }
+  
+  .alert.hide {
     animation: slide_out 1s;
     top: 10px;
     animation-fill-mode: forwards;
-}
-
-@keyframes slide_in {
-   from{top: -100px}
-   to{top:10px}
-}
-
-@keyframes slide_out {
-    from{top: 10px}
-    to{top:-100px}
- }
-
-.message-icon{
+  }
+  
+  @keyframes slide_in {
+    from {
+      top: -100px;
+    }
+    to {
+      top: 10px;
+    }
+  }
+  
+  @keyframes slide_out {
+    from {
+      top: 10px;
+    }
+    to {
+      top: -150px;
+    }
+  }
+  
+  .alert .message-icon {
     position: absolute;
     left: 20px;
     top: 50%;
     transform: translateY(-50%);
     color: #ce8050;
     font-size: 30px;
-}
-
-.message{
+  }
+  
+  .alert .message {
     padding: 0px 20px;
     font-size: 18px;
     color: #ce8050;
     text-align: center;
-}
-
-.close-btn{
+  }
+  
+  .alert .close-btn {
     position: absolute;
     right: 0px;
     top: 50%;
     transform: translateY(-50%);
     background: #ffd080;
     padding: 20px 18px;
-}
-
-.close-btn:hover{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .alert .close-btn:hover {
     background-color: #ffc766;
-}
-
-.close-btn i{
+  }
+  
+  .alert .close-btn i {
     color: #ce8050;
     font-size: 22px;
     line-height: 40px;
     cursor: pointer;
-}
+  }
+  
 
 /* Colors for error class */
 .alert.error{

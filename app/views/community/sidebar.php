@@ -45,38 +45,45 @@
         <span class="tooltip">Schedule</span>
       </li>
       <li>
-        <a href="<?php echo URLROOT . "/appointment/home"?>">
+        <a href="<?php echo URLROOT . "/appointments/home"?>">
           <i class="fa-solid fa-calendar-check"></i></i>
           <span class="links_name">Appointments</span>
         </a>
         <span class="tooltip">Appointments</span>
       </li>
       <li>
-        <a href="<?php echo URLROOT . "/announcement/home"?>">
+        <a href="<?php echo URLROOT . "/announcements/home"?>">
           <i class="fa-solid fa-bullhorn"></i></i>
           <span class="links_name">Announcements</span>
         </a>
         <span class="tooltip">Announcements</span>
       </li>
       <li>
-        <a href="<?php echo URLROOT . "/listing/home"?>">
+        <a href="<?php echo URLROOT . "/student_facility/home"?>">
           <i class="fa-solid fa-house-circle-check"></i>
           <span class="links_name">Listings</span>
         </a>
         <span class="tooltip">Listings</span>
       </li>
     </ul>
-    <div class="profile_content">
-      <div class="profile">
-        <div class="profile_details">
-          <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFufGVufDB8fDB8fA%3D%3D&w=1000&q=80" alt="">
-          <div class="name" id="loggedInUser">
-            <?php echo $_SESSION['username']?>
-          </div>
+    <?php
+        if (Session::get('prof_img')->profile_img != NULL) {
+            $image = Session::get('prof_img')->profile_img;
+        } else {
+            $image = "avatar.jpg";
+        }
+        ?>
+        <div class="profile_content">
+            <div class="profile">
+                <div class="profile_details" id="loggedInUser">
+                    <img src="<?php echo URLROOT . "/public/img/student/" . $image; ?>" alt="">
+                    <div class="name">
+                    <?php echo Session::get('username') ?>
+                    </div>
+                </div>
+                <a href='<?php echo URLROOT ?>/users/logout'><i class="fa-solid fa-arrow-right-from-bracket fa-flip-horizontal" id="log_out"></i></a>
+            </div>
         </div>
-        <a href=<?php echo URLROOT . "/users/logout"?> ><i class="fa-solid fa-arrow-right-from-bracket" id="log_out"></i></a>
-      </div>
-    </div>
 
   </div>
   <div class="home_content">

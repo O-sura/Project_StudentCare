@@ -59,8 +59,33 @@ body{
 }
 
 .complaint-box-1,.complaint-box-2{
-    min-height: 350px;
+    margin-top: 1.5rem;
+    height: 350px;
+    overflow: auto;
 }
+
+.complaint-box-1::-webkit-scrollbar, .complaint-box-2::-webkit-scrollbar{
+    width: 0.7rem; /* set the width of the scrollbar */
+    margin-left: 0.4rem;
+}
+
+
+.complaint-box-1::-webkit-scrollbar-thumb, .complaint-box-2::-webkit-scrollbar-thumb {
+  background-color: gray; /* set the color of the thumb */
+  border-radius: 5px; /* round the edges of the thumb */
+  height: 15px;
+}
+
+.complaint-box-1::-webkit-scrollbar-track, .complaint-box-2::-webkit-scrollbar-track{
+  background-color: lightgray; /* set the color of the track */
+  border-radius: 5px;
+  height: 50px;
+}
+
+.complaint-box-1::-webkit-scrollbar-button, .complaint-box-2::-webkit-scrollbar-button {
+    display: hidden;
+    height: 60px;
+  }
 
 h4{
     margin-top: 6rem;
@@ -91,10 +116,31 @@ h4{
     justify-content: space-between;
 }
 
+
+#leading-icon{
+    align-self: flex-start;
+    font-size: 1rem;
+    margin-top: 0.3rem;
+    opacity: 0.5;
+}
+
 .complaint-body p{
     text-align: justify;
     padding-right: 1rem;
     width: 80%;
+    font-size: .9rem;
+}
+
+.meta-data{
+    margin-top: 0.5rem;
+    font-size: 0.7rem;
+}
+
+.message{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-self: start;
 }
 
 .complaint-body i{
@@ -102,5 +148,22 @@ h4{
     font-size: 1.5rem;
 }
 
+.complaint-body {
+    display: flex;
+    align-items: center;
+    margin-right: -1rem; /* remove gap between the first two items */
+  }
+  
+  .complaint-body #leading-icon {
+    margin-right: 1rem; /* add margin-right to the leading icon */
+  }
+  
+  .complaint-body .message {
+    margin-right: 1rem; /* add margin-right to the message body */
+  }
+  
+  .complaint-body .fa-circle-check {
+    margin-left: auto; /* push the last icon to the end of the row */
+  }
 
 

@@ -4,7 +4,7 @@ var ctx = document.getElementById("pieChart").getContext("2d");
 fetch("http://localhost/StudentCare/Counsellor/getAppointmentStats")
   .then((response) => response.json())
   .then((data) => {
-    //console.log(data);
+    console.log(data);
     let pending = 0;
     let completed = 0;
     let requested = 0;
@@ -42,8 +42,8 @@ fetch("http://localhost/StudentCare/Counsellor/getAppointmentStats")
           {
             label: labels,
             data: [pending, completed, requested, cancelled],
-            backgroundColor: ["#87cefa", "#483d8b", "#ff7f50", "#e1c827"],
-            borderColor: ["#87cefa", "#483d8b", "#ff7f50", "#e1c827"],
+            backgroundColor: ["#87cefa", "#483d8b", "#0000FF", "#6698FF"],
+            borderColor: ["#87cefa", "#483d8b", "#0000FF", "#6698FF"],
             borderWidth: 1,
           },
         ],
@@ -103,15 +103,7 @@ fetch("http://localhost/StudentCare/Counsellor/getDatailForBarChart")
     console.log(satCount);
 
     var xValues = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
-    var barColors = [
-      "#483d8b",
-      "#ff7f50",
-      "#87cefa",
-      "#483d8b",
-      "#ff7f50",
-      "#87cefa",
-      "#483d8b",
-    ];
+    var barColors =  "#87cefa"
 
     new Chart("myChart", {
       type: "bar",
@@ -152,8 +144,9 @@ fetch("http://localhost/StudentCare/Counsellor/getDatailForBarChart")
                 beginAtZero: true,
                 gridLines: {
                   display: false,
-                },
+                }
               },
+             
             },
           ],
           xAxes: [
@@ -161,8 +154,11 @@ fetch("http://localhost/StudentCare/Counsellor/getDatailForBarChart")
               ticks: {
                 gridLines: {
                   display: false,
-                },
+                }
               },
+               gridLines: {
+                  display: false,
+                }
             },
           ],
         },

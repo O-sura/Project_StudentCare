@@ -17,26 +17,23 @@
             $this->loadView('index',$data);
         }
 
-        public function about(){
-            echo 'About Page';
-        }
-
         public function terms_and_conditions(){
-            echo 'Terms and Conditions';
+            $this->loadView('terms-cond');
         }
 
         public function privacy_policy(){
-            echo 'Privacy Policy';
+            $this->loadView('privacy-policy');
         }
 
         public function rules_and_regulations(){
-            echo 'Rules and Regulations';
+            $this->loadView('rules-and-regulations');
         }
 
         public function error_404(){
             $this->loadView('error404');
         }
 
+        //handling the contact us form in the landing page
         public function contact_us(){
             if($_SERVER['REQUEST_METHOD'] == "POST" AND isset($_POST['submit']) ){
                 $fname = trim($_POST['fname']);
@@ -69,9 +66,7 @@
                     $data['email_err'] = "*Email cannot be empty";
                 }else{
                     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                        //echo("Invalid email format");
                         $data['email_err'] = "*Invalid email format";
-                        //die();
                     }
                 }
 

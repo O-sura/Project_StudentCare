@@ -192,11 +192,14 @@ header .icons i:last-child{
 }
 
 .days li.active::before{
-  background: #7893F3;
+  background: hsl(227, 72%, 56%);
+  opacity: 0.8;
 }
 
 .days li.special::before{
-  background: rgb(146, 231, 18);
+  background: rgb(33, 228, 108);
+  opacity: 0.6;
+  
   color: white;
 }
 
@@ -337,15 +340,18 @@ textarea{
 }
 
 .postBtn{
-    padding: 2%;
+    padding: 3%;
     border-radius: 25px;
     margin-left: 55%;
     margin-top: 10%;
     cursor: pointer;
+    border: none;
+    background-color: #1A285A;
+    color: white;
 }
 
 .postBtn:hover{
-    background-color: gold;
+    background-color:#3cb0fd;
 }
 
   

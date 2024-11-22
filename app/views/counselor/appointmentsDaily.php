@@ -181,20 +181,7 @@
                                 
                         <div class="right">
 
-                            <!-- <div class="stu" >
-                                <div class="imagePP">
-                                    <img class="imggPPP" src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFufGVufDB8fDB8fA%3D%3D&w=1000&q=80" alt=""> 
-                                </div>
-                                <p class="fname">Tim David</p>
-                                <p class="address">No.203, Austin street, St.Petersbhurg</p>
-                                <hr class="hr2">
-                                <p class="detail">Student Details</p>
-                                <p class="dob">DOB  : 10/01/1999</p>
-                                <p class="uni">University   : University of Colombo</p>
-                                <p class="note">Notice  : Get some advices for studies</p>
-
-
-                            </div> -->
+                        
 
                         </div>
 
@@ -223,7 +210,7 @@
             <div class="modal-content">
                 <span class="close">&times;</span>
                 
-                <button class = "btnStart" id="uploadBtn"><a class='start' href="http://localhost:3000/<?php echo $row->meetingID ?>" target="_blank">Start meeting</a></button>
+                <button class = "btnStart" id="uploadBtn"><a class='start' href="http://localhost:3000/<?php echo $row->meetingID ?>" target="_blank" >Start meeting</a></button>
                 <button class = "btnCom" id="comBtn" name="completeBtn"><a name="completeLink" id="completedApp" class='complete'  href=" ">Completed</a></button>
                 <button id="removeBtn" class="rbtn" value="<?php echo $row->studentID ?>">Cancel appointment</button>
                 

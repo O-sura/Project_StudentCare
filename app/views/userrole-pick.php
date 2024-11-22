@@ -10,9 +10,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    <div class="header">
-        <a href="#">Already have an Account?</a>
-        <button class="login">Login Here</button>
+    <div class="top-bar">
+        <span id="sitename">StudentCare</span>
+        <div class="header">
+            <span>Already have an Account? </span>
+            <a href="<?php echo URLROOT ?>/users/login"><div class="login">Login Here</div></a>
+        </div>
     </div>
     <h1>JUST FEW MORE STEPS...</h1>
         <div class="container">

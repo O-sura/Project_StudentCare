@@ -13,6 +13,9 @@
 </head>
 <body>
     <div class="section">
+
+       
+
         <i class="fa-solid fa-key" id="main-logo"></i>
         <h1>Set New Password</h1>
         <p>Your password should be different form your previous one</p>

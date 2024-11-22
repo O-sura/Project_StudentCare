@@ -143,4 +143,46 @@ class Task
         }
     }
 
+    public function getStudyTime($date,$usr)
+    {
+        $this->db->query("SELECT SUM(studied_time) AS studied_time
+        FROM event
+        WHERE event_date = :eventDate AND user_id = :userID AND event_status = 1 
+        GROUP BY event_date;");
+        $this->db->bind(':eventDate', $date);
+        $this->db->bind(':userID', $usr);
+        $results = $this->db->getRes();
+        return $results;
+    }
+
+    public function getNumOfTasksCompleted($id,$date){
+        $this->db->query("SELECT *
+        FROM task
+        WHERE task_date = :taskDate AND task_user = :userID AND task_status = 'completed';");
+        $this->db->bind(':taskDate', $date);
+        $this->db->bind(':userID', $id);
+        $results = $this->db->rowCount();
+        return $results;
+    }
+
+    public function getTotalNumofTasks($id,$date){
+        $this->db->query("SELECT *
+        FROM task
+        WHERE task_date = :taskDate AND task_user = :userID;");
+        $this->db->bind(':taskDate', $date);
+        $this->db->bind(':userID', $id);
+        $results = $this->db->rowCount();
+        return $results;
+    }
+
+    public function deleteTask($taskId){
+        $this->db->query("DELETE FROM task WHERE task_id = :taskID");
+        $this->db->bind(':taskID', $taskId);
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

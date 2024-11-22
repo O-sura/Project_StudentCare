@@ -8,9 +8,10 @@
         }
 
 
+        //to add the listing data
         public function addItem($data){
             //$listing_id = substr(sha1(date(DATE_ATOM)), 0, 8);
-            $this->db->query('INSERT INTO listing(listing_id, fpID, topic, description, rental, location, address, image, special_note, category) VALUES (:listingID ,:fpID, :topic, :description, :rental, :location, :address, :image_urls, :special_note, :category)');
+            $this->db->query('INSERT INTO listing(listing_id, fpID, topic, description, rental, location, address,first_image, image, special_note, category) VALUES (:listingID ,:fpID, :topic, :description, :rental, :location, :address,:first_img_url,:image_urls, :special_note, :category)');
             
             $this->db->bind(':listingID', $data['listingID']);
             $this->db->bind(':topic', $data['topic']);
@@ -20,6 +21,7 @@
             $this->db->bind(':address', $data['address']);
             // $this->db->bind(':uniName', $data['uniName']);
             $this->db->bind(':image_urls', $data['image_urls']);
+            $this->db->bind(':first_img_url', $data['first_img_url']);
             $this->db->bind(':special_note', $data['special_note']);
             $this->db->bind(':category', $data['category']);
             $this->db->bind(':fpID', $data['fpID']);
@@ -33,9 +35,6 @@
             }
         }
 
-        /* public function isUserRegisteredForCategory($user_id, $category){
-            $this->db->query('SELECT * FROM facility_provider WHERE ');
-        } */
 
         public function addUniDistance($data){
             //$listing_id = substr(sha1(date(DATE_ATOM)), 0, 8);
@@ -84,8 +83,7 @@
 
 
         public function editItem($data){
-            //$listing_id = substr(sha1(date(DATE_ATOM)), 0, 8);
-            $this->db->query('UPDATE listing SET topic = :topic, description = :description, rental = :rental, location = :location, address = :address,  image = :image_urls, special_note = :special_note, category = :category WHERE listing_id = :id');
+            $this->db->query('UPDATE listing SET first_image = :first_img_url, topic = :topic, description = :description, rental = :rental, location = :location, address = :address,  image = :image_urls, special_note = :special_note, category = :category WHERE listing_id = :id');
             
             $this->db->bind(':id', $data['id']);
             $this->db->bind(':topic', $data['topic']);
@@ -96,7 +94,7 @@
             $this->db->bind(':image_urls', $data['image_urls']);
             $this->db->bind(':special_note', $data['special_note']);
             $this->db->bind(':category', $data['category']);
-
+            $this->db->bind(':first_img_url', $data['first_img_url']);
             if($this->db->execute()){
                 return true;
             }
@@ -144,10 +142,10 @@
             
 
             if($this->db->execute()){
-                $this->db->query('UPDATE facility_provider SET profile_img = :pimg/* , category = :category, */ WHERE  userID = :userid;');
+                $this->db->query('UPDATE facility_provider SET profile_img = :pimg , category = :category WHERE  userID = :userid;');
                 $this->db->bind(':userid', $user_id);
                 $this->db->bind(':pimg',$data['profile']);
-                /* $this->db->bind(':category', implode(",", $data['category'])); */
+                $this->db->bind(':category', $data['category']); 
                 if($this->db->execute()){
                     return true;
                 }else{
@@ -189,6 +187,7 @@
         }
 
 
+        //to details for one listing item
         public function viewOneListing($id){
             $this->db->query("SELECT * FROM listing WHERE listing_id= :id ");
             $this->db->bind(':id', $id);
@@ -197,7 +196,8 @@
             return $result;
         }
 
-
+        
+        //to viewone listing 
         public function getDistance($id){
             $this->db->query("SELECT * FROM uni_distance_listing WHERE listing_id = :id");
             $this->db->bind(':id', $id);
@@ -206,6 +206,7 @@
         }
     
 
+        //to viewone listing
         public function getFacilityProviderDetails($id){
             $this->db->query("SELECT facility_provider.*,users.* FROM 
             facility_provider 
@@ -218,6 +219,7 @@
         }
 
 
+        //to viewone listing
         public function getComments($id){
             $this->db->query("SELECT listing_feedback.*,users.username,student.profile_img
             FROM listing_feedback
@@ -229,6 +231,12 @@
             return $result;
         }
 
+        public function getRatings(){
+            $this->db->query("SELECT star_rating FROM listing_feedback WHERE listing_id= :id");
+            $result = $this->db->getAllRes();
+            return $result;
+        }
+
 
         public function getlisting(){
             $this->db->query('SELECT * FROM listing ORDER BY added_date DESC');
@@ -236,12 +244,6 @@
             return $results; 
         }
 
-        public function report(){
-            $this->db->query('SELECT * FROM listing'); 
-            
-            $result = $this->db->getAllRes();
-            return $result;
-        }
 
         public function message(){
             $this->db->query('SELECT * FROM listing'); 
@@ -251,6 +253,7 @@
         }
 
 
+        //delete item
         public function deleteItem($id){
             $this->db->query('DELETE FROM listing WHERE listing_id=:id');
             
@@ -267,6 +270,7 @@
         }
 
 
+        //delete the universities
         public function deleteUniDistances($id){
             $this->db->query('DELETE FROM uni_distance_listing WHERE listing_id=:id');
             
@@ -290,56 +294,34 @@
             return $row;
         }
 
-
-        /* public function university_filter($uni){
-            $this->db->query("SELECT * FROM uni_distance_listing");
-            $this->db->bind(':uni', $uni);
-
-            $result = $this->db->getAllRes();
-            return $result;
-        } */
-        
+    
+        //to mylisting 
         public function getDistances(){
             $this->db->query("SELECT * FROM uni_distance_listing");
             $result = $this->db->getAllRes();
             return $result;
         }
-
-        
-        public function propertysearch($keyword){
-            $this->db->query('SELECT * FROM listing WHERE topic LIKE :keyword or location LIKE :keyword or rental LIKE :keyword');
-            $this->db->bind(':keyword', $keyword);
-            $result = $this->db->getAllRes();
-            return json_encode($result);
-        }
-
-
-        public function getlocationfilter($location){
-            $this->db->query("SELECT * FROM listing WHERE location = :location");
-            $this->db->bind(':location', $location);
-            $result = $this->db->getAllRes();
-            return $result;
-        }
-
-        public function gettypefilter($type){
-            $this->db->query("SELECT * FROM listing WHERE topic = :type");
-            $this->db->bind(':type', $type);
-            $result = $this->db->getAllRes();
-            return $result;
-        }
-
-        public function getunifilter($university){
-            $this->db->query("SELECT * FROM uni_distance_listing WHERE uni_name = :university");
-            $this->db->bind(':university', $university);
-            $result = $this->db->getAllRes();
-            return $result;
-        }
+         
 
         public function getUniDistances($id){
             $this->db->query("SELECT * FROM uni_distance_listing WHERE listing_id = :id");
             $this->db->bind(':id', $id);
             $result = $this->db->getAllRes();
             return $result;
+        }
+
+        //to delete the own profile
+        public function updateUserAsDeleted($userid){
+
+            $this->db->query('UPDATE users SET isDeleted = 1 WHERE userID = :userid;');
+            $this->db->bind(':userid', $userid);
+
+            if ($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+
         }
 
     }

@@ -11,7 +11,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href=<?php echo URLROOT . "/public/css/facility_provider/view.css" ?>>
-    <script src=<?php echo URLROOT . "/public/js/facility_provider/View.js" ?> defer></script>
     <title>Food View listings</title>
 </head>
 
@@ -27,52 +26,9 @@
 
             <div class="head">
                 <h1>Food</h1>
-
-                <form class="box" method="POST" action="propertyView">
-                    <button type="submit" name="search"><i class="fa-solid fa-search" aria-hidden="true"></i></button>
-                    <input type="text" placeholder="Search Here" name="searchbtn" class="searchbtn">
-                </form>
-
             </div>
 
             <hr>
-
-            <div class="wrapper">
-
-                <div class="select-btn">
-                    <select class="filter" name="filterItem" id="filterItem">
-                        <option value="" selected="selected">Location</option>
-                        <option value="Ampara">Ampara</option>
-                        <option value="Anuradhapura">Anuradhapura</option>
-                        <option value="Badulla">Badulla</option>
-                        <option value="Batticaloa">Batticaloa</option>
-                        <option value="Colombo">Colombo</option>
-                        <option value="Galle">Galle</option>
-                        <option value="Gampaha">Gampaha</option>
-                        <option value="Hambantota">Hambantota</option>
-                        <option value="Jaffna">Jaffna</option>
-                        <option value="Kalutara">Kalutara</option>
-                    </select>
-                </div>
-
-                <div class="select-btn">
-                    <select class="filter">
-                        <option>Type</option>
-                        <option value="type">Breakfast</option>
-                        <option value="type">Lunch</option>
-                        <option value="type">Dinner</option>
-                    </select>
-                </div>
-
-                <div class="select-btn">
-                    <select class="filter" name="filterItem" id="filterItem">
-                        <option value="" selected="selected">University</option>
-                        <option value="house">Colombo</option>
-                        <option value="room">Peradeniya</option>
-                    </select>
-                </div>
-
-            </div>
 
             <main>
                 <?php foreach ($data['view'] as $view) : ?>

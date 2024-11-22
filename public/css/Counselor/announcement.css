@@ -259,6 +259,7 @@ body{
 
 h3{
     font-size: 25px;
+    padding: 1%;
 }
 
 .postHead{
@@ -280,15 +281,18 @@ textarea{
 
 .postBtn{
     padding: 2%;
-    border-radius: 15px;
+    border-radius: 25px;
     margin-left: 55%;
     margin-top: 10%;
+    padding: 2.5%;
     cursor: pointer;
+    border: none;
+    background-color: #1A285A;
+    color: white;
 }
 
 .postBtn:hover{
-    background-color: gold;
-    transition-duration: 0.6s;
+  background-color:#3cb0fd;
 }
 
 

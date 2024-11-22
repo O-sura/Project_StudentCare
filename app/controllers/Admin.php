@@ -21,6 +21,7 @@
 
         }
 
+        //loading admin dashboard with data
         public function home(){
             $data = [
                 'total_users' => $this->adminModel->totalUserCount()[0]->count,
@@ -33,32 +34,15 @@
                 'top_listings' => $this->adminModel->getTopListings()
             ];
 
-
-            // echo($this->adminModel->userCountByRole());
-            // exit();
             $this->loadView('admin/dashboard', $data);
         }
 
+        //handling the report generation process for the admin
         public function reports(){
-            // $today = new DateTime();
-            // $t = $today->format('Y-m-d');
-            // $seven_days_ago = $today->sub(new DateInterval('P7D'));
-            // $seven_days_ago = $seven_days_ago->format('Y-m-d');
-            // $thirty_days_ago = $today->sub(new DateInterval('P30D'))->format('Y-m-d');
-            // $ninety_days_ago = $today->sub(new DateInterval('P90D'))->format('Y-m-d');
-            // $one_eighty_days_ago = $today->sub(new DateInterval('P180D'))->format('Y-m-d');
-            
-
-            //$data = $this->studentModel->student_listing_engagement($ninety_days_ago,$t);
-            // generatePDF('facility_provider',$data);
-            // exit;
-
-
-
             if($_SERVER['REQUEST_METHOD'] == 'POST'){
                if(isset($_GET['individual'])){
                 //report which contains only info about a single user
-                echo "Hello";
+                //NOT USED
                }
                else{
                 //report which contains overall details about a specific section
@@ -67,79 +51,140 @@
                 $role = $_POST['role'];
 
                 $today = new DateTime();
-                $startDate = $today->format('Y-m-d');
+                $endDate = $today->format('Y-m-d');
                 
                 if($duration == 'Weekly'){
-                    $endDate = $today->sub(new DateInterval('P7D'))->format('Y-m-d');
+                    $startDate = $today->sub(new DateInterval('P7D'))->format('Y-m-d');
                 }
                 else if($duration == 'Monthly'){
-                    $endDate =  $today->sub(new DateInterval('P30D'))->format('Y-m-d');
+                    $startDate =  $today->sub(new DateInterval('P30D'))->format('Y-m-d');
                 }
                 else if($duration == '3-Months'){
-                    $endDate =  $today->sub(new DateInterval('P90D'))->format('Y-m-d');
+                    $startDate =  $today->sub(new DateInterval('P90D'))->format('Y-m-d');
                 }
                 else if($duration == '6-Months'){
-                    $endDate =  $today->sub(new DateInterval('P180D'))->format('Y-m-d');
+                    $startDate =  $today->sub(new DateInterval('P180D'))->format('Y-m-d');
                 }
-
-                //$data = $this->getReportData($role,$type,$startDate,$endDate);
-                //generatePDF($role,$data,$type,$multiFlag);
+                
+                
+                $data = $this->getReportData($role,$type,$startDate,$endDate);
+                generatePDF($role,$data,$type,true);
             
                }
             }else{
-                $this->loadView('admin/report-generator');
+                $pdfFolder = APPROOT. "/uploads/reports/";
+                $pdfFiles = glob($pdfFolder . "*.pdf");
+                $data = array();
+                foreach ($pdfFiles as $pdfFile) {
+                    $fileName = basename($pdfFile);
+                    $role = explode("_", $fileName)[0];
+                    $createdDate = date("Y-m-d H:i:s", filectime($pdfFile));
+                    $data[] = array('filename' => $fileName,'role' => $role, 'created_date' => $createdDate);
+                }
+                $this->loadView('admin/report-generator', $data);
             }
         }
 
+        //converts an object array into array of array
+        function getDataArray($objectArray) {
+            $result = array();
+            foreach ($objectArray as $object) {
+              $temp = array();
+              foreach ($object as $key => $value) {
+                $temp[$key] = $value;
+              }
+              array_push($result, $temp);
+            }
+            return $result;
+          }
+          
+        //function to pick data required for generating the report
         public function getReportData($role,$type,$startdate,$enddate){
             if($role == 'Admin'){
                 if($type == 'System Overview'){
+
+                    $roles_and_counts = $this->getDataArray($this->reportModel->userCountByRole($startdate,$enddate));
+                    $listings = $this->getDataArray($this->reportModel->listing_overview($startdate,$enddate));
+                    $listing_by_loc = $this->getDataArray($this->reportModel->listing_by_location($startdate,$enddate));
+                    $sessions_by_status = $this->getDataArray($this->reportModel->sessionsByStatus($startdate,$enddate));
+
+                    $mobile_engaged = $this->reportModel->mobile_app_interaction($startdate,$enddate);
+                    $total = $this->reportModel->totalStudentCount()[0]->count;
                     $data = [
-                        'users_by_role' => $this->reportModel->userCountByRole($startdate,$enddate),
+                        'users_by_role' => $roles_and_counts,
                         'total_users' => $this->reportModel->totalUserCount($startdate,$enddate),
                         'total_community_posts' => $this->reportModel->totalUserCount($startdate,$enddate),
                         'community_engagement' =>$this->reportModel->authorCount($startdate,$enddate),
                         'comment' => $this->reportModel->commentCount($startdate,$enddate),
                         'post_reportings' => $this->reportModel->postReportCount($startdate,$enddate),
-                        'total_csessions' => '',
-                        'counselor-stu-engagement' => 76.3,
-                        'counselor-ann-engagement' => 43.2,
-                        'listing_overview' => $this->reportModel->listing_overview($startdate,$enddate),
+                        'total_csessions' => $sessions_by_status,
+                        'counselor-stu-engagement' => $this->reportModel->counselor_stu_engagement()->counselor_student_engagement,
+                        'counselor-ann-engagement' => $this->reportModel->counselor_ann_engagement()->counselor_announcement_engagement,
+                        'listing_overview' => $listings,
                         'stu-listing-engagement' => $this->reportModel->student_listing_engagement($startdate,$enddate),
-                        'listing_by_location' => $this->reportModel->listing_by_location($startdate,$enddate),
-                        'stu_mobile_engagement' => $this->reportModel->task_engagement($startdate,$enddate)
+                        'listing_by_location' => $listing_by_loc,
+                        'stu_mobile_engagement' => round(($mobile_engaged/$total)*100,2)
                     ];
                     return $data;
                 }
             }
             if($role == 'Counselor'){
-                if($type == 'Session Overview'){
+                if($type == 'Session Details'){
                     $data = [
-                        'total_csessions' => '',
-                        'counselor-stu-engagement' => 76.3,
-                        'counselor-ann-engagement' => 43.2,
+                        'total_csessions' => $this->getDataArray($this->reportModel->totalCSessions($startdate,$enddate)),
+                        'counselor-stu-engagement' => $this->reportModel->counselor_stu_engagement()->counselor_student_engagement,
+                        'counselor-ann-engagement' => $this->reportModel->counselor_ann_engagement()->counselor_announcement_engagement,
+                        'counselor_specilaization' => $this->getDataArray($this->reportModel->counselors_by_specialization())
                     ];
                     return $data;
                 }
             }
-            if($role == 'Facility Provider'){
+            if($role == 'Facility_Provider'){
                 if($type == 'Listing Overview'){
                     $data = [
-                        'listing_overview' => '',
-                        'stu-listing-engagement' => 33.1,
-                        'listing_by_location' => '',
+                        'listing_performance' => $this->getDataArray($this->reportModel->listing_performance_report($startdate,$enddate)),
+                        'user_activity' => $this->getDataArray($this->reportModel->user_activity_report($startdate,$enddate)),
+                        'geographic_analysis' => $this->getDataArray($this->reportModel->geographic_analysis_report($startdate,$enddate)),
                     ];
                     return $data;
                 }
             }
         }
 
+        //Function for handling the deletion of a report generated by admin
+        public function deleteReport($filename){
+            $filepath = APPROOT. "/uploads/reports/". $filename;
+    
+            if (file_exists($filepath)) {
+                unlink($filepath); // Delete the file
+                echo json_encode(array('status' => 1));
+            } else {
+                echo "File $filename not found.";
+            }
+        }
+
+        //Function for handling the downloading process of an already generated report
+        public function downloadReport($filename){
+            $path = APPROOT. "/uploads/reports/". $filename;
+            if (file_exists($path)) {
+                header('Content-Type: application/octet-stream');
+                header('Content-Disposition: attachment; filename="' . basename($path) . '"');
+                header('Content-Length: ' . filesize($path));
+                readfile($path);
+                exit;
+            } else {
+                echo 'File not found.';
+            }
+        }
+
+        //loading the unverified counselor list
         public function join_requests(){
              //load all unverified counselors and display them
              $data = $this->adminModel->getUnverifiedCounselors();
              $this->loadView('admin/counsellor-request', $data);
         }
 
+        //loading the profile of an individual counselor(unverified)
         public function view_counselor_profile($id){
             $data = $this->adminModel->getCounselorInfo($id);
 
@@ -226,10 +271,12 @@
             
         }
 
+        //display the complaints section for admin
         public function complaints(){
             $this->loadView('admin/complaint-log');
         }
 
+        //user management dashboard for admin
         public function user_management(){
             $data = $this->adminModel->getUserManagementInfo();
             if($data){
@@ -274,6 +321,7 @@
             $this->loadview('admin/admin_stu_edit', $data);
         }
 
+        //function for handling student profile viewing
         public function counselorProfileHandler($userID){
             $user = $this->counselorModel->getCounselorProfile($userID);
             $data = [
@@ -301,7 +349,7 @@
             $this->loadview('admin/admin_counselor_edit', $data);
         }
 
-        //This function is not yet implemented - Waiting for Facility provider
+        //function for handling facility provider profile viewing
         public function fpProfileHandler($userID){
             $user = $this->fpModel->getProfile($userID);
             $data = [
@@ -325,6 +373,22 @@
             $this->loadview('admin/admin_fp_edit', $data);
         }
 
+        //function for handling admin profile viewing
+        public function adminProfileHandler($userID){
+            $user = $this->adminModel->getProfile($userID);
+            $data = [
+                'userID' => $userID,
+                'name' => $user->fullname,
+                'username' => $user->username,
+                'contact' => $user->contact_no,
+                'address' => $user->home_address,
+                'nic' => $user->nic,
+                'email' => $user->email,
+            ];
+            
+            $this->loadview('admin/admin_profile_view', $data);
+        }
+
         //function for viewing single user profile
         public function show_user($userID){
             $role = $this->adminModel->getRole($userID);
@@ -339,8 +403,13 @@
                 //load facility provider details 
                 $this->fpProfileHandler($userID);
             }
+            else if($role == 'admin'){
+                //load admin details 
+                $this->adminProfileHandler($userID);
+            }
         }
 
+        //handling the updating process of a student profile done by the admin
         public function update_student($userID){
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $row = $this->studentModel->getProfile($userID);
@@ -389,7 +458,6 @@
                 if ($this->studentModel->findUserByUsername($username)) {
                     $curr_username = $this->adminModel->getCurrentUsername($userID);
                     $curr_username = $curr_username->{'username'};
-                    //echo("This Username is already taken");
                     if ($username == $curr_username) {
                         $data['username_err'] = "";
                     } else {
@@ -435,11 +503,12 @@
                     $res = $this->adminModel->updateStudentDetails($data, $userID);
     
                     if ($res) {
-                        FlashMessage::flash('update_profile_flash', "Successfully Updated Your Profile Details!", "success");
+                        FlashMessage::flash('update_profile_flash', "Successfully Updated the Profile Details!", "success");
                         Admin::user_management();
                     } else {
                         //Error Notification
                         echo 'Error: Something went wrong in adding post to the databse';
+                        FlashMessage::flash('update_profile_flash', "Something Went Wrong!", "error");
                         Admin::user_management();
                         die();
                     }
@@ -452,6 +521,7 @@
         
         }
 
+        //handling the updating process of a counselor profile done by the admin
         public function update_counselor($userID){
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $row = $this->counselorModel->getCounselorProfile($userID);
@@ -558,11 +628,12 @@
                     $res = $this->adminModel->updateCounselorDetails($data, $userID);
     
                     if ($res) {
-                        FlashMessage::flash('update_profile_flash', "Successfully Updated Your Profile Details!", "success");
+                        FlashMessage::flash('update_profile_flash', "Successfully Updated the Profile Details!", "success");
                         Admin::user_management();
                     } else {
                         //Error Notification
                         echo 'Error: Something went wrong in adding post to the databse';
+                        FlashMessage::flash('update_profile_flash', "Something Went Wrong!", "error");
                         Admin::user_management();
                         die();
                     }
@@ -572,6 +643,7 @@
             }
         }
 
+        //handling the updating process of a facilityProvider profile done by the admin
         public function update_fp($userID){
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $row = $this->fpModel->getProfile($userID);
@@ -607,7 +679,6 @@
     
                 //Check whether all the fields are filled properly
                 if (empty($data['username'])) {
-                    //echo("Must fill all the fields in the form!");
                     $data['username_err'] = "*Username field is Required";
                 }
 
@@ -615,7 +686,6 @@
                 if ($this->studentModel->findUserByUsername($username)) {
                     $curr_username = $this->adminModel->getCurrentUsername($userID);
                     $curr_username = $curr_username->{'username'};
-                    //echo("This Username is already taken");
                     if ($username == $curr_username) {
                         $data['username_err'] = "";
                     } else {
@@ -653,11 +723,11 @@
                     $res = $this->adminModel->updateFpDetails($data, $userID);
     
                     if ($res) {
-                        FlashMessage::flash('update_profile_flash', "Successfully Updated Your Profile Details!", "success");
+                        FlashMessage::flash('update_profile_flash', "Successfully Updated the Profile Details!", "success");
                         Admin::user_management();
                     } else {
                         //Error Notification
-                        echo 'Error: Something went wrong in adding post to the databse';
+                        FlashMessage::flash('update_profile_flash', "Something Went Wrong!", "error");
                         Admin::user_management();
                         die();
                     }
@@ -667,26 +737,32 @@
             }
         }
 
+        //fetches the user details(registered within last week) for charts in admin dashboard
         public function get_lastweek_users(){
             echo $this->adminModel->newRegUsers();
         }
 
+        //fetches the user details based on roles for charts in admin dashboard
         public function get_role_data(){
             echo $this->adminModel->userCountByRole();
         }
 
+        //fetches the post details for charts in admin dashboard
         public function get_post_data(){
             echo $this->adminModel->getCommunityPostData();
         }
 
+        //fetches the comment details for charts in admin dashboard
         public function get_comment_data(){
             echo $this->adminModel->getCommunityCommentData();
         }
 
+        //fetches the listing details for charts in admin dashboard
         public function get_listing_data(){
             echo $this->adminModel->getListingData();
         }
 
+        //downloading the verification document submitted by the counselor when registering
         public function download_verification($file){
             $path = APPROOT . '/uploads/' . $file;
             if (file_exists($path)) {
@@ -715,6 +791,7 @@
            }
         }
 
+        //creating a new admin profile
         public function create_admin(){
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 
@@ -752,13 +829,11 @@
     
                 //Check whether all the fields are filled properly
                 if(empty($username)) {
-                    //echo("Must fill all the fields in the form!");
                     $data['username_err'] = "*Username field is Required";
                 }
                 //Check whether an account already exists with the provided username
                 if($username != null){
                     if($this->userModel->findUserByUsername($username)) {
-                        //echo("This Username is already taken");
                         $data['username_err'] = "*This username is already taken";
                     }
                 }
@@ -791,16 +866,12 @@
 
                 //Email is valid or not
                 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                    //echo("Invalid email format");
                     $data['email_err'] = "*Invalid email format";
-                    //die();
                 }
 
                 //Password and repeated once are matched
                 if($password !== $repassword){
-                    //echo("Password mismatch");
                     $data['repassword_err'] = "*Password mismatch";
-                   // die();
                 }
 
                 if (empty($repassword)) {
@@ -809,46 +880,32 @@
 
                 //password has(Min. 8 len, one character, one letter, one special char)
                 if(strlen($password)<8){
-                    //echo("Password should have at least 8 characters");
                     $data['password_err'] = "*Password should have at least 8 characters";
-                    //die();
                 }
                 else{
                     if (!preg_match('/[0-9]/', $password)) {
-                        //echo("Password must contain at least one number");
                         $data['password_err'] = "*Password must contain at least one number";
-                        //die();
                     }
                     else if(!preg_match('/[a-z]/', $password)){
-                        //echo('Password must contain at least one lowercase letter');
                         $data['password_err'] = "*Password must contain at least one lowercase letter";
-                        //die();
                     }
                     else if(!preg_match('/[A-Z]/', $password)){
-                        //echo('Password must contain at least one uppercase letter');
                         $data['password_err'] = "*Password must contain at least one uppercase letter";
-                        //die();
                     }
                     else if(!preg_match("/[\[^\'£$%^&*()}{@:\'#~?><>,;@\|\-=\-_+\-¬\`\]]/", $password)){
-                        //echo('Password must contain at least one special character');
                         $data['password_err'] = "*Password must contain at least one special character";
-                        //die();
                     }
                 }
 
-                //Check NIC number 200020902030
+                //Check NIC number
                 if(!(str_contains($nic,'v') || (str_contains($nic,'V')))){
                     if(strlen($nic) != 12){
-                        //echo 'Invalid NIC';
                         $data['nic_err'] = "*Invalid NIC";
-                        //die();
                     }
                 }
                 else{
                     if(strlen($nic) != 10){
-                        //echo 'Invalid NIC';
                         $data['nic_err'] = "*Invalid NIC";
-                        //die();
                     }
                 }   
 
@@ -900,10 +957,12 @@
             }
         }
         
+        //fetching all notifications about reported posts
         public function get_post_reports(){
             echo $this->adminModel->getPostReportings();
         }
 
+        //fetching all notifications sent through contact us form
         public function get_contact_notifications(){
             echo $this->adminModel->getOtherNotifications();
         }
@@ -932,6 +991,32 @@
             }
         }
 
+        //function for generating user summary report
+        public function getSummary($userID){
+            $user = $this->adminModel->getProfile($userID);
+            if($user->user_role == "counsellor"){
+                $data = [
+                        'name' => $user->fullname,
+                        'username' => $user->username,
+                        'student_count' => $this->reportModel->student_count($userID,1),
+                        'sessions' => $this->reportModel->session_count($userID),
+                        'cancelled_count' => $this->reportModel->session_cancelled_count($userID),
+                        'completed_count' => $this->reportModel->session_completed_count($userID),
+                        'meeting_details' => $this->getDataArray($this->reportModel->total_session_details($userID)),
+                        'student_details' => $this->getDataArray($this->reportModel->student_count($userID,0))
+
+                    ];
+                generatePDF('counselor',$data);
+            }
+            else if($user->user_role == "facility_provider"){
+                $data = [
+                    'name' => $user->fullname,
+                    'username' => $user->username,
+                    'listing_details' => $this->getDataArray($this->reportModel->listing_performance($userID))
+                ];
+                generatePDF('facility_provider',$data);
+            }
+        }
 
     
 
